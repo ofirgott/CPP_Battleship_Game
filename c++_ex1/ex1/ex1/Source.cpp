@@ -4,5 +4,5 @@ using namespace std;
 int main()
 {
 	cout << "mothafucka!" << endl;
-	return 0;
+	return 000000;
 }
