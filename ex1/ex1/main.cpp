@@ -1,72 +1,58 @@
+#include "BattleshipGameFromFile.h"
+#include <windows.h>
+#include <string>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-
-static void list_directory(const char *dirname);
-
-
-int main(
-	int argc, char *argv[])
+//check if directory in path exists (taken from: http://stackoverflow.com/a/8233867)
+bool isValidDir(const std::string& path)
 {
-	int i;
+	DWORD ftyp = GetFileAttributesA(path.c_str());
 
-	/* For each directory in command line */
-	i = 1;
-	while (i < argc) {
-		list_directory(argv[i]);
-		i++;
-	}
+	if (ftyp == INVALID_FILE_ATTRIBUTES) //invalid path checking
+		return false;  
 
-	/* List current working directory if no arguments on command line */
-	if (argc == 1) {
-		list_directory(".");
-	}
-	getchar();
-	return EXIT_SUCCESS;
+	if (ftyp & FILE_ATTRIBUTE_DIRECTORY) //check if path is a directory
+		return true;   
+
+	return false; 
 }
 
-/*
-* List files and directories within a directory.
-*/
-static void
-list_directory(
-	const char *dirname)
+
+bool checkGamefiles(std::string& dir_path){ //todo: check if we want to put this in gameManage class
+	
+	bool valid_path = false, isAttackFileExistsA = false, isAttackFileExistsB = false, isBoardExists = false;
+
+	if (!isValidDir(dir_path)){
+		std::cout << "Wrong path: " << dir_path << std::endl;
+		return false;
+	}
+
+	//writes only filenames (without directory names) in dir_path directory 
+	//to ~tmp_dir.txt new file in working directory
+
+	std::string dir_cmd("dir ");
+	dir_cmd += dir_path;
+	dir_cmd += " /b /a-d * > ~tmp_dir.txt";		//todo: delete ~tmp_dir.txt after using
+	system(dir_cmd.c_str());
+	
+
+	
+
+
+	return true;
+}
+
+
+int main(int argc, char* argv[])
 {
-	DIR *dir;
-	struct dirent *ent;
+	std::string dir_path = "";
 
-	/* Open directory stream */
-	dir = opendir(dirname);
-	if (dir != NULL) {
-
-		/* Print all files and directories within the directory */
-		while ((ent = readdir(dir)) != NULL) {
-			switch (ent->d_type) {
-			case DT_REG:
-				printf("%s\n", ent->d_name);
-				break;
-
-			case DT_DIR:
-				printf("%s/\n", ent->d_name);
-				break;
-
-			case DT_LNK:
-				printf("%s@\n", ent->d_name);
-				break;
-
-			default:
-				printf("%s*\n", ent->d_name);
-			}
-		}
-
-		closedir(dir);
-
+	if (argc > 1) {
+		dir_path = argv[1];
 	}
-	else {
-		/* Could not open directory */
-		printf("Cannot open directory %s\n", dirname);
-		exit(EXIT_FAILURE);
+
+	if(!checkGamefiles(dir_path)){
+		return -1;
 	}
+
+
 }
