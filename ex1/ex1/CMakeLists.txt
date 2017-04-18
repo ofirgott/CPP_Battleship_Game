@@ -1,16 +1,20 @@
-### YOU SHOULD EDIT THE BELOW WITH YOUR DETAILS AND FILES ###
-
-set(user1 itzikkobra)
-set(user2 heizenberg)
-set(user3 nevuhadnetzer)
-set(id1 "123456789")
-set(id2 "123456789")
-set(id3 "123456789")
+set(user1 ofirg1)
+set(user2 Shahrabany1)
+set(user3 dianakolton)
+set(id1 "305645806")
+set(id2 "204537997")
+set(id3 "204196729")
 set (SOURCE_FILES
-	file1.h
-	file1.cpp
-	file2.h
-	file2.cpp
+	BattleshipBoard.h
+	BattleshipGameManager.h
+	IBattleshipGameAlgo.h
+	Player.h
+	Ship.h
+	BattleshipBoard.cpp
+	BattleshipGameManager.cpp
+	main.cpp
+	Player.cpp
+	Ship.cpp
 )
 
 ### DO NOT CHANGE FROM HERE ON ###
@@ -21,10 +25,8 @@ message("user: ${user3}, id: ${id3}")
 
 set(EXE_NAME "ex1.${user1}")
 add_executable( ${EXE_NAME}
-	SOURCE_FILES
+	${SOURCE_FILES}
 )
-
+#BUILD_BINARY_OUTPUT_DIRECTORY
 set_property(TARGET ${EXE_NAME} PROPERTY FOLDER "ex1/${user1}")
-set_property(TARGET ${EXE_NAME} PROPERTY OUTPUT_NAME "ex1.${user1})
-
-install (TARGETS ${EXE_NAME} DESTINATION ${INSTALL_BINARY_DIR})
+set_property(TARGET ${EXE_NAME} PROPERTY OUTPUT_NAME "${user1}")

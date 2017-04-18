@@ -1,79 +1,65 @@
 #pragma once
-/* the = , copy constructor, needed????
-*/
 
 #include <map> // std:: map
 #include <utility> //  std::pair
 #include <set> // std::set
 #include <vector> // std::vector
 #include <algorithm>    // std::sort 
-#define NROWS 10
-#define NCOLS 10
 
-// empty constructor / copy construtor / operator=  do we need ??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#define RUBBER_BOAT 'B'
+#define ROCKET_SHIP 'P'
+#define SUBMARINE 'M'
+#define DESTROYER 'D'
+#define ROWS 10 
+#define COLS 10
+
 class Ship {
 
 public:
 
-	//	Battleship& operator=(const Battleship& ship); // operator =  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//	Battleship(const Battleship& ship); // copy constructor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 	/*
 	* input.first - ship's letter, input.second - coordinates for the ship
 	* @ assume letter is one of b/p/m/d/B/P/M/D
-	* @ return -new object of type Ship with letter and coordinates  + details as in the pdf
 	*/
 	Ship(const std::pair<char, std::set<std::pair<int, int>>>& input);
 
 	/* distructor*/
-	~Ship(); // make sure memory is deallocated properly !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	~Ship();
 
-			 /* returns how much score is gained by hitting this ship*/
+	/* returns how much score is gained by hitting this ship*/
 	int getPoints();
 
 	/* returns how many parts of the body not hit yet*/
 	int getNotHit();
 
-	/*return true- if ship has live parts
-	*false- otherwise*/
+	/*return true- if ship not sank yet
+	* false- otherwise
+	*/
 	bool isAlive();
 
-	char getSymbol() {/////////////////////////////////////////////////////////////////// for tester
-		return symbol;
-	}
-	///////////////////////////////////////////////////////////////// for tester
-	int getLength() {
-		return len;
-	}
-	//////////////////////////////////////////////////////////////// for tester
-	void printBody() {
-		for (auto& part : body) {
-			printf("row = %d, col = %d, hit = %d\n", part.first.first, part.first.second, part.second);
-		}
-	}
+	const std::vector <std::pair<int, int>> getCoordinates();
 
-	/*@ret: 0 - in case of succesful attack
-	1 - attacked the same part as in the past
-	-1 - the coordinated given are not of this ship
+	/*@ret: 0 - in case of hitting this coordinate for the first time
+	1 - this coordinates were already attacked in the past
+	-1 - the coordinates given are not of this ship
 	*/
-	int updateAttack(int row, int col); // should be private! / own game id?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	int updateAttack(int row, int col);
 
-										/* given <symbol, set of coordinates>
-										@return true - if input represents a valid ship as defined in the pdf
-										* false - otherwise
-										*/
+	/* given <symbol, set of coordinates>
+	@ return true - if data in input.second corresponds to a ship of type input.first
+	* false - otherwise
+	*/
 	static bool Ship::isValidShipDetails(std::pair<char, std::set<std::pair<int, int>>> input);
 
 	/* @return a set of dinamically allocated Battleships
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
 	static std::set <Ship*> createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs);
-	//static std::set <Ship> createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs);
+
 	/* @return Matrix of pointers to Battleships
-	*@assume - the set consists valid point4ers to ships
+	* @assume - the set consists valid pointers to ships
 	*/
 	static Ship*** createShipMatrix(std::set <Ship*>);
-	//static Ship*** createShipMatrix(std::set <Ship>);
 
 private:
 
@@ -87,8 +73,7 @@ private:
 											 */
 	void setFields(int length, int sPoints, std::set< std::pair<int, int> >  coordinates);
 
-	/*@return - true if ship with symbol= id can have setSize coordinates
-	* validity as defined in the pdf
+	/*@return - true if ship with symbol= id can have 'setSize' number of coordinates
 	*/
 	static bool Ship::isValidShipLen(char id, int setSize);
 

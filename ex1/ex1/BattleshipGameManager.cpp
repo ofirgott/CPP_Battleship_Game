@@ -1,48 +1,34 @@
 #include "BattleshipGameManager.h"
-
 #include <set>
 
-#define ROWS 10
-#define COLS 10
-#define PLAYER_A 0
-#define PLAYER_B 1
-#define SHIPS_NUMBER 5
-#define A 'A'
-#define B 'B'
-#define PLAYERID_A 0
-#define PLAYERID_B 1
+
 
 
 BattleshipGameManager::BattleshipGameManager(std::string boardPath, std::string attackFilePath_a, std::string attackFilePath_b, bool& isGameSuccessfullyCreated) :
 	boardFilePath(boardPath), attackFilePath_A(attackFilePath_a), attackFilePath_B(attackFilePath_b), mainBoard(BattleshipBoard(boardFilePath, ROWS, COLS)),
 	playerA(Player(PLAYERID_A, attackFilePath_A)), playerB(Player(PLAYERID_B, attackFilePath_B)), currPlayer(nullptr), otherPlayer(nullptr)
 {
+	/* (note that we init all game class member in the init list) */
 
-	//boardFilePath = boardPath;
-	//attackFilePath_A = attackFilePath_a;
-	//attackFilePath_B = attackFilePath_b;
-	//std::cout << "file A is:" << attackFilePath_a;
-	//mainBoard = BattleshipBoard(boardFilePath, ROWS, COLS);
-	//currPlayer = nullptr;
-	//otherPlayer = nullptr;
-	//get the information about the ships of the players
-
-	if (!checkBoardValidity(mainBoard))
-	{
-		isGameSuccessfullyCreated = false;
+	if (mainBoard.getRows() == -1 || !checkBoardValidity(mainBoard))		/* checks if the main board successfully created, and it is valid according to the game rules */
+	{																		/* if not, we immediately exit from the game constructor */
+		isGameSuccessfullyCreated = false;								
 		return;
 	}
-	//std::cout << "finish";
-	//playerA = Player(PLAYERID_A, attackFilePath_A); //add player board and info
-	playerA.setBoard(mainBoard.createPlayerBoard(PLAYERID_A), mainBoard.getRows(), mainBoard.getCols());
-
-	//playerB = Player(PLAYERID_B, attackFilePath_B);
-	playerB.setBoard(mainBoard.createPlayerBoard(PLAYERID_B), mainBoard.getRows(), mainBoard.getCols());
-
-	if (playerA.getID() == -1 || playerB.getID() == -1) { //empty player or problem in creating player
-		isGameSuccessfullyCreated = false;
+	
+	if (playerA.getID() == -1 || playerB.getID() == -1) {					/* checks if we have empty player or problem in creating player */
+		isGameSuccessfullyCreated = false;									/* if so, we immediately exit from the game constructor */
 		return;
 	}
+
+	auto playerBoardA = mainBoard.createPlayerBoard(PLAYERID_A);							/* createPlayerBoard allocates new copy of matrix for player, so we need to delete it*/
+	playerA.setBoard(playerBoardA, mainBoard.getRows(), mainBoard.getCols());									/* creates the Ship*** for this player */
+	BattleshipBoard::deleteMatrix(const_cast<char**>(playerBoardA), mainBoard.getRows(), mainBoard.getCols());	/* we don't need this copy of char** matrix anymore, so delete */
+
+	auto playerBoardB = mainBoard.createPlayerBoard(PLAYERID_B);
+	playerB.setBoard(playerBoardB, mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard::deleteMatrix(const_cast<char**>(playerBoardB), mainBoard.getRows(), mainBoard.getCols());
+	
 
 	isGameSuccessfullyCreated = true;
 }
@@ -67,14 +53,14 @@ void BattleshipGameManager::Run()
 		nextAttack = currPlayer->attack();
 		// attack other player 
 		attackRes = otherPlayer->realAttack(nextAttack);
-		if (attackRes.first == AttackResult::Miss) { // the opponent doesnt have a ship in this coordinates
-													 // check if attacked myself
+		if (attackRes.first == AttackResult::Miss) {
+			// the opponent doesnt have a ship in this coordinates; check if attacked myself
 			attackRes = currPlayer->realAttack(nextAttack);
 			if (attackRes.first != AttackResult::Miss) { // currPlayer attacked himself
 				otherPlayer->updateScore(attackRes.second); // the other player gets points
 			}
 			// notifyOnAttackResult(); - empty implementation
-			// pass turn to other player- if missed both or if attacked myself
+			// pass turn to other player- if missed || if attacked myself
 			updateCurrPlayer();
 
 			//check if someone won
@@ -83,9 +69,14 @@ void BattleshipGameManager::Run()
 			}
 		}
 		else { // attacked opponents ship
-			currPlayer->updateScore(attackRes.second);
-			// notifyOnAttackResult(); - empty implementation
-			// keep my turn 
+			if (attackRes.second == -1) { // hit opponents ship but not in a new coordinate; switch turns
+				updateCurrPlayer();
+			}
+			else {
+				currPlayer->updateScore(attackRes.second);
+				// notifyOnAttackResult(); - empty implementation
+				// keep my turn 
+			}
 
 			if ((currPlayer->getShipsCount() == 0) || (otherPlayer->getShipsCount() == 0)) { //check if someone won
 				break;
@@ -103,21 +94,29 @@ void BattleshipGameManager::Run()
 
 std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard(const char** matrix, int rows, int cols)
 {
-	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;	//todo: show the example here
-	std::set<char> invalidShips; //set of the invalid ships (to avoid duplicated ships in error messages)
-	char** matrixCopy = BattleshipBoard::copyMatrix(const_cast<char**>(matrix), rows, cols);
-	setOfShipsDetails = BattleshipBoard::ExtractShipsDetails(matrixCopy, rows, cols);	//after this row, we have set of ships, maybe some of them invalid/ this function will be called also when we will create the player
-	BattleshipBoard::deleteMatrix(matrixCopy, rows, cols);
-	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);
+	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;					/* set of ships details - for example:
+																								 {<'m', {<1,2>,<1,3>}> , <'P', {<8,5>, <8,6> , <8,7>}> } */
 
-	return std::make_pair(setOfShipsDetails.size(), invalidShips);		//return number of valid ship in the set
+	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
+	
+	char** matrixCopy = BattleshipBoard::copyMatrix(const_cast<char**>(matrix), rows, cols);     /* we need to send copy of the matrix to ExtractShipsDetails function*/
+	
+	setOfShipsDetails = BattleshipBoard::ExtractShipsDetails(matrixCopy, rows, cols);	         /* after this row, we have set of ships, maybe some of them invalid -  this function will 																							  be called also when we will create the player */
+	
+	BattleshipBoard::deleteMatrix(matrixCopy, rows, cols);										 /* we don't need the matrix copy anymore*/
+	
+	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);						 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips																								  updated*/
+
+	return std::make_pair(setOfShipsDetails.size(), invalidShips);								 /* return number of valid ships and set of letters of found invalid ships */
 }
+
+
 void BattleshipGameManager::DeleteInvalidShipsDetailsEntryFromSet(std::set<std::pair<char, std::set<std::pair<int, int>>>>& setOfShipsDetails, std::set<char>& invalidShips)
 {
 	auto it = setOfShipsDetails.begin();
 	while (it != setOfShipsDetails.end())
 	{
-		if (!Ship::isValidShipDetails(*it))		// todo: check if crashes!!
+		if (!Ship::isValidShipDetails(*it))
 		{
 			invalidShips.insert(it->first);
 			it = setOfShipsDetails.erase(it);
@@ -159,25 +158,8 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 }
 
 
-//
-//int BattleshipGameManager::FindNumberOfValidShipsInBoard(std::set<Ship>& ships)
-//{
-//	auto it = ships.begin();
-//	while (it != ships.end())
-//	{
-//		if (!Ship::isLegalShip(it))
-//		{E
-//			it = ships.erase(it);
-//		}
-//		else
-//		{
-//			++it;
-//		}
-//	}
-//	retrun ships.size();
-//}
 
-bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& battleship_board)
+bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& board)
 {
 	bool hasShipWithWrongSize_A, hasShipWithWrongSize_B, hasTooManyShip_A, hasToManyShip_B;
 	bool hasTooFewShips_A, hasTooFewShips_B, hasAdjacentShips;
@@ -185,10 +167,9 @@ bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& battleship
 	size_t validShipsCnt_A, validShipsCnt_B;
 	hasShipWithWrongSize_A = hasShipWithWrongSize_B = hasTooManyShip_A = hasToManyShip_B = hasAdjacentShips = false;
 	hasTooFewShips_A = hasTooFewShips_B = true;
-	//std::cout << "what";
 
-	const char** boardA = mainBoard.createPlayerBoard(PLAYER_A);
-	const char** boardB = mainBoard.createPlayerBoard(PLAYER_B);
+	const char** boardA = mainBoard.createPlayerBoard(PLAYERID_A);
+	const char** boardB = mainBoard.createPlayerBoard(PLAYERID_B);
 
 	//check set of ships of A size
 	//todo: we maybe want to delete element (ships) from the ships set while we iterate the this set
@@ -200,10 +181,12 @@ bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& battleship
 	tmpPair = FindNumberOfValidShipsInBoard(boardA, mainBoard.getRows(), mainBoard.getCols());
 	validShipsCnt_A = tmpPair.first;
 	invalidShips_A = tmpPair.second;
+	BattleshipBoard::deleteMatrix(const_cast<char**>(boardA), mainBoard.getRows(), mainBoard.getCols());
 
 	tmpPair = FindNumberOfValidShipsInBoard(boardB, mainBoard.getRows(), mainBoard.getCols());
 	validShipsCnt_B = tmpPair.first;
 	invalidShips_B = tmpPair.second;
+	BattleshipBoard::deleteMatrix(const_cast<char**>(boardB), mainBoard.getRows(), mainBoard.getCols());
 
 	PrintWrongSizeOrShapeForShips(invalidShips_A, A);
 	PrintWrongSizeOrShapeForShips(invalidShips_B, B);
@@ -213,6 +196,7 @@ bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& battleship
 
 	char** copyMainBoardMatrix = GetCopyOfBoard();
 	hasAdjacentShips = mainBoard.CheckIfHasAdjacentShips();
+	BattleshipBoard::deleteMatrix(copyMainBoardMatrix, mainBoard.getRows(), mainBoard.getCols());
 
 	if (isCorrectShipsNumA && isCorrectShipsNumB && !hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty())
 		return true;

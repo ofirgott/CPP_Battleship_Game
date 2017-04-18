@@ -1,69 +1,67 @@
-
-#include <windows.h>
 #include <string>
-#include "BattleshipGameManager.h"
 #include <fstream>
+#include "BattleshipGameManager.h"
+#include "Constants.h"
+#include <iostream>
 
-
-#define DIRLIST_TMP_FILE_PATH "~tmp_dir.txt"
-
-
-//check if directory in path exists (taken from: http://stackoverflow.com/a/8233867)
 bool isValidDir(const std::string& path)
 {
-	DWORD ftyp = GetFileAttributesA(path.c_str());
-
-	if (ftyp == INVALID_FILE_ATTRIBUTES) //invalid path checking
-		return false;
-
-	if (ftyp & FILE_ATTRIBUTE_DIRECTORY) //check if path is a directory
+	std::stringstream cdCommandString;
+	cdCommandString << "cd " << path << " 1> nul 2> nul" << std::endl;	/* trying to cd to the input directory */
+	int commandRes = system(cdCommandString.str().c_str());
+	if (commandRes == 0)
 		return true;
-
-	return false;
+	else
+		return false;
 }
 
-
+/* return true if str end with given suffix, else return false */
 bool isStringEndsWith(const std::string& str, const std::string& suffix) {
 	if (suffix.size() > str.size()) return false;
 	return std::equal(str.begin() + str.size() - suffix.size(), str.end(), suffix.begin());
 }
 
-//check the dir list in ~tmp_dir.txt, check if the 3 files exists, prints relevant erros if needed, and then delete the die list file
+/* check the dir list in ~tmp_dir.txt, check if the 3 game files exists, and prints relevant erros if needed */
 bool isAllGameFilesExists(const std::string& dir_path, std::string& boardPath, std::string& attackFilePath_a, std::string& attackFilePath_b)
 {
 	bool isAttackFileExistsA = false, isAttackFileExistsB = false, isBoardExists = false;
 	std::string currentFilename;
-	std::ifstream dirListFile(dir_path.c_str());
+	std::ifstream dirListFile(DIRLIST_TMP_FILE_PATH);
 
 	if (dirListFile.is_open())
 	{
-		while ((getline(dirListFile, currentFilename)) && !(isAttackFileExistsA && isAttackFileExistsB && isBoardExists)) //we take the first file for every extension. todo: check the getline if necesseray
+		/* searching in the dir list file until we reach to the eof, or if we already find our 3 files paths */
+		while ((getline(dirListFile, currentFilename)) && !(isAttackFileExistsA && isAttackFileExistsB && isBoardExists)) //we take the first file for every relevant extension we see.
 		{
 			if (!isBoardExists && isStringEndsWith(currentFilename, ".sboard"))
 			{
-				boardPath = dir_path + "\\" + currentFilename;
+				boardPath = dir_path.empty() ? currentFilename : dir_path + "\\" + currentFilename;
 				isBoardExists = true;
 			}
-			else if (isAttackFileExistsA && isStringEndsWith(currentFilename, ".attack-a"))
+			else if (!isAttackFileExistsA && isStringEndsWith(currentFilename, ".attack-a"))
 			{
-				attackFilePath_a = dir_path + "\\" + currentFilename;
+				attackFilePath_a = dir_path.empty() ? currentFilename : dir_path + "\\" + currentFilename;
 				isAttackFileExistsA = true;
 			}
-			else if (isAttackFileExistsB && isStringEndsWith(currentFilename, ".attack-b"))
+			else if (!isAttackFileExistsB && isStringEndsWith(currentFilename, ".attack-b"))
 			{
-				attackFilePath_b = dir_path + "\\" + currentFilename;
+				attackFilePath_b = dir_path.empty() ? currentFilename : dir_path + "\\" + currentFilename;
 				isAttackFileExistsB = true;
 			}
+		}
+		if (!dirListFile.eof() && !(isAttackFileExistsA && isAttackFileExistsB && isBoardExists)) {		//some problem with the getline funcion - exit
+			std::cout << "Error reading temp dirList file in "<< DIRLIST_TMP_FILE_PATH <<" , Exit from Game."<< std::endl;
+			return false;
 		}
 		dirListFile.close();
 	}
 
-	else {
-		std::cout << "Unable to open file, Exit from Game.\n";
+	else {				/* we have a problem in opening the dir list file, so we exit */
+		std::cout << "Unable to open temp dirList file in " << DIRLIST_TMP_FILE_PATH << " , Exit from Game." << std::endl;
 		return false;
 	}
 
-	//print relevant error messages
+	/* prints relevant error messages */
 
 	if (isBoardExists && isAttackFileExistsA && isAttackFileExistsB) {
 		return true;
@@ -86,85 +84,57 @@ bool isAllGameFilesExists(const std::string& dir_path, std::string& boardPath, s
 
 }
 
-bool checkGamefiles(const std::string& dir_path, std::string& boardPath, std::string& attackFilePath_a, std::string& attackFilePath_b) { //todo: check if we want to put this in gameManage class
-
-	if (!isValidDir(dir_path)) {
+/* given the input dir path, returns true if dir_path contains board file and 2 attack files for A and B, else return false */
+bool checkGamefiles(const std::string& dir_path, std::string& boardPath, std::string& attackFilePath_a, std::string& attackFilePath_b) {
+	
+	if (!isValidDir(dir_path)) {									/* checks if directory in dir_path exists */
 		std::cout << "Wrong path: " << dir_path << std::endl;
 		return false;
 	}
 
-	//writes only filenames (without directory names) in dir_path directory 
-	//to ~tmp_dir.txt new file in working directory
-
-	std::string dir_cmd("dir ");
-	dir_cmd += dir_path;
-	dir_cmd += " /b /a-d * > ";		//todo: delete ~tmp_dir.txt after using
-	dir_cmd += DIRLIST_TMP_FILE_PATH;
-	system(dir_cmd.c_str());					//todo: check if we need the return value of this system call
+	/* writes only filenames (without directory names) in dir_path directory to ~tmp_dir.txt new file in working directory */
+		
+	std::stringstream dirCmd;
+	dirCmd << "dir \"" << dir_path << "\" /b /a-d" << ">\""<<DIRLIST_TMP_FILE_PATH<<"\"" << " 2> nul";
+	system(dirCmd.str().c_str());
 
 
 	if (!isAllGameFilesExists(dir_path, boardPath, attackFilePath_a, attackFilePath_b))
 	{
-		remove(dir_path.c_str());
+		remove(DIRLIST_TMP_FILE_PATH);				/* remove the dir list temp file */
 		return false;
 	}
 
-	remove(dir_path.c_str());
+	remove(DIRLIST_TMP_FILE_PATH);
 	return true;
 }
 
-std::string ExePath() {
-	char buffer[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	return std::string(buffer).substr(0, pos);
-}
 
 int main(int argc, char* argv[])
 {
 
-	std::string dir_path(""), boardPath("good_board_0.sboard"), attackFilePath_a("clean_movesA.attack-a"), attackFilePath_b("clean_movesA.attack-a");
-	//char* dir_path = "";
-	//char* boardPath = "good_board_1.sboard";
-	//char* attackFilePath_a = "file_attack_a.txt";
-	//char* attackFilePath_b = "file_attack_b.txt";
-	bool isGameSuccessfullyCreated = false;
+	std::string dir_path = "", boardPath="", attackFilePath_a="", attackFilePath_b="";
 
-	//if (argc > 1) {
-	//	dir_path = argv[1];
-	//}
-	//else
-	//{
-	//	dir_path = ExePath();	//working directory path
-	//}
+	bool isGameSuccessfullyCreated = false;							/* boolean for the game constructor */
 
+	if (argc > 1)
+		dir_path = argv[1];
 
+	if(!checkGamefiles(dir_path, boardPath, attackFilePath_a, attackFilePath_b)){
 
-	//if(!checkGamefiles(dir_path, boardPath, attackFilePath_a, attackFilePath_b)){
-	//	//todo: problem with game files, exiting..
-	//	return -1;
-	//}
-	//boardPath = "good_board_1.sboard";
-	//boardPath = "game.sboard";
-	//attackFilePath_a = "þþfile1A.attack-a";
-	//attackFilePath_b = "þþþþfile1A.attack-a";
+		std::cin.get();								// todo: delete this row
+		return -1;
+	}
 
-
-	//std::cout << boardPath;
 	BattleshipGameManager Game(boardPath, attackFilePath_a, attackFilePath_b, isGameSuccessfullyCreated);
 
-	//std::cout << dir_path;		//todo: delete this!
-	//std::cin.get();
-	//exit(0);
 	if (!isGameSuccessfullyCreated) {
-		std::cout << "we here";
-			std::cin.get();
+		std::cin.get();								//todo: delete this row
 		return -1;
 	}
 
 	Game.Run();
 
-	std::cin.get();
+	std::cin.get();									//todo: delete this row
 	return 0;
 }
-

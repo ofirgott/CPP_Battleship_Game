@@ -2,62 +2,31 @@
 #include <ctype.h>
 
 
-
-//Battleship::Battleship(char letter, std::set<std::pair<int, int>> coordinates)
-
 Ship::Ship(const std::pair<char, std::set<std::pair<int, int>>>& input)
 {
 	symbol = toupper(input.first);
 
-	if (symbol == 'B') {
+	if (symbol == RUBBER_BOAT) {
 		setFields(1, 2, input.second);
 	}
-	else if (symbol == 'P') {
+	else if (symbol == ROCKET_SHIP) {
 		setFields(2, 3, input.second);
 	}
-	else if (symbol == 'M') {
+	else if (symbol == SUBMARINE) {
 		setFields(3, 7, input.second);
 	}
-	else if (symbol == 'D') {
+	else if (symbol == DESTROYER) {
 		setFields(4, 8, input.second);
 	}
 	else
-	{ // shouldnt get here !!!! 
+	{
 		setFields(-1, -1, input.second);
 	}
 }
 
-//Battleship & Battleship::operator=(const Battleship & ship)
-//{
-//if (this != &ship) {
-//	delete &ship.body; // make sure there is no memory leaks here
-// get the new string
-//	this->body .insert (&ship.body.begin(), &ship.body.end()) ; // make sure it really copies the map 
-//	this->symbol = ship.symbol;
-//	this->len = ship.len;
-//	this->points = ship.points;
-//	this->notHit = ship.notHit;
-//	}
-//	return *this;
-//}
-
-//Battleship::Battleship(const Battleship & ship)
-//{
-//	if (this != &ship) {
-//	delete &ship.body; // make sure there is no memory leaks here
-// get the new string
-//	this->body.insert(&ship.body.begin(), &ship.body.end()); // make sure it really copies the map 
-//this->symbol = ship.symbol;
-//this->len = ship.len;
-//this->points = ship.points;
-//this->notHit = ship.notHit;
-//}
-//}
-
-
 Ship::~Ship()
 {
-	body.clear(); // ??? 
+	body.clear();
 }
 
 int Ship::getPoints()
@@ -78,32 +47,41 @@ bool Ship::isAlive()
 	return false;
 }
 
+const std::vector<std::pair<int, int>> Ship::getCoordinates()
+{
+	std::vector <std::pair<int, int>> coors;
+	for (auto& part : body)
+	{
+		coors.push_back(part.first);
+	}
+	return coors;
+}
 
 
 bool Ship::isValidShipLen(char id, int setSize)
 {
 	char letter = toupper(id);
-	if (letter == 'B') {
+	if (letter == RUBBER_BOAT) {
 		if (setSize != 1) {
 			return false;
 		}
 	}
-	else if (letter == 'P') {
+	else if (letter == ROCKET_SHIP) {
 		if (setSize != 2) {
 			return false;
 		}
 	}
-	else if (letter == 'M') {
+	else if (letter == SUBMARINE) {
 		if (setSize != 3) {
 			return false;
 		}
 	}
-	else if (letter == 'D') {
+	else if (letter == DESTROYER) {
 		if (setSize != 4) {
 			return false;
 		}
 	}
-	else { // shouldnt get here !!!! 
+	else { // in any other case 
 		return false;
 	}
 
@@ -190,7 +168,6 @@ void Ship::setFields(int length, int sPoints, std::set<std::pair<int, int>> coor
 	len = length;
 	points = sPoints;
 	notHit = length;
-	// make sure a copy created and inserted to the map !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 	for (auto coor : coordinates) {
 		body.insert(std::make_pair(coor, 0));
 	}
@@ -199,10 +176,10 @@ void Ship::setFields(int length, int sPoints, std::set<std::pair<int, int>> coor
 bool Ship::isConstantCoors(const std::vector<int>& coors, int size)
 {
 	int firstCoor;
-	if (size < 1) {
-		return false; // shouldnt get here!!!
+	if (size < 1) { // invlid number of coordinates
+		return false;
 	}
-
+	// compare all cordinated to the first coordinate
 	firstCoor = coors[0];
 	for (int i = 1; i < size; i++) {
 		if (coors[i] != firstCoor) {
@@ -212,13 +189,15 @@ bool Ship::isConstantCoors(const std::vector<int>& coors, int size)
 	return true;
 }
 
+
 bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
 {
 	int prevCoor;
-	if (size < 1) {
-		return false; // shouldnt get here!!!
+	if (size < 1) { // invalid number of cordinates
+		return false;
 	}
 
+	//check if the coordinates are incremental 
 	prevCoor = coors[0];
 	for (int i = 1; i < size; i++) {
 		if (coors[i] != (prevCoor + 1)) {
@@ -229,43 +208,17 @@ bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
 	return true;
 }
 
-std::set<Ship*> Ship::createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs) // !!!!!!!!!!!!!!!!!!!!!!!!!!!
-{
-	std::set<Ship*> allBattleships; // might be a problem with the address of allBattleships!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	for (auto& elem : allPairs) {
-		Ship* shipPtr = new Ship(elem);
-		allBattleships.insert(shipPtr);
-	}
-	return allBattleships;
-}
-
-/*
-std::set<Ship> Ship::createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs) // !!!!!!!!!!!!!!!!!!!!!!!!!!!
-{
-std::set<Ship> allBattleships; // might be a problem with the address of allBattleships!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-for (auto& elem : allPairs) {
-Ship shipPtr = Ship(elem);
-allBattleships.insert(shipPtr);
-}
-return allBattleships;
-}
-*/
-
 Ship *** Ship::createShipMatrix(std::set <Ship*> allShips)
 {
-
-	Ship *** matrix = new Ship**[NROWS];
+	Ship *** matrix = new Ship**[ROWS];
 
 	// init matrix pointers no NULL
-	for (int i = 0; i < NROWS; i++) {
-		matrix[i] = new Ship*[NCOLS];
-		for (int j = 0; j < NCOLS; j++) {
+	for (int i = 0; i < ROWS; i++) {
+		matrix[i] = new Ship*[COLS];
+		for (int j = 0; j < COLS; j++) {
 			matrix[i][j] = nullptr;
 		}
 	}
-
 	// for each ship in the set. go overall its coordinates and put a pointer in the matrix
 	for (auto shipPtr : allShips) {
 		for (auto& part : shipPtr->body) {
@@ -276,29 +229,14 @@ Ship *** Ship::createShipMatrix(std::set <Ship*> allShips)
 	return matrix;
 }
 
-
-
-/*
-Ship *** Ship::createShipMatrix(std::set <Ship> allShips)
+std::set<Ship*> Ship::createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs)
 {
+	std::set<Ship*> allBattleships;
 
-Ship *** matrix = new Ship** [NROWS] ;
-
-// init matrix pointers no NULL
-for (int i = 0; i < NROWS; i++) {
-matrix[i] = new Ship*[NCOLS];
-for (int j = 0; j < NCOLS; j++) {
-matrix[i][j] = nullptr;
-}
+	for (auto& elem : allPairs) {
+		Ship* shipPtr = new Ship(elem);
+		allBattleships.insert(shipPtr);
+	}
+	return allBattleships;
 }
 
-// for each ship in the set. go overall its coordinates and put a pointer in the matrix
-for (auto& ship : allShips) {
-for (auto& part : ship.body) {
-matrix[part.first.first ][part.first.second ] = ship;
-}
-}
-
-return matrix;
-}
-*/

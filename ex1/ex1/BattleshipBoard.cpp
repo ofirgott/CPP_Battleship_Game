@@ -11,8 +11,8 @@
 #define ROCKET_SHIP 'P'
 #define SUBMARINE 'M'
 #define DESTROYER 'D'
-#define PLAYER_A 0
-#define PLAYER_B 1
+#define PLAYERID_A 0
+#define PLAYERID_B 1
 #define ROWS 10 
 #define COLS 10
 
@@ -29,29 +29,25 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, i
 	InitEmptyMatrix(matrix , rows, cols);
 
 	std::ifstream boardFile(boardPath.c_str());		//todo: check what if we get error here
-	int rowCnt = 0;
-
-	while(rowCnt < rows && std::getline(boardFile, line)) /* todo: we need to add contrain on 5 ships for each player */
+	if(boardFile.is_open())
 	{
-		CopyInputLineToBoard(matrix, line, rowCnt, cols);
-		rowCnt++;
+		int rowCnt = 0;
+
+		while (rowCnt < rows && std::getline(boardFile, line)) /* todo: we need to add contrain on 5 ships for each player */
+		{
+			CopyInputLineToBoard(matrix, line, rowCnt, cols);
+			rowCnt++;
+		}
+		boardFile.close();
 	}
-	boardFile.close();
+	else
+	{
+		std::cout << "Error opening board file in " << boardPath << std::endl;
+		rows = -1;
+	}
+	
 }
-
-//BattleshipBoard::BattleshipBoard(char ** matrix, int rows, int cols)
-//{
-//	this->matrix = nullptr;
-//	this->rows = rows;
-//	this->cols = cols;
-//}
-
-
-//
-//BattleshipBoard::BattleshipBoard(const BattleshipBoard & other)
-//{
-//}
-
+	
 
 const char ** BattleshipBoard::createPlayerBoard(int playerID)
 {
@@ -62,9 +58,9 @@ const char ** BattleshipBoard::createPlayerBoard(int playerID)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			if (IsShipCharInBoard(matrix[i][j]) && isupper(matrix[i][j]) && playerID == PLAYER_A)
+			if (IsShipCharInBoard(matrix[i][j]) && isupper(matrix[i][j]) && playerID == PLAYERID_A)
 				playerBoard[i][j] = matrix[i][j];
-			else if(IsShipCharInBoard(matrix[i][j]) && islower(matrix[i][j]) && playerID == PLAYER_B)
+			else if(IsShipCharInBoard(matrix[i][j]) && islower(matrix[i][j]) && playerID == PLAYERID_B)
 				playerBoard[i][j] = matrix[i][j];
 		}
 	}
@@ -175,19 +171,18 @@ void BattleshipBoard::deleteMatrix(char ** matrix, int rows, int cols)
 	for (int i = 0; i < rows; i++)
 		delete[] matrix[i];
 
-	delete matrix;
+	delete[] matrix;
 }
-
+ 
 void BattleshipBoard::CopyInputLineToBoard(char** matrix, const std::string& line, int currRow, int cols)
 {
 	size_t lineLen;
-	
-	if (line.length() < cols)
+	if (line.length() < unsigned(cols))
 		lineLen = line.length();
 	else
 		lineLen = cols;
 
-	for (auto j = 0; j < lineLen; j++)
+	for (size_t j = 0; j < lineLen; j++)
 	{
 		if (IsShipCharInBoard(line[j])) {
 			matrix[currRow][j] = line[j]; //else it will remain ' '
@@ -234,15 +229,15 @@ std::set<std::pair<char, std::set<std::pair<int, int>>>> BattleshipBoard::Extrac
 	return std::set<std::pair<char, std::set<std::pair<int, int>>>>(setOfShipsDetails);
 }
 /* note that in this function we can coordinate with line 0!!! if we want to use this function outside, we need to pay attention for this*/
-void BattleshipBoard::getAllCurrShipCoords(char ** matrix, int x, int y, char currShipChar, std::set<std::pair<int, int>>& coordOfCurrentShip)
+void BattleshipBoard::getAllCurrShipCoords(char** matrix, int x, int y, char currShipChar, std::set<std::pair<int, int>> &coordOfCurrentShip)
 {
-	if(matrix[x][y] == currShipChar)
+	if(currShipChar == matrix[x][y])
 	{
 		matrix[x][y] = ' ';
 		coordOfCurrentShip.insert(std::make_pair(x, y));
 
 		if(isCoordianteInBoard(x, y + 1, ROWS, COLS))
-			getAllCurrShipCoords(matrix, x, y+1, currShipChar, coordOfCurrentShip);
+			getAllCurrShipCoords(matrix, x, y + 1, currShipChar, coordOfCurrentShip);
 		if(isCoordianteInBoard(x, y - 1, ROWS, COLS))
 			getAllCurrShipCoords(matrix, x, y - 1, currShipChar, coordOfCurrentShip);
 		if(isCoordianteInBoard(x + 1, y, ROWS, COLS))
