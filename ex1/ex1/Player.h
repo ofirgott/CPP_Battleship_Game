@@ -20,20 +20,20 @@ public:
 
 	/* @return total score gained by player
 	*/
-	int getTScore();
+	int getTScore()const;
 
 	/* @ return how much ships player has
 	*/
-	int getShipsCount();
+	int getShipsCount()const;
 
 	/* @ return true if playes has more moves to perform
 	* false- otherwise
 	*/
-	bool getHasMoreMoves();
+	bool getHasMoreMoves()const;
 
 	/*@ return - players id
 	*/
-	int getID();
+	int getID()const;
 
 	/* update players score to the prev score + num
 	* @assume- num >= 0

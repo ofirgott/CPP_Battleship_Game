@@ -1,45 +1,55 @@
 #pragma once
 #include <set>
 #include <iostream>
+#include "Constants.h"
 
 class BattleshipBoard
 {
 public:
-	BattleshipBoard() : matrix(nullptr), rows(0), cols(0) , isBoardSet(false) {}	//todo: check if needed - empty c'tor
+	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1) {}						/* empty constructor */
 	BattleshipBoard(const std::string& boardPath, int rows, int cols);
-	//BattleshipBoard(char** matrix, int rows, int cols);
-	//BattleshipBoard(const BattleshipBoard& copy) : BattleshipBoard(copy.matrix, copy.rows, copy.cols){}
-	char** GetCopyOfBoard()const { return copyMatrix(matrix, rows, cols); };
-
-
 	~BattleshipBoard() { deleteMatrix(matrix, rows, cols); }
+	
+	BattleshipBoard(const BattleshipBoard& otherBoard) : matrix(otherBoard.matrix), rows(otherBoard.rows), cols(otherBoard.cols) {}			/*  copy constructor */
+	BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
+	
+	
+	char** GetCopyOfBoard()const { return copyMatrix(matrix, rows, cols); };		/* returns a new copy of the main matrix */
+	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board */
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
-	//char** getBoard() const; 
-	const char** createPlayerBoard(int playerID);	
-	bool CheckIfHasAdjacentShips() const;
-	//char GetCoordinate(int x, int y) const { return matrix[x - 1][y - 1]; };
-
-	 void CopyInputLineToBoard(char** matrix, const std::string& line, int currRow, int cols);
-	 static bool IsShipCharInBoard(char ch);
-	 static std::set<std::pair<char, std::set<std::pair<int, int>>>> ExtractShipsDetails(char** matrix, int rows, int cols);
-	//return set of pairs, which contains for each ship it's coordinates:
-	// for example: {<'m', {<1NE,2>,<1,3>}> , <'P', {<8,5> , <8,6> , <8,7>}> }
-	 static void getAllCurrShipCoords(char** matrix, int x, int y, char currShipChar, std::set<std::pair<int,int>>& coordOfCurrentShip);	//it is a fucking recursive function!
+	bool CheckIfHasAdjacentShips() const;											/* checks if the matrix conatins adjacent ships, if so - prints relevant message */			
+	static bool IsShipCharInBoard(char ch);											/* checks if given char is a ship char */
+	
+	/* given a player's matrix board, 
+	   returns set of pairs, which contains for each ship it's coordinates: 
+	   for example: {<'m', {<1,2>,<1,3>}> , <'P', {<8,5> , <8,6> , <8,7>}> } */
+	static std::set<std::pair<char, std::set<std::pair<int, int>>>> ExtractShipsDetails(char** matrix, int rows, int cols);
+	
+	/* given matrix board and specific coordintets and ship char, inserts to the set coordOfCurrentShip all coordinates of this current ship (recursive function) */
+	static void getAllCurrShipCoords(char** matrix, int x, int y, char currShipChar, std::set<std::pair<int,int>>& coordOfCurrentShip);
+	
+	/* checks if given coordinate is a valid location in board*/
 	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum);
+	
+	/* returns a new copy of given matrix */
 	static char** copyMatrix(char** matrix, int rows, int cols);
-	void printBoard(char** matrix, int rows, int cols) { for (int i = 0; i < rows; i++)for (int j = 0; j < cols ; j++)std::cout << matrix[i][j]<<", "; }
+	
+	/* deletes char** matrix */
 	static void deleteMatrix(char** matrix, int rows, int cols);
-private:
+
+
+	private:
+	
 	char** matrix;
 	int rows;
 	int cols;
-	bool isBoardSet;
-	void LoadBattleshipBoardFromFile(const std::string& board_path, char** board, int rows, int cols);
-	char** AllocateNewMatrix(int rows, int cols);
-	void InitEmptyMatrix(char** matrix, int rows, int cols);
-	 std::set<std::pair<int,int>> getNearbyCoordinates(int x, int y)const;
-	 static bool BattleshipBoard::IsBoard(char ch);
+	
+	static char** AllocateNewMatrix(int rows, int cols);						 /* allocates new matrix in given size */
+	static void InitEmptyMatrix(char** matrix, int rows, int cols);				 /* init already allocated matrix with ' ' */
+	static std::set<std::pair<int,int>> getNearbyCoordinates(int x, int y);      /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
+	static bool BattleshipBoard::IsShip(char ch);								 /* given a char, checks if it a valid ship char*/
+	static void CopyInputLineToBoard(char** matrix, const std::string& line, int currRow, int cols); /* given a input line string, copies this line to the matrix board */
 	
 	
 };

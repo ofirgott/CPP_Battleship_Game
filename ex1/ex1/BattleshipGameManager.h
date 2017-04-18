@@ -16,7 +16,7 @@ public:
 	
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* removes the copy constructor */
 	
-	BattleshipGameManager& operator=(const BattleshipGameManager& otheBoard) = delete;		/* and also the assignment operator - we want game to be a Non Copyable object */
+	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* and also the assignment operator - we want game to be a Non Copyable object */
 
 	void Run();
 
@@ -51,14 +51,14 @@ private:
 
 
 	/* given a player name and set of invalid ships letter for this player , prints relevant error message for each invalid ship in set */
-	void PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar);
+	static void PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar);
 
 	/* given a player name and his set of valid ships, returns true if the player has NUM_OF_PLAYER_SHIPS valid ships,
 	   else prints relevant error message (for too many / too few ships), and returns false */
-	bool isCorrectNumberOfShipsForPlayer(size_t validShipsCnt, char playerChar);
+	static bool isCorrectNumberOfShipsForPlayer(size_t validShipsCnt, char playerChar);
 
 	void updateCurrPlayer();		/* utility function for Run, switches currentPlayer with otherPlayer pointers */
 	
-	void outputGameResult();		/* prints end of game messages */
+	void outputGameResult()const;		/* prints end of game messages */
 
 };

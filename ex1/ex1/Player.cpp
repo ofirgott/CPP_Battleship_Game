@@ -8,10 +8,19 @@
 
 void Player::setBoard(const char ** board, int numRows, int numCols)
 {
+	// copy board
 	char** copyBoard = BattleshipBoard::copyMatrix(const_cast<char**>(board), numRows, numCols);
+	
+	// create a set containing all ships details i.e letter and coordinated for each ship (extract from board)
 	std::set<std::pair<char, std::set<std::pair<int, int>>>> allShipsDetails = BattleshipBoard::ExtractShipsDetails(copyBoard, numRows, numCols);
+	
+	// free memory allocated for copyBoard
 	BattleshipBoard::deleteMatrix(copyBoard, numRows, numCols);
+	
+	// for each ship detail in allShipsDetails allocate a new ship ith this details
 	std::set<Ship*> shipsSet = Ship::createShipSet(allShipsDetails);
+	
+	// create matrix of pointers to the ships allocated for this player
 	pBoard = Ship::createShipMatrix(shipsSet);
 }
 
@@ -89,22 +98,22 @@ Player::~Player()
 	return;
 }
 
-int Player::getTScore()
+int Player::getTScore()const
 {
 	return tScore;
 }
 
-int Player::getShipsCount()
+int Player::getShipsCount()const
 {
 	return cShips;
 }
 
-bool Player::getHasMoreMoves()
+bool Player::getHasMoreMoves()const
 {
 	return !isDone;
 }
 
-int Player::getID()
+int Player::getID()const
 {
 	return id;
 }
@@ -128,7 +137,7 @@ std::pair<AttackResult, int> Player::realAttack(std::pair<int, int> coor)
 	Ship* shipPtr = pBoard[coor.first - 1][coor.second - 1];
 	std::pair<AttackResult, int> retPair;
 
-	if (shipPtr == NULL) {// doesnt have a ship in this coordinates
+	if (shipPtr == nullptr) {// doesnt have a ship in this coordinates
 		retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
 	}
 	else { // have a ship in this coordinates 

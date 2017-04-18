@@ -84,7 +84,7 @@ void BattleshipGameManager::Run()
 		}
 
 	}
-	// print game results 
+	// prints game results 
 	outputGameResult();
 
 	return;
@@ -168,12 +168,10 @@ bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& board)
 	hasShipWithWrongSize_A = hasShipWithWrongSize_B = hasTooManyShip_A = hasToManyShip_B = hasAdjacentShips = false;
 	hasTooFewShips_A = hasTooFewShips_B = true;
 
-	const char** boardA = mainBoard.createPlayerBoard(PLAYERID_A);
+	const char** boardA = mainBoard.createPlayerBoard(PLAYERID_A);						/* allocates new matrix */
 	const char** boardB = mainBoard.createPlayerBoard(PLAYERID_B);
 
-	//check set of ships of A size
-	//todo: we maybe want to delete element (ships) from the ships set while we iterate the this set
-	std::pair<size_t, std::set<char>> tmpPair;
+	std::pair<size_t, std::set<char>> tmpPair;											/* for FindNumberOfValidShipsInBoard output*/
 	std::set<char> invalidShips_A;
 	std::set<char> invalidShips_B;
 
@@ -194,8 +192,9 @@ bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& board)
 	bool isCorrectShipsNumA = isCorrectNumberOfShipsForPlayer(validShipsCnt_A, A);
 	bool isCorrectShipsNumB = isCorrectNumberOfShipsForPlayer(validShipsCnt_B, B);
 
-	char** copyMainBoardMatrix = GetCopyOfBoard();
-	hasAdjacentShips = mainBoard.CheckIfHasAdjacentShips();
+	char** copyMainBoardMatrix = GetCopyOfBoard();										/* we send CheckIfHasAdjacentShips a copy of the matrix becuase we want to edit the board
+																							while checking adjacent ships */
+	hasAdjacentShips = mainBoard.CheckIfHasAdjacentShips();								/* if has adjacent ships, this funcion also prints relevant message */
 	BattleshipBoard::deleteMatrix(copyMainBoardMatrix, mainBoard.getRows(), mainBoard.getCols());
 
 	if (isCorrectShipsNumA && isCorrectShipsNumB && !hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty())
@@ -210,13 +209,13 @@ void BattleshipGameManager::updateCurrPlayer()
 {
 	Player*  tmpPlayer;
 
-	//switch the players
+	//switches the players
 	tmpPlayer = currPlayer;
 	currPlayer = otherPlayer;
 	otherPlayer = tmpPlayer;
 }
 
-void BattleshipGameManager::outputGameResult()
+void BattleshipGameManager::outputGameResult()const
 {
 
 	int currScore = 0;

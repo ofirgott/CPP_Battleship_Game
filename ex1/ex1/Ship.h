@@ -5,13 +5,8 @@
 #include <set> // std::set
 #include <vector> // std::vector
 #include <algorithm>    // std::sort 
+#include "Constants.h"
 
-#define RUBBER_BOAT 'B'
-#define ROCKET_SHIP 'P'
-#define SUBMARINE 'M'
-#define DESTROYER 'D'
-#define ROWS 10 
-#define COLS 10
 
 class Ship {
 
@@ -27,15 +22,15 @@ public:
 	~Ship();
 
 	/* returns how much score is gained by hitting this ship*/
-	int getPoints();
+	int getPoints()const;
 
 	/* returns how many parts of the body not hit yet*/
-	int getNotHit();
+	int getNotHit()const;
 
 	/*return true- if ship not sank yet
 	* false- otherwise
 	*/
-	bool isAlive();
+	bool isAlive()const;
 
 	const std::vector <std::pair<int, int>> getCoordinates();
 

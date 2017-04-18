@@ -29,17 +29,17 @@ Ship::~Ship()
 	body.clear();
 }
 
-int Ship::getPoints()
+int Ship::getPoints()const
 {
 	return points;
 }
 
-int Ship::getNotHit()
+int Ship::getNotHit()const
 {
 	return notHit;
 }
 
-bool Ship::isAlive()
+bool Ship::isAlive()const
 {
 	if (notHit > 0) {
 		return true;
