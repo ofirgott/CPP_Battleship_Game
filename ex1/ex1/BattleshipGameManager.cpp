@@ -8,6 +8,7 @@ BattleshipGameManager::BattleshipGameManager(std::string boardPath, std::string 
 	boardFilePath(boardPath), attackFilePath_A(attackFilePath_a), attackFilePath_B(attackFilePath_b), mainBoard(BattleshipBoard(boardFilePath, ROWS, COLS)),
 	playerA(Player(PLAYERID_A, attackFilePath_A)), playerB(Player(PLAYERID_B, attackFilePath_B)), currPlayer(nullptr), otherPlayer(nullptr)
 {
+	
 	/* (note that we init all game class member in the init list) */
 
 	if (mainBoard.getRows() == -1 || !checkBoardValidity(mainBoard))		/* checks if the main board successfully created, and it is valid according to the game rules */
@@ -54,11 +55,14 @@ void BattleshipGameManager::Run()
 		// attack other player 
 		attackRes = otherPlayer->realAttack(nextAttack);
 		if (attackRes.first == AttackResult::Miss) {
+			
 			// the opponent doesnt have a ship in this coordinates; check if attacked myself
 			attackRes = currPlayer->realAttack(nextAttack);
-			if (attackRes.first != AttackResult::Miss) { // currPlayer attacked himself
-				otherPlayer->updateScore(attackRes.second); // the other player gets points
+			
+			if (attackRes.first != AttackResult::Miss) {									// currPlayer attacked himself
+				otherPlayer->updateScore(attackRes.second);									// the other player gets points
 			}
+			
 			// notifyOnAttackResult(); - empty implementation
 			// pass turn to other player- if missed || if attacked myself
 			updateCurrPlayer();
@@ -69,7 +73,7 @@ void BattleshipGameManager::Run()
 			}
 		}
 		else { // attacked opponents ship
-			if (attackRes.second == -1) { // hit opponents ship but not in a new coordinate; switch turns
+			if (attackRes.second == -1) {					// hit opponents ship but not in a new coordinate; switch turns
 				updateCurrPlayer();
 			}
 			else {
@@ -159,7 +163,7 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 
 
 
-bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& board)
+bool BattleshipGameManager::checkBoardValidity(const BattleshipBoard& board)const
 {
 	bool hasShipWithWrongSize_A, hasShipWithWrongSize_B, hasTooManyShip_A, hasToManyShip_B;
 	bool hasTooFewShips_A, hasTooFewShips_B, hasAdjacentShips;
@@ -221,9 +225,8 @@ void BattleshipGameManager::outputGameResult()const
 	int currScore = 0;
 	int otherScore = 0;
 
-	// is there a case which both players has 0 ships??? 
 	if (currPlayer->getShipsCount() == 0) {
-		if (currPlayer->getID() == 0) {
+		if (currPlayer->getID() == PLAYERID_A) {
 			std::cout << "Player B won" << std::endl;
 		}
 		else {
@@ -231,7 +234,7 @@ void BattleshipGameManager::outputGameResult()const
 		}
 	}
 	if (otherPlayer->getShipsCount() == 0) {
-		if (otherPlayer->getID() == 0) {
+		if (otherPlayer->getID() == PLAYERID_A) {
 			std::cout << "Player B won" << std::endl;
 		}
 		else {
@@ -239,12 +242,11 @@ void BattleshipGameManager::outputGameResult()const
 		}
 	}
 
-	// space after : ? 
 	currScore = currPlayer->getTScore();
 	otherScore = otherPlayer->getTScore();
 	std::cout << "Points:" << std::endl;
 
-	if (currPlayer->getID() == 0) {
+	if (currPlayer->getID() == PLAYERID_A) {
 		std::cout << "Player A: " << currScore << std::endl;
 		std::cout << "Player B: " << otherScore << std::endl;
 	}

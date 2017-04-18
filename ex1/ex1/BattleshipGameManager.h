@@ -9,7 +9,7 @@
 class BattleshipGameManager
 {
 public:
-	//BattleshipGameManager() : boardFilePath(), attackFilePath_A(), attackFilePath_B(), mainBoard(BattleshipBoard()), playerA(), playerB(), currPlayer(), otherPlayer() {};	//todo: if work without it, delete!
+
 	BattleshipGameManager(std::string boardPath, std::string attackFilePath_a, std::string attackFilePath_b, bool& isGameSuccessfullyCreated);
 	
 	~BattleshipGameManager() {};
@@ -37,7 +37,7 @@ private:
 
 	/* given a game main board, returns true if the board is valid according to the game rules:
 	   right number of valid ships for each player, no invalid and adjacent ships in board. */
-	bool checkBoardValidity(const BattleshipBoard& board);						
+	bool checkBoardValidity(const BattleshipBoard& board)const;						
 																				
 	
 	/* given a matrix board for a specific player, returns number of valid ships and set of invalid ships letters (according to the game rules
@@ -59,6 +59,6 @@ private:
 
 	void updateCurrPlayer();		/* utility function for Run, switches currentPlayer with otherPlayer pointers */
 	
-	void outputGameResult()const;		/* prints end of game messages */
+	void outputGameResult()const;	/* prints end of game messages */
 
 };

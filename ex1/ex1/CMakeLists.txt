@@ -7,6 +7,7 @@ set(id3 "204196729")
 set (SOURCE_FILES
 	BattleshipBoard.h
 	BattleshipGameManager.h
+	Constants.h
 	IBattleshipGameAlgo.h
 	Player.h
 	Ship.h

@@ -121,20 +121,16 @@ int main(int argc, char* argv[])
 		dir_path = argv[1];
 
 	if(!checkGamefiles(dir_path, boardPath, attackFilePath_a, attackFilePath_b)){
-
-		std::cin.get();								// todo: delete this row
 		return -1;
 	}
 
 	BattleshipGameManager Game(boardPath, attackFilePath_a, attackFilePath_b, isGameSuccessfullyCreated);
 
 	if (!isGameSuccessfullyCreated) {
-		std::cin.get();								//todo: delete this row
 		return -1;
 	}
 
 	Game.Run();
 
-	std::cin.get();									//todo: delete this row
 	return 0;
 }

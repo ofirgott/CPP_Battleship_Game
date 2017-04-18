@@ -5,8 +5,7 @@
 #include <iostream>
 #include "BattleshipBoard.h"
 #include <sstream>
-#define ROWS 10 
-#define COLS 10
+#include "Constants.h"
 
 class Player : public IBattleshipGameAlgo
 {
@@ -16,7 +15,9 @@ public:
 	* @assume user_id != -1
 	*/
 	Player(int user_id = -1, const std::string attackFilePath = "");
-	~Player();
+	~Player(); 
+	Player& operator=(const Player& otherPlayer) = delete;			/* deletes the assignment operator - we want a player to be a Non Copyable object */
+
 
 	/* @return total score gained by player
 	*/
@@ -48,13 +49,14 @@ public:
 
 	/* @ assume- this function is called once during a game
 	*/
-	void setBoard(const char** board, int numRows, int numCols) override;
+	void setBoard(const char** board, int numRows, int numCols) override; 
 
 	/* @ return's players next move
 	*/
 	std::pair<int, int> attack() override;
 
-	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override; // notify on last move result
+	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override; /* notify on last move result - empty implementation for this exercise - 
+																							  because players moves pre-selected from file */
 
 
 private:
@@ -66,12 +68,12 @@ private:
 	std::vector<std::pair<int, int>> pMoves; // vector of moves
 	bool isDone; // if false player has more moves; true - no more moves
 
-				 /* @return vector of coordinates the player wants to attack during the game
-				 * if couldnt open attack file / proccess it - return vector of size 1 containing <inf,inf> + print error
-				 * if attackFile contains a line with more then 2 int's || line with out of bound
-				 * coordintes || invalid represntation of integrs - ignore line
-				 */
-	static std::vector<std::pair<int, int>> parseAttackFile(const char* attackFilePath);
+	/* @return vector of coordinates the player wants to attack during the game
+	* if couldnt open attack file / proccess it - return vector of size 1 containing <inf,inf> + print error 
+	* if attackFile contains a line with more then 2 int's || line with out of bound 
+	* coordintes || invalid represntation of integrs - ignore line
+	*/
+	static std::vector<std::pair<int, int>> parseAttackFile(const char* attackFilePath); 
 
 	/* split string to tokens according to the given delimiter
 	* in case of error  set succsessfulSplit to false

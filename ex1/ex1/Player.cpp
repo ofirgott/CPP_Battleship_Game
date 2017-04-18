@@ -75,7 +75,7 @@ Player::~Player()
 	std::vector <std::pair<int, int>> currCoor;
 
 	pMoves.clear();
-	if (pBoard == NULL) {
+	if (pBoard == nullptr) {
 		return;
 	}
 
