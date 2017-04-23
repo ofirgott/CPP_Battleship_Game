@@ -110,13 +110,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BattleshipBoard.h" />
     <ClInclude Include="BattleshipGameManager.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="IBattleshipGameAlgo.h" />
+    <ClInclude Include="PlayerFromFile.h" />
+    <ClInclude Include="PlayerNaive.h" />
+    <ClInclude Include="PlayerSmart.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BattleshipBoard.cpp" />
+    <ClCompile Include="BattleshipGameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerFromFile.cpp" />
+    <ClCompile Include="PlayerNaive.cpp" />
+    <ClCompile Include="PlayerSmart.cpp" />
+    <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
