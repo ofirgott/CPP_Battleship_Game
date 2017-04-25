@@ -115,9 +115,6 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="IBattleshipGameAlgo.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerFromFile.h" />
-    <ClInclude Include="PlayerNaive.h" />
-    <ClInclude Include="PlayerSmart.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +122,6 @@
     <ClCompile Include="BattleshipGameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerFromFile.cpp" />
-    <ClCompile Include="PlayerNaive.cpp" />
-    <ClCompile Include="PlayerSmart.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

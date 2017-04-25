@@ -27,15 +27,6 @@
     <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNaive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSmart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFromFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BattleshipBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,15 +45,6 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Ship.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerNaive.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerFromFile.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSmart.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
