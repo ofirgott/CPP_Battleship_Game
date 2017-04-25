@@ -7,7 +7,7 @@
 class Player : public IBattleshipGameAlgo
 {
 public:
-	Player(int playerId = -1) : id(playerId) {};
+	Player(int playerId = -1) : id(playerId) {};//todo: enter the other members to the init list!!!!!!!!!
 	~Player() { delete this; };	//todo: we uses player instance dynamic, so check if needed that "delete"
 
 	bool init(const std::string& path) override { return id != -1; }
