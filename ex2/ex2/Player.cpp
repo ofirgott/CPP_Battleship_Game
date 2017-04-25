@@ -1,6 +1,6 @@
 
 #include "Player.h"
-
+#include "BattleshipBoard.h"
 
 
 Player::~Player()
@@ -28,5 +28,5 @@ void Player::setBoard(int player, const char** board, int numRows, int numCols)
 	// create matrix of pointers to the ships allocated for this player
 	pBoard = Ship::createShipMatrix(shipsSet);
 
-	//todo : maybe we want also here to do id =-1 beacuse of allocation failure
+	
 }
