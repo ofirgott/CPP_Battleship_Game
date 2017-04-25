@@ -3,10 +3,10 @@
 #include "IBattleshipGameAlgo.h"
 #include "Ship.h"
 
+static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
+
 class Player : public IBattleshipGameAlgo
 {
-
-	static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
 
 public:
 	Player() : id(-1), tScore(0), cShips(0) {};					//todo: we need to give the player his ID in the init function, and not in the cto'r

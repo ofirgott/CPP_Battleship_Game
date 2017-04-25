@@ -10,12 +10,12 @@ public:
 
 	std::pair<int, int> attack() override;
 
-	void notifyOnAttackResult(int player, int row, int col, AttackResult result)override ;	// notify on last move result
+	void notifyOnAttackResult(int player, int row, int col, AttackResult result)override {}	// notify on last move result
 
-																						/* given coordinates  player updates number of ships he has got left&& updates the attack in his ships details.
-																						/* @ return the attack result and the number of pointes the other player scored
-																						/* if player attacked the same coordinate in the second time return <Hit, -1> to indicate that the player shoudnt keep his turn
-																						*/
+	/* given coordinates  player updates number of ships he has got left&& updates the attack in his ships details.
+	/* @ return the attack result and the number of pointes the other player scored
+	/* if player attacked the same coordinate in the second time return <Hit, -1> to indicate that the player shoudnt keep his turn */
+															
 	std::pair<AttackResult, int> realAttack(std::pair<int, int> coor);
 	//todo: we need to changa and adjudst it
 
