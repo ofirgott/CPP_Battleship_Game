@@ -56,6 +56,9 @@ public:
 	*/
 	static Ship*** createShipMatrix(std::set <Ship*>);
 
+	/* deletes Ships matrix */
+	static void deleteShipMatrix(Ship*** matrix);
+
 private:
 
 	char symbol; // ship's representing letter

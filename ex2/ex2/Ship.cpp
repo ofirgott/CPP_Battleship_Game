@@ -229,6 +229,32 @@ Ship *** Ship::createShipMatrix(std::set <Ship*> allShips)
 	return matrix;
 }
 
+void Ship::deleteShipMatrix(Ship *** matrix)
+{
+	std::vector <std::pair<int, int>> currCoor;
+
+	if (matrix == nullptr) {
+		return;
+	}
+
+	// release the ship's matrix
+	for (auto i = 0; i < ROWS; i++) {
+		for (auto j = 0; j < COLS; j++) {
+			if (matrix[i][j] != nullptr) { // release ship exactly once 
+				currCoor.clear();
+				currCoor = matrix[i][j]->getCoordinates();
+				delete matrix[i][j];
+				// set all the pointers to this ship to nullptr
+				for (auto& coor : currCoor) {
+					matrix[coor.first][coor.second] = nullptr;
+				}
+			}
+		}
+		delete[] matrix[i];
+	}
+	delete[] matrix;
+}
+
 std::set<Ship*> Ship::createShipSet(const std::set<std::pair<char, std::set<std::pair<int, int>>>>& allPairs)
 {
 	std::set<Ship*> allBattleships;

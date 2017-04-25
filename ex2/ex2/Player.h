@@ -19,5 +19,7 @@ protected:
 	int tScore;			// how much score the player gained this far
 	Ship***  pBoard;	// matrix of pointers to ships  
 	int cShips;			// number of ships player has
+
+
 };
 
