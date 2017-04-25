@@ -1,5 +1,15 @@
+
 #include "Player.h"
 
+
+
+Player::~Player()
+{
+	for (auto it = _instancesVec.begin(); it != _instancesVec.end(); ++it)
+	{
+		delete(*it);
+	}
+}
 
 void Player::setBoard(int player, const char** board, int numRows, int numCols)
 {

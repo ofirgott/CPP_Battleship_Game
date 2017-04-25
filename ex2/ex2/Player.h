@@ -2,14 +2,15 @@
 //this is a class that 3 dll (players algo) overrides
 #include "IBattleshipGameAlgo.h"
 #include "Ship.h"
-#include "BattleshipBoard.h"
 
 class Player : public IBattleshipGameAlgo
 {
+
+	static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
+
 public:
 	Player(int playerId = -1) : id(playerId) {};//todo: enter the other members to the init list!!!!!!!!!
-	~Player() { delete this; };	//todo: we uses player instance dynamic, so check if needed that "delete"
-
+	virtual ~Player();
 	bool init(const std::string& path) override { return id != -1; }
 	void setBoard(int player, const char** board, int numRows, int numCols) override;
 
@@ -19,3 +20,4 @@ protected:
 	Ship***  pBoard;	// matrix of pointers to ships  
 	int cShips;			// number of ships player has
 };
+
