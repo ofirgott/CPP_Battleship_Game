@@ -13,7 +13,7 @@ public:
 	virtual ~Player();
 	Player& operator=(const Player& otherPlayer) = delete;			/* deletes the assignment operator - we want a player to be a Non Copyable object */
 
-	bool init(const std::string& path) override { return id != -1; }
+	//bool init(const std::string& path) override { return id != -1; }
 	void setBoard(int player, const char** board, int numRows, int numCols) override;
 
 	/* @return total score gained by player

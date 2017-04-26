@@ -10,6 +10,8 @@ public:
 
 	std::pair<int, int> attack() override;
 
+	bool init(const std::string& path) override;
+
 	void notifyOnAttackResult(int player, int row, int col, AttackResult result)override {}	// notify on last move result
 
 	/* given coordinates  player updates number of ships he has got left&& updates the attack in his ships details.

@@ -25,6 +25,57 @@ std::pair<int, int> PlayerFromFile::attack()
 	return nextAttack;
 }
 
+bool PlayerFromFile::init(const std::string & path)
+{
+	//todo: implement
+}
+
+std::pair<AttackResult, int> PlayerFromFile::realAttack(std::pair<int, int> coor)
+{
+	if (coor.first > ROWS || coor.first < 1 || coor.second < 1 || coor.second > COLS) {
+		return std::pair<AttackResult, int>(AttackResult::Miss, 0);
+	}
+
+	int attackRes;
+	Ship* shipPtr = pBoard[coor.first - 1][coor.second - 1];
+	std::pair<AttackResult, int> retPair;
+
+	if (shipPtr == nullptr) {// doesnt have a ship in this coordinates
+		retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
+	}
+	else { // have a ship in this coordinates 
+		if (shipPtr->isAlive()) {// not sank yet
+			attackRes = shipPtr->updateAttack(coor.first - 1, coor.second - 1);
+			if (attackRes == 0) { // successful attack
+				if (shipPtr->isAlive()) { // not sank yet 
+					retPair = std::make_pair(AttackResult::Hit, 0);
+				}
+				else
+				{ // the ship sank after the last attack
+					retPair = std::make_pair(AttackResult::Sink, shipPtr->getPoints());
+				}
+			}
+			else if (attackRes == 1)
+			{ // already hit this part- no points given
+				retPair = std::pair<AttackResult, int>(AttackResult::Hit, -1);
+			}
+			else
+			{ // attackRes == -1  
+				retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
+			}
+		}
+		else { // this ship is mine but already sank
+			retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
+		}
+	}
+
+	if (retPair.first == AttackResult::Sink) { //  update number ships left for player
+		cShips = cShips - 1;
+	}
+
+	return retPair;
+}
+
 std::vector<std::pair<int, int>> PlayerFromFile::parseAttackFile(const char * attackFilePath)
 {
 	std::ifstream fd(attackFilePath); //creating an ifstream & open attackPath 
