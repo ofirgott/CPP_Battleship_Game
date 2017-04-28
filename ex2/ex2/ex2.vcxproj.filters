@@ -47,8 +47,5 @@
     <ClCompile Include="Ship.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

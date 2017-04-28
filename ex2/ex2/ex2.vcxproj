@@ -121,7 +121,6 @@
     <ClCompile Include="BattleshipBoard.cpp" />
     <ClCompile Include="BattleshipGameManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
