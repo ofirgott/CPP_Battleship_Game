@@ -7,11 +7,12 @@ class BattleshipBoard
 {
 public:
 	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1) {}						/* empty constructor */
+	BattleshipBoard(const char ** inputMatix, int inputRows, int inputCols) : matrix(copyMatrix(inputMatix, inputRows, inputCols)), rows(inputRows), cols(inputCols) {}
 	BattleshipBoard(const std::string& boardPath, int rows, int cols);
 	~BattleshipBoard() { deleteMatrix(matrix, rows, cols); }
 
-	BattleshipBoard(const BattleshipBoard& otherBoard) : matrix(otherBoard.matrix), rows(otherBoard.rows), cols(otherBoard.cols) {}			/*  copy constructor */
-	BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
+	BattleshipBoard(const BattleshipBoard& otherBoard) = delete;		/* deletes copy constructor */
+	//BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
 
 
 	char** GetCopyOfBoard()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */

@@ -6,7 +6,6 @@
 #include <locale>
 
 
-
 /* called only once in a specific game */
 BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, int board_cols)
 {
