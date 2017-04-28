@@ -137,7 +137,7 @@ bool BattleshipBoard::isCoordianteInBoard(int x, int y, int rowsNum, int colsNum
 	else return false;
 }
 
-char ** BattleshipBoard::copyMatrix(char ** matrix, int rows, int cols)
+char ** BattleshipBoard::copyMatrix(const char ** matrix, int rows, int cols)
 {
 	char** copy = new char*[rows];
 

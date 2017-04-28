@@ -14,7 +14,7 @@ public:
 	BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
 
 
-	char** GetCopyOfBoard()const { return copyMatrix(matrix, rows, cols); };		/* returns a new copy of the main matrix */
+	char** GetCopyOfBoard()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
 	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board */
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
@@ -33,7 +33,7 @@ public:
 	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum);
 
 	/* returns a new copy of given matrix */
-	static char** copyMatrix(char** matrix, int rows, int cols);
+	static char** copyMatrix(const char** matrix, int rows, int cols);
 
 	/* deletes char** matrix */
 	static void deleteMatrix(char** matrix, int rows, int cols);
