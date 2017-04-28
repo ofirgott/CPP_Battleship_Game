@@ -14,6 +14,8 @@ Player::~Player()
 void Player::setBoard(int player, const char** board, int numRows, int numCols)
 {
 	id = player;		//set the player Id we got from the manager
+	shipsBoardRows = numRows;
+	shipsBoardCols = numCols;
 
 	// copy board
 	auto copyBoard = BattleshipBoard::copyMatrix(board, numRows, numCols);		//copyBoard is char**. board was previously - const_cast<char**>(board)

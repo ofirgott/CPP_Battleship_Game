@@ -9,7 +9,7 @@ class Player : public IBattleshipGameAlgo
 {
 
 public:
-	Player() : id(UNDEFINED_PLAYERID) {};					// todo: we need to give the player his ID in the init function, and not in the cto'r
+	Player() : id(UNDEFINED_PLAYERID), shipsBoardRows(0), shipsBoardCols(0) {};					// todo: we need to give the player his ID in the init function, and not in the cto'r
 	Player(const Player& otherPlayer) = delete;							/* deletes copy constructor */
 	virtual ~Player();
 	Player& operator=(const Player& otherPlayer) = delete;				/* deletes the assignment operator - we want a player to be a Non Copyable object */
@@ -21,6 +21,8 @@ public:
 protected:
 	int id;					// players id , if id == -1 player is invalid or undefined
 	Ship***  shipsBoard;	// matrix of pointers to ships  
+	int shipsBoardRows;
+	int shipsBoardCols;
 
 };
 
