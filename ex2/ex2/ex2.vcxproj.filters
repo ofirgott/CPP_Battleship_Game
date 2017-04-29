@@ -33,6 +33,9 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BattleshipGameUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,9 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Ship.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleshipGameUtils.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "PlayerFromFile.h"
+#include "BattleshipGameUtils.h"
 
 std::pair<int, int> PlayerFromFile::attack()
 {
@@ -7,5 +8,14 @@ std::pair<int, int> PlayerFromFile::attack()
 
 bool PlayerFromFile::init(const std::string & path)
 {
-	return false;
+	if (id == UNDEFINED_PLAYERID)
+		return false;
+
+	if (!BattleshipGameUtils::isValidDir(path))
+		return false;
+
+	
+
+
+	return true;
 }
