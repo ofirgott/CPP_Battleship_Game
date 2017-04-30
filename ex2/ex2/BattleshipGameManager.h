@@ -4,6 +4,10 @@
 #include "Ship.h"
 #include "BattleshipBoard.h"
 #include "Constants.h"
+#include <windows.h>
+
+typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
+//GetAlgoFuncType getShapeFunc;
 
 class BattleshipGameManager
 {
@@ -11,14 +15,15 @@ class BattleshipGameManager
 	class UtilGamePlayer {
 		friend class BattleshipGameManager;
 	private:
+		int id;
 		IBattleshipGameAlgo* playerAlgo;
 		bool hasMoreMoves;
 		int score;
 		Ship*** shipsMatrix;
 		int currShipsCount;
 
-		UtilGamePlayer() : playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
-		UtilGamePlayer(IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
+		UtilGamePlayer() : id(-1), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
+		UtilGamePlayer(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
 
 		~UtilGamePlayer()
 		{
@@ -40,7 +45,27 @@ class BattleshipGameManager
 	
 	};
 
-private: 
+
+public:
+	
+	BattleshipGameManager() = delete;														/* deletes empty constructor */
+	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
+	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
+
+	/*	isGameSuccessfullyCreated - true if constructor succeded, false otherwise
+	boardPath- path to the location of the game board
+	*/
+	BattleshipGameManager(std::string boardPath, bool& isGameSuccessfullyCreated);
+
+	~BattleshipGameManager();
+
+	
+	void Run() const;			/* given a game instance run's the game and outputs the results */
+
+private:
+
+	std::vector<std::tuple<int, HINSTANCE, GetAlgoFuncType>> dll_vec; // vector of <playerID, dll handle, GetAlgorithm function ptr>
+
 	UtilGamePlayer* playerA;
 	UtilGamePlayer* playerB;
 	
@@ -50,29 +75,6 @@ private:
 	BattleshipBoard mainBoard;
 
 	static void switchCurrPlayer(UtilGamePlayer** curr, UtilGamePlayer** other);
-
 	static void outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer);
-
-public:
-	/*dont want empty constructor*/
-	BattleshipGameManager() = delete;
-	
-	/*dont want copy constructor */
-	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;
-	
-	/*dont want '=' operator*/
-	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;
-	
-	/*	isGameSuccessfullyCreated - true if constructor succeded, false otherwise
-		boardPath- path to the location of the game board
-		probably should recive the dll's as well to construct the IBattelshupGameAlgo instances
-	*/
-	BattleshipGameManager(std::string boardPath ,bool& isGameSuccessfullyCreated);
-
-	~BattleshipGameManager();
-
-	/*given a game instance run's the game and outputs the results*/
-	void Run() const;
-
 	
 };
