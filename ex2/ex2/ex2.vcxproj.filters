@@ -30,9 +30,6 @@
     <ClInclude Include="BattleshipBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BattleshipGameUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>

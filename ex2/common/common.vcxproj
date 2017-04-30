@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A6922B9A-5BDA-49EB-8A52-9A76FE78953A}</ProjectGuid>
-    <RootNamespace>ex2</RootNamespace>
+    <ProjectGuid>{0EB9273F-6ED1-4B4F-8C3E-A554913A2692}</ProjectGuid>
+    <RootNamespace>common</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -28,7 +28,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -41,7 +41,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -110,19 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BattleshipBoard.h" />
-    <ClInclude Include="BattleshipGameManager.h" />
-    <ClInclude Include="BattleshipGameUtils.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="IBattleshipGameAlgo.h" />
-    <ClInclude Include="Ship.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BattleshipBoard.cpp" />
-    <ClCompile Include="BattleshipGameManager.cpp" />
-    <ClCompile Include="BattleshipGameUtils.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Ship.cpp" />
+    <ClInclude Include="..\ex2\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
