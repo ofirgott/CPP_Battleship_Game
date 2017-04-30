@@ -5,7 +5,28 @@
 
 std::pair<int, int> PlayerFromFile::attack()
 {
-	return std::pair<int, int>();		//todo: implement
+	if(id == UNDEFINED_PLAYERID)
+		throw std::exception("Error - Player is undefined player while calling the attack() function.");
+
+	if (movesVectorItr == movesVector.end())
+	{
+		isDone = true;			//todo: check if needed
+		return std::make_pair(-1, -1);
+	}
+
+	// else - we have more moves - we want to output only valid moves according to the player board dimmensions
+	std::pair<int, int> nextValidAttack;
+
+	while (!playerBoard.isCoordianteInBoard(movesVectorItr->first - 1, movesVectorItr->second - 1, playerBoard.getRows(), playerBoard.getCols()))
+	{
+		++movesVectorItr;
+	}
+	
+	nextValidAttack = *movesVectorItr;			 /* the valid attack pair we will output*/
+	++movesVectorItr;							/* move forward in the attacks vector for the next attack() call */
+	
+	return nextValidAttack;
+
 }
 
 bool PlayerFromFile::init(const std::string & path)

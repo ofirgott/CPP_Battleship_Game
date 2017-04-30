@@ -1,7 +1,8 @@
-//this is for the first commit
-//sharin is here!!!!
+#include "BattleshipBoard.h"
+#include "BattleshipGameManager.h"
 
+int main(int argc, char* argv[])
+{
+	
 
-int main() {
-		return 000;
 }
