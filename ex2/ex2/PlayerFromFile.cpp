@@ -186,3 +186,11 @@ bool PlayerFromFile::isSeperated(const std::string & token)
 
 	return false;
 }
+
+
+
+IBattleshipGameAlgo* GetAlgorithm()
+{
+	_instancesVec.push_back(new PlayerFromFile());		// Create new instance and keep it in vector
+	return _instancesVec[_instancesVec.size() - 1];		// Return last instance
+}

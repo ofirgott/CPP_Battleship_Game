@@ -10,26 +10,15 @@ class BattleshipGameManager
 	/*keep all current algo details*/
 	class UtilGamePlayer {
 		friend class BattleshipGameManager;
-		IBattleshipGameAlgo* attackAlgo;
+	private:
+		IBattleshipGameAlgo* playerAlgo;
 		bool hasMoreMoves;
 		int score;
-		Ship *** shipsMatrix;
-		int id;
-		int shipsCount;
-		int Rows;
-		int Cols;
+		Ship*** shipsMatrix;
+		int currShipsCount;
 
-		UtilGamePlayer()
-		{
-			id = -1;
-			hasMoreMoves = true;
-			score = 0;
-			shipsMatrix = nullptr;
-			attackAlgo = nullptr;
-			shipsCount = NUM_OF_PLAYER_SHIPS;
-			Rows = -1;
-			Cols = -1;
-		}
+		UtilGamePlayer() : playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
+		UtilGamePlayer(IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
 
 		~UtilGamePlayer()
 		{
@@ -47,17 +36,17 @@ class BattleshipGameManager
 		/* update players score to the prev score + num
 			assume- num >= 0
 		*/
-		void incrementScore(int value)
-		{
-			score += value;
-		}
-
+		void incrementScore(int value) { score += value; }
+	
 	};
 
+private: 
 	UtilGamePlayer* playerA;
 	UtilGamePlayer* playerB;
-
+	
+	std::string inputdirPath;
 	std::string boardFilePath;
+	
 	BattleshipBoard mainBoard;
 
 	static void switchCurrPlayer(UtilGamePlayer** curr, UtilGamePlayer** other);

@@ -36,14 +36,14 @@ void BattleshipGameManager::Run() const
 				otherPlayer->incrementScore(attackRes.second);			
 			}
 
-			currPlayer->attackAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
-			otherPlayer->attackAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+			currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 			// pass turn to other player- if missed || if attacked myself
 		
 			switchCurrPlayer(&currPlayer, &otherPlayer);
 
 			//check if someone won
-			if ((currPlayer->shipsCount== 0) || (otherPlayer->shipsCount == 0)) {
+			if ((currPlayer->currShipsCount== 0) || (otherPlayer->currShipsCount == 0)) {
 				break;
 			}
 		}
@@ -53,12 +53,12 @@ void BattleshipGameManager::Run() const
 			}
 			else {
 				currPlayer->incrementScore(attackRes.second);
-				currPlayer->attackAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
-				otherPlayer->attackAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+				currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+				otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 				// keep my turn 
 			}
 
-			if ((currPlayer->shipsCount == 0) || (otherPlayer->shipsCount == 0)) { //check if someone won
+			if ((currPlayer->currShipsCount == 0) || (otherPlayer->currShipsCount == 0)) { //check if someone won
 				break;
 			}
 		}
@@ -85,7 +85,7 @@ void BattleshipGameManager::switchCurrPlayer(UtilGamePlayer ** currPlayer , Util
 std::pair<int, int> BattleshipGameManager::UtilGamePlayer::getAlgoNextAttack() const
 {
 
-	std::pair<int, int> tmpAttack = attackAlgo->attack();
+	std::pair<int, int> tmpAttack = playerAlgo->attack();
 
 	// todo : maybe use const numbers and not -1 ?? 
 	if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
@@ -95,7 +95,7 @@ std::pair<int, int> BattleshipGameManager::UtilGamePlayer::getAlgoNextAttack() c
 	// while the given coordinates are not in the board && the player has more moves
 	while (tmpAttack.first < Rows, tmpAttack.second >Cols)
 	{
-		tmpAttack = attackAlgo->attack();
+		tmpAttack = playerAlgo->attack();
 		if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
 			return tmpAttack;
 		}
@@ -144,7 +144,7 @@ std::pair<AttackResult, int> BattleshipGameManager::UtilGamePlayer::realAttack(s
 	}
 
 	if (retPair.first == AttackResult::Sink) { //  update number ships left for player
-			shipsCount = shipsCount - 1;
+			currShipsCount = currShipsCount - 1;
 	}
 
 	return retPair;
@@ -157,7 +157,7 @@ void BattleshipGameManager::outputGameResult(UtilGamePlayer* currPlayer, UtilGam
 	int currScore;
 	int otherScore;
 
-	if (currPlayer->shipsCount == 0) {
+	if (currPlayer->currShipsCount == 0) {
 		if (currPlayer->id  == PLAYERID_A) {
 			std::cout << "Player B won" << std::endl;
 		}
@@ -166,7 +166,7 @@ void BattleshipGameManager::outputGameResult(UtilGamePlayer* currPlayer, UtilGam
 		}
 	}
 
-	if (otherPlayer->shipsCount == 0) {
+	if (otherPlayer->currShipsCount == 0) {
 		if (otherPlayer->id  == PLAYERID_A) {
 			std::cout << "Player B won" << std::endl;
 		}
