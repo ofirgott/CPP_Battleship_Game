@@ -7,14 +7,11 @@
 
 
 /* called only once in a specific game */
-BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, int board_cols)
+BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, int board_cols) : isSuccCreated(false)
 {
 
 	if (boardPath.empty() || board_rows <= 0 || board_cols <= 0)				/* invalid input for a new board */
-	{
-		rows = -1;
 		return;
-	}
 
 	std::string line;
 	rows = board_rows;
@@ -36,8 +33,10 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, i
 	}
 	else {														/* we can't open the board file */
 		std::cout << "Error opening board file in " << boardPath << std::endl;
-		rows = -1;
+		return;
 	}
+
+	isSuccCreated = true;
 
 }
 

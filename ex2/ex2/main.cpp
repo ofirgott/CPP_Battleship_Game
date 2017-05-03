@@ -3,12 +3,12 @@
 
 int main(int argc, char* argv[])
 {
-	bool gameSuccessfullyCreated = false;							/* boolean for the game constructor */
+	
 
 	try
 	{
-		BattleshipGameManager Game(argc, argv, gameSuccessfullyCreated);
-		if (gameSuccessfullyCreated)
+		BattleshipGameManager Game(argc, argv);
+		if (Game.isGameSuccessfullyCreated())
 			Game.Run();
 		else
 			return -1;

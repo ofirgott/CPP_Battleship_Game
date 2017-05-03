@@ -1,6 +1,24 @@
 #include "BattleshipGameManager.h"
+#include "BattleshipGameUtils.h"
 
 
+BattleshipGameManager::BattleshipGameManager(int argc, char * argv[], bool & gameSuccessfullyCreated) : inputDirPath(""), gameSuccessfullyCreated(false)
+{
+	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
+	bool printFlag = false;
+	int printDelay = 0;
+	
+	if(!checkGameArguments(argc, argv, printFlag, printDelay)) return;	//todo: need to implement
+		
+	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
+
+	mainBoard = BattleshipBoard(boardFilePath, ROWS, COLS);
+	
+	if (!checkMainBoardValidity() || !initGamePlayers(dllPathPlayerA, dllPathPlayerB)) return;
+
+	gameSuccessfullyCreated = true;
+
+}
 
 void BattleshipGameManager::Run() const
 {
@@ -187,4 +205,191 @@ void BattleshipGameManager::outputGameResult(UtilGamePlayer* currPlayer, UtilGam
 		std::cout << "Player A: " << otherScore << std::endl;
 		std::cout << "Player B: " << currScore << std::endl;
 	}
+}
+
+bool BattleshipGameManager::checkGameArguments(int argc, char *argv[], bool & printFlag, int & printDelay)
+{
+	std::string path = ".";
+	//todo: implement
+	if(argc > 1)
+	{
+		inputDirPath = argv[1];
+	}
+	
+	printFlag = false;
+	printDelay = 0;
+	return true;
+}
+
+bool BattleshipGameManager::checkGamefiles(std::string & boardPath, std::string & dllPathPlayerA, std::string & dllPathPlayerB)
+{
+	
+	
+	if (!BattleshipGameUtils::isValidDir(inputDirPath)) {									/* checks if directory in dir_path exists */
+		std::cout << "Wrong path: " << inputDirPath << std::endl;
+		return false;
+	}
+	/* finds the board file */
+	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".sboard");
+	
+	if (tmpFilenamesVector.size() == 0){
+		std::cout << "Missing board file (*.sboard) looking in path: " << inputDirPath << std::endl;
+		return false;
+	}
+	else boardFilePath = inputDirPath + "/" + tmpFilenamesVector[0];
+
+	tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".dll");
+
+	if(tmpFilenamesVector.size() < 2){
+		std::cout << "Missing an algorithm (dll) file looking in path: " << inputDirPath << std::endl;
+		return false;
+	}
+
+	dllPathPlayerA = inputDirPath+ "/" + tmpFilenamesVector[0];
+	dllPathPlayerB = inputDirPath + "/" + tmpFilenamesVector[1];
+
+
+
+	
+	return true;
+}
+
+
+
+bool BattleshipGameManager::checkMainBoardValidity()const
+{
+	if (!mainBoard.isSuccessfullyCreated()) return false;
+	
+	bool hasShipWithWrongSize_A, hasShipWithWrongSize_B, hasTooManyShip_A, hasToManyShip_B;
+	bool hasTooFewShips_A, hasTooFewShips_B, hasAdjacentShips;
+
+	size_t validShipsCnt_A, validShipsCnt_B;
+	hasShipWithWrongSize_A = hasShipWithWrongSize_B = hasTooManyShip_A = hasToManyShip_B = hasAdjacentShips = false;
+	hasTooFewShips_A = hasTooFewShips_B = true;
+
+	const char** boardA = mainBoard.createPlayerBoard(PLAYERID_A);						/* allocates new matrix */
+	const char** boardB = mainBoard.createPlayerBoard(PLAYERID_B);
+
+	std::pair<size_t, std::set<char>> tmpPair;											/* for FindNumberOfValidShipsInBoard output*/
+	std::set<char> invalidShips_A;
+	std::set<char> invalidShips_B;
+
+
+	tmpPair = FindNumberOfValidShipsInBoard(boardA, mainBoard.getRows(), mainBoard.getCols());
+	validShipsCnt_A = tmpPair.first;
+	invalidShips_A = tmpPair.second;
+	BattleshipBoard::deleteMatrix(const_cast<char**>(boardA), mainBoard.getRows(), mainBoard.getCols());
+
+	tmpPair = FindNumberOfValidShipsInBoard(boardB, mainBoard.getRows(), mainBoard.getCols());
+	validShipsCnt_B = tmpPair.first;
+	invalidShips_B = tmpPair.second;
+	BattleshipBoard::deleteMatrix(const_cast<char**>(boardB), mainBoard.getRows(), mainBoard.getCols());
+
+	PrintWrongSizeOrShapeForShips(invalidShips_A, A);
+	PrintWrongSizeOrShapeForShips(invalidShips_B, B);
+
+	bool isCorrectShipsNumA = isCorrectNumberOfShipsForPlayer(validShipsCnt_A, A);
+	bool isCorrectShipsNumB = isCorrectNumberOfShipsForPlayer(validShipsCnt_B, B);
+
+
+	hasAdjacentShips = mainBoard.CheckIfHasAdjacentShips();								/* if has adjacent ships, this funcion also prints relevant message */
+	
+	if (isCorrectShipsNumA && isCorrectShipsNumB && !hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty())
+		return true;
+	else
+		return false;
+
+}
+
+std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard(const char** matrix, int rows, int cols)
+{
+	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;					/* set of ships details - for example:
+																								{<'m', {<1,2>,<1,3>}> , <'P', {<8,5>, <8,6> , <8,7>}> } */
+
+	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
+
+	char** matrixCopy = BattleshipBoard::copyMatrix(matrix, rows, cols);     /* we need to send copy of the matrix to ExtractShipsDetails function*/
+
+	setOfShipsDetails = BattleshipBoard::ExtractShipsDetails(matrixCopy, rows, cols);	         /* after this row, we have set of ships, maybe some of them invalid -  this function will 																							  be called also when we will create the player */
+
+	BattleshipBoard::deleteMatrix(matrixCopy, rows, cols);										 /* we don't need the matrix copy anymore*/
+
+	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);						 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips																								  updated*/
+
+	return std::make_pair(setOfShipsDetails.size(), invalidShips);								 /* return number of valid ships and set of letters of found invalid ships */
+}
+
+void BattleshipGameManager::DeleteInvalidShipsDetailsEntryFromSet(std::set<std::pair<char, std::set<std::pair<int, int>>>>& setOfShipsDetails, std::set<char>& invalidShips)
+{
+	auto it = setOfShipsDetails.begin();
+	while (it != setOfShipsDetails.end())
+	{
+		if (!Ship::isValidShipDetails(*it))
+		{
+			invalidShips.insert(it->first);
+			it = setOfShipsDetails.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+}
+
+void BattleshipGameManager::PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar)
+{
+	if (invalidShipsSet.empty()) return;
+
+	for (char shipChar : invalidShipsSet)
+	{
+		std::cout << "Wrong size or shape for ship " << shipChar << " for player " << playerChar << std::endl;
+	}
+}
+
+bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt, char playerChar)
+{
+
+	if (validShipsCnt == NUM_OF_PLAYER_SHIPS) return true;
+
+	else if (validShipsCnt < NUM_OF_PLAYER_SHIPS)
+	{
+		std::cout << "Too few ships for player " << playerChar << std::endl;
+		return false;
+	}
+
+	else 		//validShipsCnt > NUM_OF_PLAYER_SHIPS
+	{
+		std::cout << "Too many ships for player " << playerChar << std::endl;
+		return false;
+	}
+}
+
+bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
+{
+	IBattleshipGameAlgo* playerA;
+	IBattleshipGameAlgo* playerB;
+
+	HINSTANCE hDllA = LoadLibraryA(dllPathPlayerA.c_str()); // Notice: Unicode compatible version of LoadLibrary
+	if(!hDllA)
+	{
+		std::cout << "Cannot load dll: " << dllPathPlayerA << std::endl;
+		return false;
+	}
+	// Get function pointer
+	auto getAlgoFunc = (GetAlgoFuncType)GetProcAddress(hDllA, "GetAlgorithm");
+	if(!getAlgoFunc)
+	{
+		std::cout << "Cannot load dll: " << dllPathPlayerA << std::endl;
+		return false;
+	}
+	playerA = GetAlgorithm();
+	const char** tmpMatrixForA = mainBoard.createPlayerBoard(PLAYERID_A);
+	playerA->setBoard(PLAYERID_A, tmpMatrixForA, mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard::deleteMatrix(const_cast<char**>(tmpMatrixForA), mainBoard.getRows(), mainBoard.getCols());
+	if(!playerA->init(inputDirPath))
+		std::cout << "Algorithm initialization failed for dll: " << dllPathPlayerA << std::endl;
+
+
+	
 }

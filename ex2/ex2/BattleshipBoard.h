@@ -6,8 +6,8 @@
 class BattleshipBoard
 {
 public:
-	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1) {}						/* empty constructor */
-	BattleshipBoard(const char ** inputMatix, int inputRows, int inputCols) : matrix(copyMatrix(inputMatix, inputRows, inputCols)), rows(inputRows), cols(inputCols) {}
+	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1), isSuccCreated(false) {}						/* empty constructor */
+	BattleshipBoard(const char ** inputMatix, int inputRows, int inputCols) : matrix(copyMatrix(inputMatix, inputRows, inputCols)), rows(inputRows), cols(inputCols), isSuccCreated(false) {}
 	BattleshipBoard(const std::string& boardPath, int rows, int cols);
 	~BattleshipBoard() { deleteMatrix(matrix, rows, cols); }
 
@@ -15,10 +15,11 @@ public:
 	//BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
 
 
-	char** GetCopyOfBoard()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
+	char** GetCopyOfBoardMatrix()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
 	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board */
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
+	bool isSuccessfullyCreated() const { return isSuccCreated; }
 	bool CheckIfHasAdjacentShips() const;											/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
 	static bool IsShipCharInBoard(char ch);											/* checks if given char is a ship char */
 
@@ -45,6 +46,7 @@ private:
 	char** matrix;
 	int rows;
 	int cols;
+	bool isSuccCreated;
 
 	static char** AllocateNewMatrix(int rows, int cols);						 /* allocates new matrix in given size */
 	static void InitEmptyMatrix(char** matrix, int rows, int cols);				 /* init already allocated matrix with ' ' */
