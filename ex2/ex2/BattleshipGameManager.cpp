@@ -365,31 +365,47 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 	}
 }
 
-bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
+bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll)
 {
-	IBattleshipGameAlgo* playerA;
-	IBattleshipGameAlgo* playerB;
-
-	HINSTANCE hDllA = LoadLibraryA(dllPathPlayerA.c_str()); // Notice: Unicode compatible version of LoadLibrary
-	if(!hDllA)
+	hDll = LoadLibraryA(dllPathPlayer.c_str()); // Notice: Unicode compatible version of LoadLibrary
+	if (!hDll)
 	{
-		std::cout << "Cannot load dll: " << dllPathPlayerA << std::endl;
+		std::cout << "Cannot load dll: " << dllPathPlayer << std::endl;
 		return false;
 	}
 	// Get function pointer
-	auto getAlgoFunc = (GetAlgoFuncType)GetProcAddress(hDllA, "GetAlgorithm");
-	if(!getAlgoFunc)
+	auto getAlgoFunc = (GetAlgoFuncType)GetProcAddress(hDll, "GetAlgorithm");
+	if (!getAlgoFunc)
 	{
-		std::cout << "Cannot load dll: " << dllPathPlayerA << std::endl;
+		std::cout << "Cannot load dll: " << dllPathPlayer << std::endl;
 		return false;
 	}
-	playerA = GetAlgorithm();
-	const char** tmpMatrixForA = mainBoard.createPlayerBoard(PLAYERID_A);
-	playerA->setBoard(PLAYERID_A, tmpMatrixForA, mainBoard.getRows(), mainBoard.getCols());
-	BattleshipBoard::deleteMatrix(const_cast<char**>(tmpMatrixForA), mainBoard.getRows(), mainBoard.getCols());
-	if(!playerA->init(inputDirPath))
-		std::cout << "Algorithm initialization failed for dll: " << dllPathPlayerA << std::endl;
+	player = GetAlgorithm();
+	const char** tmpMatrixForPlayer = mainBoard.createPlayerBoard(playerId);
+	player->setBoard(playerId, tmpMatrixForPlayer, mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard::deleteMatrix(const_cast<char**>(tmpMatrixForPlayer), mainBoard.getRows(), mainBoard.getCols());
+	if (!player->init(inputDirPath)) {
+		std::cout << "Algorithm initialization failed for dll: " << dllPathPlayer << std::endl;
+		return false;
+	}
+	return true;
+}
+
+bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
+{
+	IBattleshipGameAlgo* playerAlgoA;
+	IBattleshipGameAlgo* playerAlgoB;
+
+	
+	HINSTANCE hDllA, hDllB;
+	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA))
+		return false;
+	
+	playerA = UtilGamePlayer(PLAYERID_A, playerAlgoA, ) //todo: create here the ship*** matrix
 
 
+	
+	if (!loadAndInitPlayerDll(dllPathPlayerB, playerAlgoB, PLAYERID_B, hDllB))
+		return false;
 	
 }

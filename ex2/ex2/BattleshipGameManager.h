@@ -103,5 +103,7 @@ private:
 	static bool isCorrectNumberOfShipsForPlayer(size_t validShipsCnt, char playerChar);
 
 	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
+
+	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll);
 	
 };
