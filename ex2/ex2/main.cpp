@@ -1,7 +1,23 @@
-//this is for the first commit
-//sharin is here!!!!
+#include "BattleshipBoard.h"
+#include "BattleshipGameManager.h"
 
+int main(int argc, char* argv[])
+{
+	
 
-int main() {
-		return 000;
+	try
+	{
+		BattleshipGameManager Game(argc, argv);
+		if (Game.isGameSuccessfullyCreated())
+			Game.Run();
+		else
+			return -1;
+	}
+	catch (std::exception ex)
+	{
+		return -1;
+	}
+
+	return 0;
+
 }

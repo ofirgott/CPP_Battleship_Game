@@ -4,6 +4,10 @@
 #include "Ship.h"
 #include "BattleshipBoard.h"
 #include "Constants.h"
+#include <windows.h>
+
+typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
+//GetAlgoFuncType getShapeFunc;
 
 /* todo: 1.change the run() function to access the mainBoard. 2. the constructor shoul init utilGamePlayer ang not ibattelship game algo*/
 class BattleshipGameManager
@@ -11,26 +15,16 @@ class BattleshipGameManager
 	/*keep all current algo details*/
 	class UtilGamePlayer {
 		friend class BattleshipGameManager;
-		IBattleshipGameAlgo* attackAlgo;
+	private:
+		int id;
+		IBattleshipGameAlgo* playerAlgo;
 		bool hasMoreMoves;
 		int score;
-		Ship *** shipsMatrix;
-		int id;
-		int shipsCount;
-		int Rows;
-		int Cols;
+		Ship*** shipsMatrix;
+		int currShipsCount;
 
-		UtilGamePlayer()
-		{
-			id = -1;
-			hasMoreMoves = true;
-			score = 0;
-			shipsMatrix = nullptr;
-			attackAlgo = nullptr;
-			shipsCount = NUM_OF_PLAYER_SHIPS;
-			Rows = -1;
-			Cols = -1;
-		}
+		UtilGamePlayer() : id(-1), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
+		UtilGamePlayer(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
 
 		~UtilGamePlayer()
 		{
@@ -48,43 +42,69 @@ class BattleshipGameManager
 		/* update players score to the prev score + num
 			assume- num >= 0
 		*/
-		void incrementScore(int value)
-		{
-			score += value;
-		}
-
+		void incrementScore(int value) { score += value; }
+		
 	};
 
-	UtilGamePlayer* playerA;
-	UtilGamePlayer* playerB;
-
-	std::string boardFilePath;
-	BattleshipBoard mainBoard;
-
-	static void switchCurrPlayer(UtilGamePlayer** curr, UtilGamePlayer** other);
-
-	static void outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer);
 
 public:
-	/*dont want empty constructor*/
-	BattleshipGameManager() = delete;
 	
-	/*dont want copy constructor */
-	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;
-	
-	/*dont want '=' operator*/
-	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;
+	BattleshipGameManager() = delete;														/* deletes empty constructor */
+	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
+	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
+
+	BattleshipGameManager(int argc, char* argv[]);
 	
 	/*	isGameSuccessfullyCreated - true if constructor succeded, false otherwise
-		boardPath- path to the location of the game board
-		probably should recive the dll's as well to construct the IBattelshupGameAlgo instances
+	boardPath- path to the location of the game board
 	*/
-	BattleshipGameManager(std::string boardPath ,bool& isGameSuccessfullyCreated);
+	BattleshipGameManager(std::string boardPath, bool& isGameSuccessfullyCreated);
 
 	~BattleshipGameManager();
 
-	/*given a game instance run's the game and outputs the results*/
-	void Run() const;
+	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
+	void Run() const;			/* given a game instance run's the game and outputs the results */
 
+private:
+
+	std::vector<std::tuple<int, HINSTANCE, GetAlgoFuncType>> dll_vec; // vector of <playerID, dll handle, GetAlgorithm function ptr>
+
+	UtilGamePlayer* playerA;
+	UtilGamePlayer* playerB;
+	
+	std::string inputDirPath;
+	std::string boardFilePath;
+	
+	BattleshipBoard mainBoard;
+	bool gameSuccessfullyCreated;
+
+	static void switchCurrPlayer(UtilGamePlayer** curr, UtilGamePlayer** other);
+	static void outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer);
+	bool checkGameArguments(int argc, char* argv[], bool& printFlag, int& printDelay);
+	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);
+	
+	/* given a game main board, returns true if the board is valid according to the game rules:
+	right number of valid ships for each player, no invalid and adjacent ships in board. */
+	bool BattleshipGameManager::checkMainBoardValidity()const;
+
+	/* given a matrix board for a specific player, returns number of valid ships and set of invalid ships letters (according to the game rules
+	for example - <5, {'M', 'P'}> - input player board has 5 valid ships, but invalid size or shape 'M' and 'P' ships  */
+	static std::pair<size_t, std::set<char>> FindNumberOfValidShipsInBoard(const char** board, int rows, int cols);
+
+	/* given a set of sips details for player, this function deletes invalid ships from the set, according to the game rules */
+	/* in addition, adds letters of deleted found invalid ships to the set invalidShips*/
+	static void DeleteInvalidShipsDetailsEntryFromSet(std::set<std::pair<char, std::set<std::pair<int, int>>>>& setOfShipsDetails, std::set<char>& invalidShips);
+
+
+	/* given a player name and set of invalid ships letter for this player , prints relevant error message for each invalid ship in set */
+	static void PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar);
+
+	/* given a player name and his set of valid ships, returns true if the player has NUM_OF_PLAYER_SHIPS valid ships,
+	else prints relevant error message (for too many / too few ships), and returns false */
+	static bool isCorrectNumberOfShipsForPlayer(size_t validShipsCnt, char playerChar);
+
+	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
+
+	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll);
 	
 };
