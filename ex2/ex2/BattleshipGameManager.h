@@ -5,6 +5,7 @@
 #include "BattleshipBoard.h"
 #include "Constants.h"
 #include <windows.h>
+#include "GamePlayerData.h"
 
 typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
 //GetAlgoFuncType getShapeFunc;
@@ -12,43 +13,6 @@ typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
 /* todo: 1.change the run() function to access the mainBoard. 2. the constructor shoul init utilGamePlayer ang not ibattelship game algo*/
 class BattleshipGameManager
 {
-	/*keep all current algo details*/
-	class UtilGamePlayer {
-		friend class BattleshipGameManager;
-	private:
-		int id;
-		IBattleshipGameAlgo* playerAlgo;
-		bool hasMoreMoves;
-		int score;
-		Ship*** shipsMatrix;
-		int currShipsCount;
-
-
-		UtilGamePlayer() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
-		UtilGamePlayer(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
-
-		~UtilGamePlayer()
-		{
-			// todo: free the ship matrix here		
-		}
-		/*get next valid attack coordinates,if player doesnt have more moves return <-1,-1>*/
-		std::pair<int, int> getAlgoNextAttack() const;
-		
-		/* given coordinates  player updates number of ships he has got left&& updates the attack in his ships details.
-		   return the attack result and the number of pointes the attack scored
-			if player attacked the same coordinate in the second time return <Hit, -1> to indicate that the player shoudnt keep his turn
-		*/
-		std::pair<AttackResult, int> realAttack(std::pair<int, int> coor);
-		
-		/* update players score to the prev score + num
-			assume- num >= 0
-		*/
-		void incrementScore(int value) { score += value; }
-
-		bool isSet()const { return (id >= 0 && playerAlgo && shipsMatrix && currShipsCount > 0); }
-		
-	};
-
 
 public:
 	
@@ -57,11 +21,6 @@ public:
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 
 	BattleshipGameManager(int argc, char* argv[]);
-	
-	/*	isGameSuccessfullyCreated - true if constructor succeded, false otherwise
-	boardPath- path to the location of the game board
-	*/
-	BattleshipGameManager(std::string boardPath, bool& isGameSuccessfullyCreated);
 
 	~BattleshipGameManager();
 
@@ -69,11 +28,11 @@ public:
 	void Run();			/* given a game instance run's the game and outputs the results */
 
 private:
-
+	//friend class GamePlayerData;
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
-	UtilGamePlayer playerA;
-	UtilGamePlayer playerB;
+	GamePlayerData playerA;
+	GamePlayerData playerB;
 	
 	std::string inputDirPath;
 	std::string boardFilePath;
@@ -81,8 +40,8 @@ private:
 	BattleshipBoard mainBoard;
 	bool gameSuccessfullyCreated;
 
-	static void switchCurrPlayer(UtilGamePlayer* curr, UtilGamePlayer* other);
-	static void outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer);
+	static void switchCurrPlayer(GamePlayerData* curr, GamePlayerData* other);
+	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	bool checkGameArguments(int argc, char* argv[], bool& printFlag, int& printDelay);
 	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);
 	

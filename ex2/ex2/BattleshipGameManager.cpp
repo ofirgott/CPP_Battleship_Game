@@ -1,5 +1,6 @@
 #include "BattleshipGameManager.h"
 #include "BattleshipGameUtils.h"
+#include "GamePlayerData.h"
 
 
 BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDirPath(""), gameSuccessfullyCreated(false)
@@ -25,8 +26,8 @@ void BattleshipGameManager::Run()
 	std::pair<int, int> nextAttack;
 	std::pair<AttackResult, int> attackRes;
 
-	UtilGamePlayer* currPlayer = &playerA;
-	UtilGamePlayer* otherPlayer = &playerB;
+	GamePlayerData* currPlayer = &playerA;
+	GamePlayerData* otherPlayer = &playerB;
 
 	// as long as one of the players has more moves and no one won
 	while (currPlayer->hasMoreMoves || otherPlayer->hasMoreMoves ) { 
@@ -89,9 +90,9 @@ void BattleshipGameManager::Run()
 
 }
 
-void BattleshipGameManager::switchCurrPlayer(UtilGamePlayer *currPlayer , UtilGamePlayer *otherPlayer )
+void BattleshipGameManager::switchCurrPlayer(GamePlayerData *currPlayer , GamePlayerData *otherPlayer )
 {
-	UtilGamePlayer* tmp;
+	GamePlayerData* tmp;
 	//todo: ofir - maybe we just want to use the std::swap function instead of this function
 	// switch players
 	tmp = currPlayer;
@@ -100,77 +101,12 @@ void BattleshipGameManager::switchCurrPlayer(UtilGamePlayer *currPlayer , UtilGa
 }
 
 
-std::pair<int, int> BattleshipGameManager::UtilGamePlayer::getAlgoNextAttack() const
-{
-
-	std::pair<int, int> tmpAttack = playerAlgo->attack();
-
-	// todo : maybe use const numbers and not -1 ?? 
-	if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
-		return tmpAttack;
-	}
-	//todo: ofir - we need to to here some changes: duplicated rows, and checking if coordinare is in board needed to do with existed function of BattleshipBoard
-
-	// while the given coordinates are not in the board && the player has more moves
-	while (tmpAttack.first < Rows, tmpAttack.second >Cols)
-	{
-		tmpAttack = playerAlgo->attack();
-		if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
-			return tmpAttack;
-		}
-
-	}
-	return tmpAttack;
-}
-
-std::pair<AttackResult, int> BattleshipGameManager::UtilGamePlayer::realAttack(std::pair<int, int> coor)
-{
-	if (coor.first > Rows || coor.first < 1 || coor.second < 1 || coor.second > Cols) {
-		return std::pair<AttackResult, int>(AttackResult::Miss, 0);
-	}
-
-	int attackRes;
-	Ship* shipPtr = shipsMatrix[coor.first - 1][coor.second - 1];
-	std::pair<AttackResult, int> retPair;
-
-	if (shipPtr == nullptr) {// doesnt have a ship in this coordinates
-		retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
-	}
-	else { // have a ship in this coordinates 
-		if (shipPtr->isAlive()) {// not sank yet
-			attackRes = shipPtr->updateAttack(coor.first - 1, coor.second - 1);
-			if (attackRes == 0) { // successful attack
-				if (shipPtr->isAlive()) { // not sank yet 
-					retPair = std::make_pair(AttackResult::Hit, 0);
-				}
-				else
-				{ // the ship sank after the last attack
-					retPair = std::make_pair(AttackResult::Sink, shipPtr->getPoints());
-				}
-			}
-			else if (attackRes == 1)
-			{ // already hit this part- no points given
-				retPair = std::pair<AttackResult, int>(AttackResult::Hit, -1);
-			}
-			else
-			{ // attackRes == -1  
-				retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
-			}
-		}
-		else { // this ship is mine but already sank
-			retPair = std::pair<AttackResult, int>(AttackResult::Miss, 0);
-		}
-	}
-
-	if (retPair.first == AttackResult::Sink) { //  update number ships left for player
-			currShipsCount = currShipsCount - 1;
-	}
-
-	return retPair;
-}
 
 
-void BattleshipGameManager::outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer)
+
+
+
+void BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
 {
 
 	int currScore;
@@ -421,9 +357,9 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
 		return false;
 	
-	playerA = UtilGamePlayer(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA);
+	playerA = GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols());
 
-	if (!playerA.isSet) return false;
+	if (!playerA.isSet()) return false;
 
 	dll_vec.push_back(std::make_pair(PLAYERID_A, hDllA));
 
@@ -431,9 +367,9 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	if (!loadAndInitPlayerDll(dllPathPlayerB, playerAlgoB, PLAYERID_B, hDllB, shipsMatB, shipsCntB))
 		return false;
 	
-	playerB = UtilGamePlayer(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB);
+	playerB = GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols());
 
-	if (!playerB.isSet) return false;
+	if (!playerB.isSet()) return false;
 
 	dll_vec.push_back(std::make_pair(PLAYERID_B, hDllB));
 

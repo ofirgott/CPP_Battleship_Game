@@ -201,7 +201,7 @@ std::set<std::pair<char, std::set<std::pair<int, int>>>> BattleshipBoard::Extrac
 
 			char currShipChar = boardMatrixCopy[i][j];
 
-			getAllCurrShipCoords(boardMatrixCopy, i, j, currShipChar, coordOfCurrentShip,,);
+			getAllCurrShipCoords(boardMatrixCopy, i, j, currShipChar, coordOfCurrentShip, rows, cols);
 
 			setOfShipsDetails.insert(std::make_pair(currShipChar, coordOfCurrentShip));		/* insert to the big set current ship details - <'m', {<1,2>,<1,3>}>*/
 
