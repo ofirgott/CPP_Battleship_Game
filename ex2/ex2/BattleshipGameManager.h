@@ -5,6 +5,7 @@
 #include "BattleshipBoard.h"
 #include "Constants.h"
 
+/* todo: 1.change the run() function to access the mainBoard. 2. the constructor shoul init utilGamePlayer ang not ibattelship game algo*/
 class BattleshipGameManager
 {
 	/*keep all current algo details*/
