@@ -5,10 +5,8 @@
 
 std::pair<int, int> PlayerFromFile::attack()
 {
-	if(id == UNDEFINED_PLAYERID)
-		throw std::exception("Error - Player is undefined player while calling the attack() function.");
 
-	if (movesVectorItr == movesVector.end())
+	if (id == UNDEFINED_PLAYERID || movesVectorItr == movesVector.end())	// the Id check is just to be sure that the plyaer already initialized
 	{
 		isDone = true;			//todo: check if needed
 		return std::make_pair(-1, -1);
