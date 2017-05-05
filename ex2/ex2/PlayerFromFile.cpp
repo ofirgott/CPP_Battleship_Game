@@ -8,14 +8,13 @@ std::pair<int, int> PlayerFromFile::attack()
 
 	if (id == UNDEFINED_PLAYERID || movesVectorItr == movesVector.end())	// the Id check is just to be sure that the plyaer already initialized
 	{
-		isDone = true;			//todo: check if needed
 		return std::make_pair(-1, -1);
 	}
 
 	// else - we have more moves - we want to output only valid moves according to the player board dimmensions
 	std::pair<int, int> nextValidAttack;
 
-	while (!playerBoard.isCoordianteInBoard(movesVectorItr->first - 1, movesVectorItr->second - 1, playerBoard.getRows(), playerBoard.getCols()))
+	while (!BattleshipBoard::isCoordianteInBoard(movesVectorItr->first - 1, movesVectorItr->second - 1, boardRows, boardCols))
 	{
 		++movesVectorItr;
 	}
@@ -29,9 +28,9 @@ std::pair<int, int> PlayerFromFile::attack()
 
 bool PlayerFromFile::init(const std::string & path)
 {
-	if (!playerBoard.isSuccessfullyCreated || id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(path))
+	if (boardRows <= 0 || boardCols <= 0 || id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(path))
 		return false;
-	//todo: ofir - we need to check also if the board is valid
+
 	int attackFileOrder;
 	auto attackFilenames = BattleshipGameUtils::SortedDirlistSpecificExtension(path, ".attack");
 	

@@ -108,6 +108,6 @@ private:
 
 	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
 
-	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, int& shipsCnt)const;
+	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, size_t& shipsCnt)const;
 	
 };

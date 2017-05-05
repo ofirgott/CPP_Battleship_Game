@@ -309,11 +309,9 @@ std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsI
 																								{<'m', {<1,2>,<1,3>}> , <'P', {<8,5>, <8,6> , <8,7>}> } */
 	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
 
-	//char** matrixCopy = BattleshipBoard::copyMatrix(matrix, rows, cols);     /* we need to send copy of the matrix to ExtractShipsDetails function*/
 
 	setOfShipsDetails = mainBoard.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid -  this function will 																							  be called also when we will create the player */
 
-	//BattleshipBoard::deleteMatrix(matrixCopy, rows, cols);										 /* we don't need the matrix copy anymore*/
 
 	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);						 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips																								  updated*/
 
@@ -366,7 +364,7 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 	}
 }
 
-bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, int& shipsCnt)const 
+bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, size_t& shipsCnt)const 
 {
 	hDll = LoadLibraryA(dllPathPlayer.c_str()); // Notice: Unicode compatible version of LoadLibrary
 	if (!hDll)
@@ -415,7 +413,7 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	IBattleshipGameAlgo* playerAlgoB = nullptr;
 	Ship*** shipsMatA = nullptr;
 	Ship*** shipsMatB = nullptr;
-	int shipsCntA = 0, shipsCntB = 0;
+	size_t shipsCntA = 0, shipsCntB = 0;
 	
 	HINSTANCE hDllA, hDllB;
 
