@@ -52,7 +52,7 @@ public:
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 
-	BattleshipGameManager(int argc, char* argv[], bool& gameSuccessfullyCreated);
+	BattleshipGameManager(int argc, char* argv[]);
 	
 	/*	isGameSuccessfullyCreated - true if constructor succeded, false otherwise
 	boardPath- path to the location of the game board

@@ -2,7 +2,7 @@
 #include "BattleshipGameUtils.h"
 
 
-BattleshipGameManager::BattleshipGameManager(int argc, char * argv[], bool & gameSuccessfullyCreated) : inputDirPath(""), gameSuccessfullyCreated(false)
+BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDirPath(""), gameSuccessfullyCreated(false)
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
 	bool printFlag = false;
