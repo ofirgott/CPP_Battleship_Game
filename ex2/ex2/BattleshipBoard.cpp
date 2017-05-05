@@ -57,7 +57,7 @@ const char ** BattleshipBoard::createPlayerBoard(int playerID)const
 		}
 	}
 
-	return const_cast <const char**>(playerBoard);
+	return const_cast<const char **>(playerBoard);
 }
 
 
@@ -117,23 +117,18 @@ void BattleshipBoard::InitEmptyMatrix(char ** matrix, int rows, int cols)
 }
 
 
-std::set<std::pair<int, int>> BattleshipBoard::getNearbyCoordinates(int x, int y)
+std::set<std::pair<int, int>> BattleshipBoard::getNearbyCoordinates(int x, int y)const
 /* we check in this function every coordinate seperatly */
 {
 	std::set<std::pair<int, int>> adjCoordSet;
-	if (isCoordianteInBoard(x - 1, y, ROWS, COLS)) adjCoordSet.insert(std::make_pair(x - 1, y));
-	if (isCoordianteInBoard(x + 1, y, ROWS, COLS)) adjCoordSet.insert(std::make_pair(x + 1, y));
-	if (isCoordianteInBoard(x, y - 1, ROWS, COLS)) adjCoordSet.insert(std::make_pair(x, y - 1));
-	if (isCoordianteInBoard(x, y + 1, ROWS, COLS)) adjCoordSet.insert(std::make_pair(x, y + 1));
+	if (isCoordianteInBoard(x - 1, y)) adjCoordSet.insert(std::make_pair(x - 1, y)); //todo: ofir needs to remove the constants!
+	if (isCoordianteInBoard(x + 1, y)) adjCoordSet.insert(std::make_pair(x + 1, y));
+	if (isCoordianteInBoard(x, y - 1)) adjCoordSet.insert(std::make_pair(x, y - 1));
+	if (isCoordianteInBoard(x, y + 1)) adjCoordSet.insert(std::make_pair(x, y + 1));
 
 	return std::set<std::pair<int, int>>(adjCoordSet);
 }
 
-bool BattleshipBoard::isCoordianteInBoard(int x, int y, int rowsNum, int colsNum)
-{
-	if (x >= 0 && x < rowsNum && y >= 0 && y <= colsNum) return true;
-	else return false;
-}
 
 char ** BattleshipBoard::copyMatrix(const char ** matrix, int rows, int cols)
 {
@@ -151,7 +146,7 @@ char ** BattleshipBoard::copyMatrix(const char ** matrix, int rows, int cols)
 	return copy;
 }
 
-void BattleshipBoard::deleteMatrix(char ** matrix, int rows, int cols)
+void BattleshipBoard::deleteMatrix(const char ** matrix, int rows, int cols)
 {
 	if (!matrix) return;
 
@@ -191,38 +186,40 @@ bool BattleshipBoard::IsShipCharInBoard(char ch)
 * for example: {<'m', {<1,2>,<1,3>}> , <'P', {<8,5> , <8,6> , <8,7>}> }
 * note that we don't check here the correctness of ships, only extract data
 */
-std::set<std::pair<char, std::set<std::pair<int, int>>>> BattleshipBoard::ExtractShipsDetails(char** matrix, int rows, int cols)	/* get a valid matrix (only ships of one player) */
+std::set<std::pair<char, std::set<std::pair<int, int>>>> BattleshipBoard::ExtractShipsDetails()const	/* create new copy of the matrix and de;etes it */
 {
+	char** boardMatrixCopy = GetCopyOfBoardMatrix();
 	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;
 
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			if (matrix[i][j] == ' ') continue;
+			if (boardMatrixCopy[i][j] == ' ') continue;
 
 			std::set<std::pair<int, int>> coordOfCurrentShip;
 
-			char currShipChar = matrix[i][j];
+			char currShipChar = boardMatrixCopy[i][j];
 
-			getAllCurrShipCoords(matrix, i, j, currShipChar, coordOfCurrentShip);
+			getAllCurrShipCoords(boardMatrixCopy, i, j, currShipChar, coordOfCurrentShip,,);
 
 			setOfShipsDetails.insert(std::make_pair(currShipChar, coordOfCurrentShip));		/* insert to the big set current ship details - <'m', {<1,2>,<1,3>}>*/
 
 			for (auto coord : coordOfCurrentShip)
 			{
-				matrix[coord.first][coord.second] = ' ';	/* clear the board from this ship (we should have a copy of the board) */
+				boardMatrixCopy[coord.first][coord.second] = ' ';	/* clear the board from this ship (we should have a copy of the board) */
 			}
 			coordOfCurrentShip.clear();
 		}
 	}
+	deleteMatrix(const_cast<const char**>(boardMatrixCopy), rows, cols);
 
 	return std::set<std::pair<char, std::set<std::pair<int, int>>>>(setOfShipsDetails);
 }
 
 
 
-void BattleshipBoard::getAllCurrShipCoords(char** matrix, int x, int y, char currShipChar, std::set<std::pair<int, int>> &coordOfCurrentShip)
+void BattleshipBoard::getAllCurrShipCoords(char** matrix, int x, int y, char currShipChar, std::set<std::pair<int, int>> &coordOfCurrentShip, int matRows, int matCols)
 {
 	/*  note that in this function we can coordinate with line 0! if we want to use this function outside, we need to pay attention for this. */
 
@@ -231,13 +228,13 @@ void BattleshipBoard::getAllCurrShipCoords(char** matrix, int x, int y, char cur
 		matrix[x][y] = ' ';												/* clear the current position and add it to the coordinates set*/
 		coordOfCurrentShip.insert(std::make_pair(x, y));
 
-		if (isCoordianteInBoard(x, y + 1, ROWS, COLS))
-			getAllCurrShipCoords(matrix, x, y + 1, currShipChar, coordOfCurrentShip);
-		if (isCoordianteInBoard(x, y - 1, ROWS, COLS))
-			getAllCurrShipCoords(matrix, x, y - 1, currShipChar, coordOfCurrentShip);
-		if (isCoordianteInBoard(x + 1, y, ROWS, COLS))
-			getAllCurrShipCoords(matrix, x + 1, y, currShipChar, coordOfCurrentShip);
-		if (isCoordianteInBoard(x - 1, y, ROWS, COLS))
-			getAllCurrShipCoords(matrix, x - 1, y, currShipChar, coordOfCurrentShip);
+		if (isCoordianteInBoard(x, y + 1, matCols, matRows))
+			getAllCurrShipCoords(matrix, x, y + 1, currShipChar, coordOfCurrentShip, matCols, matRows);
+		if (isCoordianteInBoard(x, y - 1, matCols, matRows))
+			getAllCurrShipCoords(matrix, x, y - 1, currShipChar, coordOfCurrentShip, matCols, matRows);
+		if (isCoordianteInBoard(x + 1, y, matCols, matRows))
+			getAllCurrShipCoords(matrix, x + 1, y, currShipChar, coordOfCurrentShip, matCols, matRows);
+		if (isCoordianteInBoard(x - 1, y, matCols, matRows))
+			getAllCurrShipCoords(matrix, x - 1, y, currShipChar, coordOfCurrentShip, matCols, matRows);
 	}
 }

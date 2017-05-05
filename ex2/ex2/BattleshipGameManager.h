@@ -22,7 +22,8 @@ class BattleshipGameManager
 		Ship*** shipsMatrix;
 		int currShipsCount;
 
-		UtilGamePlayer() : id(-1), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
+
+		UtilGamePlayer() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0) {}
 		UtilGamePlayer(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, int shipsCount) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount){}
 
 		~UtilGamePlayer()
@@ -42,6 +43,8 @@ class BattleshipGameManager
 			assume- num >= 0
 		*/
 		void incrementScore(int value) { score += value; }
+
+		bool isSet()const { return (id >= 0 && playerAlgo && shipsMatrix && currShipsCount > 0); }
 		
 	};
 
@@ -62,14 +65,14 @@ public:
 	~BattleshipGameManager();
 
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
-	void Run() const;			/* given a game instance run's the game and outputs the results */
+	void Run();			/* given a game instance run's the game and outputs the results */
 
 private:
 
-	std::vector<std::tuple<int, HINSTANCE, GetAlgoFuncType>> dll_vec; // vector of <playerID, dll handle, GetAlgorithm function ptr>
+	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
-	UtilGamePlayer* playerA;
-	UtilGamePlayer* playerB;
+	UtilGamePlayer playerA;
+	UtilGamePlayer playerB;
 	
 	std::string inputDirPath;
 	std::string boardFilePath;
@@ -77,7 +80,7 @@ private:
 	BattleshipBoard mainBoard;
 	bool gameSuccessfullyCreated;
 
-	static void switchCurrPlayer(UtilGamePlayer** curr, UtilGamePlayer** other);
+	static void switchCurrPlayer(UtilGamePlayer* curr, UtilGamePlayer* other);
 	static void outputGameResult(UtilGamePlayer* currPlayer, UtilGamePlayer* otherPlayer);
 	bool checkGameArguments(int argc, char* argv[], bool& printFlag, int& printDelay);
 	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);
@@ -88,7 +91,7 @@ private:
 
 	/* given a matrix board for a specific player, returns number of valid ships and set of invalid ships letters (according to the game rules
 	for example - <5, {'M', 'P'}> - input player board has 5 valid ships, but invalid size or shape 'M' and 'P' ships  */
-	static std::pair<size_t, std::set<char>> FindNumberOfValidShipsInBoard(const char** board, int rows, int cols);
+	std::pair<size_t, std::set<char>> FindNumberOfValidShipsInBoard()const;
 
 	/* given a set of sips details for player, this function deletes invalid ships from the set, according to the game rules */
 	/* in addition, adds letters of deleted found invalid ships to the set invalidShips*/
@@ -104,6 +107,6 @@ private:
 
 	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
 
-	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll);
+	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, int& shipsCnt)const;
 	
 };

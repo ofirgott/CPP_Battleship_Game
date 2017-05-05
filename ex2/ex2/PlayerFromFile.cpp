@@ -29,9 +29,9 @@ std::pair<int, int> PlayerFromFile::attack()
 
 bool PlayerFromFile::init(const std::string & path)
 {
-	if (id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(path))
+	if (!playerBoard.isSuccessfullyCreated || id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(path))
 		return false;
-
+	//todo: ofir - we need to check also if the board is valid
 	int attackFileOrder;
 	auto attackFilenames = BattleshipGameUtils::SortedDirlistSpecificExtension(path, ".attack");
 	
