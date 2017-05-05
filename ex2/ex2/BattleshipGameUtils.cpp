@@ -51,3 +51,4 @@ std::vector<std::string> BattleshipGameUtils::SortedDirlistSpecificExtension(std
 
 	return outputFilenames;
 }
+
