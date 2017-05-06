@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+#include "../ex2/Player.h"
 
 
 class PlayerFromFile : public Player

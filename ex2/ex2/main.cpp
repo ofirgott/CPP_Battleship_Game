@@ -11,13 +11,15 @@ int main(int argc, char* argv[])
 		if (Game.isGameSuccessfullyCreated())
 			Game.Run();
 		else
+			system("pause");
 			return -1;
 	}
 	catch (std::exception ex)
 	{
+		system("pause");
 		return -1;
 	}
-
+	system("pause");
 	return 0;
 
 }
