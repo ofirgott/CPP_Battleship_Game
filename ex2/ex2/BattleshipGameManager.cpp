@@ -363,10 +363,10 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	size_t shipsCntA = 0, shipsCntB = 0;
 	
 	HINSTANCE hDllA, hDllB;
-	const std::string tmpppppppppA = "C:/Users/Ofir/Documents/GitHub/ex2/x64/Debug/PlayerFromFile.dll";
+	//const std::string tmpppppppppA = "C:/Users/Ofir/Documents/GitHub/ex2/x64/Debug/PlayerFromFile.dll";
 		
 	/* PlayerA init */
-	if (!loadAndInitPlayerDll(tmpppppppppA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
+	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
 		return false;
 	
 	playerA = GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols());
