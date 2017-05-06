@@ -124,6 +124,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GamePlayerData.h" />
     <ClInclude Include="IBattleshipGameAlgo.h" />
+    <ClInclude Include="PrintGameBoard.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
@@ -132,10 +133,8 @@
     <ClCompile Include="BattleshipGameUtils.cpp" />
     <ClCompile Include="GamePlayerData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PrintGameBoard.cpp" />
     <ClCompile Include="Ship.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="ex2.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

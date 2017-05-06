@@ -39,7 +39,7 @@ private:
 	/* update players score to the prev score + num
 	assume- num >= 0
 	*/
-	void incrementScore(int value) { score += value; }
+	void incrementScore(int value) { if(value > 0) score += value; }
 
 	bool isSet()const { return (id >= 0 && playerAlgo && shipsMatrix && currShipsCount > 0 && boardRows > 0 && boardCols > 0); }
 

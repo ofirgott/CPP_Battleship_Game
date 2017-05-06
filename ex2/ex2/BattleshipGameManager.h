@@ -41,7 +41,7 @@ private:
 	BattleshipBoard mainBoard;
 	bool gameSuccessfullyCreated;
 
-	static void switchCurrPlayer(GamePlayerData* curr, GamePlayerData* other);
+	static void switchCurrPlayer(GamePlayerData** curr, GamePlayerData** other);
 	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	bool checkGameArguments(int argc, char* argv[], bool& printFlag, int& printDelay);
 	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);

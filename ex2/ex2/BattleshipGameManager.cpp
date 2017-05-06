@@ -38,12 +38,15 @@ void BattleshipGameManager::Run()
 
 	GamePlayerData* currPlayer = &playerA;
 	GamePlayerData* otherPlayer = &playerB;
-
+	int i = 0;
 	// as long as one of the players has more moves and no one won
 	while (currPlayer->hasMoreMoves || otherPlayer->hasMoreMoves ) { 
+		
+		i++;
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
-			switchCurrPlayer(currPlayer, otherPlayer);
+			//switchCurrPlayer(&currPlayer, &otherPlayer);
+			std::swap(currPlayer, otherPlayer);
 			continue;
 		}
 
@@ -69,16 +72,17 @@ void BattleshipGameManager::Run()
 			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 			// pass turn to other player- if missed || if attacked myself
 		
-			switchCurrPlayer(currPlayer, otherPlayer);
-
+			//switchCurrPlayer(&currPlayer, &otherPlayer);
+			std::swap(currPlayer, otherPlayer);
 			//check if someone won
 			if ((currPlayer->currShipsCount== 0) || (otherPlayer->currShipsCount == 0)) {
 				break;
 			}
 		}
-		else { // attacked opponents ship
+		else { // attacked opponents ship  //Ofir - comment here is wrong -> hit can also represent hit ini my ship
 			if (attackRes.second == -1) {	// hit opponents ship but not in a new coordinate; switch turns
-				switchCurrPlayer(currPlayer, otherPlayer);
+				//switchCurrPlayer(&currPlayer, &otherPlayer);
+				std::swap(currPlayer, otherPlayer);
 			}
 			else {
 				currPlayer->incrementScore(attackRes.second);
@@ -100,9 +104,9 @@ void BattleshipGameManager::Run()
 
 }
 
-void BattleshipGameManager::switchCurrPlayer(GamePlayerData *currPlayer , GamePlayerData *otherPlayer )
+void BattleshipGameManager::switchCurrPlayer(GamePlayerData **currPlayer , GamePlayerData **otherPlayer )
 {
-	GamePlayerData* tmp;
+	GamePlayerData** tmp;
 	//todo: ofir - maybe we just want to use the std::swap function instead of this function
 	// switch players
 	tmp = currPlayer;
@@ -327,9 +331,8 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 	}
 	player = getAlgoFunc();
 	const char** tmpPlayerMat = mainBoard.createPlayerBoard(playerId);
-	int r = mainBoard.getRows();
-	int c = mainBoard.getCols();
-	BattleshipBoard tmpBoardForPlayer(tmpPlayerMat, r, c);
+
+	BattleshipBoard tmpBoardForPlayer(tmpPlayerMat, mainBoard.getRows(), mainBoard.getCols());
 	
 	if (!tmpBoardForPlayer.isSuccessfullyCreated()) return false;
 

@@ -121,16 +121,18 @@ int main(int argc, char* argv[])
 		dir_path = argv[1];
 
 	if(!checkGamefiles(dir_path, boardPath, attackFilePath_a, attackFilePath_b)){
+		system("pause");
 		return -1;
 	}
 
 	BattleshipGameManager Game(boardPath, attackFilePath_a, attackFilePath_b, isGameSuccessfullyCreated);
 
 	if (!isGameSuccessfullyCreated) {
+		system("pause");
 		return -1;
 	}
 
 	Game.Run();
-
+	system("pause");
 	return 0;
 }
