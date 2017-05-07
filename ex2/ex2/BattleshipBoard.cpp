@@ -49,7 +49,7 @@ BattleshipBoard & BattleshipBoard::operator=(const BattleshipBoard & otherBoard)
 		matrix = copyMatrix(const_cast<const char**>(otherBoard.matrix), otherBoard.rows, otherBoard.cols);
 		isSuccCreated = true;
 	}
-	
+
 	return *this;
 }
 

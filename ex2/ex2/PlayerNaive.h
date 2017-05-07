@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 
+
 class PlayerNaive : public Player
 {
 public:

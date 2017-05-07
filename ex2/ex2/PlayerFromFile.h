@@ -5,7 +5,7 @@
 class PlayerFromFile : public Player
 {
 public:
-	PlayerFromFile() : Player() {};	//todo: i want to use iterator instead
+	PlayerFromFile() : Player() {};	
 
 	std::pair<int, int> attack() override;
 
