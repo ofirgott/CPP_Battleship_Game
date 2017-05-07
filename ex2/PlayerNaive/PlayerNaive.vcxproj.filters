@@ -26,13 +26,13 @@
     <ClInclude Include="..\ex2\PlayerNaive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\ex2\BattleshipBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Player.h">
+    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ex2\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -146,9 +146,9 @@
     <ClCompile Include="..\ex2\PlayerNaive.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\Player.h" />
     <ClInclude Include="..\ex2\BattleshipBoard.h" />
     <ClInclude Include="..\ex2\IBattleshipGameAlgo.h" />
+    <ClInclude Include="..\ex2\Player.h" />
     <ClInclude Include="..\ex2\PlayerNaive.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

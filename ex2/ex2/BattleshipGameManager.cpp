@@ -23,10 +23,15 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 
 BattleshipGameManager::~BattleshipGameManager()
 {
+	//std::cout << "in MANAGER DEST \n";
+	//std::cout << (void*)playerA.playerAlgo << "this is add of playerA algo\n";
+	//std::cout << (void*)playerB.playerAlgo << "this is add of playerB algo\n";
+	//delete playerA.playerAlgo;
+	//delete playerB.playerAlgo;
 	
-	//delete playerAlgoA;
-	//delete playerAlgoB;
-	
+	delete playerAlgoA;
+	delete playerAlgoB;
+
 	std::vector<std::pair<int, HINSTANCE>>::iterator vitr;
 	
 	// close all the dynamic libs we opened

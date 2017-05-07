@@ -1,6 +1,7 @@
 #include "GamePlayerData.h"
 #include <iostream>
 #include "BattleshipBoard.h"
+#include "BattleshipGameManager.h"
 
 
 GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
@@ -17,6 +18,21 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 	//std::cout << "in move = of GAMEPLAYERDATA: " << std::endl;
 	
 	return *this;
+}
+
+GamePlayerData::~GamePlayerData()
+{
+	//std::cout << "************in MANAGER DEST*********** \n";
+	//std::cout << "id == " << id << "\n";
+	//std::cout << "address of the algo == " << (void*)playerAlgo << "\n";
+
+	Ship::deleteShipMatrix(shipsMatrix);
+	//todo: say in duco that manager will alrady delete the algo! and not here
+	//delete playerAlgo;
+
+	//delete playerAlgo;
+
+
 }
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const

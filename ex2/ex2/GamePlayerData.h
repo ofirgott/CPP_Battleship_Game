@@ -2,7 +2,7 @@
 
 #include "Ship.h"
 #include "IBattleshipGameAlgo.h"
-#include <iostream>
+
 
 /*keeps all current algo details*/
 class GamePlayerData {
@@ -15,7 +15,7 @@ public:
 	GamePlayerData(GamePlayerData&& other)noexcept = delete; //{ std::swap(*this, other); } // move c'tor
 	GamePlayerData(const GamePlayerData& otherPlayer) = delete;					/* deletes copy constructor */
 
-	~GamePlayerData() { std::cout << "trying to delete " << this->id << std::endl;    Ship::deleteShipMatrix(shipsMatrix);  }
+	~GamePlayerData();
 private:
 	
 	int id;

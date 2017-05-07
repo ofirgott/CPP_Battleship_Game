@@ -13,7 +13,7 @@ typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
 /* todo: 1.change the run() function to access the mainBoard. 2. the constructor shoul init utilGamePlayer ang not ibattelship game algo*/
 class BattleshipGameManager
 {
-	//friend class GamePlayerData;
+	
 public:
 	
 	BattleshipGameManager() = delete;														/* deletes empty constructor */
@@ -29,7 +29,7 @@ public:
 	void Run();			/* given a game instance run's the game and outputs the results */
 
 private:
-	//friend class GamePlayerData;
+	
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
 	IBattleshipGameAlgo* playerAlgoA;
@@ -38,7 +38,7 @@ private:
 	GamePlayerData playerA;
 	GamePlayerData playerB;
 	
-
+	
 
 	std::string inputDirPath;
 	std::string boardFilePath;
