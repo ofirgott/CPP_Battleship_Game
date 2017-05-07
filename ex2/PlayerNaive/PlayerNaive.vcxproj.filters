@@ -21,9 +21,6 @@
     <ClCompile Include="..\ex2\BattleshipBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ex2\BattleshipGameUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ex2\PlayerNaive.h">
@@ -33,9 +30,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\common\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ex2\BattleshipGameUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

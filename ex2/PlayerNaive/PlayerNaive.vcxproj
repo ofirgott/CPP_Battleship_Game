@@ -143,13 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ex2\BattleshipBoard.cpp" />
-    <ClCompile Include="..\ex2\BattleshipGameUtils.cpp" />
     <ClCompile Include="..\ex2\PlayerNaive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\Player.h" />
     <ClInclude Include="..\ex2\BattleshipBoard.h" />
-    <ClInclude Include="..\ex2\BattleshipGameUtils.h" />
     <ClInclude Include="..\ex2\PlayerNaive.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
