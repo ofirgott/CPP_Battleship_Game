@@ -72,7 +72,7 @@ std::pair<int, int> PlayerNaive::attack()
 	++movesVectorItr;	
 						/* move forward in the attacks vector for the next attack() call */
 	
-	//std::cout << nextValidAttack.first << ", " << nextValidAttack.second << std::endl;
+	std::cout << nextValidAttack.first << ", " << nextValidAttack.second << std::endl;
 	return nextValidAttack;
 
 }
