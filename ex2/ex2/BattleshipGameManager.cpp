@@ -24,6 +24,7 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDir
 BattleshipGameManager::~BattleshipGameManager()
 {
 	std::vector<std::pair<int, HINSTANCE>>::iterator vitr;
+	
 	// close all the dynamic libs we opened
 	for (vitr = dll_vec.begin(); vitr != dll_vec.end(); ++vitr)
 	{
@@ -372,7 +373,7 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
 		return false;
 	
-	playerA = GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols());
+	playerA = std::move(GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols()));
 
 	if (!playerA.isSet()) return false;
 
@@ -382,7 +383,7 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	if (!loadAndInitPlayerDll(dllPathPlayerB, playerAlgoB, PLAYERID_B, hDllB, shipsMatB, shipsCntB))
 		return false;
 	
-	playerB = GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols());
+	playerB = std::move(GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols()));
 
 	if (!playerB.isSet()) return false;
 

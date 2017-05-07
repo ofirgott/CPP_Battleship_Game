@@ -1,5 +1,22 @@
 #include "GamePlayerData.h"
+#include <iostream>
 
+
+GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
+{
+	
+	id = other.id;
+	std::swap(playerAlgo, other.playerAlgo);
+	hasMoreMoves = other.hasMoreMoves;
+	score = other.score;
+	std::swap(shipsMatrix, other.shipsMatrix);
+	currShipsCount = other.currShipsCount;
+	boardRows = other.boardRows;
+	boardCols = other.boardCols;
+	//std::cout << "in move = of GAMEPLAYERDATA: " << std::endl;
+	
+	return *this;
+}
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 {
