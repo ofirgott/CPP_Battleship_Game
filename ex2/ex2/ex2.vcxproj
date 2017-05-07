@@ -132,7 +132,10 @@
     <ClCompile Include="BattleshipGameManager.cpp" />
     <ClCompile Include="BattleshipGameUtils.cpp" />
     <ClCompile Include="GamePlayerData.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
     <ClCompile Include="PrintGameBoard.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
