@@ -69,9 +69,12 @@ std::pair<int, int> PlayerNaive::attack()
 	}
 
 	nextValidAttack = *movesVectorItr;			 /* the valid attack pair we will output*/
-	++movesVectorItr;							/* move forward in the attacks vector for the next attack() call */
-
+	++movesVectorItr;	
+						/* move forward in the attacks vector for the next attack() call */
+	
+	//std::cout << nextValidAttack.first << ", " << nextValidAttack.second << std::endl;
 	return nextValidAttack;
+
 }
 
 
