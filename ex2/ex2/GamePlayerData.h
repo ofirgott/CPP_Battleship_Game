@@ -6,7 +6,7 @@
 
 /*keeps all current algo details*/
 class GamePlayerData {
-	
+
 	friend class BattleshipGameManager;
 public:
 
@@ -15,7 +15,7 @@ public:
 	GamePlayerData(GamePlayerData&& other)noexcept = delete; //{ std::swap(*this, other); } // move c'tor
 	GamePlayerData(const GamePlayerData& otherPlayer) = delete;					/* deletes copy constructor */
 
-	~GamePlayerData() {} //std::cout << "trying to delete " << this->id << std::endl; }//delete playerAlgo;  Ship::deleteShipMatrix(shipsMatrix); }
+	~GamePlayerData() { std::cout << "trying to delete " << this->id << std::endl;    Ship::deleteShipMatrix(shipsMatrix);  }
 private:
 	
 	int id;
@@ -26,7 +26,7 @@ private:
 	size_t currShipsCount;
 	int boardRows;
 	int boardCols;
-	friend class BattleshipGameManager;
+	//friend class BattleshipGameManager;
 
 	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0), boardRows(0), boardCols(0){}
 	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, size_t shipsCount, int boardrows, int boardcols) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount), boardRows(boardrows), boardCols(boardcols) {}

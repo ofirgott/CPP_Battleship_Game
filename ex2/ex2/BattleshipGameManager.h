@@ -32,9 +32,14 @@ private:
 	//friend class GamePlayerData;
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
+	IBattleshipGameAlgo* playerAlgoA;
+	IBattleshipGameAlgo* playerAlgoB;
+	
 	GamePlayerData playerA;
 	GamePlayerData playerB;
 	
+
+
 	std::string inputDirPath;
 	std::string boardFilePath;
 	

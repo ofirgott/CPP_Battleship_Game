@@ -3,7 +3,7 @@
 #include "GamePlayerData.h"
 
 
-BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDirPath(""), gameSuccessfullyCreated(false)
+BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAlgoA(nullptr), playerAlgoB(nullptr), inputDirPath(""), gameSuccessfullyCreated(false)
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
 	bool printFlag = false;
@@ -23,9 +23,14 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDir
 
 BattleshipGameManager::~BattleshipGameManager()
 {
+	
+	//delete playerAlgoA;
+	//delete playerAlgoB;
+	
 	std::vector<std::pair<int, HINSTANCE>>::iterator vitr;
 	
 	// close all the dynamic libs we opened
+	
 	for (vitr = dll_vec.begin(); vitr != dll_vec.end(); ++vitr)
 	{
 		FreeLibrary(vitr->second);
@@ -315,7 +320,7 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 	}
 }
 
-bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const 
+bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const
 {
 	hDll = LoadLibraryA(dllPathPlayer.c_str()); // Notice: Unicode compatible version of LoadLibrary
 	if (!hDll)
@@ -360,8 +365,8 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 
 bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
 {
-	IBattleshipGameAlgo* playerAlgoA = nullptr;
-	IBattleshipGameAlgo* playerAlgoB = nullptr;
+	//IBattleshipGameAlgo* playerAlgoA = nullptr;
+	//IBattleshipGameAlgo* playerAlgoB = nullptr;
 	Ship*** shipsMatA = nullptr;
 	Ship*** shipsMatB = nullptr;
 	size_t shipsCntA = 0, shipsCntB = 0;

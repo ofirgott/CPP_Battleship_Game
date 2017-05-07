@@ -1,5 +1,6 @@
 #include "GamePlayerData.h"
 #include <iostream>
+#include "BattleshipBoard.h"
 
 
 GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
@@ -30,7 +31,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 	//todo: ofir - we need to to here some changes: duplicated rows, and checking if coordinare is in board needed to do with existed function of BattleshipBoard
 
 	// while the given coordinates are not in the board && the player has more moves
-	while (tmpAttack.first < boardRows, tmpAttack.second >boardCols)
+	while (!BattleshipBoard::isCoordianteInBoard(tmpAttack.first - 1, tmpAttack.second - 1, boardRows, boardCols))
 	{
 		tmpAttack = playerAlgo->attack();
 		if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
@@ -44,7 +45,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 
 std::pair<AttackResult, int> GamePlayerData::realAttack(std::pair<int, int> coor)
 {
-	if (coor.first > boardRows || coor.first < 1 || coor.second < 1 || coor.second > boardCols) {
+	if (!BattleshipBoard::isCoordianteInBoard(coor.first - 1, coor.second - 1, boardRows, boardCols)){
 		return std::pair<AttackResult, int>(AttackResult::Miss, 0);
 	}
 
