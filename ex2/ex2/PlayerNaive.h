@@ -11,7 +11,5 @@ public:
 private:
 	std::vector<std::pair<int, int>> movesVector; // vector of moves
 	std::vector<std::pair<int, int>>::const_iterator movesVectorItr;
-	bool isDone; // if false player has more moves; true - no more moves	
-
 
 };
