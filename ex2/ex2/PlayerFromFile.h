@@ -1,11 +1,11 @@
 #pragma once
-#include "Player.h"
+#include "../ex2/Player.h"
 
 
 class PlayerFromFile : public Player
 {
 public:
-	PlayerFromFile() : Player() {};	//todo: i want to use iterator instead
+	PlayerFromFile() : Player() {};	
 
 	std::pair<int, int> attack() override;
 

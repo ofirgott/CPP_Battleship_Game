@@ -3,7 +3,7 @@
 #include "GamePlayerData.h"
 
 
-BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDirPath(""), gameSuccessfullyCreated(false)
+BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAlgoA(nullptr), playerAlgoB(nullptr), inputDirPath(""), gameSuccessfullyCreated(false)
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
 	bool printFlag = false;
@@ -12,13 +12,34 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : inputDir
 	if(!checkGameArguments(argc, argv, printFlag, printDelay)) return;	//todo: need to implement
 		
 	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
-
-	mainBoard = BattleshipBoard(boardFilePath, ROWS, COLS);
+	
+	mainBoard = BattleshipBoard(boardFilePath, ROWS, COLS);		//todo: maybe we want here move?
 	
 	if (!checkMainBoardValidity() || !initGamePlayers(dllPathPlayerA, dllPathPlayerB)) return;
 
 	gameSuccessfullyCreated = true;
 
+}
+
+BattleshipGameManager::~BattleshipGameManager()
+{
+	//std::cout << "in MANAGER DEST \n";
+	//std::cout << (void*)playerA.playerAlgo << "this is add of playerA algo\n";
+	//std::cout << (void*)playerB.playerAlgo << "this is add of playerB algo\n";
+	//delete playerA.playerAlgo;
+	//delete playerB.playerAlgo;
+	
+	delete playerAlgoA;
+	delete playerAlgoB;
+
+	std::vector<std::pair<int, HINSTANCE>>::iterator vitr;
+	
+	// close all the dynamic libs we opened
+	
+	for (vitr = dll_vec.begin(); vitr != dll_vec.end(); ++vitr)
+	{
+		FreeLibrary(vitr->second);
+	}
 }
 
 void BattleshipGameManager::Run()
@@ -28,12 +49,15 @@ void BattleshipGameManager::Run()
 
 	GamePlayerData* currPlayer = &playerA;
 	GamePlayerData* otherPlayer = &playerB;
-
+	int i = 0;
 	// as long as one of the players has more moves and no one won
 	while (currPlayer->hasMoreMoves || otherPlayer->hasMoreMoves ) { 
+		
+		i++;
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
-			switchCurrPlayer(currPlayer, otherPlayer);
+			//switchCurrPlayer(&currPlayer, &otherPlayer);
+			std::swap(currPlayer, otherPlayer);
 			continue;
 		}
 
@@ -59,16 +83,17 @@ void BattleshipGameManager::Run()
 			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 			// pass turn to other player- if missed || if attacked myself
 		
-			switchCurrPlayer(currPlayer, otherPlayer);
-
+			//switchCurrPlayer(&currPlayer, &otherPlayer);
+			std::swap(currPlayer, otherPlayer);
 			//check if someone won
 			if ((currPlayer->currShipsCount== 0) || (otherPlayer->currShipsCount == 0)) {
 				break;
 			}
 		}
-		else { // attacked opponents ship
+		else { // attacked opponents ship  //Ofir - comment here is wrong -> hit can also represent hit ini my ship
 			if (attackRes.second == -1) {	// hit opponents ship but not in a new coordinate; switch turns
-				switchCurrPlayer(currPlayer, otherPlayer);
+				//switchCurrPlayer(&currPlayer, &otherPlayer);
+				std::swap(currPlayer, otherPlayer);
 			}
 			else {
 				currPlayer->incrementScore(attackRes.second);
@@ -90,9 +115,9 @@ void BattleshipGameManager::Run()
 
 }
 
-void BattleshipGameManager::switchCurrPlayer(GamePlayerData *currPlayer , GamePlayerData *otherPlayer )
+void BattleshipGameManager::switchCurrPlayer(GamePlayerData **currPlayer , GamePlayerData **otherPlayer )
 {
-	GamePlayerData* tmp;
+	GamePlayerData** tmp;
 	//todo: ofir - maybe we just want to use the std::swap function instead of this function
 	// switch players
 	tmp = currPlayer;
@@ -205,23 +230,23 @@ bool BattleshipGameManager::checkMainBoardValidity()const
 	hasTooFewShips_A = hasTooFewShips_B = true;
 
 	const char** matrixA = const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_A));						/* allocates new matrix */
-	BattleshipBoard boardA(const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_A)), mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard boardA(matrixA, mainBoard.getRows(), mainBoard.getCols());
 	const char** MatrixB = const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_B));
-	BattleshipBoard boardB(const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_B)), mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard boardB(MatrixB, mainBoard.getRows(), mainBoard.getCols());
 	std::pair<size_t, std::set<char>> tmpPair;											/* for FindNumberOfValidShipsInBoard output*/
 	std::set<char> invalidShips_A;
 	std::set<char> invalidShips_B;
 
 
-	tmpPair = FindNumberOfValidShipsInBoard();
+	tmpPair = FindNumberOfValidShipsInBoard(boardA);
 	validShipsCnt_A = tmpPair.first;
 	invalidShips_A = tmpPair.second;
-	BattleshipBoard::deleteMatrix(matrixA, mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard::deleteMatrix(matrixA, boardA.getRows(), boardA.getCols());
 
-	tmpPair = FindNumberOfValidShipsInBoard();
+	tmpPair = FindNumberOfValidShipsInBoard(boardB);
 	validShipsCnt_B = tmpPair.first;
 	invalidShips_B = tmpPair.second;
-	BattleshipBoard::deleteMatrix(MatrixB, mainBoard.getRows(), mainBoard.getCols());
+	BattleshipBoard::deleteMatrix(MatrixB, boardB.getRows(), boardB.getCols());
 
 	PrintWrongSizeOrShapeForShips(invalidShips_A, A);
 	PrintWrongSizeOrShapeForShips(invalidShips_B, B);
@@ -239,14 +264,14 @@ bool BattleshipGameManager::checkMainBoardValidity()const
 
 }
 
-std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard()const
+std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard(BattleshipBoard& board)const
 {
 	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;					/* set of ships details - for example:
 																								{<'m', {<1,2>,<1,3>}> , <'P', {<8,5>, <8,6> , <8,7>}> } */
 	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
 
 
-	setOfShipsDetails = mainBoard.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid -  this function will 																							  be called also when we will create the player */
+	setOfShipsDetails = board.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid -  this function will 																							  be called also when we will create the player */
 
 
 	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);						 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips																								  updated*/
@@ -300,7 +325,7 @@ bool BattleshipGameManager::isCorrectNumberOfShipsForPlayer(size_t validShipsCnt
 	}
 }
 
-bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* player, int playerId, HINSTANCE& hDll, Ship*** shipsMatrix, size_t& shipsCnt)const 
+bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const
 {
 	hDll = LoadLibraryA(dllPathPlayer.c_str()); // Notice: Unicode compatible version of LoadLibrary
 	if (!hDll)
@@ -315,9 +340,9 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 		std::cout << "Cannot load dll: " << dllPathPlayer << std::endl;
 		return false;
 	}
-	player = GetAlgorithm();
+	player = getAlgoFunc();
 	const char** tmpPlayerMat = mainBoard.createPlayerBoard(playerId);
-	
+
 	BattleshipBoard tmpBoardForPlayer(tmpPlayerMat, mainBoard.getRows(), mainBoard.getCols());
 	
 	if (!tmpBoardForPlayer.isSuccessfullyCreated()) return false;
@@ -345,19 +370,20 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 
 bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
 {
-	IBattleshipGameAlgo* playerAlgoA = nullptr;
-	IBattleshipGameAlgo* playerAlgoB = nullptr;
+	//IBattleshipGameAlgo* playerAlgoA = nullptr;
+	//IBattleshipGameAlgo* playerAlgoB = nullptr;
 	Ship*** shipsMatA = nullptr;
 	Ship*** shipsMatB = nullptr;
 	size_t shipsCntA = 0, shipsCntB = 0;
 	
 	HINSTANCE hDllA, hDllB;
-
+	//const std::string tmpppppppppA = "C:/Users/Ofir/Documents/GitHub/ex2/x64/Debug/PlayerFromFile.dll";
+		
 	/* PlayerA init */
 	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
 		return false;
 	
-	playerA = GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols());
+	playerA = std::move(GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols()));
 
 	if (!playerA.isSet()) return false;
 
@@ -367,7 +393,7 @@ bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, 
 	if (!loadAndInitPlayerDll(dllPathPlayerB, playerAlgoB, PLAYERID_B, hDllB, shipsMatB, shipsCntB))
 		return false;
 	
-	playerB = GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols());
+	playerB = std::move(GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols()));
 
 	if (!playerB.isSet()) return false;
 

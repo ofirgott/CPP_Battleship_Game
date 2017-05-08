@@ -1,5 +1,39 @@
 #include "GamePlayerData.h"
+#include <iostream>
+#include "BattleshipBoard.h"
+#include "BattleshipGameManager.h"
 
+
+GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
+{
+	
+	id = other.id;
+	std::swap(playerAlgo, other.playerAlgo);
+	hasMoreMoves = other.hasMoreMoves;
+	score = other.score;
+	std::swap(shipsMatrix, other.shipsMatrix);
+	currShipsCount = other.currShipsCount;
+	boardRows = other.boardRows;
+	boardCols = other.boardCols;
+	//std::cout << "in move = of GAMEPLAYERDATA: " << std::endl;
+	
+	return *this;
+}
+
+GamePlayerData::~GamePlayerData()
+{
+	//std::cout << "************in MANAGER DEST*********** \n";
+	//std::cout << "id == " << id << "\n";
+	//std::cout << "address of the algo == " << (void*)playerAlgo << "\n";
+
+	Ship::deleteShipMatrix(shipsMatrix);
+	//todo: say in duco that manager will alrady delete the algo! and not here
+	//delete playerAlgo;
+
+	//delete playerAlgo;
+
+
+}
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 {
@@ -13,7 +47,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 	//todo: ofir - we need to to here some changes: duplicated rows, and checking if coordinare is in board needed to do with existed function of BattleshipBoard
 
 	// while the given coordinates are not in the board && the player has more moves
-	while (tmpAttack.first < boardRows, tmpAttack.second >boardCols)
+	while (!BattleshipBoard::isCoordianteInBoard(tmpAttack.first - 1, tmpAttack.second - 1, boardRows, boardCols))
 	{
 		tmpAttack = playerAlgo->attack();
 		if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
@@ -27,7 +61,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 
 std::pair<AttackResult, int> GamePlayerData::realAttack(std::pair<int, int> coor)
 {
-	if (coor.first > boardRows || coor.first < 1 || coor.second < 1 || coor.second > boardCols) {
+	if (!BattleshipBoard::isCoordianteInBoard(coor.first - 1, coor.second - 1, boardRows, boardCols)){
 		return std::pair<AttackResult, int>(AttackResult::Miss, 0);
 	}
 

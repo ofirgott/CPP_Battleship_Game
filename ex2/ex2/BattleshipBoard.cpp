@@ -7,15 +7,14 @@
 
 
 /* called only once in a specific game */
-BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, int board_cols) : isSuccCreated(false)
+BattleshipBoard::BattleshipBoard(const std::string& boardPath, int boardRows, int boardCols) : rows(boardRows), cols(boardCols), isSuccCreated(false)
 {
 
-	if (boardPath.empty() || board_rows <= 0 || board_cols <= 0)				/* invalid input for a new board */
+	if (boardPath.empty() || rows <= 0 || cols <= 0)				/* invalid input for a new board */
 		return;
 
 	std::string line;
-	rows = board_rows;
-	cols = board_cols;
+
 	matrix = AllocateNewMatrix(rows, cols);
 	InitEmptyMatrix(matrix, rows, cols);
 
@@ -40,6 +39,19 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int board_rows, i
 
 }
 
+
+BattleshipBoard & BattleshipBoard::operator=(const BattleshipBoard & otherBoard)
+{
+	if (this != &otherBoard)
+	{
+		rows = otherBoard.rows;
+		cols = otherBoard.cols;
+		matrix = copyMatrix(const_cast<const char**>(otherBoard.matrix), otherBoard.rows, otherBoard.cols);
+		isSuccCreated = true;
+	}
+
+	return *this;
+}
 
 const char ** BattleshipBoard::createPlayerBoard(int playerID)const
 {

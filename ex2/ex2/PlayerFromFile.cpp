@@ -1,12 +1,13 @@
-#include "PlayerFromFile.h"
-#include "BattleshipGameUtils.h"
+#include "../ex2/PlayerFromFile.h"
+#include "../ex2/BattleshipGameUtils.h"
 #include <sstream>
 #include <fstream>
+
 
 std::pair<int, int> PlayerFromFile::attack()
 {
 
-	if (id == UNDEFINED_PLAYERID || movesVectorItr == movesVector.end())	// the Id check is just to be sure that the plyaer already initialized
+	if (id == UNDEFINED_PLAYERID || movesVector.empty() || movesVectorItr == movesVector.end())	// the Id check is just to be sure that the plyaer already initialized
 	{
 		return std::make_pair(-1, -1);
 	}
@@ -14,11 +15,12 @@ std::pair<int, int> PlayerFromFile::attack()
 	// else - we have more moves - we want to output only valid moves according to the player board dimmensions
 	std::pair<int, int> nextValidAttack;
 
-	while (!BattleshipBoard::isCoordianteInBoard(movesVectorItr->first - 1, movesVectorItr->second - 1, boardRows, boardCols))
+	while (movesVectorItr != movesVector.end() && !BattleshipBoard::isCoordianteInBoard(movesVectorItr->first - 1, movesVectorItr->second - 1, boardRows, boardCols))
 	{
 		++movesVectorItr;
 	}
-	
+	if(movesVectorItr == movesVector.end())  return std::make_pair(-1, -1);
+
 	nextValidAttack = *movesVectorItr;			 /* the valid attack pair we will output*/
 	++movesVectorItr;							/* move forward in the attacks vector for the next attack() call */
 	

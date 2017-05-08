@@ -3,11 +3,19 @@
 #include "Ship.h"
 #include "IBattleshipGameAlgo.h"
 
+
 /*keeps all current algo details*/
 class GamePlayerData {
-	
-	friend class BattleshipGameManager;
 
+	friend class BattleshipGameManager;
+public:
+
+	GamePlayerData& operator=(const GamePlayerData& otherPlayer) = delete;		/* deletes assignment constructor */
+	GamePlayerData& GamePlayerData::operator=(GamePlayerData&& other) noexcept;
+	GamePlayerData(GamePlayerData&& other)noexcept = delete; //{ std::swap(*this, other); } // move c'tor
+	GamePlayerData(const GamePlayerData& otherPlayer) = delete;					/* deletes copy constructor */
+
+	~GamePlayerData();
 private:
 	
 	int id;
@@ -18,15 +26,12 @@ private:
 	size_t currShipsCount;
 	int boardRows;
 	int boardCols;
-
+	//friend class BattleshipGameManager;
 
 	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0), boardRows(0), boardCols(0){}
 	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, size_t shipsCount, int boardrows, int boardcols) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount), boardRows(boardrows), boardCols(boardcols) {}
 
-	~GamePlayerData()
-	{
-		// todo: free the ship matrix here		
-	}
+
 	/*get next valid attack coordinates,if player doesnt have more moves return <-1,-1>*/
 	std::pair<int, int> getAlgoNextAttack() const;
 
@@ -39,7 +44,7 @@ private:
 	/* update players score to the prev score + num
 	assume- num >= 0
 	*/
-	void incrementScore(int value) { score += value; }
+	void incrementScore(int value) { if(value > 0) score += value; }
 
 	bool isSet()const { return (id >= 0 && playerAlgo && shipsMatrix && currShipsCount > 0 && boardRows > 0 && boardCols > 0); }
 

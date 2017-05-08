@@ -7,13 +7,15 @@ class BattleshipBoard
 {
 public:
 	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1), isSuccCreated(false) {}						/* empty constructor */
-	BattleshipBoard(const char ** inputMatix, int inputRows, int inputCols) : matrix(copyMatrix(inputMatix, inputRows, inputCols)), rows(inputRows), cols(inputCols), isSuccCreated(false) {}
+	BattleshipBoard(const char ** inputMatix, int inputRows, int inputCols) : matrix(copyMatrix(inputMatix, inputRows, inputCols)), rows(inputRows), cols(inputCols), isSuccCreated(true) {}
 	BattleshipBoard(const std::string& boardPath, int rows, int cols);
 	~BattleshipBoard() { deleteMatrix(const_cast<const char**>(matrix), rows, cols); }
 
-	BattleshipBoard(const BattleshipBoard& otherBoard) = delete;		/* deletes copy constructor */
+	//BattleshipBoard(const BattleshipBoard& otherBoard) = delete;		/* deletes copy constructor */
+	//BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(const_cast<const char**>(otherBoard.matrix), otherBoard.rows, otherBoard.cols) {} /*copy constructor */
 	//BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
-
+	//BattleshipBoard(BattleshipBoard&& otherBoard) noexcept : rows(otherBoard.rows), cols(otherBoard.cols) { std::swap(matrix, otherBoard.matrix); } // move c'tor
+	BattleshipBoard& operator=(const BattleshipBoard& otherBoard); // copy assignment
 
 	char** GetCopyOfBoardMatrix()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
 	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board todo: change docu */
@@ -33,7 +35,7 @@ public:
 
 	/* checks if given coordinate is a valid location in board*/
 	bool isCoordianteInBoard(int x, int y)const { return isCoordianteInBoard(x, y, rows, cols); };
-	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum){ return (x >= 0 && x < rowsNum && y >= 0 && y <= colsNum); }
+	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum){ return (x >= 0 && x < rowsNum && y >= 0 && y < colsNum); }
 
 	/* returns a new copy of given matrix */
 	static char** copyMatrix(const char** matrix, int rows, int cols);
