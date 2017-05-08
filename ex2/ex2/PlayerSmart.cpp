@@ -1,84 +1,161 @@
 #include "PlayerSmart.h"
 #include <algorithm>
 
+
+
 std::pair<int, int> PlayerSmart::attack()
 {
-	decltype(attackOptions)::iterator it; 
-	std::pair<int, int> attackCandidate;
-	std::set<std::pair<int, int>> currShip;
-	int currShipSize; 
 
-	if (size(shipsInProcess) ==0) // no ships in process 
+	if (size(shipsInProcess) == 0) // no ships in process 
 	{
-
+		// return random coordinate
 		return BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
-		//do
-		//{
-		//	attackCandidate = getRandomCoordinatesInBoard();
-		//	it = attackOptions.find(attackCandidate);
-		//}
-		//while (it == attackOptions.end()); // as long as attackCandidate not in attackOptions - find another coordinate/ 
-
-		//return ;
 	}
-
 	// already have ships in shipsInProcess
-	currShip = shipsInProcess[0];
-	currShipSize = size(currShip);
-	if (currShipSize == 1)
+
+	return nextAttackFromCoors(shipsInProcess[0], size(shipsInProcess[0]));
+}
+
+
+void PlayerSmart::removeAllIrreleventCoordinates(const std::pair<int, int>& pair)
+{
+	std::pair<int, int> removeCandidate;
+	if(isVertical)
 	{
-		/* todo: check how to change this next lines!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-		it = currShip.begin();
-		++it;
-		return nextAttackFromOneCoor(*it);
+		updateCoordinates(removeCandidate, pair.first, pair.second - 1);
+		removeOneCoordinate(removeCandidate);
+		updateCoordinates(removeCandidate, pair.first, pair.second + 1);
+		removeOneCoordinate(removeCandidate);
 	}
 
-	return nextAttackFromFewCoors(currShip, currShipSize);
+	if (isHorizontal)
+	{
+		updateCoordinates(removeCandidate, pair.first -1, pair.second);
+		removeOneCoordinate(removeCandidate);
+		updateCoordinates(removeCandidate, pair.first +1, pair.second);
+		removeOneCoordinate(removeCandidate);
+		
+	}
 }
+
 
 void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResult result)
 {
 	int mergeResult;
 	std::pair<int, int> nextPairTosearch;
-	std::pair <int,int> attackedPair =std::make_pair(row, col) ;
+	std::pair <int,int> attackedPair(row, col) ;
+	isVertical = false;
+	isHorizontal = false;
+
+	if (attackedPair is coordinate of my ship)
+	{
+		removeOneCoordinate(attackedPair);
+	}
 
 	if (result == AttackResult::Hit)
 	{
-		mergeResult = addCoorToShipsInProcess(row,col , &nextPairTosearch);
-		if (mergeResult != -1)
-		{
-			mergeShipDetails(&nextPairTosearch, mergeResult);
+		mergeResult = addCoorToShipsInProcess(row,col , &nextPairTosearch,-1);
+		if (mergeResult != -1)// the coordinate is added to one of the ships that are already in process 
+		{ // try to chekc if there is another shipdetails in process that belong to the same ship i added the recent attacked pair.
+			mergeShipDetails(&nextPairTosearch, mergeResult);			
 			removeAllIrreleventCoordinates(attackedPair);
 		}
 
 		else{
-			removeOneIrreleventCoordinate(attackedPair);
+			removeOneCoordinate(attackedPair);
 		}
-		
-
 	}
 
 	else if (result == AttackResult::Sink)
 	{
-		
+		//if (size 1 ) // notify doesnt tell what size the ship was
+		//{
+		//	removeAllIrreleventCoordinates
+		//}
+
+		// find to whom it belongs and delete the set+ envi
+		mergeResult = addCoorToShipsInProcess(row, col, &nextPairTosearch, 1);
+		if (mergeResult == -1) // the ship wasnt in process >> ship of size 1  
+		{
+			removeAllIrreleventCoordinates(attackedPair);
+			removeOneCoordinate(attackedPair);
+		}
+		else
+		{
+			removeAllIrreleventCoordinates(attackedPair);// will remove up/down or left/right to attacked pair 
+			removeDetails(attackedPair, mergeResult);
+			removeOneCoordinate(attackedPair);
+
+		}
+
 	}
 	else // result == AttackResult::Miss
 	{
-		
+		removeOneCoordinate(attackedPair);
 	}
+
+	implemenent comparator!!!  
+	//sort the vector by size 
+	std::sort(shipsInProcess.begin(), shipsInProcess.end());
+}
+void PlayerSmart::removeDetails(std::pair<int, int>& nextPair, int merge_result)
+{
+	std::pair<int, int> removePair(-1, -1);
+	std::vector<int> rows;
+	std::vector<int> cols;
+
+	// finds where the last coordinate is 
+	decltype(shipsInProcess)::iterator shipsInprocessIter;
+?	shipsInProcess.begin();
+	// the iterator doesnt sta\rt from the cooerct place 
+	for (int i = merge_result; i< size(shipsInProcess); i++)
+	{
+		auto it = shipsInProcess[i].find(nextPair);
+		if (it != shipsInProcess[i].end())
+		{
+			shipsInProcess[merge_result].insert(nextPair);
+			shipsInProcess.erase(shipsInprocessIter);
+			break;
+		}
+		++shipsInprocessIter;
+	}
+
+	when i merge 2 sets need to remove vertical/horizontal for all the members
+	updateDetailsAboutShip(shipsInProcess[merge_result],&rows, &cols);
+	if (isHorizontal)
+	{
+		updateCoordinates(removePair, rows[0], cols[0] - 1);
+		removeOneCoordinate(removePair);
+		updateCoordinates(removePair, rows[0], cols[size(cols)-1] + 1);
+		removeOneCoordinate(removePair);
+	}
+
+	else if (isVertical)
+	{
+		updateCoordinates(removePair, rows[0]-1, cols[0]);
+		removeOneCoordinate(removePair);
+		updateCoordinates(removePair, rows[size(rows)]+1, cols[0]);
+		removeOneCoordinate(removePair);
+	}
+
+
+
+?	shipsInprocessIter->begin();
+	//erase the ship from vector
+
+
 }
 
 void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair , int indexToupdate)
 {
-	/* todo: the for is on changing size!!! mayby change that*/
 	decltype(shipsInProcess)::iterator shipsInprocessIter;
 
-	for(int i =0 ; i< size(shipsInProcess);i++)
+	for(int i = indexToupdate; i< size(shipsInProcess);i++)
 	{
 		auto it = shipsInProcess[i].find(*pair);
 		if (it != shipsInProcess[i].end())
 		{
-			shipsInProcess[indexToupdate].insert(std::make_pair(pair->first, pair->second));
+			shipsInProcess[indexToupdate].insert(*pair);
 			shipsInProcess.erase(shipsInprocessIter);
 			break;
 		}
@@ -87,91 +164,79 @@ void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair , int indexToupdate
 
 }
 
-std::pair<int, int> PlayerSmart::nextAttackFromOneCoor(const std::pair<int, int>& coordinates) const
+
+std::pair<int, int> PlayerSmart::nextAttackFromCoors(const std::set<std::pair<int, int>>& hitCoordinates, int numOfCoors)
 {
-	
-	std::pair<int, int> attackCandidate;
-
-	if (isInAttackOptions(attackCandidate = createLeft(coordinates))) // check left
-	{
-		return attackCandidate;
-	}
-
-	if (isInAttackOptions(attackCandidate = createRight(coordinates))) // check right
-	{
-		return attackCandidate;
-	}
-
-	if (isInAttackOptions(attackCandidate = createUp(coordinates))) //check up
-	{
-		return attackCandidate;
-	}
-
-	if (isInAttackOptions(attackCandidate = createDown(coordinates))) // check down
-	{
-		return attackCandidate;
-	}
-
-	// shouldnt get here
-	return std::make_pair(-1,-1);
-
-
-}
-
-std::pair<int, int> PlayerSmart::nextAttackFromFewCoors(const std::set<std::pair<int, int>>& hitCoordinates, int numOfCoors) const
-{
-	std::pair<int, int> attackCandidate;
+	std::pair<int, int> attackCandidate(-1,-1);
 	std::vector<int> rows;
 	std::vector<int> cols;
+	isHorizontal = false;
+	isVertical = false;
 
-	if (numOfCoors< 1) { // shouldnt get here 
-		return std::make_pair(-1, -1);
+	if (numOfCoors < 1) { 
+		// shouldnt get here 
+		return attackCandidate;
 	}
 
+	/*rows; cols;isVertical = false;isHorizontal = false;*/
+	updateDetailsAboutShip(hitCoordinates, &rows, &cols);
+
+	if (isHorizontal) {
+		updateCoordinates(attackCandidate, rows[0], cols[0] - 1);
+		if (isInAttackOptions(attackCandidate)) //check left
+		{
+			return attackCandidate;
+		}
+
+		updateCoordinates(attackCandidate, rows[0], cols[numOfCoors - 1] + 1);
+		if (isInAttackOptions(attackCandidate)){ // check right
+			return attackCandidate;
+		}
+	}
+
+	if (isVertical){
+		updateCoordinates(attackCandidate, rows[0] - 1, cols[0]); // check down 
+		if (isInAttackOptions(attackCandidate)) 
+		{
+			return attackCandidate;
+		}
+		updateCoordinates(attackCandidate, rows[numOfCoors-1] + 1, cols[0]); // check up
+		if (isInAttackOptions(attackCandidate)) { // highest posible coor
+			return attackCandidate;
+		}
+	}
+	// shouldnt get here
+	updateCoordinates(attackCandidate,-1, - 1);
+	return attackCandidate;
+}
+
+void PlayerSmart::updateDetailsAboutShip(const std::set<std::pair<int, int>>&allCoors,std::vector<int>* rowCoors, std::vector<int>* colCoors)
+{
+	int shipsSize = size(allCoors);
 	// extract all rows && columns coordinates
-	for (auto& coor : hitCoordinates) {
-		rows.push_back(coor.first);
-		cols.push_back(coor.second);
+	for (auto& coor : allCoors) {
+		rowCoors->push_back(coor.first);
+		colCoors->push_back(coor.second);
 	}
-
 	// sort the vectors
-	std::sort(rows.begin(), rows.end());
-	std::sort(cols.begin(), cols.end());
+	std::sort(rowCoors->begin(), rowCoors->end());
+	std::sort(colCoors->begin(), colCoors->end());
 
 	//check if ship is Horizontal
-	if (isConstantCoors(rows, numOfCoors)) {
-		if (isIncrementalCoors(cols, numOfCoors)) {
-			if (isInAttackOptions(attackCandidate = std::make_pair(rows[0], cols[0] - 1))) // lowst possible coor
-			{
-				return attackCandidate;
-			}
-
-			if (isInAttackOptions(attackCandidate = std::make_pair(rows[0], cols[numOfCoors -1] + 1))){ // highest possible coor
-				return attackCandidate;
-			}
-
-			return std::make_pair(-1, -1); // shouldnt get here
+	if (isConstantCoors(*rowCoors, shipsSize)) {
+		if (isIncrementalCoors(*colCoors, shipsSize)) {
+			isHorizontal = true;
 		}
 	}
 
 	//check if ship is vertical
-	if (isConstantCoors(cols, numOfCoors)) {
-		if (isIncrementalCoors(rows, numOfCoors)) {
-			if (isInAttackOptions(attackCandidate = std::make_pair(rows[0]-1, cols[0]))) // lowst posible coor
-			{
-				return attackCandidate;
-			}
-
-			if (isInAttackOptions(attackCandidate = std::make_pair(rows[numOfCoors-1]+1, cols[0]))) { // highest posible coor
-				return attackCandidate;
-			}
-
-			return std::make_pair(-1, -1); // shouldnt get here
+	if (isConstantCoors(*colCoors, shipsSize)) {
+		if (isIncrementalCoors(*rowCoors, shipsSize)) {
+			isVertical = true;
 		}
 	}
-
-	return std::make_pair(-1, -1); // shouldnt get here
 }
+
 
 bool PlayerSmart::isInAttackOptions(const std::pair<int, int>& coors) const
 {
@@ -218,71 +283,60 @@ bool PlayerSmart::isIncrementalCoors(const std::vector<int>& coors, int size)
 	return true;
 }
 
-bool PlayerSmart::isValidShipCoordinates(const std::set<std::pair<int, int>>& coordinates , int newRow , int newCol ,std::pair<int, int>* nextPair) const
+/*check if the rows, and colsrepresent a legal ship if so , check from which side the coordinates of the ships 
+ * are forming a sequence. and update  nextPair to hold the other side of the attacked coordinate
+ * and return true, otherwise return false
+ */
+bool PlayerSmart::produceNextPair(std::vector<int>& rows, std::vector<int>& cols,
+	int currRow , int currCol,std::pair<int, int>* nextPair) const
 {
-		int shipSize = (int)size(coordinates);
-
-		std::vector<int> rows;
-		std::vector<int> cols;
+		int shipSize = size(rows);
 
 		// ship must contain at least 1 coordinate to exist
 		if (shipSize< 1) {
 			return false;
 		}
 
-		// extract all rows && columns coordinates
-		for (auto& coor : coordinates) {
-			rows.push_back(coor.first);
-			cols.push_back(coor.second);
-		}
-
-		rows.push_back(newRow);
-		cols.push_back(newCol);
-
-		// sort the vecors
-		std::sort(rows.begin(), rows.end());
-		std::sort(cols.begin(), cols.end());
-
 		//check if ship is Horizontal
-		if (isConstantCoors(rows, shipSize)) {
-			if (isIncrementalCoors(cols, shipSize)) {
-				if (cols[0]==newCol) // the new coordinate is from the left side of the vector
-				{
-					nextPair->first = newRow;
-					nextPair->second = newCol - 1;
-				}
-				else
-				{
-					nextPair->first = newRow;
-					nextPair->second = cols[shipSize-1] +1 ; // the new coordinate is from the right side of the vctor
-				}
-				return true;
+		if (isHorizontal) {
+			if (cols[0]== currCol) // the new coordinate added on the left of the ship
+			{
+				updateCoordinates(*nextPair, currRow, currCol - 1);
+				//nextPair->first = currRow;
+				//nextPair->second = currCol - 1;
 			}
+			else{
+				updateCoordinates(*nextPair, currRow, cols[shipSize - 1] + 1);
+				//nextPair->first = currRow;
+				//nextPair->second = cols[shipSize-1] +1 ; // the new coordinate is from the right side of the vctor
+			}
+			return true;
 		}
 
 		//check if ship is vertical
-		if (isConstantCoors(cols, shipSize)) {
-			if (isIncrementalCoors(rows, shipSize)) {
-				if (rows[0] == newRow) // the new coordinate is from the botton of the ship
-				{
-					nextPair->first = newRow -1;
-					nextPair->second = newCol;
-				}
-				else
-				{
-					nextPair->first = rows[shipSize -1] +1;  // the new coordinate is on top of the vctor
-					nextPair->second = newCol;
-				}
+		if (isVertical) {
+			if (rows[0] == currRow) // the new coordinate is from the top of the ship
+			{
+				updateCoordinates(*nextPair, currRow - 1, currCol);
+				//nextPair->first = currRow - 1;
+				//nextPair->second = currCol;
 
-				return true;
 			}
-		}
+			else
+			{
+				updateCoordinates(*nextPair, rows[shipSize - 1] + 1, currCol);
+				//nextPair->first = rows[shipSize - 1] + 1;  // the new coordinate is from the bottom
+				//nextPair->second = currCol;
+			}
 
-		return false;
+			return true;
+		}
+	return false;
+
 }
 
 
-void PlayerSmart::removeOneIrreleventCoordinate(std::pair<int,int>& pairToDelete)
+void PlayerSmart::removeOneCoordinate(std::pair<int,int>& pairToDelete)
 {
 	auto it = attackOptions.find(pairToDelete);
 	if (it != attackOptions.end())
@@ -291,26 +345,44 @@ void PlayerSmart::removeOneIrreleventCoordinate(std::pair<int,int>& pairToDelete
 	}
 }
 
-int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol , std::pair<int, int>* nextPairTosearch )
+/*
+ * check if <row,col> could be considerd as part of existing process, if so add it and return the index it was add to.
+ * otherwise create a new set for this ship and return -1
+ */
+int PlayerSmart::addCoorToShipsInProcess(int row, int col , std::pair<int, int>* nextPairTosearch , int sink )
 {
 	int i = 0;
-	std::set<std::pair<int, int>> newSet;
+	std::set < std::pair<int, int>> newSet;
+	std::pair<int, int> currPair(row, col);
+	std::vector<int> rowCoors;
+	std::vector<int> colCoors;
+	bool ret;
 
-	for (auto& details: shipsInProcess)
+
+	for (auto details: shipsInProcess)
 	{
-		/*todo:  make sure details is a new copy and doesnt change the state os shipsInprocess */
-		if (isValidShipCoordinates(details ,coorRow,coorCol, nextPairTosearch))
+		isVertical = false;
+		isHorizontal = false;
+		details.insert(currPair);
+		updateDetailsAboutShip(details, &rowCoors, &colCoors);
+		ret= produceNextPair(rowCoors, colCoors, row, col, nextPairTosearch);
+
+		if (ret)
 		{
-			shipsInProcess[i].insert(std::make_pair(coorRow, coorCol));
+			shipsInProcess[i].insert(currPair);
 			return i;
 		}
 		i++;
+		rowCoors.clear();
+		colCoors.clear();
 	}
 
-	/*todo: make sure the newSet is really added to the vector*/
-	// if got here the newPair doesnt belong to the ships that are processed now.
-	newSet.insert(std::make_pair(coorRow, coorCol));
-	shipsInProcess.push_back(newSet);
+	if (sink != 1)
+	{
+		newSet.insert(currPair);
+		shipsInProcess.push_back(newSet);
+	}
+
 	return -1;
 }
 
