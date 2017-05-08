@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "BattleshipGameUtils.h"
 
+
+
 class PlayerSmart: public Player
 {
 	
@@ -11,9 +13,6 @@ public:
 	~PlayerSmart(); 
 	bool init(const std::string& path) override;	
 	std::pair<int, int> attack() override;													// ask player for his move
-
-
-
 	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override;	// notify on last move result
 
 private:
@@ -21,10 +20,7 @@ private:
 	std::set<std::pair<int, int>> attackOptions;
 	std::vector<std::set<std::pair<int, int>>> shipsInProcess;
 	
-	int isVertical;
-	int isHorizontal;
-	std::vector<int> horizontalCoors;
-	std::vector<int> verticalCoors;
+	int myId;
 
 	void PlayerSmart::removeDetails(std::pair<int, int>& nextPair, int merge_result);
 	void removeAllIrreleventCoordinates(const std::pair<int, int>& pair);

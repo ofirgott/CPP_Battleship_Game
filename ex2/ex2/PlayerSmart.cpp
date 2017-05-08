@@ -12,7 +12,7 @@ std::pair<int, int> PlayerSmart::attack()
 		return BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
 	}
 	// already have ships in shipsInProcess
-
+	
 	return nextAttackFromCoors(shipsInProcess[0], size(shipsInProcess[0]));
 }
 
@@ -98,12 +98,18 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 	//sort the vector by size 
 	std::sort(shipsInProcess.begin(), shipsInProcess.end());
 }
+
+
+bool PlayerSmart::shipInProcess::isVertical()
+{
+}
+
 void PlayerSmart::removeDetails(std::pair<int, int>& nextPair, int merge_result)
 {
 	std::pair<int, int> removePair(-1, -1);
 	std::vector<int> rows;
 	std::vector<int> cols;
-
+	
 	// finds where the last coordinate is 
 	decltype(shipsInProcess)::iterator shipsInprocessIter;
 ?	shipsInProcess.begin();

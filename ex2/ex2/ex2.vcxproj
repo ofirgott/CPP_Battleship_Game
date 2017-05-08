@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\PlayerSmart\ShipInProcess.h" />
     <ClInclude Include="BattleshipBoard.h" />
     <ClInclude Include="BattleshipGameManager.h" />
     <ClInclude Include="BattleshipGameUtils.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\PlayerSmart\ShipInProcess.cpp" />
     <ClCompile Include="BattleshipBoard.cpp" />
     <ClCompile Include="BattleshipGameManager.cpp" />
     <ClCompile Include="BattleshipGameUtils.cpp" />
