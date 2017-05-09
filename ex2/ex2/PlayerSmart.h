@@ -1,9 +1,10 @@
 #pragma once
-//#include "Player.h"
-//#include "BattleshipGameUtils.h"
-#include "ShipsInProcess.h"
+#include "Player.h"
+#include "BattleshipGameUtils.h"
 #include <vector>
 #include <set>
+#include "../PlayerSmart/ShipInProcess.h"
+
 
 
 

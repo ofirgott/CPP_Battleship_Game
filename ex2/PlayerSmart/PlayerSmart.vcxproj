@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\ex2\PlayerSmart.h" />
+    <ClInclude Include="ShipInProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ex2\PlayerSmart.cpp" />
+    <ClCompile Include="ShipInProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,9 +18,15 @@
     <ClInclude Include="..\ex2\PlayerSmart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShipInProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ex2\PlayerSmart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipInProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
