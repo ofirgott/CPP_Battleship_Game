@@ -90,100 +90,120 @@ bool ShipInProcess::getIsHorizontal() const
 //	return true;
 //}
 //
-//bool ShipInProcess::isPartOfShip(int row, int col) const
-//{
-//	if (isVertical)
-//	{
-//		if (col != constantCoor)
-//		{
-//			return false;
-//		}
-//		if (row < (incrementalCoors[0]))
-//		{
-//			return false;
-//		}
-//		if (row >(incrementalCoors[getSize() - 1]))
-//		{
-//			return false;
-//		}
-//	}
-//
-//	else
-//	{
-//		if (row != constantCoor)
-//		{
-//			return false;
-//		}
-//
-//		if (col < (incrementalCoors[0]))
-//		{
-//			return false;
-//		}
-//
-//		if (col >(incrementalCoors[getSize() - 1]))
-//		{
-//			return false;
-//		}
-//	}
-//
-//	return true;
-//}
 
+
+bool ShipInProcess::isPartOfShip(int row, int col) const
+{
+	if (shipSize == 1)
+	{
+		if((row == firstPair.first) && (col == firstPair.second))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	if (isVertical)
+	{
+		if (col != constantCoor)
+		{
+			return false;
+		}
+		if (row < (incrementalCoors[0]))
+		{
+			return false;
+		}
+		if (row >(incrementalCoors[getSize() - 1]))
+		{
+			return false;
+		}
+	}
+
+	else // ship is horizontal
+	{
+		if (row != constantCoor)
+		{
+			return false;
+		}
+
+		if (col < (incrementalCoors[0]))
+		{
+			return false;
+		}
+
+		if (col >(incrementalCoors[getSize() - 1]))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
+int ShipInProcess::addToSizeOneShip(int row, int col)
+{
+	// check if ship is horizontal and if so update inner state
+	if (row == firstPair.first)
+	{
+		if (col == firstPair.second + 1) {
+			isVertical = false;
+			isHorizontal = true;
+			constantCoor = row;
+			incrementalCoors.push_back(firstPair.second); // the existing pair has smaller coordinate
+			incrementalCoors.push_back(col);
+			shipSize += 1;
+			return 1;
+		}
+
+		if (col == firstPair.second - 1)
+		{
+			isVertical = false;
+			isHorizontal = true;
+			shipSize += 1;
+			constantCoor = row;
+			incrementalCoors.push_back(col); // the existing pair has larger coordinate
+			incrementalCoors.push_back(firstPair.second);
+			return 1;
+		}
+
+	}
+	// check if ship is vertical and if so update inner state
+	if (col == firstPair.second)
+	{
+		if (row == firstPair.first + 1) { // ship is vertical
+			isVertical = true;
+			isHorizontal = false;
+			constantCoor = col;
+			incrementalCoors.push_back(firstPair.first); // the new row is larger then existing
+			incrementalCoors.push_back(row);
+			shipSize += 1;
+			return 1;
+		}
+
+		if (row == firstPair.first - 1)
+		{
+			isVertical = true;
+			isHorizontal = false;
+			constantCoor = col;
+			incrementalCoors.push_back(row); // the new row is smaller then the existing
+			incrementalCoors.push_back(firstPair.first);
+			shipSize += 1;
+			return 1;
+		}
+	}
+
+	return -1;
+}
+
+/* given ship and coordinate, if coordinate belongs to the ship add ig it to the ship return 1
+ * if doesnt belong doesnt add and return -1
+ */
 int ShipInProcess::addCoordinate(int row, int col)
 {
 	if (shipSize == 1)
 	{
-		// check if ship is horizontal and if so update inner state
-		if (row == firstPair.first)
-		{
-			if (col == firstPair.second + 1) {
-				isVertical = false;
-				isHorizontal = true;
-				constantCoor = row;
-				incrementalCoors.push_back(firstPair.second);
-				incrementalCoors.push_back(col);
-				shipSize += 1;
-				return 1;
-			}
-
-			if (col == firstPair.second - 1)
-			{
-				isVertical = false;
-				isHorizontal = true;
-				shipSize += 1;
-				constantCoor = row;
-				incrementalCoors.push_back(col);
-				incrementalCoors.push_back(firstPair.second);
-				return 1;
-			}
-
-		}
-
-		if (col == firstPair.first)
-		{
-			if (row == firstPair.first + 1) { // ship is vertical
-				isVertical = true;
-				isHorizontal = false;
-				constantCoor = col;
-				incrementalCoors.push_back(firstPair.first);
-				incrementalCoors.push_back(row);
-				shipSize += 1;
-				return 1;
-			}
-
-			if (row == firstPair.second - 1)
-			{
-				isVertical = true;
-				isHorizontal = false;
-				constantCoor = col;
-				incrementalCoors.push_back(row); // the new row is smaller then the existing
-				incrementalCoors.push_back(firstPair.first);
-				shipSize += 1;
-				return 1;
-			}
-		}
-
-		return -1;
+		return addToSizeOneShip(row, col);
 	}
 
 	// ship is larger then 1
@@ -244,4 +264,15 @@ int ShipInProcess::getMinCoor() const
 int ShipInProcess::getConstCoor() const
 {
 	return constantCoor;
+}
+
+void ShipInProcess::megreShipsInProcess(ShipInProcess otherShip)
+{
+	std::vector<int>::iterator thisShip = incrementalCoors.begin();
+
+	std::vector<int>::iterator otherShip = otherShip.incrementalCoors.begin();
+
+	// maybe needto check that both of the ships are vertical ?? both of them are horizontal
+	std::vector<int> newVector= 
+	insert(iterator position, InputIterator first, InputIterator last);
 }

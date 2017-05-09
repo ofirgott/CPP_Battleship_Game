@@ -23,6 +23,8 @@ private:
 	std::set<std::pair<int, int>> attackOptions;
 	std::vector<ShipInProcess> attackedShips;
 	int myId;
+	int numOfRows;
+	int numOfCols;
 
 	/*util function for attack
 	* given a set of coordinates that belong to 1 ship return the next coordinate to attack

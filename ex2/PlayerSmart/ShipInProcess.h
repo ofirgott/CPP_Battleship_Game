@@ -16,6 +16,7 @@ class ShipInProcess
 	int shipSize;
 	friend class PlayerSmart;
 
+	int addToSizeOneShip(int row, int col);
 public:
 	/*todo:delete = and copy constructor*/
 
@@ -27,10 +28,9 @@ public:
 
 	bool getIsVertical() const;
 	bool getIsHorizontal() const;
-
 	//bool isExentionOfShip(int row, int col) const;
 
-	//bool isPartOfShip(int row, int col) const;
+	bool isPartOfShip(int row, int col) const;
 
 	int addCoordinate(int row, int col);
 
@@ -44,4 +44,7 @@ public:
 	{
 		return firstPair;
 	}
+
+	/* given another ship, add its details to my ship*/
+	void megreShipsInProcess(ShipInProcess otherShip);
 };
