@@ -15,18 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ex2\PlayerSmart.h">
+    <ClInclude Include="PlayerSmart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShipInProcess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ex2\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\ex2\PlayerSmart.cpp">
+    <ClCompile Include="ShipInProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShipInProcess.cpp">
+    <ClCompile Include="PlayerSmart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

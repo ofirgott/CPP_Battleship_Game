@@ -18,6 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h" />
+    <ClInclude Include="..\ex2\Player.h" />
+    <ClInclude Include="PlayerSmart.h" />
+    <ClInclude Include="ShipInProcess.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PlayerSmart.cpp" />
+    <ClCompile Include="ShipInProcess.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D575140C-858D-453F-A0F6-C8292374E3CB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -141,14 +151,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\ex2\PlayerSmart.h" />
-    <ClInclude Include="ShipInProcess.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\ex2\PlayerSmart.cpp" />
-    <ClCompile Include="ShipInProcess.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
