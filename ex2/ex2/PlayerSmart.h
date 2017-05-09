@@ -3,7 +3,7 @@
 #include "BattleshipGameUtils.h"
 #include <vector>
 #include <set>
-#include "../PlayerSmart/ShipInProcess.h"
+#include "ShipInProcess.h"
 
 
 class PlayerSmart : public Player
