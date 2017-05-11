@@ -31,11 +31,10 @@ private:
 	* given a set of coordinates that belong to 1 ship return the next coordinate to attack
 	*/
 	std::pair<int, int> nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
-
-
+	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex = 0);
 
 	void PlayerSmart::removeDetails(std::pair<int, int>& nextPair, int merge_result);
-	void removeAllIrreleventCoordinates(const std::pair<int, int>& pair);
+	void removeAllIrreleventCoordinates(const std::pair<int, int>& pair, bool isVertical, bool isHorizontal);
 	/*util functions for attack*/
 
 	///*given a ship with only one attacked coordinate, get the next candidate for attack
@@ -69,7 +68,7 @@ private:
 	void updateDetailsAboutShip(const std::set<std::pair<int, int>>& allCoors, std::vector<int>* rowCoors,
 		std::vector<int>* colCoors);
 	bool produceNextPair(std::vector<int>& rows, std::vector<int>& cols, int currRow, int currCol, std::pair<int, int>* nextPair) const;
-	int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol, std::pair<int, int>* nextPairTosearch, int sink);
+	int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol, std::pair<int, int>* nextPairTosearch, bool sink);
 
 	/* given index and pair. look for pair in all sets starting from index, if found, add pair
 	* to the set in index indexToupdate and delete the set that holds the matching pair
@@ -81,6 +80,6 @@ private:
 	static bool isConstantCoors(const std::vector<int>& coors, int size);
 	static bool isIncrementalCoors(const std::vector<int>& coors, int size);
 
-	void removeSankShip();
+	void removeSankFromReleventCoors(int merge_result, std::pair<int, int>* pair);
 };
 

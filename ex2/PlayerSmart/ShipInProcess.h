@@ -26,6 +26,11 @@ public:
 
 	int getSize() const;
 
+	const std::pair<int, int>& getFirstPair()const
+	{
+		return firstPair;
+	}
+
 	bool getIsVertical() const;
 	bool getIsHorizontal() const;
 	//bool isExentionOfShip(int row, int col) const;
