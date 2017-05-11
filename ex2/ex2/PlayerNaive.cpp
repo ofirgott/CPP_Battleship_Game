@@ -49,6 +49,7 @@ if (id != -1) {
 	}
 }
 	movesVectorItr = movesVector.begin();
+
 }
 
 
@@ -72,7 +73,6 @@ std::pair<int, int> PlayerNaive::attack()
 	++movesVectorItr;	
 						/* move forward in the attacks vector for the next attack() call */
 	
-	std::cout << nextValidAttack.first << ", " << nextValidAttack.second << std::endl;
 	return nextValidAttack;
 
 }
@@ -80,10 +80,7 @@ std::pair<int, int> PlayerNaive::attack()
 
 bool PlayerNaive::init(const std::string & path)
 {
-	if (id == -1) {//set board failed 
-		return false;
-	}
-	return true;
+	return (id != -1);// if false - set board failed
 }
 
 IBattleshipGameAlgo* GetAlgorithm()
