@@ -3,6 +3,54 @@
 #include "../ex2/BattleshipGameUtils.h"
 
 
+void PlayerSmart::setBoard(int player, const char ** board, int numRows, int numCols)
+{
+	std::set<std::pair<int, int>> result;
+	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;
+
+	id = player;
+	boardRows = numRows;
+	boardCols = numCols;
+	BattleshipBoard boardTemp(board, numRows, numCols);
+	if (!boardTemp.isSuccessfullyCreated()) {
+		id = -1;
+	}
+	if (id != -1) {
+
+		setOfShipsDetails = boardTemp.ExtractShipsDetails();
+		std::set<std::pair<int, int>> coordOfCurrentShip;
+		auto it = setOfShipsDetails.begin();
+		while (it != setOfShipsDetails.end())
+		{
+			for (auto coord : it->second) {//for every ship we add each of her coord and around it
+				result.insert(coord);
+				if (coord.first + 1 <= numRows) {//down
+					result.insert(std::make_pair(coord.first + 1, coord.second));
+				}
+				if (coord.first - 1 > 0) {//up
+					result.insert(std::make_pair(coord.first - 1, coord.second));
+				}
+				if (coord.second + 1 <= numCols) {//right
+					result.insert(std::make_pair(coord.first, coord.second + 1));
+				}
+				if (coord.second - 1 > 0) {//left
+					result.insert(std::make_pair(coord.first, coord.second - 1));
+				}
+			}
+			++it;
+		}
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				if (result.find(std::make_pair(i, j)) == result.end()) {//checking it's not my ship/around it = it's not in result
+					attackOptions.insert(std::make_pair(i + 1, j + 1));//adding to the set of option for attack 
+				}
+			}
+		}
+	}
+
+}
+
+
 std::pair<int, int> PlayerSmart::attack()
 {
 	if (size(attackedShips) == 0) // no ships in process 
