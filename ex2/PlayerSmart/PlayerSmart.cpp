@@ -85,7 +85,8 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResult result)
 {
 	int mergeResult;
-	std::pair<int, int> nextPairTosearch;
+	std::pair<int, int> nextPairTosearch; // the candidate coor to merge with. 	
+	//( merging ships that already in the attackedShips after adding the new coor)
 	std::pair <int, int> attackedPair(row, col);
 
 	if (!isInAttackOptions(attackedPair)) { // the coordinate is mine/ already was handeld
@@ -101,7 +102,7 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 			// make sure that the nextPair to search os in board limits
 			if (( 1<= nextPairTosearch.first <= numOfRows) && (1 <= nextPairTosearch.second <= numOfCols))
 			{
-				mergeShipDeta ils(&nextPairTosearch, mergeResult);
+				mergeShipDetails(&nextPairTosearch, mergeResult);
 				removeAllIrreleventCoordinates(attackedPair);
 			}
 		}
