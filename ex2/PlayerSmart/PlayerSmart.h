@@ -31,7 +31,7 @@ private:
 	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
 	* if doesnt belong to any of them and the ship didnt sink add a new ship of size 1 to shipsinprocess && return -1
 	*/
-	int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol, std::pair<int, int>* nextPairTosearch, bool sink);
+	int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol, std::pair<int, int>* nextPairTosearch, AttackResult result);
 
 	/* given a coordinate check all the coordinates (up/down/lwft/rgiht) and attack them if werent attacked yet.*/
 	std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int, int>& candidate) const;
@@ -66,7 +66,7 @@ private:
 	/*remove the adjecent coordinates to pair. i.e if ship isvertical remove left,right coordinates to pair etc..  */
 	void  PlayerSmart::removeAllIrreleventCoordinates(const std::pair<int, int>& pair, bool isVertical, bool isHorizontal);
 
-
-	void PlayerSmart::removeSankFromReleventCoors(int merge_result, std::pair<int, int>* pair , std::pair<int, int>& attackedPair);
+	/* assume the ships handked here are of size at least 2*/
+	void PlayerSmart::removeSankFromReleventCoors(int indexOfPair);
 };
 
