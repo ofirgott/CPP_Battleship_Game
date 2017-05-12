@@ -15,10 +15,6 @@ class ShipInProcess
 	int shipSize;
 	friend class PlayerSmart;
 
-	void ShipInProcess::mergeTwoSinglePairs(std::pair<int, int>& otherPair);
-	
-
-
 	/* update the states of the inner Fields of the shipinproccess*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
 
