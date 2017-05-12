@@ -80,6 +80,6 @@ private:
 	static bool isConstantCoors(const std::vector<int>& coors, int size);
 	static bool isIncrementalCoors(const std::vector<int>& coors, int size);
 
-	void removeSankFromReleventCoors(int merge_result, std::pair<int, int>* pair);
+	void removeSankFromReleventCoors(int merge_result, std::pair<int, int>* pair , std::pair<int, int>& attackedPair);
 };
 

@@ -175,14 +175,11 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 		}
 		else
 		{
-			removeSankFromReleventCoors(mergeResult, &nextPairTosearch);
+			removeSankFromReleventCoors(mergeResult, &nextPairTosearch , attackedPair);
 
-		//	removeAllIrreleventCoordinates(attackedPair);// will remove up/down or left/right to attacked pair 
-		//	removeDetails(attackedPair, mergeResult);
 		}
 
 		removeOneCoordinate(attackedPair);
-
 
 	}
 	else // result == AttackResult::Miss
@@ -190,9 +187,10 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 		removeOneCoordinate(attackedPair);
 	}
 
-	implemenent comparator!!!
-		//sort the vector by size 
-		std::sort(shipsInProcess.begin(), shipsInProcess.end());
+	// sort vector of attackedShips by size of the ship from largest ship to smallest ship - to create priority for larger ships 
+	std::sort(attackedShips.begin(), attackedShips.end(),
+		[](const ShipInProcess & a, const ShipInProcess & b) { return a.getSize() > b.getSize(); });
+
 }
 
 
@@ -213,8 +211,8 @@ int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch
 	return -1;
 }
 
-
-void PlayerSmart::removeSankFromReleventCoors(int firstIndex, std::pair<int, int>* pair)
+/* assume the ships handked here are of size at least 2*/
+void PlayerSmart::removeSankFromReleventCoors(int firstIndex, std::pair<int, int>* pair, std::pair<int, int>& attackedPair)
 {
 	int indexOfPair = 0;
 	std::pair <int, int> coorsToDelete (0,0);
@@ -223,6 +221,14 @@ void PlayerSmart::removeSankFromReleventCoors(int firstIndex, std::pair<int, int
 	// find the index of the ship containing the pair(if there is such ) 
 	indexOfPair = findPairInAttackedShips(*pair, firstIndex +1);
 
+	if (attackedShips.at(firstIndex).getSize() == 2)
+	{
+		removeAllIrreleventCoordinates(attackedPair, true, true);
+		removeAllIrreleventCoordinates(*pair, true, true);
+		return;
+	}
+
+	// for ships that are of size  > 2 
 	if (attackedShips.at(firstIndex).isVertical) {
 		//remove edges of ship
 		updateCoordinates(coorsToDelete, attackedShips.at(firstIndex).getMinCoor() - 1, attackedShips.at(firstIndex).getConstCoor());
