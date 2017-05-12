@@ -7,7 +7,6 @@
 */
 class ShipInProcess
 {
-
 	bool isVertical;
 	bool isHorizontal;
 	int constantCoor;
@@ -16,40 +15,45 @@ class ShipInProcess
 	int shipSize;
 	friend class PlayerSmart;
 
+	void ShipInProcess::mergeTwoSinglePairs(std::pair<int, int>& otherPair);
+	
+
+
+	/* update the states of the inner Fields of the shipinproccess*/
+	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
+
+	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
 	int addToSizeOneShip(int row, int col);
+
+	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical);
+
+
 public:
-	/*todo:delete = and copy constructor*/
 
+	ShipInProcess(int row, int col) : isVertical (true),isHorizontal(true),constantCoor (-1),firstPair(row, col),shipSize(1){}
+	~ShipInProcess(){} 
 	ShipInProcess() = delete;
-	ShipInProcess(int row, int col);
-	~ShipInProcess();
+	ShipInProcess& operator=(const ShipInProcess& otherShipInProcess) = delete;
+	ShipInProcess(const ShipInProcess& otherShipInproccess) = delete;	/* deletes copy constructor */
 
-	int getSize() const;
-
-	const std::pair<int, int>& getFirstPair()const
-	{
-		return firstPair;
-	}
-
-	bool getIsVertical() const;
-	bool getIsHorizontal() const;
-	//bool isExentionOfShip(int row, int col) const;
-
-	bool isPartOfShip(int row, int col) const;
-
+	/* given <row,col> add it to the ship's internal representation if the coordinates 
+	 * belong to this ship and return 1, else return -1
+	 */
 	int addCoordinate(int row, int col);
 
+	/* return true if coordinate <row,col> belongs to ship, elsereturn false*/
+	bool isPartOfShip(int row, int col) const;
+
+
+	/* given another ship the it'scoordinates belong to be, add its details to my ship*/
+	void megreShipsInProcess(ShipInProcess& otherShip);
+
 	/* assumes called for ships larger then 1 coordinate*/
-	int getMaxCoor() const;
-	int getMinCoor() const;
-	int getConstCoor() const;
+	int getMaxCoor() const { return incrementalCoors[shipSize - 1]; };
+	int getMinCoor() const { return incrementalCoors[0]; };
+	int getConstCoor() const { return constantCoor; };
 
-	/* for ships of size 1*/
-	std::pair<int, int> getFirstPair() const
-	{
-		return firstPair;
-	}
 
-	/* given another ship, add its details to my ship*/
-	void megreShipsInProcess(ShipInProcess otherShip);
+
+
 };
