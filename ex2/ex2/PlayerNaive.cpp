@@ -16,6 +16,7 @@ BattleshipBoard boardTemp(board, numRows, numCols);
 if (!boardTemp.isSuccessfullyCreated()) {
 	id = -1;
 }
+
 if (id != -1) {
 
 	setOfShipsDetails = boardTemp.ExtractShipsDetails();
