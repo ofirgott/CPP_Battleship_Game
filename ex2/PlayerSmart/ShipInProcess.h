@@ -15,10 +15,8 @@ class ShipInProcess
 	std::pair<int, int> firstPair;
 	int shipSize;
 	friend class PlayerSmart;
-	friend class testShipInProcess;/////////////////////////////////nees to remove
 
-
-								   /* update the states of the inner Fields of the shipinproccess*/
+	/* update the states of the inner Fields of the shipinproccess*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
 
 	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
