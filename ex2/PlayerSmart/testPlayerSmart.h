@@ -317,6 +317,148 @@ public:
 
 
 	}
+	//done	
+	static int testnotifyOnAttackResult() {
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		std::set<std::pair<int, int>> allCoors;
+		for (int i = 1; i<10; i++)
+		{
+			for (int j = 1; j<10; j++)
+			{
+				allCoors.insert(std::make_pair(i, j));
+			}
+		}
+
+		allCoors.erase(allCoors.find(std::make_pair(1, 1)));
+		allCoors.erase(allCoors.find(std::make_pair(4, 1)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 8)));
+		allCoors.erase(allCoors.find(std::make_pair(7, 8)));
+		allCoors.erase(allCoors.find(std::make_pair(8, 8)));
+		allCoors.erase(allCoors.find(std::make_pair(4, 3)));
+		allCoors.erase(allCoors.find(std::make_pair(4, 5)));
+		allCoors.erase(allCoors.find(std::make_pair(4, 4)));
+
+
+		// create ships
+		ShipInProcess sizeOne_1(1, 1);
+		ShipInProcess sizeOne_2(3, 8);
+
+		ShipInProcess sizeTwo_1(7, 8);
+		sizeTwo_1.addCoordinate(8, 8);
+
+		ShipInProcess sizeThree_1(4, 3);
+		sizeThree_1.addCoordinate(4, 4);
+		sizeThree_1.addCoordinate(4, 5);
+
+		ShipInProcess sizeTwo_2(5, 8);
+
+		allShips.push_back(sizeThree_1);
+		allShips.push_back(sizeTwo_1);
+		allShips.push_back(sizeTwo_2);
+		allShips.push_back(sizeOne_1);
+		allShips.push_back(sizeOne_2);
+
+
+		tmpPlayer.attackOptions = allCoors;
+		tmpPlayer.attackedShips = allShips;
+		//miss
+		auto find = tmpPlayer.attackOptions.find(std::make_pair(8, 2));
+		if (find == tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good! 8,2 was sopposed to be here before notify ! " << std::endl;
+		}
+		tmpPlayer.notifyOnAttackResult(0, 8, 2, AttackResult::Miss);//miss 8,2
+		find = tmpPlayer.attackOptions.find(std::make_pair(8, 2));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt add 8,2 to options ! " << std::endl;
+		}
+		else {
+			std::cout << " good!8,2 deleted from options:)! " << std::endl;
+		}
+
+
+		//hit (merge one coor with one ship)
+		auto find = tmpPlayer.attackOptions.find(std::make_pair(4, 2));
+		if (find == tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good! 4,2 was sopposed to be here before notify ! " << std::endl;
+		}
+		tmpPlayer.notifyOnAttackResult(0, 4, 2, AttackResult::Hit);//Hit 4,2
+		find = tmpPlayer.attackOptions.find(std::make_pair(4, 2));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt deleted 4,2 to options ! " << std::endl;
+		}
+		else {
+			std::cout << " good !4,2 deleted from options:)! " << std::endl;
+		}
+
+		std::cout << " should be here vector horizontal 4-2,3,4,5 " << std::endl;
+		for (auto& details : tmpPlayer.attackedShips) {
+			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
+			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+				std::cout << incrementalCoorsTemp.at(j);
+			}
+			std::cout << std::endl;
+		}
+
+		//hit merge two vectors 
+		auto find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
+		if (find == tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!6,8 was sopposed to be here before notify ! " << std::endl;
+		}
+		tmpPlayer.notifyOnAttackResult(0, 6, 8, AttackResult::Hit);//Hit 6,8
+		find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt deleted 6,8 to options ! " << std::endl;
+		}
+		else {
+			std::cout << " good !6,8 deleted from options:)! " << std::endl;
+		}
+
+		std::cout << " should be here vector vertical 6,7,8-8 and delete vector single 5,8 " << std::endl;
+		for (auto& details : tmpPlayer.attackedShips) {
+			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
+			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+				std::cout << incrementalCoorsTemp.at(j);
+			}
+			std::cout << std::endl;
+		}
+
+		//sink
+		auto find = tmpPlayer.attackOptions.find(std::make_pair(2, 8));
+		if (find == tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!2,8 was sopposed to be here before notify ! " << std::endl;
+		}
+		tmpPlayer.notifyOnAttackResult(0, 2, 8, AttackResult::Sink);//Hit 6,8
+		find = tmpPlayer.attackOptions.find(std::make_pair(2, 8));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt deleted 2,8 to options ! " << std::endl;
+		}
+		else {
+			std::cout << " good !2,8 deleted from options:)! " << std::endl;
+		}
+
+		std::cout << " should  delete vector 2,3-8 " << std::endl;
+		for (auto& details : tmpPlayer.attackedShips) {
+			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
+			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+				std::cout << incrementalCoorsTemp.at(j);
+			}
+			std::cout << std::endl;
+		}
+
+
+
+	}
 //diana done
 	static int testaddCoorToShipsInProcess() {
 		PlayerSmart tmpPlayer;
@@ -780,9 +922,8 @@ public:
 		return 0;
 	}
 /////////////////////////////////////////////
-	static int testnotifyOnAttackResult() {
-	}
-	static int testsetBoard() {
-	}
+	
+	//static int testsetBoard() {
+//	}
 
 };
