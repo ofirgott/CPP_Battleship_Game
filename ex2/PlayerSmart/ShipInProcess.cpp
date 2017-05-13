@@ -67,6 +67,11 @@ bool ShipInProcess::isPartOfShip(int row, int col) const
 
 int ShipInProcess::addCoordinate(int row, int col)
 {
+	//if coor alredy exists in ship
+	if (isPartOfShip(row, col)) {
+		return 0;
+	}
+
 	if (shipSize == 1)
 	{
 		return addToSizeOneShip(row, col);
