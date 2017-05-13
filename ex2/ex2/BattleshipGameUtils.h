@@ -10,8 +10,8 @@ public:
 	static bool isValidDir(const std::string& path);
 	static bool isStringEndsWith(const std::string& str, const std::string& suffix);
 
-	static std::vector<std::string> BattleshipGameUtils::SortedDirlistSpecificExtension(std::string const& dirPath, std::string const& ext);
-	
+	static std::vector<std::string> SortedDirlistSpecificExtension(std::string const& dirPath, std::string const& ext);
+	static bool getFullPath(std::string& path);
 	template <typename I>
 	static I randomElement(I begin, I end);
 

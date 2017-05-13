@@ -30,11 +30,14 @@ std::pair<int, int> PlayerFromFile::attack()
 
 bool PlayerFromFile::init(const std::string & path)
 {
-	if (boardRows <= 0 || boardCols <= 0 || id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(path))
+	std::string dirPath(path);
+
+	if (boardRows <= 0 || boardCols <= 0 || id == UNDEFINED_PLAYERID || !BattleshipGameUtils::isValidDir(dirPath) || !BattleshipGameUtils::getFullPath(dirPath))
 		return false;
 
+
 	int attackFileOrder;
-	auto attackFilenames = BattleshipGameUtils::SortedDirlistSpecificExtension(path, ".attack");
+	auto attackFilenames = BattleshipGameUtils::SortedDirlistSpecificExtension(dirPath, ".attack");
 	
 	if(attackFilenames.size() == 0)			/* no relevant attack files in path */
 	
@@ -49,7 +52,7 @@ bool PlayerFromFile::init(const std::string & path)
 		else attackFileOrder = 1;
 	}
 
-	auto myAttackFilePath = path + "\\" + attackFilenames[attackFileOrder];
+	auto myAttackFilePath = dirPath + "/" + attackFilenames[attackFileOrder];
 	
 	movesVector = parseAttackFile(myAttackFilePath);	//todo : add parseAttackFile to the code 
 

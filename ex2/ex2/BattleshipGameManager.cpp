@@ -176,10 +176,15 @@ bool BattleshipGameManager::checkGameArguments(int argc, char *argv[], bool & pr
 	if(argc > 1)
 	{
 		inputDirPath = argv[1];
+	
 	}
 	
 	printFlag = false;
 	printDelay = 0;
+	if (!BattleshipGameUtils::getFullPath(inputDirPath))
+	{
+		return false;
+	}
 	return true;
 }
 
