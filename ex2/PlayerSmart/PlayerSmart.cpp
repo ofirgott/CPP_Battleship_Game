@@ -121,12 +121,12 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 
 	// the ship has more then 1 coordinate
 	if (shipDetails.isVertical) {
-		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor()); // check down 
+		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor()); // check up 
 		if (isInAttackOptions(attackCandidate))
 		{
 			return attackCandidate;
 		}
-		updateCoordinates(attackCandidate, shipDetails.getMinCoor() + 1, shipDetails.getConstCoor()); // check up
+		updateCoordinates(attackCandidate, shipDetails.getMinCoor() + 1, shipDetails.getConstCoor()); // check down
 		if (isInAttackOptions(attackCandidate)) { // highest posible coor
 			return attackCandidate;
 		}
@@ -152,7 +152,7 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 
 int PlayerSmart::addCoorToShipsInProcess(int row, int col, std::pair<int, int>* nextPairTosearch, AttackResult result) {
 
-	int ret;
+	int ret=-1;
 	int i = 0;
 	ShipInProcess tempShip(row, col);
 

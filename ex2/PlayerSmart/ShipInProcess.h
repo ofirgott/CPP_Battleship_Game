@@ -15,6 +15,7 @@ class ShipInProcess
 	std::pair<int, int> firstPair;
 	int shipSize;
 	friend class PlayerSmart;
+	friend class testPlayerSmart;
 
 	/* update the states of the inner Fields of the shipinproccess*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
