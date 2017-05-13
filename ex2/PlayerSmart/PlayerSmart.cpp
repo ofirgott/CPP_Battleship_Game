@@ -81,13 +81,13 @@ std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int,int>& candida
 	std::pair<int, int> attackCandidate (-1,-1);
 	// check up/down/left/right
 
-	updateCoordinates(attackCandidate, candidate.first - 1, candidate.second); // check down 
+	updateCoordinates(attackCandidate, candidate.first - 1, candidate.second); // check up 
 	if (isInAttackOptions(attackCandidate))
 	{
 		return attackCandidate;
 	}
-	updateCoordinates(attackCandidate, candidate.first + 1, candidate.second); // check up
-	if (isInAttackOptions(attackCandidate)) { // highest posible coor
+	updateCoordinates(attackCandidate, candidate.first + 1, candidate.second); // check down
+	if (isInAttackOptions(attackCandidate)) { 
 		return attackCandidate;
 	}
 	updateCoordinates(attackCandidate, candidate.first, candidate.second - 1);

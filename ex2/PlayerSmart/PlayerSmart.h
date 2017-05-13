@@ -9,6 +9,7 @@
 
 class PlayerSmart : public Player
 {
+		friend class testPlayerSmart;//////////////////////////////////////////////////////////////delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 public:
 
@@ -26,6 +27,7 @@ public:
 private:
 	std::vector<ShipInProcess> attackedShips;
 	std::set<std::pair<int, int>> attackOptions;
+
 
 	/* given a coordinate search all ships in process and check if it belongs to one of them.
 	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
