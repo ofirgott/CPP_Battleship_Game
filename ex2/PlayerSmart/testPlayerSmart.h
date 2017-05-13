@@ -183,25 +183,60 @@ public:
 		sizeTwo_1.addCoordinate(8, 8);
 
 		ShipInProcess sizeThree_1(4, 3);
-		sizeThree_1.addCoordinate(4, 5);
 		sizeThree_1.addCoordinate(4, 4);
+		sizeThree_1.addCoordinate(4, 5);
 
-		ShipInProcess sizeTFore_1(4, 1);
-
+		ShipInProcess sizeTwo_2(4, 1);
+		sizeTwo_2.addCoordinate(4, 2);
 
 		allShips.push_back(sizeThree_1);
+		allShips.push_back(sizeTwo_2);
 		allShips.push_back(sizeTwo_1);
 		allShips.push_back(sizeOne_1);
-		allShips.push_back(sizeOne_1);
-		allShips.push_back(sizeTFore_1);
-
+		allShips.push_back(sizeOne_2);
+		
 
 		tmpPlayer.attackOptions = allCoors;
 		tmpPlayer.attackedShips = allShips;
 
+		
+		for (int i = 0; i < tmpPlayer.attackedShips.size; i++)
+		{
+			for (int i = 0; i < tmpPlayer.attackedShips.size; i++) {
+				std::cout << tmpPlayer.attackedShips.at(i).at(j);
+			}
+			std::cout << std::endl;
+		}
 
+		std::cout << "this is before marged 3,4,5 with 1, 2 " << std::endl;
+		std::pair<int, int> nextPairTosearch = std::make_pair(4, 2);
+		tmpPlayer.mergeShipDetails(&nextPairTosearch, 0);// does one is the first index or second(i need second)
+		std::vector<int> incrementalCoorsTemp;
+		for (int i = 0; i < tmpPlayer.attackedShips.size; i++)
+		{
+			incrementalCoorsTemp = tmpPlayer.attackedShips.at(i).incrementalCoors;
+			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+				std::cout << incrementalCoorsTemp.at(j);
+			}
+			std::cout << std::endl;
+		}
 
+			std::cout << "shuold have marged  3,4,5 with 1, 2 and erace not needed vector "<<std::endl;
 
+	
+			nextPairTosearch = std::make_pair(4, 3);
+			tmpPlayer.mergeShipDetails(&nextPairTosearch, 2);// does one is the first index or second(i need second)
+			
+			for (int i = 0; i < tmpPlayer.attackedShips.size; i++)
+			{
+				incrementalCoorsTemp = tmpPlayer.attackedShips.at(i).incrementalCoors;
+				for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+					std::cout << incrementalCoorsTemp.at(j);
+				}
+				std::cout << std::endl;
+			}
+
+			std::cout << "shuold not have marged/chenged " << std::endl;
 	}
 	
 	static int testaddCoorToShipsInProcess() {
