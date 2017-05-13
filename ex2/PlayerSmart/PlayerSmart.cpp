@@ -192,7 +192,7 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, std::pair<int, int>* 
 		i++;
 	}
 	// if the coordinate doesnt belong to any of the ships in process add a new ship only if didnt sink
-	if (result != AttackResult::Sink )
+	if (result != AttackResult::Sink && ret==-1 )
 	{
 		attackedShips.push_back(tempShip);
 	}
