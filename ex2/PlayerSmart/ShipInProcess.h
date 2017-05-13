@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <vector>
 /*
 *calss to represent the attacked opponent's ship's
@@ -17,7 +18,7 @@ class ShipInProcess
 	friend class testShipInProcess;/////////////////////////////////nees to remove
 
 
-	/* update the states of the inner Fields of the shipinproccess*/
+								   /* update the states of the inner Fields of the shipinproccess*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
 
 	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
@@ -28,15 +29,15 @@ class ShipInProcess
 
 public:
 
-	ShipInProcess(int row, int col) : isVertical (true),isHorizontal(true),constantCoor (-1),firstPair(row, col),shipSize(1){}
-	~ShipInProcess(){} 
+	ShipInProcess(int row, int col) : isVertical(true), isHorizontal(true), constantCoor(-1), firstPair(row, col), shipSize(1) {}
+	~ShipInProcess() {}
 	ShipInProcess() = delete;
 	ShipInProcess& operator=(const ShipInProcess& otherShipInProcess) = delete;
 	ShipInProcess(const ShipInProcess& otherShipInproccess) = delete;	/* deletes copy constructor */
 
-	/* given <row,col> add it to the ship's internal representation if the coordinates 
-	 * belong to this ship and return 1, else return -1
-	 */
+																		/* given <row,col> add it to the ship's internal representation if the coordinates
+																		* belong to this ship and return 1, else return -1
+																		*/
 	int addCoordinate(int row, int col);
 
 	/* return true if coordinate <row,col> belongs to ship, elsereturn false*/
@@ -47,6 +48,7 @@ public:
 	void megreShipsInProcess(ShipInProcess& otherShip);
 
 	/* assumes called for ships larger then 1 coordinate*/
+	/*todo = maybe make this private???*/
 	int getMaxCoor() const { return incrementalCoors[shipSize - 1]; };
 	int getMinCoor() const { return incrementalCoors[0]; };
 	int getConstCoor() const { return constantCoor; };
