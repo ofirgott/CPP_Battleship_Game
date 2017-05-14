@@ -385,7 +385,6 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 }
 
 
-
 IBattleshipGameAlgo* GetAlgorithm()
 {
 	_instancesVec.push_back(new PlayerSmart());  // Create new instance and keep it in vector

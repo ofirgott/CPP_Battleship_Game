@@ -8,7 +8,6 @@
 
 class PlayerSmart : public Player
 {
-	friend class testPlayerSmart;//////////////////////////////////////////////////////////////delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 public:
 
