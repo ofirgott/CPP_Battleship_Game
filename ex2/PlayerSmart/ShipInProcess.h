@@ -9,10 +9,10 @@ class ShipInProcess
 {
 	bool isVertical;
 	bool isHorizontal;
-	int constantCoor;
-	std::vector<int> incrementalCoors;
-	std::pair<int, int> firstPair;
-	int shipSize;
+	int constantCoor;//for a specific ship in size>2 we have a const coordinate (first/second)
+	std::vector<int> incrementalCoors;//ship coordinates (only the none const part of every pair)
+	std::pair<int, int> firstPair;//first pair added to ship (in case of size one ship- representes the ship)
+	int shipSize;//current ship size
 	friend class PlayerSmart;
 
 	/* update the states of the inner Fields of the shipinproccess*/
@@ -21,6 +21,7 @@ class ShipInProcess
 	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
 	int addToSizeOneShip(int row, int col);
 
+	/* merge Ships Vectors, assumse mainVector size>1 */
 	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical);
 
 
@@ -29,8 +30,6 @@ public:
 	ShipInProcess(int row, int col) : isVertical(true), isHorizontal(true), constantCoor(-1), firstPair(row, col), shipSize(1) {}
 	~ShipInProcess() {}
 	ShipInProcess() = delete;
-	//ShipInProcess& operator=(const ShipInProcess& otherShipInProcess) = delete;
-	//ShipInProcess(const ShipInProcess& otherShipInproccess) = delete;	/* deletes copy constructor */
 
 	/* given <row,col> add it to the ship's internal representation if the coordinates
 	* belong to this ship and return 1, else return -1

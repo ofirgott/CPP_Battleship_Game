@@ -59,7 +59,7 @@ bool ShipInProcess::isPartOfShip(int row, int col) const
 		return ((col == constantCoor) && (row <= incrementalCoors[shipSize - 1]) && (row >= incrementalCoors[0]));
 	}
 
-	// ship is horizontal
+	// ship is horizontal - only case left
 	return ((row == constantCoor) && (col <= incrementalCoors[shipSize - 1]) && (col >= incrementalCoors[0]));
 }
 
@@ -119,8 +119,6 @@ int ShipInProcess::addCoordinate(int row, int col)
 	return -1;
 }
 
-
-
 std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical)
 {
 	std::vector<int> tmpVector = mainVector;
@@ -132,7 +130,7 @@ std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVe
 			tmpVector.insert(tmpVector.begin(), addPair.first);
 		}
 		if (addPair.first == tmpVector[tmpVector.size() - 1] + 1) {
-			tmpVector.push_back(addPair.first);
+			tmpVector.push_back(addPair.first);//merging the vectores
 		}
 	}
 
@@ -144,7 +142,7 @@ std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVe
 		}
 		if (addPair.second == tmpVector[tmpVector.size() - 1] + 1)
 		{
-			tmpVector.push_back(addPair.second);
+			tmpVector.push_back(addPair.second);//merging the vectores
 		}
 	}
 
