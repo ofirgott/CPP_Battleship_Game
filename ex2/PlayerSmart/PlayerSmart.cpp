@@ -124,7 +124,7 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 		{
 			return attackCandidate;
 		}
-		updateCoordinates(attackCandidate, shipDetails.getMinCoor() + 1, shipDetails.getConstCoor()); // check down
+		updateCoordinates(attackCandidate, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor()); // check down
 		if (isInAttackOptions(attackCandidate)) { // highest posible coor
 			return attackCandidate;
 		}

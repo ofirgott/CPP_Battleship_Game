@@ -50,11 +50,11 @@ void BattleshipGameManager::Run()
 
 	GamePlayerData* currPlayer = &playerA;
 	GamePlayerData* otherPlayer = &playerB;
-	int i = 0;
+
+
 	// as long as one of the players has more moves and no one won
 	while (currPlayer->hasMoreMoves || otherPlayer->hasMoreMoves ) { 
 		
-		i++;
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
 			//switchCurrPlayer(&currPlayer, &otherPlayer);

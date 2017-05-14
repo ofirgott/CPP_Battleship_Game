@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 	{
 		BattleshipGameManager Game(argc, argv);
 		if (Game.isGameSuccessfullyCreated()){
+
 			Game.Run();
 			system("pause");
 			return 0;
