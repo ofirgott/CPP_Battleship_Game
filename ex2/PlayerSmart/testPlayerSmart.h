@@ -1,12 +1,12 @@
 #pragma once
 #include"PlayerSmart.h"
-#include  <iostream>;
+#include  <iostream>
 
 class testPlayerSmart {
 public:
 	testPlayerSmart() {};
 	~testPlayerSmart() {};
-//sharon done	
+	//sharon done	
 	//done
 	static int testisInAttackOptions() {
 		PlayerSmart tempPlayer;
@@ -21,13 +21,14 @@ public:
 		bool res = tempPlayer.isInAttackOptions(std::make_pair(1, 1));
 		std::cout << "should be true " << res << std::endl;
 		res = tempPlayer.isInAttackOptions(std::make_pair(6, 6));
-		std::cout << "should be true " << res << std::endl;
+		std::cout << "should be false " << res << std::endl;
 		res = tempPlayer.isInAttackOptions(std::make_pair(3, 2));
 		std::cout << "should be true " << res << std::endl;
 		res = tempPlayer.isInAttackOptions(std::make_pair(0, 0));
 		std::cout << "should be fales " << res << std::endl;
 		res = tempPlayer.isInAttackOptions(std::make_pair(7, 7));
 		std::cout << "should be false " << res << std::endl;
+		return 0;
 	}
 	//done
 	static int testremoveOneCoordinate() {
@@ -40,8 +41,9 @@ public:
 			}
 		}
 		tempPlayer.attackOptions = coordinates;
+		std::pair<int, int> tmpPair = std::make_pair(1, 1);
 
-		tempPlayer.removeOneCoordinate(std::make_pair(1, 1));
+		tempPlayer.removeOneCoordinate(tmpPair);
 		auto find = tempPlayer.attackOptions.find(std::make_pair(1, 1));
 		if (find != tempPlayer.attackOptions.end())
 		{
@@ -52,10 +54,9 @@ public:
 		}
 
 
-
-
+		return 0;
 	}//done
-	//done
+	 //done
 	static int testremoveAllIrreleventCoordinates() {
 		PlayerSmart tempPlayer;
 
@@ -88,7 +89,7 @@ public:
 		}
 		//case of in middle(shuold remove two side) vertical
 		tempPlayer.removeAllIrreleventCoordinates(std::make_pair(3, 3), true, false);
-		auto find = tempPlayer.attackOptions.find(std::make_pair(3, 2));
+		find = tempPlayer.attackOptions.find(std::make_pair(3, 2));
 		if (find != tempPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 3,2 wich is erelevent for vertical! " << std::endl;
@@ -96,7 +97,7 @@ public:
 		else {
 			std::cout << "good boy! " << std::endl;
 		}
-		auto find = tempPlayer.attackOptions.find(std::make_pair(3, 4));
+		find = tempPlayer.attackOptions.find(std::make_pair(3, 4));
 		if (find != tempPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 3,4 wich is erelevent for vertical! " << std::endl;
@@ -126,9 +127,7 @@ public:
 		}
 
 
-
-
-
+		return 0;
 	}
 	//dene
 	static int testmergeShipDetails() {
@@ -183,7 +182,7 @@ public:
 		std::cout << "this is before marged 3,4,5 with 1, 2 " << std::endl;
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
@@ -195,7 +194,7 @@ public:
 
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
@@ -209,13 +208,14 @@ public:
 
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
 		}
 
 		std::cout << "shuold not have marged/chenged " << std::endl;
+		return 0;
 	}
 	//done
 	static int testremoveSankFromReleventCoors() {
@@ -274,7 +274,7 @@ public:
 		else {//didnt find it was deleted before
 			std::cout << " good!4,2 deleted:)! " << std::endl;
 		}
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(4, 6));
+		find = tmpPlayer.attackOptions.find(std::make_pair(4, 6));
 		if (find != tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 4,6! " << std::endl;
@@ -287,7 +287,7 @@ public:
 
 		tmpPlayer.removeSankFromReleventCoors(2);
 		std::cout << "checking for vector 7,8-8 - vertical" << std::endl;
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
+		find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
 		if (find != tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 6,8! " << std::endl;
@@ -295,7 +295,7 @@ public:
 		else {//didnt find it was deleted before
 			std::cout << " good!6,8 deleted:)! " << std::endl;
 		}
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(10, 8));
+		find = tmpPlayer.attackOptions.find(std::make_pair(10, 8));
 		if (find != tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 10,8! " << std::endl;
@@ -307,15 +307,14 @@ public:
 		std::cout << " check that the vector 7,8-8 and 4-3,4,5 are gone!-->" << std::endl;
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
 		}
 
 
-
-
+		return 0;
 	}
 	//done	
 	static int testnotifyOnAttackResult() {
@@ -382,7 +381,7 @@ public:
 
 
 		//hit (merge one coor with one ship)
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(4, 2));
+		find = tmpPlayer.attackOptions.find(std::make_pair(4, 2));
 		if (find == tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good! 4,2 was sopposed to be here before notify ! " << std::endl;
@@ -400,14 +399,14 @@ public:
 		std::cout << " should be here vector horizontal 4-2,3,4,5 " << std::endl;
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
 		}
 
 		//hit merge two vectors 
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
+		find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
 		if (find == tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good!6,8 was sopposed to be here before notify ! " << std::endl;
@@ -425,14 +424,14 @@ public:
 		std::cout << " should be here vector vertical 6,7,8-8 and delete vector single 5,8 " << std::endl;
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
 		}
 
 		//sink
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(2, 8));
+		find = tmpPlayer.attackOptions.find(std::make_pair(2, 8));
 		if (find == tmpPlayer.attackOptions.end())
 		{
 			std::cout << "not good!2,8 was sopposed to be here before notify ! " << std::endl;
@@ -450,16 +449,16 @@ public:
 		std::cout << " should  delete vector 2,3-8 " << std::endl;
 		for (auto& details : tmpPlayer.attackedShips) {
 			std::vector<int> incrementalCoorsTemp = details.incrementalCoors;
-			for (int j = 0; j < tmpPlayer.attackedShips.size; j++) {
+			for (int j = 0; j < tmpPlayer.attackedShips.size(); j++) {
 				std::cout << incrementalCoorsTemp.at(j);
 			}
 			std::cout << std::endl;
 		}
 
 
-
+		return 0;
 	}
-//diana done
+	//diana done
 	static int testaddCoorToShipsInProcess() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -482,6 +481,18 @@ public:
 		allCoors.erase(allCoors.find(std::make_pair(4, 5)));
 		allCoors.erase(allCoors.find(std::make_pair(4, 4)));
 
+		// clear envirnment
+		allCoors.erase(allCoors.find(std::make_pair(7, 6)));
+		allCoors.erase(allCoors.find(std::make_pair(8, 6)));
+		allCoors.erase(allCoors.find(std::make_pair(7, 9)));
+		allCoors.erase(allCoors.find(std::make_pair(8, 9)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 3)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 5)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 4)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 3)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 5)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 4)));
+
 
 		// create ships
 		ShipInProcess sizeOne_1(1, 1);
@@ -491,23 +502,24 @@ public:
 		sizeTwo_1.addCoordinate(8, 8);
 
 		ShipInProcess sizeThree_1(4, 3);
-		sizeThree_1.addCoordinate(4, 5);
 		sizeThree_1.addCoordinate(4, 4);
+		sizeThree_1.addCoordinate(4, 5);
+
 
 		allShips.push_back(sizeThree_1);
 		allShips.push_back(sizeTwo_1);
 		allShips.push_back(sizeOne_1);
-		allShips.push_back(sizeOne_1);
+		allShips.push_back(sizeOne_2);
 
 		tmpPlayer.attackOptions = allCoors;
 		tmpPlayer.attackedShips = allShips;
 
 		int res;
 		std::pair<int, int> output;
-		res = tmpPlayer.addCoorToShipsInProcess(1, 1, &output, AttackResult::Hit);
-		if (res != 3)
+		res = tmpPlayer.addCoorToShipsInProcess(2, 1, &output, AttackResult::Hit);
+		if (res != 2)
 		{
-			std::cout << "error in addCoorToShipsInProcess <1,1> ";
+			std::cout << "error in addCoorToShipsInProcess <2,1> ";
 			return -1;
 		}
 
@@ -524,9 +536,8 @@ public:
 			std::cout << std::endl;
 			i++;
 		}
-		std::cout << "next Pair <0,1> got:" << output.first << ',' << output.second << std::endl;
+		std::cout << "next Pair <3,1> got:" << output.first << ',' << output.second << std::endl;
 
-		std::cout << " print vectors: (onlythe first should be different) " << std::endl;
 		res = tmpPlayer.addCoorToShipsInProcess(4, 6, &output, AttackResult::Sink);
 		if (res != 0)
 		{
@@ -551,7 +562,7 @@ public:
 		std::cout << "next Pair <4,7> got:" << output.first << ',' << output.second << std::endl;
 
 		/////////////////////////
-		res = tmpPlayer.addCoorToShipsInProcess(3, 8, &output, AttackResult::Miss);
+		res = tmpPlayer.addCoorToShipsInProcess(3, 8, &output, AttackResult::Hit);
 		if (res != -1)
 		{
 			std::cout << "error in addCoorToShipsInProcess  <3,8>";
@@ -623,6 +634,17 @@ public:
 		allCoors.erase(allCoors.find(std::make_pair(4, 5)));
 		allCoors.erase(allCoors.find(std::make_pair(4, 4)));
 
+		allCoors.erase(allCoors.find(std::make_pair(3, 3)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 4)));
+		allCoors.erase(allCoors.find(std::make_pair(3, 5)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 3)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 4)));
+		allCoors.erase(allCoors.find(std::make_pair(5, 5)));
+		allCoors.erase(allCoors.find(std::make_pair(7, 7)));
+		allCoors.erase(allCoors.find(std::make_pair(8, 7)));
+		allCoors.erase(allCoors.find(std::make_pair(7, 9)));
+		allCoors.erase(allCoors.find(std::make_pair(8, 9)));
+
 		// create ships
 		ShipInProcess sizeOne_1(1, 1);
 		ShipInProcess sizeOne_2(3, 8);
@@ -631,13 +653,13 @@ public:
 		sizeTwo_1.addCoordinate(8, 8);
 
 		ShipInProcess sizeThree_1(4, 3);
-		sizeThree_1.addCoordinate(4, 5);
 		sizeThree_1.addCoordinate(4, 4);
+		sizeThree_1.addCoordinate(4, 5);
 
 		allShips.push_back(sizeThree_1);
 		allShips.push_back(sizeTwo_1);
 		allShips.push_back(sizeOne_1);
-		allShips.push_back(sizeOne_1);
+		allShips.push_back(sizeOne_2);
 
 		tmpPlayer.attackOptions = allCoors;
 		tmpPlayer.attackedShips = allShips;
@@ -653,9 +675,14 @@ public:
 		}
 
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(nextCoor));
+		nextCoor = std::make_pair(4, 1);
+		tmpPlayer.removeOneCoordinate(nextCoor);
+		nextCoor = std::make_pair(3, 2);
+		tmpPlayer.removeOneCoordinate(nextCoor);
+		nextCoor = std::make_pair(5, 2);
+		tmpPlayer.removeOneCoordinate(nextCoor);
 
-		nextCoor = tmpPlayer.nextAttackFromCoors(sizeThree_1, 3);
-
+		nextCoor = tmpPlayer.nextAttackFromCoors(sizeThree_1, 4);
 		if ((nextCoor.first != 4) || (nextCoor.second != 6))
 		{
 			std::cout << "error <4,6>" << std::endl;
@@ -663,13 +690,14 @@ public:
 		}
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(nextCoor));
 
+
 		nextCoor = tmpPlayer.nextAttackFromCoors(sizeTwo_1, 2);
 		if ((nextCoor.first != 6) || (nextCoor.second != 8))
 		{
 			std::cout << "error <6,8>" << std::endl;
 			return -1;
 		}
-
+		std::cout << "done!" << std::endl;
 		return 0;
 
 	}
@@ -719,7 +747,7 @@ public:
 		int res;
 		std::pair<int, int> target(4, 3);
 
-		res = tmpPlayer.findPairInAttackedShips(target);
+		res = tmpPlayer.findPairInAttackedShips(target, 0);
 		if (res != 1)
 		{
 			std::cout << "error <4,3> 0" << std::endl;
@@ -741,7 +769,7 @@ public:
 		}
 
 		target = std::make_pair(10, 10);
-		res = tmpPlayer.findPairInAttackedShips(target);
+		res = tmpPlayer.findPairInAttackedShips(target, 0);
 		if (res != -1)
 		{
 			std::cout << "error <10,10>  0" << std::endl;
@@ -749,7 +777,7 @@ public:
 		}
 
 		target = std::make_pair(4, 6);
-		res = tmpPlayer.findPairInAttackedShips(target);
+		res = tmpPlayer.findPairInAttackedShips(target, 0);
 		if (res != -1)
 		{
 			std::cout << "error <4,6>  0" << std::endl;
@@ -774,9 +802,9 @@ public:
 		// check all sides
 		std::pair<int, int> res;
 		std::pair<int, int> target(2, 3);
-
 		allCoors.erase(allCoors.find(target));
 
+		tmpPlayer.attackOptions = allCoors;
 		//should return <1,3> up
 		res = tmpPlayer.sizeOneAttack(target);
 		if ((res.first != 1) || (res.second != 3))
@@ -784,7 +812,7 @@ public:
 			std::cout << "error 1,3" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 		//should return <3,3> down
 		res = tmpPlayer.sizeOneAttack(target);
@@ -793,7 +821,7 @@ public:
 			std::cout << "error 3,3" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 		//should return <2,2>  left
 		res = tmpPlayer.sizeOneAttack(target);
@@ -802,7 +830,7 @@ public:
 			std::cout << "error 2,2" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 		//should return <3,3> right
 		res = tmpPlayer.sizeOneAttack(target);
@@ -811,7 +839,7 @@ public:
 			std::cout << "error 2,4" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 
 		//should return <-1, -1> none
@@ -821,11 +849,12 @@ public:
 			std::cout << "error -1,-1" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+		tmpPlayer.removeOneCoordinate(res);
+		//		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 		//check rightest edge 
 		target = std::make_pair(4, 5);
-		allCoors.erase(allCoors.find(target));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(target));
 		target = std::make_pair(5, 5);
 		// should return left (5,4)
 		res = tmpPlayer.sizeOneAttack(target);
@@ -834,7 +863,9 @@ public:
 			std::cout << "error 5,4" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
+
+		tmpPlayer.removeOneCoordinate(res);
+
 
 		// check the leftest 
 		target = std::make_pair(1, 1);
@@ -844,8 +875,8 @@ public:
 			std::cout << "error 2,1" << std::endl;
 			return -1;
 		}
-		allCoors.erase(allCoors.find(res));
-
+		tmpPlayer.removeOneCoordinate(res);
+		std::cout << "done!" << std::endl;
 
 		return 0;
 	}
@@ -921,9 +952,9 @@ public:
 
 		return 0;
 	}
-/////////////////////////////////////////////
-	
+	/////////////////////////////////////////////
+
 	//static int testsetBoard() {
-//	}
+	//	}
 
 };

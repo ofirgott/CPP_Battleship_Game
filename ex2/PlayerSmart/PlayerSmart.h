@@ -5,21 +5,19 @@
 #include <vector>
 #include <set>
 
-
-
 class PlayerSmart : public Player
 {
-		friend class testPlayerSmart;//////////////////////////////////////////////////////////////delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	friend class testPlayerSmart;//////////////////////////////////////////////////////////////delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 public:
 
-	PlayerSmart():Player() {};
+	PlayerSmart() :Player() {};
 	~PlayerSmart() = default;
 	PlayerSmart& operator=(const PlayerSmart& otherSmartPlayer) = delete;
 	PlayerSmart(const PlayerSmart& otherSmartPlayer) = delete;
 
 	void setBoard(int player, const char** board, int numRows, int numCols) override;
-	bool init(const std::string& path) override{return (id != -1);}
+	bool init(const std::string& path) override { return (id != -1); }
 	std::pair<int, int> attack() override;													// ask player for his move
 	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override;	// notify on last move result
 
@@ -28,7 +26,7 @@ private:
 	std::vector<ShipInProcess> attackedShips;
 	std::set<std::pair<int, int>> attackOptions;
 
-
+	bool  PlayerSmart::isInBoard(int row, int col) const;
 	/* given a coordinate search all ships in process and check if it belongs to one of them.
 	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
 	* if doesnt belong to any of them and the ship didnt sink add a new ship of size 1 to shipsinprocess && return -1
@@ -50,9 +48,9 @@ private:
 	void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int indexToupdate);
 
 	/* given pair and start index, check if pair belongs to any of the attacked ships
-	 * if found return 1, else -1.
-	 */
-	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex = 0);
+	* if found return 1, else -1.
+	*/
+	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex);
 
 	/* given origin update its coordinates to <row,col>*/
 	static std::pair <int, int> updateCoordinates(std::pair<int, int>& origin, int row, int col) { origin.first = row; origin.second = col; return origin; }
@@ -61,7 +59,7 @@ private:
 	* util function for attack
 	*/
 	bool PlayerSmart::isInAttackOptions(const std::pair<int, int>& coors) const;
-	
+
 	/* given a coordinate removefrom attackOptions is exists*/
 	void PlayerSmart::removeOneCoordinate(std::pair<int, int>& pairToDelete);
 
@@ -71,4 +69,5 @@ private:
 	/* assume the ships handked here are of size at least 2*/
 	void PlayerSmart::removeSankFromReleventCoors(int indexOfPair);
 };
+
 

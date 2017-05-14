@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ShipInProcess.h"
-#include <algorithm>
 
 
 void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor)
@@ -80,34 +79,41 @@ int ShipInProcess::addCoordinate(int row, int col)
 	// ship is larger then 1
 	if (isVertical)
 	{
-		if (row == incrementalCoors[0] - 1) // is up
+		if (col == constantCoor)
 		{
-			incrementalCoors.insert(incrementalCoors.begin(), row);
-			shipSize += 1;
-			return 1;
-		}
-		if (row == incrementalCoors[shipSize - 1] + 1) // is down
-		{
-			incrementalCoors.push_back(row);
-			shipSize += 1;
-			return 1;
+			if (row == incrementalCoors[0] - 1) // is up
+			{
+				incrementalCoors.insert(incrementalCoors.begin(), row);
+				shipSize += 1;
+				return 1;
+			}
+			if (row == incrementalCoors[shipSize - 1] + 1) // is down
+			{
+				incrementalCoors.push_back(row);
+				shipSize += 1;
+				return 1;
+			}
 		}
 	}
 
 	if (isHorizontal)
 	{
-		if (col == incrementalCoors[0] - 1)
+		if (row == constantCoor)
 		{
-			incrementalCoors.insert(incrementalCoors.begin(), col);
-			shipSize += 1;
-			return 1;
+			if (col == incrementalCoors[0] - 1) //left
+			{
+				incrementalCoors.insert(incrementalCoors.begin(), col);
+				shipSize += 1;
+				return 1;
+			}
+			if (col == incrementalCoors[shipSize - 1] + 1) //right
+			{
+				incrementalCoors.push_back(col);
+				shipSize += 1;
+				return 1;
+			}
 		}
-		if (col == incrementalCoors[shipSize - 1] + 1)
-		{
-			incrementalCoors.push_back(col);
-			shipSize += 1;
-			return 1;
-		}
+
 	}
 
 	// the given coordinate doesnt belong to this ship

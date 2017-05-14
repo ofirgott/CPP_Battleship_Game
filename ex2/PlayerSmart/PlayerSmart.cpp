@@ -13,17 +13,17 @@ void PlayerSmart::setBoard(int player, const char ** board, int numRows, int num
 	boardRows = numRows;
 	boardCols = numCols;
 	BattleshipBoard boardTemp(board, numRows, numCols); // create  
-	
+
 	if (!boardTemp.isSuccessfullyCreated()) {
 		id = -1;
 	}
-	 // board created successfuly
+	// board created successfuly
 	if (id != -1) {
 
-		setOfShipsDetails = boardTemp.ExtractShipsDetails(); 
+		setOfShipsDetails = boardTemp.ExtractShipsDetails();
 		std::set<std::pair<int, int>> coordOfCurrentShip;
 		auto it = setOfShipsDetails.begin();
-		
+
 		// foreach shipDetail add all its surroundings to the not allowed coors to attack 
 		while (it != setOfShipsDetails.end())
 		{
@@ -38,7 +38,7 @@ void PlayerSmart::setBoard(int player, const char ** board, int numRows, int num
 					result.insert(pairToInsert);
 				}
 				if (coord.second + 1 <= numCols) {//right
-					updateCoordinates(pairToInsert, coord.first, coord.second +1);
+					updateCoordinates(pairToInsert, coord.first, coord.second + 1);
 					result.insert(pairToInsert);
 				}
 				if (coord.second - 1 > 0) {//left
@@ -51,11 +51,11 @@ void PlayerSmart::setBoard(int player, const char ** board, int numRows, int num
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-				updateCoordinates(pairToInsert,i,j);
+				updateCoordinates(pairToInsert, i, j);
 				result.insert(pairToInsert);
 
 				if (result.find(pairToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
-					updateCoordinates(pairToInsert, i+1, j+1);
+					updateCoordinates(pairToInsert, i + 1, j + 1);
 					attackOptions.insert(pairToInsert);//adding to the set of option for attack 
 				}
 			}
@@ -76,9 +76,9 @@ std::pair<int, int> PlayerSmart::attack()
 	return nextAttackFromCoors(attackedShips[0], attackedShips[0].shipSize);
 }
 
-std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int,int>& candidate ) const
+std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int, int>& candidate) const
 {
-	std::pair<int, int> attackCandidate (-1,-1);
+	std::pair<int, int> attackCandidate(-1, -1);
 	// check up/down/left/right
 
 	updateCoordinates(attackCandidate, candidate.first - 1, candidate.second); // check up 
@@ -87,7 +87,7 @@ std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int,int>& candida
 		return attackCandidate;
 	}
 	updateCoordinates(attackCandidate, candidate.first + 1, candidate.second); // check down
-	if (isInAttackOptions(attackCandidate)) { 
+	if (isInAttackOptions(attackCandidate)) {
 		return attackCandidate;
 	}
 	updateCoordinates(attackCandidate, candidate.first, candidate.second - 1);
@@ -104,7 +104,7 @@ std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int,int>& candida
 	// shouldnt get here
 	updateCoordinates(attackCandidate, -1, -1);
 	return attackCandidate;
-	
+
 }
 
 std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const
@@ -115,7 +115,7 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 		return attackCandidate;
 	}
 
-	if (numOfCoors == 1){ 
+	if (numOfCoors == 1) {
 		return sizeOneAttack(shipDetails.firstPair);
 	}
 
@@ -152,14 +152,14 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 
 int PlayerSmart::addCoorToShipsInProcess(int row, int col, std::pair<int, int>* nextPairTosearch, AttackResult result) {
 
-	int ret=-1;
+	int ret = -1;
 	int i = 0;
 	ShipInProcess tempShip(row, col);
 
 	for (auto& details : attackedShips)
 	{
 		ret = details.addCoordinate(row, col);
-		if (ret != -1) // the coordinate was added to the ship, 
+		if (ret == 1) // the coordinate was added to the ship, 
 		{
 			if (details.isVertical) // cols are constant
 			{
@@ -192,12 +192,17 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, std::pair<int, int>* 
 		i++;
 	}
 	// if the coordinate doesnt belong to any of the ships in process add a new ship only if didnt sink
-	if (result != AttackResult::Sink && ret==-1 )
+	if (result != AttackResult::Sink && ret == -1)
 	{
 		attackedShips.push_back(tempShip);
 	}
 
 	return -1;
+}
+
+bool  PlayerSmart::isInBoard(int row, int col) const
+{
+	return (row > boardRows || row< 1 || col>boardCols || col < 1);
 }
 
 void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int startIndex)
@@ -206,7 +211,8 @@ void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int startIndex)
 	std::vector<ShipInProcess>::iterator originalShipIndex = attackedShips.begin() + startIndex;
 
 	// make sure that the nextPair to search is in board limits
-	if ((1 <= pair->first <= boardRows) && (1 <= pair->second <= boardCols))
+
+	if (isInBoard(pair->first, pair->second))
 	{
 		index = findPairInAttackedShips(*pair, startIndex + 1);
 	}
@@ -221,7 +227,7 @@ void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int startIndex)
 	}
 }
 
-int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex = 0)
+int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex)
 {
 	int cnt = 0;
 	std::vector<ShipInProcess>::iterator findShipIndex = attackedShips.begin() + startIndex;
@@ -289,7 +295,7 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 	int mergeResult;
 	std::pair<int, int> nextPairTosearch; // the candidate coor to merge with.( merging ships that already in the attackedShips after adding <row,col>)
 	std::pair <int, int> attackedPair(row, col);
-	std::pair<int, int> tmpPair(-1,-1);
+	std::pair<int, int> tmpPair(-1, -1);
 
 	if (!isInAttackOptions(attackedPair)) { // the coordinate is mine/ already was handeld
 		return;
@@ -307,7 +313,7 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 	mergeResult = addCoorToShipsInProcess(row, col, &nextPairTosearch, result);
 	//check if there is another ship in shipinprocess that belong's to the same ship we just updated
 	if (mergeResult != -1)// the coordinate is added to one of the ships that are already in process 
-	{ 
+	{
 		mergeShipDetails(&nextPairTosearch, mergeResult);
 		//remove all irrelevnt coordinates for future attack 
 		for (int i = 0; i <attackedShips[mergeResult].shipSize; i++) {
@@ -326,14 +332,14 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 		}
 	}
 
-	if(result == AttackResult::Sink)
+	if (result == AttackResult::Sink)
 	{
 		if (mergeResult == -1) // the ship wasnt in process >> ship of size 1  
 		{
-			removeAllIrreleventCoordinates(attackedPair , true , true);
+			removeAllIrreleventCoordinates(attackedPair, true, true);
 		}
 
-		else{
+		else {
 			removeSankFromReleventCoors(mergeResult);
 		}
 	}
@@ -341,14 +347,14 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 
 	// sort vector of attackedShips by size of the ship from largest ship to smallest ship - to create priority for larger ships 
 	std::sort(attackedShips.begin(), attackedShips.end(),
-		[](const ShipInProcess & a, const ShipInProcess & b) { return a.shipSize > b.shipSize;});
+		[](const ShipInProcess & a, const ShipInProcess & b) { return a.shipSize > b.shipSize; });
 
 }
 
 
 void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 {
-	std::pair <int, int> coorsToDelete (0,0);
+	std::pair <int, int> coorsToDelete(0, 0);
 	std::vector<ShipInProcess>::iterator ShipIndex;
 
 	// for the second ship detail 
@@ -379,8 +385,8 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 
 
 
-IBattleshipGameAlgo* GetAlgorithm()
-{
-	_instancesVec.push_back(new PlayerSmart());  // Create new instance and keep it in vector
-	return _instancesVec[_instancesVec.size() - 1];  // Return last instance
-}
+//IBattleshipGameAlgo* GetAlgorithm()
+//{
+//	_instancesVec.push_back(new PlayerSmart());  // Create new instance and keep it in vector
+//	return _instancesVec[_instancesVec.size() - 1];  // Return last instance
+//}

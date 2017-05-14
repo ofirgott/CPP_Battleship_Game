@@ -31,12 +31,12 @@ public:
 	ShipInProcess(int row, int col) : isVertical(true), isHorizontal(true), constantCoor(-1), firstPair(row, col), shipSize(1) {}
 	~ShipInProcess() {}
 	ShipInProcess() = delete;
-	ShipInProcess& operator=(const ShipInProcess& otherShipInProcess) = delete;
-	ShipInProcess(const ShipInProcess& otherShipInproccess) = delete;	/* deletes copy constructor */
+	//ShipInProcess& operator=(const ShipInProcess& otherShipInProcess) = delete;
+	//ShipInProcess(const ShipInProcess& otherShipInproccess) = delete;	/* deletes copy constructor */
 
-																		/* given <row,col> add it to the ship's internal representation if the coordinates
-																		* belong to this ship and return 1, else return -1
-																		*/
+	/* given <row,col> add it to the ship's internal representation if the coordinates
+	* belong to this ship and return 1, else return -1
+	*/
 	int addCoordinate(int row, int col);
 
 	/* return true if coordinate <row,col> belongs to ship, elsereturn false*/
