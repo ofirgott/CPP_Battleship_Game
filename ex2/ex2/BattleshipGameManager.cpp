@@ -1,15 +1,14 @@
 #include "BattleshipGameManager.h"
 #include "BattleshipGameUtils.h"
 #include "GamePlayerData.h"
+#include "PrintGameBoard.h"
 
 
 BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAlgoA(nullptr), playerAlgoB(nullptr), inputDirPath(""), gameSuccessfullyCreated(false)
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
-	bool printFlag = false;
-	int printDelay = 0;
 	
-	if(!checkGameArguments(argc, argv, printFlag, printDelay)) return;	//todo: need to implement
+	if(!checkGameArguments(argc, argv)) return;	//todo: need to implement
 		
 	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
 	
@@ -18,6 +17,8 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 	if (!checkMainBoardValidity() || !initGamePlayers(dllPathPlayerA, dllPathPlayerB)) return;
 
 	gameSuccessfullyCreated = true;
+	
+	PrintGameBoard::printStartBoard(mainBoard);
 
 }
 
@@ -169,23 +170,57 @@ void BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePla
 	}
 }
 
-bool BattleshipGameManager::checkGameArguments(int argc, char *argv[], bool & printFlag, int & printDelay)
+bool BattleshipGameManager::checkGameArguments(int argc, char *argv[])
 {
 	std::string path = ".";
-	//todo: implement
-	if(argc > 1)
+	bool isQuiet = PrintGameBoard::printDeafultIsQuiet;
+	int printDelay = PrintGameBoard::printDefatultDealy;
+
+	if (argc > 5)
 	{
-		inputDirPath = argv[1];
-	
-	}
-	
-	printFlag = false;
-	printDelay = 0;
-	if (!BattleshipGameUtils::getFullPath(inputDirPath))
-	{
+		std::cout << "Error, Too many arguments!" << std::endl;
 		return false;
 	}
+
+	for (int i = 1; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-quiet") == 0)
+		{
+			isQuiet = true;
+		}
+		else if (strcmp(argv[i], "-delay") == 0)
+		{
+			if (i == argc - 1) {	/* we got delay flag but this is the last argument - this is an error because we need the int*/
+				std::cout << "Error, got -delay flag, but delay value is missing." << std::endl;
+				return false;
+			}
+			else
+			{
+				char* stringEnd = nullptr;
+				printDelay = (int)strtol(argv[++i], &stringEnd, 10);
+				if (*stringEnd)
+				{
+					std::cout << "Error, -delay value is not a valid integer" << std::endl;
+					return false;
+				}
+			}
+		}
+		else  /* this is the dir path */
+		{
+			path = argv[i];
+		}
+
+	}
+	
+	if (!BattleshipGameUtils::getFullPath(path)) return false;
+
+	inputDirPath = path;
+	
+	PrintGameBoard::setIsQuiet(isQuiet);
+	
+
 	return true;
+	
 }
 
 bool BattleshipGameManager::checkGamefiles(std::string & boardPath, std::string & dllPathPlayerA, std::string & dllPathPlayerB)

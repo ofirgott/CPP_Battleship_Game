@@ -22,7 +22,8 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 
 GamePlayerData::~GamePlayerData()
 {
-	//std::cout << "************in MANAGER DEST*********** \n";
+	//
+	//"************in MANAGER DEST*********** \n";
 	//std::cout << "id == " << id << "\n";
 	//std::cout << "address of the algo == " << (void*)playerAlgo << "\n";
 

@@ -52,7 +52,10 @@ BattleshipBoard & BattleshipBoard::operator=(const BattleshipBoard & otherBoard)
 
 	return *this;
 }
-
+bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar)
+{
+	return ((isupper(shipChar) && playerId == PLAYERID_A) || (islower(shipChar) && playerId == PLAYERID_B));
+}
 const char ** BattleshipBoard::createPlayerBoard(int playerID)const
 {
 	char** playerBoard = AllocateNewMatrix(rows, cols);
@@ -62,9 +65,9 @@ const char ** BattleshipBoard::createPlayerBoard(int playerID)const
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			if (IsShipCharInBoard(matrix[i][j]) && isupper(matrix[i][j]) && playerID == PLAYERID_A)		/* returns clean matrix of player A*/
+			if (IsShipCharInBoard(matrix[i][j]) && playerID == PLAYERID_A && isPlayerShip(playerID, matrix[i][j]))		/* returns clean matrix of player A*/
 				playerBoard[i][j] = matrix[i][j];
-			else if (IsShipCharInBoard(matrix[i][j]) && islower(matrix[i][j]) && playerID == PLAYERID_B)	/* returns clean matrix of player B */
+			else if (IsShipCharInBoard(matrix[i][j]) && playerID == PLAYERID_B && isPlayerShip(playerID, matrix[i][j]))	/* returns clean matrix of player B */
 				playerBoard[i][j] = matrix[i][j];
 		}
 	}

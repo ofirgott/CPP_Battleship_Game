@@ -28,6 +28,7 @@ public:
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
 	void Run();			/* given a game instance run's the game and outputs the results */
 
+	
 private:
 	
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
@@ -48,7 +49,7 @@ private:
 
 	static void switchCurrPlayer(GamePlayerData** curr, GamePlayerData** other);
 	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
-	bool checkGameArguments(int argc, char* argv[], bool& printFlag, int& printDelay);
+	bool checkGameArguments(int argc, char* argv[]);
 	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);
 	
 	/* given a game main board, returns true if the board is valid according to the game rules:

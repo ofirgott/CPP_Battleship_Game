@@ -43,7 +43,8 @@ public:
 	/* deletes char** matrix */
 	static void deleteMatrix(const char** matrix, int rows, int cols);
 	std::set<std::pair<int, int>> getNearbyCoordinates(int x, int y)const;      /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
-
+	static bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar);
+	char getCoordValue(const int x, const int y)const { if (isCoordianteInBoard(x, y)) return matrix[x][y]; else return ' '; }
 private:
 
 	char** matrix;
@@ -54,7 +55,7 @@ private:
 	static char** AllocateNewMatrix(int rows, int cols);						 /* allocates new matrix in given size */
 	static void InitEmptyMatrix(char** matrix, int rows, int cols);				 /* init already allocated matrix with ' ' */
 	
-	static bool BattleshipBoard::IsShip(char ch);								 /* given a char, checks if it a valid ship char*/
+	static bool IsShip(char ch);								 /* given a char, checks if it a valid ship char*/
 	static void CopyInputLineToBoard(char** matrix, const std::string& line, int currRow, int cols); /* given a input line string, copies this line to the matrix board */
 
 
