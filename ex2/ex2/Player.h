@@ -11,9 +11,9 @@ class Player : public IBattleshipGameAlgo
 
 public:
 	Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
-	Player(const Player& otherPlayer) = delete;							/* deletes copy constructor */
+	Player(const Player& otherPlayer) = delete;	/* deletes copy constructor */
 	virtual ~Player() = default; 
-	Player& operator=(const Player& otherPlayer) = delete;				/* deletes the assignment operator - we want a player to be a Non Copyable object */
+	Player& operator=(const Player& otherPlayer) = delete;	/* deletes the assignment operator - we want a player to be a Non Copyable object */
 
 
 protected:

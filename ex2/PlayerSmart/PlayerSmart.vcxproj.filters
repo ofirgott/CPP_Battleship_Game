@@ -33,12 +33,18 @@
     <ClInclude Include="testPlayerSmart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BattleshipBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShipInProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSmart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleshipBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
