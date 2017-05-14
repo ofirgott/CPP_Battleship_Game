@@ -52,7 +52,7 @@ if (id != -1) {
 		for (int j = 0; j < numCols; j++) {
 			updateCoordinatesNaive(pairToInsert, i, j);
 			if (result.find(pairToInsert) == result.end()) {//checking it's not my ship/around it - it's not in result
-				updateCoordinatesNaive(pairToInsert, i + 1, j + 1);
+				updateCoordinatesNaive(pairToInsert, i + 1, j + 1);//+1 to fit the board indentation
 				movesVector.push_back(pairToInsert);//adding to the vector of moves by order 
 			}
 		}
@@ -78,11 +78,9 @@ std::pair<int, int> PlayerNaive::attack()
 	{
 		++movesVectorItr;
 	}
-
 	nextValidAttack = *movesVectorItr;			 /* the valid attack pair we will output*/
 	++movesVectorItr;	
 						/* move forward in the attacks vector for the next attack() call */
-	
 	return nextValidAttack;
 
 }

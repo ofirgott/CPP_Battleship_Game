@@ -77,7 +77,7 @@ std::pair<int, int> PlayerSmart::attack()
 std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int, int>& candidate) const
 {
 	std::pair<int, int> attackCandidate(-1, -1);
-	// check up/down/left/right
+	// check up/down/left/right - option for attack for single coordinate
 
 	updateCoordinates(attackCandidate, candidate.first - 1, candidate.second); // check up 
 	if (isInAttackOptions(attackCandidate))
@@ -109,15 +109,15 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 {
 	std::pair<int, int> attackCandidate(-1, -1);
 
-	if (numOfCoors < 1) {// shouldnt get here 
+	if (numOfCoors < 1) {
 		return attackCandidate;
 	}
 
-	if (numOfCoors == 1) {
+	if (numOfCoors == 1) {//in case of one size ship
 		return sizeOneAttack(shipDetails.firstPair);
 	}
 
-	// the ship has more then 1 coordinate
+	// the ship has more then 1 coordinate - Vertical or Horizontal
 	if (shipDetails.isVertical) {
 		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor()); // check up 
 		if (isInAttackOptions(attackCandidate))
@@ -142,8 +142,7 @@ std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails
 			return attackCandidate;
 		}
 	}
-
-	// shouldnt get here
+	//no attack option
 	updateCoordinates(attackCandidate, -1, -1);
 	return attackCandidate;
 }
@@ -246,7 +245,7 @@ int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch
 bool PlayerSmart::isInAttackOptions(const std::pair<int, int>& coors) const
 {
 	auto it = attackOptions.find(coors);
-	if (it != attackOptions.end())
+	if (it != attackOptions.end())//coordinate was found in attackOptions
 	{
 		return true;
 	}
@@ -282,7 +281,7 @@ void PlayerSmart::removeAllIrreleventCoordinates(const std::pair<int, int>& pair
 void PlayerSmart::removeOneCoordinate(std::pair<int, int>& pairToDelete)
 {
 	auto it = attackOptions.find(pairToDelete);
-	if (it != attackOptions.end())
+	if (it != attackOptions.end())//coordinate was found in attackOptions and now we can erase it
 	{
 		attackOptions.erase(it);
 	}
@@ -338,7 +337,7 @@ void PlayerSmart::notifyOnAttackResult(int player, int row, int col, AttackResul
 			removeAllIrreleventCoordinates(attackedPair, true, true);
 		}
 
-		else {
+		else {//ship of size>1 we remove unreleventCoors
 			removeSankFromReleventCoors(mergeResult);
 		}
 	}
@@ -373,7 +372,6 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 
 		updateCoordinates(coorsToDelete, attackedShips.at(indexOfPair).getConstCoor(), attackedShips.at(indexOfPair).getMaxCoor() + 1);
 		removeOneCoordinate(coorsToDelete);
-
 	}
 
 	// remove ships from vector
