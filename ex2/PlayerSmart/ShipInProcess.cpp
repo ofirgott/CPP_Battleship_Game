@@ -1,10 +1,9 @@
 #pragma once
 
 #include "ShipInProcess.h"
-#include <algorithm>
 
 
-void ShipInProcess::updateInnerFields(bool vertical , bool horizontal , int constCoor , int firstCoor, int secondCoor)
+void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor)
 {
 	isVertical = vertical;
 	isHorizontal = horizontal;
@@ -41,7 +40,7 @@ int ShipInProcess::addToSizeOneShip(int row, int col)
 
 		if (row == firstPair.first - 1)
 		{
-			updateInnerFields(true, false, col,row, firstPair.first);
+			updateInnerFields(true, false, col, row, firstPair.first);
 			return 1;
 		}
 	}
@@ -58,7 +57,7 @@ bool ShipInProcess::isPartOfShip(int row, int col) const
 
 	if (isVertical)
 	{
-		return ( (col == constantCoor) &&   (row <= incrementalCoors[shipSize - 1]) && ( row >= incrementalCoors[0]));
+		return ((col == constantCoor) && (row <= incrementalCoors[shipSize - 1]) && (row >= incrementalCoors[0]));
 	}
 
 	// ship is horizontal
@@ -80,34 +79,41 @@ int ShipInProcess::addCoordinate(int row, int col)
 	// ship is larger then 1
 	if (isVertical)
 	{
-		if (row == incrementalCoors[0] - 1) // is up
+		if (col == constantCoor)
 		{
-			incrementalCoors.insert(incrementalCoors.begin(), row);
-			shipSize += 1;
-			return 1;
-		}
-		if (row == incrementalCoors[shipSize - 1] + 1) // is down
-		{
-			incrementalCoors.push_back(row);
-			shipSize += 1;
-			return 1;
+			if (row == incrementalCoors[0] - 1) // is up
+			{
+				incrementalCoors.insert(incrementalCoors.begin(), row);
+				shipSize += 1;
+				return 1;
+			}
+			if (row == incrementalCoors[shipSize - 1] + 1) // is down
+			{
+				incrementalCoors.push_back(row);
+				shipSize += 1;
+				return 1;
+			}
 		}
 	}
 
-	if (isHorizontal) 
+	if (isHorizontal)
 	{
-		if (col == incrementalCoors[0] - 1)
+		if (row == constantCoor)
 		{
-			incrementalCoors.insert(incrementalCoors.begin(), col);
-			shipSize += 1;
-			return 1;
+			if (col == incrementalCoors[0] - 1) //left
+			{
+				incrementalCoors.insert(incrementalCoors.begin(), col);
+				shipSize += 1;
+				return 1;
+			}
+			if (col == incrementalCoors[shipSize - 1] + 1) //right
+			{
+				incrementalCoors.push_back(col);
+				shipSize += 1;
+				return 1;
+			}
 		}
-		if (col == incrementalCoors[shipSize - 1] + 1)
-		{
-			incrementalCoors.push_back(col);
-			shipSize += 1;
-			return 1;
-		}
+
 	}
 
 	// the given coordinate doesnt belong to this ship
@@ -116,29 +122,28 @@ int ShipInProcess::addCoordinate(int row, int col)
 
 
 
-std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair , bool vertical)
+std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical)
 {
 	std::vector<int> tmpVector = mainVector;
 
 	if (vertical)
 	{
-		if (addPair.first < tmpVector[0])
+		if (addPair.first == tmpVector[0] - 1)
 		{
 			tmpVector.insert(tmpVector.begin(), addPair.first);
 		}
-		else
-		{
+		if (addPair.first == tmpVector[tmpVector.size() - 1] + 1) {
 			tmpVector.push_back(addPair.first);
 		}
 	}
 
 	else
 	{ // ship is horizontal
-		if (addPair.second < tmpVector[0])
+		if (addPair.second == tmpVector[0] - 1)
 		{
 			tmpVector.insert(tmpVector.begin(), addPair.second);
 		}
-		else
+		if (addPair.second == tmpVector[tmpVector.size() - 1] + 1)
 		{
 			tmpVector.push_back(addPair.second);
 		}
@@ -156,27 +161,29 @@ void ShipInProcess::megreShipsInProcess(ShipInProcess& otherShip)
 	if (shipSize == 1)
 	{
 		if (otherShip.shipSize == 1)
-		{ 
+		{
 			addToSizeOneShip(otherShip.firstPair.first, otherShip.firstPair.second);
 		}
 		else
 		{	// add many coordinates to ship of size one
-			incrementalCoors = mergeShipsVectors(otherShip.incrementalCoors, firstPair , otherShip.isVertical );
+			incrementalCoors = mergeShipsVectors(otherShip.incrementalCoors, firstPair, otherShip.isVertical);
 			shipSize = shipSize + otherShip.shipSize;
 			constantCoor = otherShip.constantCoor;
 			isVertical = otherShip.isVertical;
 			isHorizontal = otherShip.isHorizontal;
 		}
+		return;
 	}
 
 	if (otherShip.shipSize == 1)
 	{// add one coordinate to large ship
-		incrementalCoors = mergeShipsVectors(incrementalCoors, otherShip.firstPair, isVertical );
+		incrementalCoors = mergeShipsVectors(incrementalCoors, otherShip.firstPair, isVertical);
 		shipSize = shipSize + otherShip.shipSize;
+		return;
 	}
 
 	//add many coordinates to many coordinates.
-	if (incrementalCoors[shipSize -1] < otherShip.incrementalCoors[0])
+	if (incrementalCoors[shipSize - 1] < otherShip.incrementalCoors[0])
 	{// first vector has larger coordinates
 		incrementalCoors.insert(incrementalCoors.end(), otherShip.incrementalCoors.begin(), otherShip.incrementalCoors.end());
 	}
@@ -189,5 +196,3 @@ void ShipInProcess::megreShipsInProcess(ShipInProcess& otherShip)
 	// update size
 	shipSize += otherShip.shipSize;
 }
-
-
