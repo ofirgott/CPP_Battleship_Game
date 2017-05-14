@@ -50,7 +50,7 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 				continue;
 			}
 			
-			gotoxy(i, j);
+			gotoxy(j, i);
 
 			if (BattleshipBoard::isPlayerShip(PLAYERID_A, currChar)) setColor(PLAYER_A_COLOR);
 
