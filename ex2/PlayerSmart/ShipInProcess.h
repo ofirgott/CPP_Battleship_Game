@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <vector>
 /*
 *calss to represent the attacked opponent's ship's

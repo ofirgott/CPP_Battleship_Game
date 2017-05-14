@@ -220,7 +220,7 @@ void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int startIndex)
 	if (index != -1)
 	{
 		// add to the ship at startIndex the coordinates of the ship at index 
-		originalShipIndex->megreShipsInProcess(attackedShips[index]);
+		originalShipIndex->megreShipsInProcess(attackedShips.at(index));
 		// remove from vecotr of ships the ship containing pair
 		originalShipIndex = attackedShips.begin() + index;
 		attackedShips.erase(originalShipIndex);
@@ -229,7 +229,7 @@ void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int startIndex)
 
 int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex)
 {
-	int cnt = 0;
+	int cnt = startIndex;
 	std::vector<ShipInProcess>::iterator findShipIndex = attackedShips.begin() + startIndex;
 	// iterate on the vector starting from the vector[ startIndex]
 	while (findShipIndex != attackedShips.end()) {
@@ -242,6 +242,7 @@ int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch
 		cnt++;
 	}
 	return -1;
+
 }
 
 bool PlayerSmart::isInAttackOptions(const std::pair<int, int>& coors) const
@@ -372,7 +373,7 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 		updateCoordinates(coorsToDelete, attackedShips.at(indexOfPair).getConstCoor(), attackedShips.at(indexOfPair).getMinCoor() - 1);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfPair).getConstCoor(), attackedShips.at(indexOfPair).getMinCoor() + 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfPair).getConstCoor(), attackedShips.at(indexOfPair).getMaxCoor() + 1);
 		removeOneCoordinate(coorsToDelete);
 
 	}
@@ -385,8 +386,8 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfPair)
 
 
 
-//IBattleshipGameAlgo* GetAlgorithm()
-//{
-//	_instancesVec.push_back(new PlayerSmart());  // Create new instance and keep it in vector
-//	return _instancesVec[_instancesVec.size() - 1];  // Return last instance
-//}
+IBattleshipGameAlgo* GetAlgorithm()
+{
+	_instancesVec.push_back(new PlayerSmart());  // Create new instance and keep it in vector
+	return _instancesVec[_instancesVec.size() - 1];  // Return last instance
+}

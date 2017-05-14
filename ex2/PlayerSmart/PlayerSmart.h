@@ -1,9 +1,10 @@
 #pragma once
 #include "../ex2/Player.h"
-//#include "BattleshipGameUtils.h"
+#include "../ex2/BattleshipGameUtils.h"
 #include "ShipInProcess.h"
 #include <vector>
 #include <set>
+
 
 class PlayerSmart : public Player
 {
@@ -48,7 +49,7 @@ private:
 	void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int indexToupdate);
 
 	/* given pair and start index, check if pair belongs to any of the attacked ships
-	* if found return 1, else -1.
+	* if found return index of ship the pair belongs to, else -1.
 	*/
 	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex);
 
