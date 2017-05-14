@@ -36,17 +36,6 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int boardRows, in
 	}
 
 	isSuccCreated = true;
-
-
-	/* todo : delete this.. print the board !!!!!!!!!!!!!!!!!!!*/
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			std::cout << matrix[i][j];
-		}
-		std::cout << std::endl;
-	}
 }
 
 
