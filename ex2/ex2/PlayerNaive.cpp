@@ -8,6 +8,7 @@ void PlayerNaive::setBoard(int player, const char ** board, int numRows, int num
 {
 std::set<std::pair<int, int>> result;
 std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;
+std::pair<int, int> pairToInsert(0, 0);
 
 id = player;
 boardRows = numRows;
@@ -22,29 +23,37 @@ if (id != -1) {
 	setOfShipsDetails = boardTemp.ExtractShipsDetails();
 	std::set<std::pair<int, int>> coordOfCurrentShip;
 	auto it = setOfShipsDetails.begin();
+	// foreach shipDetail add all its surroundings to the not allowed coors to attack 
 	while (it != setOfShipsDetails.end())
 	{
 		for (auto coord : it->second) {//for every ship we add each of her coord and around it
 			result.insert(coord);
 			if (coord.first + 1 <= numRows) {//down
-				result.insert(std::make_pair(coord.first + 1, coord.second));
+				updateCoordinatesNaive(pairToInsert, coord.first + 1, coord.second);
+				result.insert(pairToInsert);
 			}
 			if (coord.first - 1 > 0) {//up
-				result.insert(std::make_pair(coord.first - 1, coord.second));
+				updateCoordinatesNaive(pairToInsert, coord.first - 1, coord.second);
+				result.insert(pairToInsert);
 			}
 			if (coord.second + 1 <= numCols) {//right
-				result.insert(std::make_pair(coord.first, coord.second + 1));
+				updateCoordinatesNaive(pairToInsert, coord.first, coord.second + 1);
+				result.insert(pairToInsert);
 			}
 			if (coord.second - 1 > 0) {//left
-				result.insert(std::make_pair(coord.first, coord.second - 1));
+				updateCoordinatesNaive(pairToInsert, coord.first, coord.second - 1);
+				result.insert(pairToInsert);
 			}
 		}
 		++it;
 	}
+
 	for (int i = 0; i < numRows; i++) {
 		for (int j = 0; j < numCols; j++) {
-			if (result.find(std::make_pair(i, j)) == result.end()) {//checking it's not my ship/around it - it's not in result
-				movesVector.push_back(std::make_pair(i+1, j+1));//adding to the vector of moves by order 
+			updateCoordinatesNaive(pairToInsert, i, j);
+			if (result.find(pairToInsert) == result.end()) {//checking it's not my ship/around it - it's not in result
+				updateCoordinatesNaive(pairToInsert, i + 1, j + 1);
+				movesVector.push_back(pairToInsert);//adding to the vector of moves by order 
 			}
 		}
 	}

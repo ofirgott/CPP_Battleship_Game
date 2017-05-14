@@ -52,8 +52,6 @@ void PlayerSmart::setBoard(int player, const char ** board, int numRows, int num
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
 				updateCoordinates(pairToInsert, i, j);
-				result.insert(pairToInsert);
-
 				if (result.find(pairToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
 					updateCoordinates(pairToInsert, i + 1, j + 1);
 					attackOptions.insert(pairToInsert);//adding to the set of option for attack 
