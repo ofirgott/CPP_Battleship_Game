@@ -31,7 +31,7 @@ std::vector<std::string> BattleshipGameUtils::SortedDirlistSpecificExtension(std
 	HANDLE dir;
 	WIN32_FIND_DATAA fileData; //data struct for file
 	std::string currFileName;
-	std::string s = dirPath + "\\*" + ext; // only ext endings
+	std::string s = dirPath + "/*" + ext; // only ext endings
 	dir = FindFirstFileA(s.c_str(), &fileData); // Notice: Unicode compatible version of FindFirstFile
 	if (dir != INVALID_HANDLE_VALUE) //check if the dir opened successfully
 	{
