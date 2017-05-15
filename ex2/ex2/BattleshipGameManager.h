@@ -7,9 +7,7 @@
 #include "GamePlayerData.h"
 
 typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
-//GetAlgoFuncType getShapeFunc;
 
-/* todo: 1.change the run() function to access the mainBoard. 2. the constructor shoul init utilGamePlayer ang not ibattelship game algo*/
 class BattleshipGameManager
 {
 	
@@ -21,9 +19,9 @@ public:
 	BattleshipGameManager(int argc, char* argv[]);
 
 	~BattleshipGameManager();
-	
 
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
+	
 	void Run();			/* given a game instance run's the game and outputs the results */
 
 	static const int  PLAYERID_A = 0;

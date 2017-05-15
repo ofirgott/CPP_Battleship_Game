@@ -8,11 +8,11 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
 	
-	if(!checkGameArguments(argc, argv)) return;	//todo: need to implement
+	if(!checkGameArguments(argc, argv)) return;	
 		
 	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
 	
-	mainBoard = BattleshipBoard(boardFilePath, DEAFULT_BOARD_ROWS, DEAFULT_BOARD_COLS);		//todo: maybe we want here move?
+	mainBoard = BattleshipBoard(boardFilePath, DEAFULT_BOARD_ROWS, DEAFULT_BOARD_COLS);		
 	
 	if (!checkMainBoardValidity() || !initGamePlayers(dllPathPlayerA, dllPathPlayerB)) return;
 
@@ -24,11 +24,6 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 
 BattleshipGameManager::~BattleshipGameManager()
 {
-	//std::cout << "in MANAGER DEST \n";
-	//std::cout << (void*)playerA.playerAlgo << "this is add of playerA algo\n";
-	//std::cout << (void*)playerB.playerAlgo << "this is add of playerB algo\n";
-	//delete playerA.playerAlgo;
-	//delete playerB.playerAlgo;
 	
 	delete playerAlgoA;
 	delete playerAlgoB;
@@ -57,7 +52,7 @@ void BattleshipGameManager::Run()
 		
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
-			//switchCurrPlayer(&currPlayer, &otherPlayer);
+	
 			std::swap(currPlayer, otherPlayer);
 			continue;
 		}
@@ -91,7 +86,7 @@ void BattleshipGameManager::Run()
 			// pass turn to other player- if missed || if attacked myself
 			
 
-			//switchCurrPlayer(&currPlayer, &otherPlayer);
+		
 			std::swap(currPlayer, otherPlayer);
 			//check if someone won
 			if ((currPlayer->currShipsCount== 0) || (otherPlayer->currShipsCount == 0)) {
@@ -127,21 +122,6 @@ void BattleshipGameManager::Run()
 	return;
 
 }
-
-void BattleshipGameManager::switchCurrPlayer(GamePlayerData **currPlayer , GamePlayerData **otherPlayer )
-{
-	GamePlayerData** tmp;
-	//todo: ofir - maybe we just want to use the std::swap function instead of this function
-	// switch players
-	tmp = currPlayer;
-	currPlayer = otherPlayer;
-	otherPlayer = tmp;
-}
-
-
-
-
-
 
 
 void BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
@@ -433,14 +413,13 @@ void BattleshipGameManager::sendAttackForPrint(std::pair<int, int> nextAttack, A
 
 bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
 {
-	//IBattleshipGameAlgo* playerAlgoA = nullptr;
-	//IBattleshipGameAlgo* playerAlgoB = nullptr;
+
 	Ship*** shipsMatA = nullptr;
 	Ship*** shipsMatB = nullptr;
 	size_t shipsCntA = 0, shipsCntB = 0;
 	
 	HINSTANCE hDllA, hDllB;
-	//const std::string tmpppppppppA = "C:/Users/Ofir/Documents/GitHub/ex2/x64/Debug/PlayerFromFile.dll";
+
 		
 	/* PlayerA init */
 	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))

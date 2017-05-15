@@ -1,7 +1,6 @@
 #pragma once
 //this is a class that 3 dll (players algo) overrides
 #include "IBattleshipGameAlgo.h"
-#include "BattleshipBoard.h"
 #include <vector>
 
 static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection

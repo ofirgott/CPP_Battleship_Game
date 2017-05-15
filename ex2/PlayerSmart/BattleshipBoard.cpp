@@ -136,7 +136,7 @@ std::set<std::pair<int, int>> BattleshipBoard::getNearbyCoordinates(int x, int y
 /* we check in this function every coordinate seperatly */
 {
 	std::set<std::pair<int, int>> adjCoordSet;
-	if (isCoordianteInBoard(x - 1, y)) adjCoordSet.insert(std::make_pair(x - 1, y)); //todo: ofir needs to remove the constants!
+	if (isCoordianteInBoard(x - 1, y)) adjCoordSet.insert(std::make_pair(x - 1, y)); 
 	if (isCoordianteInBoard(x + 1, y)) adjCoordSet.insert(std::make_pair(x + 1, y));
 	if (isCoordianteInBoard(x, y - 1)) adjCoordSet.insert(std::make_pair(x, y - 1));
 	if (isCoordianteInBoard(x, y + 1)) adjCoordSet.insert(std::make_pair(x, y + 1));

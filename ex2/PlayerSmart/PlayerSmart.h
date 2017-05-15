@@ -1,6 +1,5 @@
 #pragma once
-#include "../ex2/Player.h"
-#include "../ex2/BattleshipGameUtils.h"
+#include "Player.h"
 #include "ShipInProcess.h"
 #include <vector>
 #include <set>

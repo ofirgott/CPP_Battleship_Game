@@ -22,7 +22,6 @@
     <ClInclude Include="..\ex2\IBattleshipGameAlgo.h" />
     <ClInclude Include="..\ex2\Player.h" />
     <ClInclude Include="BattleshipBoard.h" />
-    <ClInclude Include="Constants.h" />
     <ClInclude Include="PlayerSmart.h" />
     <ClInclude Include="ShipInProcess.h" />
   </ItemGroup>

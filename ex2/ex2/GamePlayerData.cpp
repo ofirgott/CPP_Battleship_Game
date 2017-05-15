@@ -15,25 +15,15 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 	currShipsCount = other.currShipsCount;
 	boardRows = other.boardRows;
 	boardCols = other.boardCols;
-	//std::cout << "in move = of GAMEPLAYERDATA: " << std::endl;
+
 	
 	return *this;
 }
 
 GamePlayerData::~GamePlayerData()
 {
-	//
-	//"************in MANAGER DEST*********** \n";
-	//std::cout << "id == " << id << "\n";
-	//std::cout << "address of the algo == " << (void*)playerAlgo << "\n";
 
 	Ship::deleteShipMatrix(shipsMatrix , boardRows, boardCols);
-	//todo: say in duco that manager will alrady delete the algo! and not here
-	//delete playerAlgo;
-
-	//delete playerAlgo;
-
-
 }
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
@@ -41,11 +31,10 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 
 	std::pair<int, int> tmpAttack = playerAlgo->attack();
 
-	// todo : maybe use const numbers and not -1 ?? 
+	
 	if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
 		return tmpAttack;
 	}
-	//todo: ofir - we need to to here some changes: duplicated rows, and checking if coordinare is in board needed to do with existed function of BattleshipBoard
 
 	// while the given coordinates are not in the board && the player has more moves
 	while (!BattleshipBoard::isCoordianteInBoard(tmpAttack.first - 1, tmpAttack.second - 1, boardRows, boardCols))

@@ -1,6 +1,6 @@
 ﻿
-#include "../ex2/PlayerNaive.h"
-#include "../ex2/BattleshipBoard.h"
+#include "PlayerNaive.h"
+#include "BattleshipBoard.h"
 #include <fstream>
 
 

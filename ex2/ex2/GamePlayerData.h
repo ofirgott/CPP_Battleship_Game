@@ -13,21 +13,21 @@ public:
 
 	GamePlayerData& operator=(const GamePlayerData& otherPlayer) = delete;		/* deletes assignment constructor */
 	GamePlayerData& GamePlayerData::operator=(GamePlayerData&& other) noexcept;
-	GamePlayerData(GamePlayerData&& other)noexcept = delete; //{ std::swap(*this, other); } // move c'tor
+	GamePlayerData(GamePlayerData&& other)noexcept = delete;					 // move c'tor
 	GamePlayerData(const GamePlayerData& otherPlayer) = delete;					/* deletes copy constructor */
 
 	~GamePlayerData();
 private:
 	
 	int id;
-	IBattleshipGameAlgo* playerAlgo;
+	IBattleshipGameAlgo* playerAlgo;  /* will be deleted by the BattleshipGameManager class! */
 	bool hasMoreMoves;
 	int score;
 	Ship*** shipsMatrix;
 	size_t currShipsCount;
 	int boardRows;
 	int boardCols;
-	//friend class BattleshipGameManager;
+	
 
 	static const int UNDEFINED_PLAYERID = -1;
 

@@ -1,6 +1,6 @@
 #include "PlayerSmart.h"
 #include <algorithm>
-#include "../ex2/BattleshipGameUtils.h"
+#include "BattleshipGameUtils.h"
 
 
 void PlayerSmart::setBoard(int player, const char ** board, int numRows, int numCols)

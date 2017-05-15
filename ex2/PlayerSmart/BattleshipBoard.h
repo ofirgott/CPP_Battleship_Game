@@ -17,7 +17,7 @@ public:
 	BattleshipBoard& operator=(const BattleshipBoard& otherBoard); // copy assignment
 
 	char** GetCopyOfBoardMatrix()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
-	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board todo: change docu */
+	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board */
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
 	bool isSuccessfullyCreated() const { return (rows > 0 && cols > 0 && matrix && isSuccCreated); }

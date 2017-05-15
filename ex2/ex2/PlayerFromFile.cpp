@@ -1,5 +1,5 @@
-#include "../ex2/PlayerFromFile.h"
-#include "../ex2/BattleshipGameUtils.h"
+#include "PlayerFromFile.h"
+#include "BattleshipGameUtils.h"
 #include <sstream>
 #include <fstream>
 
@@ -54,7 +54,7 @@ bool PlayerFromFile::init(const std::string & path)
 
 	auto myAttackFilePath = dirPath + "/" + attackFilenames[attackFileOrder];
 	
-	movesVector = parseAttackFile(myAttackFilePath);	//todo : add parseAttackFile to the code 
+	movesVector = parseAttackFile(myAttackFilePath);	
 
 	if (movesVector.size() == 1 && movesVector[0].first == std::numeric_limits<int>::max() && movesVector[0].second == std::numeric_limits<int>::max())
 		return false;
