@@ -208,14 +208,14 @@ bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
 	return true;
 }
 
-Ship *** Ship::createShipMatrix(std::set <Ship*> allShips)
+Ship *** Ship::createShipMatrix(std::set <Ship*> allShips ,int rows , int cols)
 {
-	Ship *** matrix = new Ship**[ROWS];
+	Ship *** matrix = new Ship**[rows];
 
 	// init matrix pointers no NULL
-	for (int i = 0; i < ROWS; i++) {
-		matrix[i] = new Ship*[COLS];
-		for (int j = 0; j < COLS; j++) {
+	for (int i = 0; i < rows; i++) {
+		matrix[i] = new Ship*[cols];
+		for (int j = 0; j < cols; j++) {
 			matrix[i][j] = nullptr;
 		}
 	}
@@ -229,7 +229,7 @@ Ship *** Ship::createShipMatrix(std::set <Ship*> allShips)
 	return matrix;
 }
 
-void Ship::deleteShipMatrix(Ship *** matrix)
+void Ship::deleteShipMatrix(Ship *** matrix, int rows, int cols)
 {
 	std::vector <std::pair<int, int>> currCoor;
 
@@ -238,8 +238,8 @@ void Ship::deleteShipMatrix(Ship *** matrix)
 	}
 
 	// release the ship's matrix
-	for (auto i = 0; i < ROWS; i++) {
-		for (auto j = 0; j < COLS; j++) {
+	for (auto i = 0; i < rows; i++) {
+		for (auto j = 0; j < cols; j++) {
 			if (matrix[i][j] != nullptr) { // release ship exactly once 
 				currCoor.clear();
 				currCoor = matrix[i][j]->getCoordinates();
