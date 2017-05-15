@@ -9,7 +9,7 @@ class PrintGameBoard
 {
 public:
 
-	static const int RED_COLOR = 4;
+	static const int RED_COLOR = 12;
 	static const int BLUE_COLOR = 9;
 	static const int YELLOW_COLOR = 14;
 	static const int WHITE_COLOR = 15;
@@ -18,18 +18,20 @@ public:
 	static const int ATTACK_COLOR = RED_COLOR;
 	static const char ATTACK_CHAR = '@';
 	static const char HIT_CHAR = 'X';
+	static const char BLANK_CHAR = ' ';
 	
+	const static int printDefatultDealy = 300;
+	const static bool printDeafultIsQuiet = false;
 
 	static void printStartBoard(const BattleshipBoard& board);
-	static void printCurrentAttack(int playerId, std::pair<int, int> coord, char currChar, AttackResult res);
+	static void printCurrentAttack(int playerAttackedId, std::pair<int, int> coord, char currChar, AttackResult res);
 
 	static void setDelay(int newDelay) { delay = newDelay; }
 	static void setIsQuiet(bool newIsQuiet) { isQuiet = newIsQuiet; }
 	static bool IsQuiet() { return isQuiet;  }
 	static int getDelay() { return delay; }
-
-	const static int printDefatultDealy = 300;
-	const static bool printDeafultIsQuiet = false;
+	static void setCursorAfterBoard(int rows) { if(!isQuiet) gotoxy(0, rows + 5); }
+	
 
 private:
 	PrintGameBoard() = delete;
@@ -39,6 +41,5 @@ private:
 	static void gotoxy(const int x, const int y);
 	static void hideCursor();
 	static void setColor(WORD color);
-
 
 };

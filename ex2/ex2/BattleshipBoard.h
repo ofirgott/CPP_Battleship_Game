@@ -34,7 +34,7 @@ public:
 
 	/* checks if given coordinate is a valid location in board*/
 	bool isCoordianteInBoard(int x, int y)const { return isCoordianteInBoard(x, y, rows, cols); };
-	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum){ return (x >= 0 && x < rowsNum && y >= 0 && y < colsNum); }
+	static bool isCoordianteInBoard(int x, int y, int rowsNum, int colsNum){ return (x >= 0 && x < colsNum && y >= 0 && y < rowsNum); }
 
 	/* returns a new copy of given matrix */
 	static char** copyMatrix(const char** matrix, int rows, int cols);
@@ -44,13 +44,16 @@ public:
 	std::set<std::pair<int, int>> getNearbyCoordinates(int x, int y)const;      /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
 	static bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar);
 	char getCoordValue(const int x, const int y)const { if (isCoordianteInBoard(x, y)) return matrix[x][y]; else return ' '; }
-private:
+
+	private:
+	
 	static const int PLAYERID_A = 0;
 	static const int  PLAYERID_B  = 1;
 	static const char RUBBER_BOAT = 'B';
 	static const char ROCKET_SHIP = 'P';
 	static const char SUBMARINE = 'M';
 	static const char DESTROYER = 'D';
+	
 
 	char** matrix;
 	int rows;

@@ -12,7 +12,7 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 		
 	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
 	
-	mainBoard = BattleshipBoard(boardFilePath, ROWS, COLS);		//todo: maybe we want here move?
+	mainBoard = BattleshipBoard(boardFilePath, DEAFULT_BOARD_ROWS, DEAFULT_BOARD_COLS);		//todo: maybe we want here move?
 	
 	if (!checkMainBoardValidity() || !initGamePlayers(dllPathPlayerA, dllPathPlayerB)) return;
 
@@ -72,6 +72,11 @@ void BattleshipGameManager::Run()
 
 		// attack other player 
 		attackRes = otherPlayer->realAttack(nextAttack);
+
+		char currAttackedChar = mainBoard.getCoordValue(nextAttack.first, nextAttack.second);
+		int playerAttackedId = (mainBoard.isPlayerShip(PLAYERID_A, currAttackedChar) ? PLAYERID_A : PLAYERID_B);
+		PrintGameBoard::printCurrentAttack(playerAttackedId, std::make_pair(nextAttack.first - 1, nextAttack.second - 1), currAttackedChar, attackRes.first);
+		
 		if (attackRes.first == AttackResult::Miss) {
 			// the opponent doesnt have a ship in this coordinates; check if attacked myself
 			attackRes = currPlayer->realAttack(nextAttack);
@@ -83,7 +88,8 @@ void BattleshipGameManager::Run()
 			currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
 			// pass turn to other player- if missed || if attacked myself
-		
+			
+
 			//switchCurrPlayer(&currPlayer, &otherPlayer);
 			std::swap(currPlayer, otherPlayer);
 			//check if someone won
@@ -107,9 +113,11 @@ void BattleshipGameManager::Run()
 				break;
 			}
 		}
+		
 	}
 
 	// prints game results 
+	PrintGameBoard::setCursorAfterBoard(mainBoard.getRows());
 	outputGameResult(currPlayer, otherPlayer);
 
 	return;
@@ -137,7 +145,7 @@ void BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePla
 
 	int currScore;
 	int otherScore;
-
+	
 	if (currPlayer->currShipsCount == 0) {
 		if (currPlayer->id  == PLAYERID_A) {
 			std::cout << "Player B won" << std::endl;
@@ -217,6 +225,7 @@ bool BattleshipGameManager::checkGameArguments(int argc, char *argv[])
 	inputDirPath = path;
 	
 	PrintGameBoard::setIsQuiet(isQuiet);
+	PrintGameBoard::setDelay(printDelay);
 	
 
 	return true;

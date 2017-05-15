@@ -21,7 +21,7 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int boardRows, in
 	std::ifstream boardFile(boardPath.c_str());
 	if (boardFile.is_open())
 	{
-		int rowCnt = 0;											/* we need to read only ROWS (10) rows from the board input file */
+		int rowCnt = 0;											/* we need to read only (10) rows from the board input file */
 
 		while (rowCnt < rows && std::getline(boardFile, line))  /* while we read < 10 lines or we don't reach to eof in board file */
 		{

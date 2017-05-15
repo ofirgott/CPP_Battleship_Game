@@ -1,4 +1,5 @@
 #include "PrintGameBoard.h"
+#include "BattleshipGameManager.h"
 
 bool PrintGameBoard::isQuiet = printDeafultIsQuiet;
 int PrintGameBoard::delay = printDefatultDealy;
@@ -52,7 +53,7 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 			
 			gotoxy(j, i);
 
-			if (BattleshipBoard::isPlayerShip(PLAYERID_A, currChar)) setColor(PLAYER_A_COLOR);
+			if (BattleshipBoard::isPlayerShip(BattleshipGameManager::PLAYERID_A, currChar)) setColor(PLAYER_A_COLOR);
 
 			else setColor(PLAYER_B_COLOR);
 
@@ -70,20 +71,40 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 
 	setColor(WHITE_COLOR);
 	std::cout << "________________________________";
-	gotoxy(0, board.getRows() + 5);
+	
 }
 
-void PrintGameBoard::printCurrentAttack(int playerId, std::pair<int, int> coord, char currChar, AttackResult res)
+void PrintGameBoard::printCurrentAttack(int playerAttackedId, std::pair<int, int> coord, char currChar, AttackResult res)
 {
 	if(isQuiet) return;
+
 	setColor(ATTACK_COLOR);
-	int currPlayerColor = (playerId == PLAYERID_A ? PLAYER_A_COLOR: PLAYER_B_COLOR);
+	int currPlayerColor = (playerAttackedId == BattleshipGameManager::PLAYERID_A ? PLAYER_A_COLOR: PLAYER_B_COLOR);
 	gotoxy(coord.second, coord.first);
 
 	putchar(ATTACK_CHAR);
 	Sleep(delay);
 
 	/* check the attack results*/
+
+
+	gotoxy(coord.second, coord.first);
+	/* hit or already hitted coord */
+	
+	if(res == AttackResult::Hit || res == AttackResult::Sink)
+	{
+		setColor(currPlayerColor);
+		putchar(HIT_CHAR);
+	}
+	
+	else
+	{
+		putchar(BLANK_CHAR);
+	}
+	
+	setColor(WHITE_COLOR);
+
+
 
 
 
