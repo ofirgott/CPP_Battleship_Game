@@ -27,13 +27,10 @@
     <ClInclude Include="..\ex2\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testShipInProcess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="testPlayerSmart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BattleshipBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

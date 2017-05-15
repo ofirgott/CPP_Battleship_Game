@@ -15,7 +15,6 @@ class BattleshipGameManager
 {
 	
 public:
-	
 	BattleshipGameManager() = delete;														/* deletes empty constructor */
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */

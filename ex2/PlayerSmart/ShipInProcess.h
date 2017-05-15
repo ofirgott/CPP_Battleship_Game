@@ -13,7 +13,6 @@ class ShipInProcess
 	std::vector<int> incrementalCoors;//ship coordinates (only the none const part of every pair)
 	std::pair<int, int> firstPair;//first pair added to ship (in case of size one ship- representes the ship)
 	int shipSize;//current ship size
-	friend class PlayerSmart;
 
 	/* update the states of the inner Fields of the shipinproccess*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor);
@@ -24,7 +23,7 @@ class ShipInProcess
 	/* merge Ships Vectors, assumse mainVector size>1 */
 	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical);
 
-
+	friend class PlayerSmart;
 public:
 
 	ShipInProcess(int row, int col) : isVertical(true), isHorizontal(true), constantCoor(-1), firstPair(row, col), shipSize(1) {}
@@ -44,7 +43,6 @@ public:
 	void megreShipsInProcess(ShipInProcess& otherShip);
 
 	/* assumes called for ships larger then 1 coordinate*/
-	/*todo = maybe make this private???*/
 	int getMaxCoor() const { return incrementalCoors[shipSize - 1]; };
 	int getMinCoor() const { return incrementalCoors[0]; };
 	int getConstCoor() const { return constantCoor; };

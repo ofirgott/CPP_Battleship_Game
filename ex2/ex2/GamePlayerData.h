@@ -2,6 +2,7 @@
 
 #include "Ship.h"
 #include "IBattleshipGameAlgo.h"
+#include "Constants.h"
 
 
 /*keeps all current algo details*/

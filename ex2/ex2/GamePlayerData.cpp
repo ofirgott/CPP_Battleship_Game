@@ -27,7 +27,7 @@ GamePlayerData::~GamePlayerData()
 	//std::cout << "id == " << id << "\n";
 	//std::cout << "address of the algo == " << (void*)playerAlgo << "\n";
 
-	Ship::deleteShipMatrix(shipsMatrix);
+	Ship::deleteShipMatrix(shipsMatrix , boardRows, boardCols);
 	//todo: say in duco that manager will alrady delete the algo! and not here
 	//delete playerAlgo;
 

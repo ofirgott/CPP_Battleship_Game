@@ -399,7 +399,7 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 	std::set<Ship*> shipsSet = Ship::createShipSet(allShipsDetails);
 
 	// create matrix of pointers to the ships allocated for this player
-	shipsMatrix = Ship::createShipMatrix(shipsSet);
+	shipsMatrix = Ship::createShipMatrix(shipsSet, mainBoard.getRows(), mainBoard.getCols());
 
 	if (!player->init(inputDirPath)) {
 		std::cout << "Algorithm initialization failed for dll: " << dllPathPlayer << std::endl;
