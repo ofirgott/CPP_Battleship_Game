@@ -73,13 +73,14 @@ void BattleshipGameManager::Run()
 		// attack other player 
 		attackRes = otherPlayer->realAttack(nextAttack);
 
-		char currAttackedChar = mainBoard.getCoordValue(nextAttack.first, nextAttack.second);
-		int playerAttackedId = (mainBoard.isPlayerShip(PLAYERID_A, currAttackedChar) ? PLAYERID_A : PLAYERID_B);
-		PrintGameBoard::printCurrentAttack(playerAttackedId, std::make_pair(nextAttack.first - 1, nextAttack.second - 1), currAttackedChar, attackRes.first);
+		
 		
 		if (attackRes.first == AttackResult::Miss) {
 			// the opponent doesnt have a ship in this coordinates; check if attacked myself
 			attackRes = currPlayer->realAttack(nextAttack);
+			
+			sendAttackForPrint(nextAttack, attackRes.first);
+			
 			if (attackRes.first != AttackResult::Miss) { // currPlayer attacked himself
 				// the other player gets points
 				otherPlayer->incrementScore(attackRes.second);			
@@ -98,6 +99,9 @@ void BattleshipGameManager::Run()
 			}
 		}
 		else { // attacked opponents ship  //Ofir - comment here is wrong -> hit can also represent hit ini my ship
+			sendAttackForPrint(nextAttack, attackRes.first);
+			
+
 			if (attackRes.second == -1) {	// hit opponents ship but not in a new coordinate; switch turns
 				//switchCurrPlayer(&currPlayer, &otherPlayer);
 				std::swap(currPlayer, otherPlayer);
@@ -415,6 +419,16 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 		return false;
 	}
 	return true;
+}
+
+void BattleshipGameManager::sendAttackForPrint(std::pair<int, int> nextAttack, AttackResult attackRes)const
+{
+	char currAttackedChar = mainBoard.getCoordValue(nextAttack.first-1, nextAttack.second-1);
+
+	int playerAttackedId = (mainBoard.isPlayerShip(PLAYERID_A, currAttackedChar) ? PLAYERID_A : PLAYERID_B);
+	if (currAttackedChar != ' ') attackRes = AttackResult::Hit;
+	else playerAttackedId = UNDEFINED_PLAYERID;
+	PrintGameBoard::printCurrentAttack(playerAttackedId, std::make_pair(nextAttack.first - 1 , nextAttack.second - 1), currAttackedChar, attackRes);
 }
 
 bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)

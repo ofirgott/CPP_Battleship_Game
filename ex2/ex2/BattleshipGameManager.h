@@ -28,6 +28,7 @@ public:
 
 	static const int  PLAYERID_A = 0;
 	static const int  PLAYERID_B = 1;
+	static const int UNDEFINED_PLAYERID = -1;
 
 private:
 	
@@ -82,4 +83,5 @@ private:
 
 	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const;
 	
+	void sendAttackForPrint(std::pair<int, int> nextAttack, AttackResult attackRes)const;
 };

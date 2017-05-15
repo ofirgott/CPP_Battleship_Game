@@ -53,7 +53,10 @@ BattleshipBoard & BattleshipBoard::operator=(const BattleshipBoard & otherBoard)
 }
 bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar)
 {
-	return ((isupper(shipChar) && playerId == PLAYERID_A) || (islower(shipChar) && playerId == PLAYERID_B));
+	if (playerId == PLAYERID_A && isupper(shipChar)) return true;
+	if (playerId == PLAYERID_B && islower(shipChar)) return true;
+
+	return false;
 }
 const char ** BattleshipBoard::createPlayerBoard(int playerID)const
 {

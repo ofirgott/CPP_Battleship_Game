@@ -47,7 +47,7 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 			
 			if (!BattleshipBoard::IsShipCharInBoard(currChar))
 			{
-				putchar(' ');
+				putchar(BLANK_CHAR);
 				continue;
 			}
 			
@@ -62,9 +62,14 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 		}
 	}
 
+	
 	/* print players coloros*/
+	
+	
+	gotoxy(0, board.getRows());
+	setColor(WHITE_COLOR);
+	std::cout << "________________________________" << std::endl;
 	setColor(PLAYER_A_COLOR);
-	gotoxy(0, board.getRows() + 1);
 	std::cout << "Player A" << std::endl;
 	setColor(PLAYER_B_COLOR);
 	std::cout << "Player B" << std::endl;
@@ -79,21 +84,26 @@ void PrintGameBoard::printCurrentAttack(int playerAttackedId, std::pair<int, int
 	if(isQuiet) return;
 
 	setColor(ATTACK_COLOR);
-	int currPlayerColor = (playerAttackedId == BattleshipGameManager::PLAYERID_A ? PLAYER_A_COLOR: PLAYER_B_COLOR);
+	int currAttackedPlayerColor;
+	if (playerAttackedId == BattleshipGameManager::UNDEFINED_PLAYERID){
+		currAttackedPlayerColor = WHITE_COLOR;
+	}	
+	else if (playerAttackedId == BattleshipGameManager::PLAYERID_A){
+		currAttackedPlayerColor = PLAYER_A_COLOR;
+	}
+	else currAttackedPlayerColor = PLAYER_B_COLOR;
+
 	gotoxy(coord.second, coord.first);
 
 	putchar(ATTACK_CHAR);
 	Sleep(delay);
 
-	/* check the attack results*/
-
-
 	gotoxy(coord.second, coord.first);
-	/* hit or already hitted coord */
+
+	setColor(currAttackedPlayerColor);
 	
-	if(res == AttackResult::Hit || res == AttackResult::Sink)
+	if(res == AttackResult::Hit)
 	{
-		setColor(currPlayerColor);
 		putchar(HIT_CHAR);
 	}
 	
@@ -103,13 +113,5 @@ void PrintGameBoard::printCurrentAttack(int playerAttackedId, std::pair<int, int
 	}
 	
 	setColor(WHITE_COLOR);
-
-
-
-
-
-	
-
-
 
 }

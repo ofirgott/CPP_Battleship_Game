@@ -17,4 +17,4 @@
 #define ROCKET_SHIP 'P'
 #define SUBMARINE 'M'
 #define DESTROYER 'D'
-#define UNDEFINED_PLAYERID -1
+//#define UNDEFINED_PLAYERID -1
