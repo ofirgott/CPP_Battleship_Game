@@ -5,7 +5,7 @@
 #include <set> // std::set
 #include <vector> // std::vector
 #include <algorithm>    // std::sort 
-#include "Constants.h"
+//#include "Constants.h"
 
 
 class Ship {
@@ -54,12 +54,17 @@ public:
 	/* @return Matrix of pointers to Battleships
 	* @assume - the set consists valid pointers to ships
 	*/
-	static Ship*** createShipMatrix(std::set <Ship*>);
+	static Ship*** createShipMatrix(std::set <Ship*> , int rows, int cols);
 
 	/* deletes Ships matrix */
-	static void deleteShipMatrix(Ship*** matrix);
+	static void deleteShipMatrix(Ship*** matrix , int rows, int cols);
 
 private:
+
+	static const char RUBBER_BOAT = 'B';
+	static const char ROCKET_SHIP = 'P';
+	static const char SUBMARINE = 'M';
+	static const char DESTROYER = 'D';
 
 	char symbol; // ship's representing letter
 	int len; // ship length
