@@ -5,6 +5,7 @@
 #include "Constants.h"
 
 
+
 /*keeps all current algo details*/
 class GamePlayerData {
 
