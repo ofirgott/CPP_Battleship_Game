@@ -23,5 +23,8 @@ protected:
 	int id;					// players id , if id == -1 player is invalid or undefined
 	int boardRows;
 	int boardCols;
+	static const int PLAYERID_A = 0;
+	static const int PLAYERID_B  = 1;
+
 };
 

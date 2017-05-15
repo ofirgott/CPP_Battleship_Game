@@ -115,7 +115,7 @@ std::vector<std::pair<int, int>> PlayerFromFile::parseAttackFile(const std::stri
 
 		std::pair<int, int> tmpPair(token1, token2);
 		// if bad coordinates skip to the next line 
-		if (tmpPair.first > ROWS || tmpPair.first < 1 || tmpPair.second > COLS || tmpPair.second < 1) {
+		if (tmpPair.first > boardRows || tmpPair.first < 1 || tmpPair.second > boardCols || tmpPair.second < 1) {
 			continue;
 		}
 		result.push_back(tmpPair);
