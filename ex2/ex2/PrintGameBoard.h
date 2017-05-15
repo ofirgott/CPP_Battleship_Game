@@ -15,6 +15,9 @@ public:
 	static const int WHITE_COLOR = 15;
 	static const int PLAYER_A_COLOR = BLUE_COLOR;
 	static const int PLAYER_B_COLOR = YELLOW_COLOR;
+	static const int ATTACK_COLOR = RED_COLOR;
+	static const char ATTACK_CHAR = '@';
+	static const char HIT_CHAR = 'X';
 	
 
 	static void printStartBoard(const BattleshipBoard& board);

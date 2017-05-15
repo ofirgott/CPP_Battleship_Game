@@ -76,9 +76,18 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 void PrintGameBoard::printCurrentAttack(int playerId, std::pair<int, int> coord, char currChar, AttackResult res)
 {
 	if(isQuiet) return;
+	setColor(ATTACK_COLOR);
 	int currPlayerColor = (playerId == PLAYERID_A ? PLAYER_A_COLOR: PLAYER_B_COLOR);
-	gotoxy(coord.first, coord.second);
-	setColor(WHITE_COLOR);
+	gotoxy(coord.second, coord.first);
+
+	putchar(ATTACK_CHAR);
+	Sleep(delay);
+
+	/* check the attack results*/
+
+
+
+	
 
 
 
