@@ -3,7 +3,6 @@
 #include "IBattleshipGameAlgo.h"
 #include "Ship.h"
 #include "BattleshipBoard.h"
-#include "Constants.h"
 #include <windows.h>
 #include "GamePlayerData.h"
 
@@ -27,9 +26,13 @@ public:
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
 	void Run();			/* given a game instance run's the game and outputs the results */
 
-	
 private:
-	
+	static const int  PLAYERID_A = 0;
+	static const int  PLAYERID_B = 1;
+	static const int  NUM_OF_PLAYER_SHIPS = 5;
+	static const char A = 'A';
+	static const char B = 'B';
+
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
 	IBattleshipGameAlgo* playerAlgoA;

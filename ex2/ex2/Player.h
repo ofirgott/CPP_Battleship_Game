@@ -10,6 +10,9 @@ class Player : public IBattleshipGameAlgo
 {
 
 public:
+	static const int UNDEFINED_PLAYERID = -1;
+	
+
 	Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
 	Player(const Player& otherPlayer) = delete;	/* deletes copy constructor */
 	virtual ~Player() = default; 

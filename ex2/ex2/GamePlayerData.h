@@ -2,7 +2,6 @@
 
 #include "Ship.h"
 #include "IBattleshipGameAlgo.h"
-#include "Constants.h"
 
 
 
@@ -29,6 +28,8 @@ private:
 	int boardRows;
 	int boardCols;
 	//friend class BattleshipGameManager;
+
+	static const int UNDEFINED_PLAYERID = -1;
 
 	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0), boardRows(0), boardCols(0){}
 	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, size_t shipsCount, int boardrows, int boardcols) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount), boardRows(boardrows), boardCols(boardcols) {}

@@ -5,7 +5,6 @@
 #include <set> // std::set
 #include <vector> // std::vector
 #include <algorithm>    // std::sort 
-//#include "Constants.h"
 
 
 class Ship {

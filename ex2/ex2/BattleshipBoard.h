@@ -1,7 +1,6 @@
 #pragma once
 #include <set>
 #include <iostream>
-#include "Constants.h"
 
 class BattleshipBoard
 {
@@ -46,6 +45,12 @@ public:
 	static bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar);
 	char getCoordValue(const int x, const int y)const { if (isCoordianteInBoard(x, y)) return matrix[x][y]; else return ' '; }
 private:
+	static const int PLAYERID_A = 0;
+	static const int  PLAYERID_B  = 1;
+	static const char RUBBER_BOAT = 'B';
+	static const char ROCKET_SHIP = 'P';
+	static const char SUBMARINE = 'M';
+	static const char DESTROYER = 'D';
 
 	char** matrix;
 	int rows;
