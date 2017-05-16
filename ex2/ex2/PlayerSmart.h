@@ -34,7 +34,7 @@ public:
 	/* checking the initialization of the board was successful */
 	bool init(const std::string& path) override { return (id != -1); }
 
-	/* ask player for his move, the attacked pair returned, if no more attackes the pair (-1,-1) is returned*/
+	/* ask player for his move, the attacked pair returned, if no more attackes the pair (-1,-1) is returned*/ 
 	std::pair<int, int> attack() override;	
 
 	/* notify on last move result,update player smart by the information given*/

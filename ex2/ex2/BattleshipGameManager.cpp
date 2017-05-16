@@ -30,7 +30,7 @@ BattleshipGameManager::~BattleshipGameManager()
 
 	std::vector<std::pair<int, HINSTANCE>>::iterator vitr;
 	
-	// close all the dynamic libs we opened
+	// close all the dynamic libs we opened 
 	
 	for (vitr = dll_vec.begin(); vitr != dll_vec.end(); ++vitr)
 	{
@@ -211,9 +211,7 @@ bool BattleshipGameManager::checkGameArguments(int argc, char *argv[])
 	PrintGameBoard::setIsQuiet(isQuiet);
 	PrintGameBoard::setDelay(printDelay);
 	
-
 	return true;
-	
 }
 
 bool BattleshipGameManager::checkGamefiles(std::string & boardPath, std::string & dllPathPlayerA, std::string & dllPathPlayerB)
@@ -388,7 +386,7 @@ bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlay
 	BattleshipBoard::deleteMatrix(tmpPlayerMat, tmpBoardForPlayer.getRows(), tmpBoardForPlayer.getCols());
 	
 	shipsCnt = allShipsDetails.size();
-	// for each ship detail in allShipsDetails allocate a new ship ith this details
+	// for each ship detail in allShipsDetails allocate a new ship with this details
 	std::set<Ship*> shipsSet = Ship::createShipSet(allShipsDetails);
 
 	// create matrix of pointers to the ships allocated for this player

@@ -244,7 +244,7 @@ void Ship::deleteShipMatrix(Ship *** matrix, int rows, int cols)
 				currCoor.clear();
 				currCoor = matrix[i][j]->getCoordinates();
 				delete matrix[i][j];
-				// set all the pointers to this ship to nullptr
+				// set all the pointers to this ship to nullptr 
 				for (auto& coor : currCoor) {
 					matrix[coor.first][coor.second] = nullptr;
 				}

@@ -32,7 +32,7 @@ int ShipInProcess::addToSizeOneShip(int row, int col)
 	// check if ship is vertical and if so update inner state
 	if (col == firstPair.second)
 	{
-		if (row == firstPair.first + 1) { // ship is vertical
+		if (row == firstPair.first + 1) { // ship is vertical 
 			updateInnerFields(true, false, col, firstPair.first, row);
 			return 1;
 		}

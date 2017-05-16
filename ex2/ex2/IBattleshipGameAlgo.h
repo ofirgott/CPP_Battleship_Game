@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utility> // for std::pair
+#include <utility> // for std::pair 
 #include <string>
 
 enum class AttackResult {
@@ -17,7 +17,7 @@ public:
 	virtual void notifyOnAttackResult(int player, int row, int col, AttackResult result) = 0;	// notify on last move result
 };
 
-#ifdef ALGO_EXPORTS										// A flag defined in this project's Preprocessor's Definitions
+#ifdef ALGO_EXPORTS										// A flag defined in this project's Preprocessor's Definitions 
 	#define ALGO_API extern "C" __declspec(dllexport)	// If we build - export
 #else
 	#define ALGO_API extern "C" __declspec(dllimport)	// If someone else includes this .h - import

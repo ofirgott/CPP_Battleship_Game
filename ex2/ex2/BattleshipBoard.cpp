@@ -23,7 +23,7 @@ BattleshipBoard::BattleshipBoard(const std::string& boardPath, int boardRows, in
 	{
 		int rowCnt = 0;											/* we need to read only (10) rows from the board input file */
 
-		while (rowCnt < rows && std::getline(boardFile, line))  /* while we read < 10 lines or we don't reach to eof in board file */
+		while (rowCnt < rows && std::getline(boardFile, line))  /* while we read < rows lines or we don't reach to eof in board file */
 		{
 			CopyInputLineToBoard(matrix, line, rowCnt, cols);
 			rowCnt++;
@@ -88,7 +88,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 	char currPos;
 
 	for (int i = 0; i < rows; i++)
-	{
+	{ 
 		for (int j = 0; j < cols; j++)
 		{
 			currPos = matrix[i][j];
@@ -96,7 +96,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 			auto nearbyCoordSet = getNearbyCoordinates(i, j);
 
-			for (auto adjacentCoor : nearbyCoordSet)		/* for each nearby coordinate we check if we have adjacent ship (surronding other char) */
+			for (auto adjacentCoor : nearbyCoordSet)		/* for each nearby coordinate we check if we have adjacent ship (surronding other char)  */
 			{
 				char adjacentVal = matrix[adjacentCoor.first][adjacentCoor.second];
 

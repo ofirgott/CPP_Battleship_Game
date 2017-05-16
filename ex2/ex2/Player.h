@@ -1,5 +1,6 @@
 #pragma once
-//this is a class that 3 dll (players algo) overrides
+//this is a class that  our 3 dlls (players algo) overrides 
+
 #include "IBattleshipGameAlgo.h"
 #include <vector>
 
@@ -13,9 +14,9 @@ public:
 	
 
 	Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
-	Player(const Player& otherPlayer) = delete;	/* deletes copy constructor */
+	Player(const Player& otherPlayer) = delete;				/* deletes copy constructor */
 	virtual ~Player() = default; 
-	Player& operator=(const Player& otherPlayer) = delete;	/* deletes the assignment operator - we want a player to be a Non Copyable object */
+	Player& operator=(const Player& otherPlayer) = delete;	/* deletes the assignment operator - we want a player to be a Non Copyable object  */
 
 
 protected:

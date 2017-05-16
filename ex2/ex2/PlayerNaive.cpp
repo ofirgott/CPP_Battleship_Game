@@ -93,6 +93,6 @@ bool PlayerNaive::init(const std::string & path)
 
 IBattleshipGameAlgo* GetAlgorithm()
 {
-	_instancesVec.push_back(new PlayerNaive());		// Create new instance and keep it in vector
+	_instancesVec.push_back(new PlayerNaive());		// Create new instance and keep it in vector 
 	return _instancesVec[_instancesVec.size() - 1];		// Return last instance
 }

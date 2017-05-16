@@ -6,23 +6,16 @@ int main(int argc, char* argv[])
 	{
 		BattleshipGameManager Game(argc, argv);
 		if (Game.isGameSuccessfullyCreated()){
-
-			Game.Run();
-			system("pause");
-			return 0;
+			Game.Run();	
 		}
 		else {
-			system("pause");
 			return -1;
 		}
-		
-		
 	}
 	catch (std::exception ex)
 	{
-		system("pause");
 		return -1;
 	}
-	
 
-}
+	return 0;
+ }

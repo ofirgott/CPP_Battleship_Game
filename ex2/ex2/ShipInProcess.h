@@ -30,7 +30,7 @@ public:
 	~ShipInProcess() {}
 	ShipInProcess() = delete;
 
-	/* given <row,col> add it to the ship's internal representation if the coordinates
+	/* given <row,col> add it to the ship's internal representation if the coordinates 
 	* belong to this ship and return 1, else return -1
 	*/
 	int addCoordinate(int row, int col);

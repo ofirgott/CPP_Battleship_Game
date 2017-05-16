@@ -22,8 +22,8 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 
 GamePlayerData::~GamePlayerData()
 {
-
 	Ship::deleteShipMatrix(shipsMatrix , boardRows, boardCols);
+
 }
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
@@ -32,7 +32,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 	std::pair<int, int> tmpAttack = playerAlgo->attack();
 
 	
-	if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves
+	if (tmpAttack.first == -1 && tmpAttack.second == -1) { // player doesnt have anymore moves 
 		return tmpAttack;
 	}
 

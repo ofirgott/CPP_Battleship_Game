@@ -76,7 +76,7 @@ void PrintGameBoard::printStartBoard(const BattleshipBoard & board)
 	}
 
 	
-	/* print players coloros*/
+	/* print players coloros */
 	
 	
 	gotoxy(0, board.getRows());

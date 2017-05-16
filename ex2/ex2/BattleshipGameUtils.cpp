@@ -19,7 +19,7 @@ bool BattleshipGameUtils::isValidDir(const std::string& path)
 		return false;
 }
 
-/* return true if str end with given suffix, else return false */
+/* return true if str end with given suffix, else return false */ 
 bool BattleshipGameUtils::isStringEndsWith(const std::string& str, const std::string& suffix) {
 	if (suffix.size() > str.size()) return false;
 	return std::equal(str.begin() + str.size() - suffix.size(), str.end(), suffix.begin());
@@ -32,14 +32,18 @@ std::vector<std::string> BattleshipGameUtils::SortedDirlistSpecificExtension(std
 	WIN32_FIND_DATAA fileData; //data struct for file
 	std::string currFileName;
 	std::string s = dirPath + "/*" + ext; // only ext endings
-	dir = FindFirstFileA(s.c_str(), &fileData); // Notice: Unicode compatible version of FindFirstFile
+	dir = FindFirstFileA(s.c_str(), &fileData); // Notice: Unicode compatible version of FindFirstFile 
 	if (dir != INVALID_HANDLE_VALUE) //check if the dir opened successfully
 	{
 		// test each file suffix and set variables as needed
 		do
 		{
 			currFileName = fileData.cFileName;
-			outputFilenames.push_back(currFileName);
+			if(isStringEndsWith(currFileName, ext))
+			{
+				outputFilenames.push_back(currFileName);
+			}
+			
 
 		} while (FindNextFileA(dir, &fileData)); // Notice: Unicode compatible version of FindNextFile
 

@@ -14,7 +14,7 @@ class BattleshipGameManager
 public:
 	BattleshipGameManager() = delete;														/* deletes empty constructor */
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
-	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
+	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor  */
 
 	BattleshipGameManager(int argc, char* argv[]);
 
@@ -38,11 +38,13 @@ private:
 
 	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
+	GamePlayerData playerA;
+	GamePlayerData playerB;
+
 	IBattleshipGameAlgo* playerAlgoA;
 	IBattleshipGameAlgo* playerAlgoB;
 	
-	GamePlayerData playerA;
-	GamePlayerData playerB;
+	
 	
 	
 

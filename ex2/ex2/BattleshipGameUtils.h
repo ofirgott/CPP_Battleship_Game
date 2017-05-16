@@ -17,7 +17,7 @@ public:
 
 };
 
-/* taken from http://stackoverflow.com/a/6943003 */
+/* taken from http://stackoverflow.com/a/6943003  */
 template<typename I>
 inline I BattleshipGameUtils::randomElement(I begin, I end)
 {

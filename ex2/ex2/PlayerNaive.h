@@ -17,7 +17,7 @@ public:
 	/* notify on last move result*/
 	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override {} //empty implementaion
 
-	/* given a board update the vector attackOptions with all the options for attack ordered from left to right, 
+	/* given a board update the vector attackOptions with all the options for attack ordered from left to right,  
 	first line till last- attack by this order */
 	void setBoard(int player, const char** board, int numRows, int numCols) override;
 	

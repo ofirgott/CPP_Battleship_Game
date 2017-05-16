@@ -11,7 +11,7 @@ public:
 
 	bool init(const std::string& path) override;
 
-	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override {} //empty implementaion
+	void notifyOnAttackResult(int player, int row, int col, AttackResult result) override {} //empty implementaion 
 	
 	void setBoard(int player, const char** board, int numRows, int numCols) override { id = player; boardRows = numRows; boardCols = numCols; }
 	
