@@ -30,7 +30,7 @@ public:
 	static void setIsQuiet(bool newIsQuiet) { isQuiet = newIsQuiet; }
 	static bool IsQuiet() { return isQuiet;  }
 	static int getDelay() { return delay; }
-	static void setCursorAfterBoard(int rows) { if(!isQuiet) gotoxy(0, rows + 5); }
+	static void setCursorAfterBoard(int rows) { if (!isQuiet) { gotoxy(0, rows + 5); showCursor(); } }
 	
 
 private:
@@ -40,6 +40,7 @@ private:
 
 	static void gotoxy(const int x, const int y);
 	static void hideCursor();
+	static void showCursor();
 	static void setColor(WORD color);
 
 };

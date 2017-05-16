@@ -25,6 +25,19 @@ void PrintGameBoard::hideCursor()
 	SetConsoleCursorInfo(h, &info);
 }
 
+void PrintGameBoard::showCursor()
+{
+	if (isQuiet) return;
+
+	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO info;
+	
+	GetConsoleCursorInfo(h, &info);
+	info.bVisible = true;
+	SetConsoleCursorInfo(h, &info);
+}
+
+
 void PrintGameBoard::setColor(WORD color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);

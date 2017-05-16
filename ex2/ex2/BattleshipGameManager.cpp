@@ -93,12 +93,12 @@ void BattleshipGameManager::Run()
 				break;
 			}
 		}
-		else { // attacked opponents ship  //Ofir - comment here is wrong -> hit can also represent hit ini my ship
+		else { 
 			sendAttackForPrint(nextAttack, attackRes.first);
 			
 
 			if (attackRes.second == -1) {	// hit opponents ship but not in a new coordinate; switch turns
-				//switchCurrPlayer(&currPlayer, &otherPlayer);
+				
 				std::swap(currPlayer, otherPlayer);
 			}
 			else {
@@ -297,7 +297,7 @@ bool BattleshipGameManager::checkMainBoardValidity()const
 
 }
 
-std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard(BattleshipBoard& board)const
+std::pair<size_t, std::set<char>> BattleshipGameManager::FindNumberOfValidShipsInBoard(BattleshipBoard& board)
 {
 	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails;					/* set of ships details - for example:
 																								{<'m', {<1,2>,<1,3>}> , <'P', {<8,5>, <8,6> , <8,7>}> } */

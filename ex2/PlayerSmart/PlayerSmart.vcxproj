@@ -19,16 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h" />
-    <ClInclude Include="..\ex2\Player.h" />
-    <ClInclude Include="BattleshipBoard.h" />
-    <ClInclude Include="PlayerSmart.h" />
-    <ClInclude Include="ShipInProcess.h" />
+    <ClCompile Include="..\ex2\PlayerSmart.cpp" />
+    <ClCompile Include="..\ex2\ShipInProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BattleshipBoard.cpp" />
-    <ClCompile Include="PlayerSmart.cpp" />
-    <ClCompile Include="ShipInProcess.cpp" />
+    <ClInclude Include="..\ex2\PlayerSmart.h" />
+    <ClInclude Include="..\ex2\ShipInProcess.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\common\common.vcxproj">
+      <Project>{5ef6a5c6-eaef-4d0b-87d5-67120635ed82}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D575140C-858D-453F-A0F6-C8292374E3CB}</ProjectGuid>
@@ -127,7 +128,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLAYERSMART_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);ALGO_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ofir\Documents\GitHub\ex2\PlayerSmart\x64\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,7 +146,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;PLAYERSMART_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);ALGO_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ofir\Documents\GitHub\ex2\PlayerSmart\x64\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

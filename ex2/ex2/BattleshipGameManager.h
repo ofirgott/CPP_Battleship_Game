@@ -52,7 +52,6 @@ private:
 	BattleshipBoard mainBoard;
 	bool gameSuccessfullyCreated;
 
-	static void switchCurrPlayer(GamePlayerData** curr, GamePlayerData** other);
 	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	bool checkGameArguments(int argc, char* argv[]);
 	bool checkGamefiles(std::string& boardPath, std::string& dllPathPlayerA, std::string& dllPathPlayerB);
@@ -63,7 +62,7 @@ private:
 
 	/* given a matrix board for a specific player, returns number of valid ships and set of invalid ships letters (according to the game rules
 	for example - <5, {'M', 'P'}> - input player board has 5 valid ships, but invalid size or shape 'M' and 'P' ships  */
-	std::pair<size_t, std::set<char>> FindNumberOfValidShipsInBoard(BattleshipBoard& board)const;
+	static std::pair<size_t, std::set<char>> FindNumberOfValidShipsInBoard(BattleshipBoard& board);
 
 	/* given a set of sips details for player, this function deletes invalid ships from the set, according to the game rules */
 	/* in addition, adds letters of deleted found invalid ships to the set invalidShips*/

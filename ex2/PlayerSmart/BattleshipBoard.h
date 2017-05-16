@@ -10,14 +10,11 @@ public:
 	BattleshipBoard(const std::string& boardPath, int rows, int cols);
 	~BattleshipBoard() { deleteMatrix(const_cast<const char**>(matrix), rows, cols); }
 
-	//BattleshipBoard(const BattleshipBoard& otherBoard) = delete;		/* deletes copy constructor */
-	//BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(const_cast<const char**>(otherBoard.matrix), otherBoard.rows, otherBoard.cols) {} /*copy constructor */
-	//BattleshipBoard& operator=(const BattleshipBoard& otheBoard) = delete;			/* deletes the assignment operator - we want game to be a Non Copyable object */
-	//BattleshipBoard(BattleshipBoard&& otherBoard) noexcept : rows(otherBoard.rows), cols(otherBoard.cols) { std::swap(matrix, otherBoard.matrix); } // move c'tor
+
 	BattleshipBoard& operator=(const BattleshipBoard& otherBoard); // copy assignment
 
 	char** GetCopyOfBoardMatrix()const { return copyMatrix(const_cast<const char**>(matrix), rows, cols); };		/* returns a new copy of the main matrix */
-	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board */
+	const char** createPlayerBoard(int playerID)const;								/* returns a new copy of a player matrix board  */
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
 	bool isSuccessfullyCreated() const { return (rows > 0 && cols > 0 && matrix && isSuccCreated); }

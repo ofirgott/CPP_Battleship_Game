@@ -24,7 +24,8 @@ inline I BattleshipGameUtils::randomElement(I begin, I end)
 	auto n = std::distance(begin, end);
 	auto divisor = (RAND_MAX + 1) / n;
 
-	unsigned long k;
+	auto k = n;
+
 	do { k = std::rand() / divisor; } while (k >= n);
 
 	std::advance(begin, k);

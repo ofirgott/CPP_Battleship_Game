@@ -123,7 +123,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLAYERFROMFILE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);ALGO_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ofir\Documents\GitHub\ex2\PlayerFromFile\x64\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,7 +141,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;PLAYERFROMFILE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);ALGO_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ofir\Documents\GitHub\ex2\PlayerFromFile\x64\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,18 +152,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\ex2\BattleshipGameUtils.cpp" />
-    <ClCompile Include="..\ex2\PlayerFromFile.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\ex2\BattleshipGameUtils.h" />
-    <ClInclude Include="..\ex2\IBattleshipGameAlgo.h" />
-    <ClInclude Include="..\ex2\Player.h" />
     <ClInclude Include="..\ex2\PlayerFromFile.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ex2\ex2.vcxproj">
-      <Project>{a6922b9a-5bda-49eb-8a52-9a76fe78953a}</Project>
+    <ClCompile Include="..\ex2\PlayerFromFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\common\common.vcxproj">
+      <Project>{5ef6a5c6-eaef-4d0b-87d5-67120635ed82}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

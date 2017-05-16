@@ -1,7 +1,9 @@
 #include "PlayerFromFile.h"
 #include "BattleshipGameUtils.h"
+#include "BattleshipBoard.h"
 #include <sstream>
 #include <fstream>
+#include <iostream>
 
 
 std::pair<int, int> PlayerFromFile::attack()

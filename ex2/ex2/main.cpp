@@ -8,8 +8,7 @@ int main(int argc, char* argv[])
 		if (Game.isGameSuccessfullyCreated()){
 
 			Game.Run();
-
-		system("pause");
+			system("pause");
 			return 0;
 		}
 		else {
