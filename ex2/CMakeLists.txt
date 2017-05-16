@@ -2,36 +2,65 @@
 ### YOU SHOULD EDIT THE BELOW WITH YOUR DETAILS AND FILES ###
 #############################################################
 
-set(user1 itzikkobra)
-set(user2 heizenberg)
-set(user3 nevuhadnetzer)
-set(id1 "123456789")
-set(id2 "123456789")
-set(id3 "123456789")
-
+set(user1 ofirg1)
+set(user2 Shahrabany1)
+set(user3 dianakolton)
+set(id1 "305645806")
+set(id2 "204537997")
+set(id3 "204196729")
 # All source files needed to compile your exe
 set (EXE_SOURCE_FILES
-	shape.h
+	BattleshipBoard.h
+	BattleshipGameManager.h
+	BattleshipGameUtils.h
+	GamePlayerData.h
+	IBattleshipGameAlgo.h
+	Player.h
+	PrintGameBoard.h
+	Ship.h
+	BattleshipBoard.cpp
+	BattleshipGameManager.cpp
+	BattleshipGameUtils.cpp
+	GamePlayerData.cpp
 	main.cpp
+	PrintGameBoard.cpp	
+	Ship.cpp
 )
 # All source files needed to compile your naive algorithm's .dll
 set (NAIVE_ALGO_SOURCE_FILES
-	shape.h
-	circle.h
-	circle.cpp
+	PlayerNaive.h
+	PlayerNaive.cpp	
+	Player.h
+	BattleshipBoard.h
+	BattleshipBoard.cpp
+	IBattleshipGameAlgo.h
 )
 # All source files needed to compile your read-from-file algorithm's .dll
 set (FILE_ALGO_SOURCE_FILES
-	shape.h
-	square.h
-	square.cpp
+	IBattleshipGameAlgo.h
+	PlayerFromFile.h
+	PlayerFromFile.cpp
+	Player.h
+	BattleshipGameUtils.cpp
+	BattleshipGameUtils.h
+	BattleshipBoard.h
+	BattleshipBoard.cpp
 )
 # All source files needed to compile your smart algorithm's .dll
 set (SMART_ALGO_SOURCE_FILES
-	shape.h
-	square.h
-	square.cpp
+	PlayerSmart.h
+	ShipInProcess.h
+	PlayerSmart.cpp
+	ShipInProcess.cpp
+	Player.h
+	IBattleshipGameAlgo.h
+	BattleshipGameUtils.cpp
+	BattleshipGameUtils.h
+	BattleshipBoard.h
+	BattleshipBoard.cpp
 )
+
+add_definitions(-DUNICODE -D_UNICODE)
 
 ##################################
 ### DO NOT CHANGE FROM HERE ON ###
