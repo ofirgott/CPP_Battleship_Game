@@ -12,37 +12,41 @@ class BattleshipGameManager
 {
 	
 public:
-	BattleshipGameManager() = delete;														/* deletes empty constructor */
-	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
-	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor  */
-
-	BattleshipGameManager(int argc, char* argv[]);
-
+	
+	static const int PLAYERID_A = 0;														/* default id for player A */
+	static const int PLAYERID_B = 1;														/* default id for player B */
+	static const int UNDEFINED_PLAYERID = -1;												/* default id for undefined or invalid player */
+	
+	
+	BattleshipGameManager(int argc, char* argv[]);											/* constructor */
 	~BattleshipGameManager();
 
-	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }
+	BattleshipGameManager() = delete;														/* deletes empty constructor */
+	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */	
+	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 	
-	void Run();			/* given a game instance run's the game and outputs the results */
 
-	static const int  PLAYERID_A = 0;
-	static const int  PLAYERID_B = 1;
-	static const int UNDEFINED_PLAYERID = -1;
+	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }				/* we will check the variable in the main */					
+	void Run();																				/* given a game object, run's the game and outputs the results */
+
+	
 
 private:
 	
-	static const int  NUM_OF_PLAYER_SHIPS = 5;
-	static const char A = 'A';
-	static const char B = 'B';
-	static const int DEAFULT_BOARD_ROWS = 10;
-	static const int DEAFULT_BOARD_COLS = 10;
+	static const char A = 'A';																/* player char for player A - for printing */
+	static const char B = 'B';																/* player char for player B */
+	static const int DEAFULT_BOARD_ROWS = 10;												/* default rows number for the main board */
+	static const int DEAFULT_BOARD_COLS = 10;												/* default cols number for the main board */
+	static const int NUM_OF_PLAYER_SHIPS = 5;												/* number of valid ships for each game player */
 
-	std::vector<std::pair<int, HINSTANCE>> dll_vec; // vector of <playerID, dll handle>
 
-	GamePlayerData playerA;
-	GamePlayerData playerB;
+	std::vector<std::pair<int, HINSTANCE>> dll_vec;											/* vector of <playerID, dll handle> */
 
-	IBattleshipGameAlgo* playerAlgoA;
-	IBattleshipGameAlgo* playerAlgoB;
+	GamePlayerData playerA;																	/* an object that keeps all relevant data of playerA in the game */
+	GamePlayerData playerB;																	/* an object that keeps all relevant data of playerB in the game */
+
+	IBattleshipGameAlgo* playerAlgoA;														/* pointer to the algo of playerA - will deleted in **this** class destructor */
+	IBattleshipGameAlgo* playerAlgoB;														/* pointer to the algo of playerB - will deleted in **this** class destructor */
 	
 	
 	

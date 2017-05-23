@@ -8,7 +8,7 @@ BattleshipGameManager::BattleshipGameManager(int argc, char * argv[]) : playerAl
 {
 	std::string dllPathPlayerA = "", dllPathPlayerB = "", boardPath = "";
 	
-	if(!checkGameArguments(argc, argv)) return;	
+	if(!checkGameArguments(argc, argv)) return;									/* parse the */
 		
 	if(!checkGamefiles(boardPath, dllPathPlayerA, dllPathPlayerB)) return;
 	
