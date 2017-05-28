@@ -132,75 +132,107 @@ Coordinate PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numO
 	}
 
 	if (numOfCoors == 1) {//in case of one size ship
-		return sizeOneAttack(shipDetails.firstPair);
+		return sizeOneAttack(shipDetails.firstCoordinate);
 	}
 
 	// the ship has more then 1 coordinate - Vertical or Horizontal
 	if (shipDetails.isVertical) {
-		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor()); // check up 
+		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor().col, shipDetails.getConstCoor().depth); // check up 
 		if (isInAttackOptions(attackCandidate))
 		{
 			return attackCandidate;
 		}
-		updateCoordinates(attackCandidate, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor()); // check down
+		updateCoordinates(attackCandidate, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor().col, shipDetails.getConstCoor().depth); // check down
 		if (isInAttackOptions(attackCandidate)) { // highest posible coor
 			return attackCandidate;
 		}
 	}
 
 	if (shipDetails.isHorizontal) {
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor(), shipDetails.getMinCoor() - 1);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor().depth);
 		if (isInAttackOptions(attackCandidate)) //check left
 		{
 			return attackCandidate;
 		}
 
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor(), shipDetails.getMaxCoor() + 1);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor().depth);
 		if (isInAttackOptions(attackCandidate)) { // check right
 			return attackCandidate;
 		}
 	}
+	if (shipDetails.isDimentional) {
+		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getConstCoor().col, shipDetails.getMinCoor() - 1);
+		if (isInAttackOptions(attackCandidate)) //check left
+		{
+			return attackCandidate;
+		}
+
+		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getConstCoor().col, shipDetails.getMaxCoor() + 1);
+		if (isInAttackOptions(attackCandidate)) { // check right
+			return attackCandidate;
+		}
+	}
+
 	//no attack option
-	updateCoordinates(attackCandidate, -1, -1);
+	updateCoordinates(attackCandidate, -1, -1, -1);
 	return attackCandidate;
 }
 
-int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextPairTosearch, AttackResult result) {
+int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextCoorTosearch, AttackResult result) {
 
 	int ret = -1;
 	int i = 0;
-	ShipInProcess tempShip(row, col);
+	ShipInProcess tempShip(row, col,depth);
 
 	for (auto& details : attackedShips)
 	{
-		ret = details.addCoordinate(row, col);
+		ret = details.addCoordinate(row, col, depth);
 		if (ret == 1) // the coordinate was added to the ship, 
 		{
 			if (details.isVertical) // cols are constant
 			{
 				if (details.getMaxCoor() == row) // the new coordinate was added from bottom
 				{
-					nextPairTosearch->first = row + 1;
-					nextPairTosearch->second = col;
+					nextCoorTosearch->row = row + 1;
+					nextCoorTosearch->col = col;
+					nextCoorTosearch->depth = depth;
 				}
 				else // the new coordinate was added from the top
 				{
-					nextPairTosearch->first = row - 1;
-					nextPairTosearch->second = col;
+					nextCoorTosearch->row = row - 1;
+					nextCoorTosearch->col = col;
+					nextCoorTosearch->depth = depth;
 				}
 			}
-			else // the ship is horizontal the rows are constant
+			else if(details.isHorizontal) // the ship is horizontal the rows are constant
 			{
 				if (details.getMaxCoor() == col) // the new coordinate was added on the right
 				{
-					nextPairTosearch->first = row;
-					nextPairTosearch->second = col + 1;
+					nextCoorTosearch->row = row;
+					nextCoorTosearch->col = col + 1;
+					nextCoorTosearch->depth = depth;
 				}
 				else // the new coordinate was added ont the left
 				{
-					nextPairTosearch->first = row;
-					nextPairTosearch->second = col - 1;
+					nextCoorTosearch->row = row;
+					nextCoorTosearch->col = col - 1;
+					nextCoorTosearch->depth = depth;
 				}
+			}
+			else {//is Dimentional
+				if (details.getMaxCoor() == depth) // the new coordinate was added on the in
+				{
+					nextCoorTosearch->row = row;
+					nextCoorTosearch->col = col;
+					nextCoorTosearch->depth = depth+1;
+				}
+				else // the new coordinate was added ont the out
+				{
+					nextCoorTosearch->row = row;
+					nextCoorTosearch->col = col;
+					nextCoorTosearch->depth = depth -1;
+				}
+
 			}
 			return i;
 		}
@@ -229,7 +261,7 @@ void PlayerSmart::mergeShipDetails(Coordinate* coor, int startIndex)
 
 	if (isInBoard(coor->col, coor->row, coor->depth))
 	{
-		index = findPairInAttackedShips(*coor, startIndex + 1);
+		index = findCoorInAttackedShips(*coor, startIndex + 1);
 	}
 
 	if (index != -1)
@@ -242,14 +274,14 @@ void PlayerSmart::mergeShipDetails(Coordinate* coor, int startIndex)
 	}
 }
 
-int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex)
+int PlayerSmart::findCoorInAttackedShips(const Coordinate& coorToSearch, int startIndex)
 {
 	int cnt = startIndex;
 	std::vector<ShipInProcess>::iterator findShipIndex = attackedShips.begin() + startIndex;
 	// iterate on the vector starting from the vector[ startIndex]
 	while (findShipIndex != attackedShips.end()) {
 
-		if (findShipIndex->isPartOfShip(pairToSearch.first, pairToSearch.second)) // added to the ship i.e found match
+		if (findShipIndex->isPartOfShip(coorToSearch.row, coorToSearch.col, coorToSearch.depth)) // added to the ship i.e found match
 		{
 			return cnt;
 		}
@@ -286,7 +318,7 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth -1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth +!);
+		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth +1);
 		removeOneCoordinate(removeCandidate);
 
 	}
@@ -408,20 +440,29 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 	// for the second ship detail 
 	if (attackedShips.at(indexOfCoor).isVertical) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoor());
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getConstCoor().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoor());
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getConstCoor().depth);
 		removeOneCoordinate(coorsToDelete);
 	}
 
 	if (attackedShips.at(indexOfCoor).isHorizontal) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor(), attackedShips.at(indexOfCoor).getMinCoor() - 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoor().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor(), attackedShips.at(indexOfCoor).getMaxCoor() + 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoor().depth);
 		removeOneCoordinate(coorsToDelete);
+	}
+	if (attackedShips.at(indexOfCoor).isDimentional) {
+		//remove edges of ship
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getMinCoor() - 1);
+		removeOneCoordinate(coorsToDelete);
+
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getMaxCoor() + 1);
+		removeOneCoordinate(coorsToDelete);
+	
 	}
 
 	// remove ships from vector
