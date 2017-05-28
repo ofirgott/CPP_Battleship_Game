@@ -137,37 +137,37 @@ Coordinate PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numO
 
 	// the ship has more then 1 coordinate - Vertical or Horizontal
 	if (shipDetails.isVertical) {
-		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor().col, shipDetails.getConstCoor().depth); // check up 
+		updateCoordinates(attackCandidate, shipDetails.getMinCoor() - 1, shipDetails.getConstCoors().col, shipDetails.getConstCoors().depth); // check up 
 		if (isInAttackOptions(attackCandidate))
 		{
 			return attackCandidate;
 		}
-		updateCoordinates(attackCandidate, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor().col, shipDetails.getConstCoor().depth); // check down
+		updateCoordinates(attackCandidate, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoors().col, shipDetails.getConstCoors().depth); // check down
 		if (isInAttackOptions(attackCandidate)) { // highest posible coor
 			return attackCandidate;
 		}
 	}
 
 	if (shipDetails.isHorizontal) {
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getMinCoor() - 1, shipDetails.getConstCoor().depth);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoors().row, shipDetails.getMinCoor() - 1, shipDetails.getConstCoors().depth);
 		if (isInAttackOptions(attackCandidate)) //check left
 		{
 			return attackCandidate;
 		}
 
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoor().depth);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoors().row, shipDetails.getMaxCoor() + 1, shipDetails.getConstCoors().depth);
 		if (isInAttackOptions(attackCandidate)) { // check right
 			return attackCandidate;
 		}
 	}
 	if (shipDetails.isDimentional) {
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getConstCoor().col, shipDetails.getMinCoor() - 1);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoors().row, shipDetails.getConstCoors().col, shipDetails.getMinCoor() - 1);
 		if (isInAttackOptions(attackCandidate)) //check left
 		{
 			return attackCandidate;
 		}
 
-		updateCoordinates(attackCandidate, shipDetails.getConstCoor().row, shipDetails.getConstCoor().col, shipDetails.getMaxCoor() + 1);
+		updateCoordinates(attackCandidate, shipDetails.getConstCoors().row, shipDetails.getConstCoors().col, shipDetails.getMaxCoor() + 1);
 		if (isInAttackOptions(attackCandidate)) { // check right
 			return attackCandidate;
 		}
@@ -440,27 +440,27 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 	// for the second ship detail 
 	if (attackedShips.at(indexOfCoor).isVertical) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getConstCoor().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getConstCoor().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 	}
 
 	if (attackedShips.at(indexOfCoor).isHorizontal) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoor().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoor().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 	}
 	if (attackedShips.at(indexOfCoor).isDimentional) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getMinCoor() - 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getMinCoor() - 1);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoor().row, attackedShips.at(indexOfCoor).getConstCoor().col, attackedShips.at(indexOfCoor).getMaxCoor() + 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getMaxCoor() + 1);
 		removeOneCoordinate(coorsToDelete);
 	
 	}

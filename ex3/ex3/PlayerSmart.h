@@ -2,7 +2,7 @@
 #include "ShipInProcess.h"
 #include <vector>
 #include "IBattleshipGameAlgo.h"
-
+#include <set>
 
 
 /* smart algo- keep track on all the coordintes that have been attacked during the game.
@@ -92,8 +92,7 @@ private:
 	int PlayerSmart::findCoorInAttackedShips(const Coordinate& coorToSearch, int startIndex);
 
 	/* given origin update its coordinates to <row,col>*/
-	static Coordinate updateCoordinates(Coordinate& origin, int row, int col ,int depth ) { origin.row = row; origin.col = col; origin.depth = static std::pair <int, int> updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = col; return origin; }
-	; return origin; }
+	static Coordinate updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
 
 	/*return true if the input pair is in attackoptions, false- otherwise
 	* util function for attack
