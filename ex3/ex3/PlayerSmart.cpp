@@ -9,7 +9,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 {
 	std::set<Coordinate> result; // insert all pairs that we arnt allow to attack
 	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
-	std::pair<int, int> pairToInsert(0, 0);
+	Coordinate coorToInsert(0, 0, 0);
 	boardRows = board.rows();
 	boardCols = board.cols();
 	boardDepth = board.depth();
@@ -25,33 +25,44 @@ void PlayerSmart::setBoard(const BoardData& board)
 	{
 		for (auto coord : it->second) {//for every ship we add each of her coord and around it
 			result.insert(coord);
-			if (coord.row + 1 <= boardRows) {//down
-				updateCoordinates(pairToInsert, coord.first + 1, coord.second);
-				result.insert(pairToInsert);
+			if (coord.row + 1 <= boardRows) {//x
+				updateCoordinates(coorToInsert, coord.row + 1, coord.col,coord.depth);
+				result.insert(coorToInsert);
 			}
-			if (coord.row - 1 > 0) {//up
-				updateCoordinates(pairToInsert, coord.first - 1, coord.second);
-				result.insert(pairToInsert);
+			if (coord.row - 1 > 0) {//x
+				updateCoordinates(coorToInsert, coord.row - 1, coord.col, coord.depth);
+				result.insert(coorToInsert);
 			}
-			if (coord.second + 1 <= numCols) {//right
-				updateCoordinates(pairToInsert, coord.first, coord.second + 1);
-				result.insert(pairToInsert);
+			if (coord.col + 1 <= boardCols) {//y
+				updateCoordinates(coorToInsert, coord.row, coord.col + 1, coord.depth);
+				result.insert(coorToInsert);
 			}
-			if (coord.second - 1 > 0) {//left
-				updateCoordinates(pairToInsert, coord.first, coord.second - 1);
-				result.insert(pairToInsert);
+			if (coord.col - 1 > 0) {//y
+				updateCoordinates(coorToInsert, coord.row, coord.col - 1, coord.depth);
+				result.insert(coorToInsert);
+			}
+			if (coord.depth + 1 <= boardDepth) {//z
+				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth +1);
+				result.insert(coorToInsert);
+			}
+			if (coord.depth - 1 > 0) {//z
+				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth-1);
+				result.insert(coorToInsert);
 			}
 		}
 		++it;
 	}
 
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numCols; j++) {
-				updateCoordinates(pairToInsert, i, j);
-				if (result.find(pairToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
-					updateCoordinates(pairToInsert, i + 1, j + 1);
-					attackOptions.insert(pairToInsert);//adding to the set of option for attack 
+		for (int i = 0; i < boardRows; i++) {
+			for (int j = 0; j < boardCols; j++) {
+				for (int p = 0; j < boardDepth; p++) {
+					updateCoordinates(coorToInsert, i, j ,p);
+					if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
+						updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
+						attackOptions.insert(coorToInsert);//adding to the set of option for attack						
+					}
 				}
+
 			}
 		}
 	}
