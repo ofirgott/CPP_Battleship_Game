@@ -72,7 +72,7 @@ private:
 	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
 	* if doesnt belong to any of them and the ship didnt sink add a new ship of size 1 to shipsinprocess && return -1
 	*/
-	int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextPairTosearch, AttackResult result);
+	int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextCoorTosearch, AttackResult result);
 
 	/* given a coordinate check all the coordinates (up/down/lwft/rgiht) and attack them if werent attacked yet.*/
 	Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const;
@@ -89,7 +89,7 @@ private:
 	/* given pair and start index, check if pair belongs to any of the attacked ships
 	* if found return index of ship the pair belongs to, else -1.
 	*/
-	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex);
+	int PlayerSmart::findCoorInAttackedShips(const Coordinate& coorToSearch, int startIndex);
 
 	/* given origin update its coordinates to <row,col>*/
 	static Coordinate updateCoordinates(Coordinate& origin, int row, int col ,int depth ) { origin.row = row; origin.col = col; origin.depth = static std::pair <int, int> updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = col; return origin; }
