@@ -18,6 +18,11 @@
 * continue a sequence of coordinates that belond to the ship (up/down or left/right) and in attack options.
 *
 * if the vector of attacked ships is of size 0. return a random coordinate to attack from the set of attackOptions
+* 
+* according to the new assumptions. create a second poll of attack options.
+* in the general case the algorithem assumes that both players has the same ship's count in the case the algrithem woudnt use the second poll
+* in case that the number of ships of both players is imbalanced the algorithem after finishing the original attackOption will start taking 
+* Coordinates from the second poll as a final resort
 *
 */
 static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
@@ -25,7 +30,7 @@ static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
 class PlayerSmart : public IBattleshipGameAlgo
 {
 public:
-	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
+	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) ,boardDepth(-1) {};
 	~PlayerSmart() = default;
 	PlayerSmart& operator=(const PlayerSmart& otherSmartPlayer) = delete;
 	PlayerSmart(const PlayerSmart& otherSmartPlayer) = delete;
@@ -34,7 +39,7 @@ public:
 	void setBoard(const BoardData& board) override;
 
 	// called every time the player changes his order
-	void setPlayer(int player) override;
+	void setPlayer(int player) override; /* todo: check function purpose */
 
 	/* ask player for his move, the attacked pair returned, if no more attackes the pair (-1,-1) is returned*/
 	Coordinate attack() override;
@@ -57,13 +62,32 @@ private:
 	int boardRows;
 	int boardCols;
 	int boardDepth;
+
 //	static const int PLAYERID_A = 0;
 //	static const int PLAYERID_B = 1;
 	/*a vector of all current ship being attacked*/
 	std::vector<ShipInProcess> attackedShips;
-
 	/*a set of all the coordinates that are optional for attack*/
 	std::set<Coordinate> attackOptions;
+
+	/*improvments according to the new assumptions*/
+	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count>
+	std::set<Coordinate> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
+
+	/*given player's ship create vector that maps the ship's size to the ship's count*/
+	std::vector<std::pair<int, int>> createShipsCount(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails);
+	
+	/* given attacked coordinate check all 4 directions if can delete Coordinates from attackOptions */
+	void clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxInCoor ,bool isVertical , bool isHorizontal);
+
+	void checkSixDirections(Coordinate deadCoordinate);
+
+	/* given a Coordinate count the number of available Coordinates to Attack  starting from startCoordinate up to the closest removed Coor*/
+	int countDistance(Coordinate startCoordinate, int minShipSize ,);
+
+	void transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors);
+
+
 
 	/*checking if a current coordinate is in the Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;

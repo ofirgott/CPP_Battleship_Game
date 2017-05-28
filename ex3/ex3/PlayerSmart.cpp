@@ -247,6 +247,87 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate
 	return -1;
 }
 
+void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxIncCoor, bool isVertical, bool isHorizontal)
+{
+	Coordinate tempCoordinate(-1,-1,-1);
+
+	if (isVertical)
+	{
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth -1);
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth + 1);
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col -1, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		if (res == AttackResult::Sink)
+		{
+			updateCoordinates(tempCoordinate, minIncCoor - 1, attackedCoordinate.col, attackedCoordinate.depth);
+			checkSixDirections(tempCoordinate);
+
+			updateCoordinates(tempCoordinate, maxIncCoor + 1, attackedCoordinate.col, attackedCoordinate.depth);
+			checkSixDirections(tempCoordinate);
+
+			return;
+		}
+	}
+
+	if (isHorizontal)
+	{
+		updateCoordinates(tempCoordinate, attackedCoordinate.row -1, attackedCoordinate.col, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row +1, attackedCoordinate.col, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col , attackedCoordinate.depth -1 );
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col , attackedCoordinate.depth +1);
+		checkSixDirections(tempCoordinate);
+	
+		if (res == AttackResult::Sink)
+		{
+			updateCoordinates(tempCoordinate, attackedCoordinate.row, minIncCoor - 1, attackedCoordinate.depth);
+			checkSixDirections(tempCoordinate);
+
+			updateCoordinates(tempCoordinate, attackedCoordinate.row, maxIncCoor + 1, attackedCoordinate.depth);
+			checkSixDirections(tempCoordinate);
+
+			return;
+		}
+	}
+	else
+	{
+		updateCoordinates(tempCoordinate, attackedCoordinate.row -1, attackedCoordinate.col, attackedCoordinate.depth);
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row + 1, attackedCoordinate.col, attackedCoordinate.depth);
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col -1, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth );
+		checkSixDirections(tempCoordinate);
+
+		if (res == AttackResult::Sink)
+		{
+			updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col,  minIncCoor - 1);
+			checkSixDirections(tempCoordinate);
+
+			updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, maxIncCoor + 1);
+			checkSixDirections(tempCoordinate);
+			return;
+		}
+	}
+}
+
 bool  PlayerSmart::isInBoard(int row, int col, int depth) const
 {
 	return (row > boardRows || row< 1 || col>boardCols || col < 1 || depth>boardDepth || depth < 1);
