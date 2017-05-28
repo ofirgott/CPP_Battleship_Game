@@ -92,7 +92,8 @@ private:
 	int PlayerSmart::findPairInAttackedShips(const std::pair<int, int>& pairToSearch, int startIndex);
 
 	/* given origin update its coordinates to <row,col>*/
-	static std::pair <int, int> updateCoordinates(std::pair<int, int>& origin, int row, int col) { origin.first = row; origin.second = col; return origin; }
+	static Coordinate updateCoordinates(Coordinate& origin, int row, int col ,int depth ) { origin.row = row; origin.col = col; origin.depth = static std::pair <int, int> updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = col; return origin; }
+	; return origin; }
 
 	/*return true if the input pair is in attackoptions, false- otherwise
 	* util function for attack

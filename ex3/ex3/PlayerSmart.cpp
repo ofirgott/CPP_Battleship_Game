@@ -29,7 +29,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 				updateCoordinates(pairToInsert, coord.first + 1, coord.second);
 				result.insert(pairToInsert);
 			}
-			if (coord.first - 1 > 0) {//up
+			if (coord.row - 1 > 0) {//up
 				updateCoordinates(pairToInsert, coord.first - 1, coord.second);
 				result.insert(pairToInsert);
 			}
