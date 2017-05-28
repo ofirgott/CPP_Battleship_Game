@@ -66,25 +66,25 @@ private:
 	std::set<Coordinate> attackOptions;
 
 	/*checking if a current coordinate is in the Limits*/
-	bool  PlayerSmart::isInBoard(int row, int col) const;
+	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
 
 	/* given a coordinate search all ships in process and check if it belongs to one of them.
 	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
 	* if doesnt belong to any of them and the ship didnt sink add a new ship of size 1 to shipsinprocess && return -1
 	*/
-	int PlayerSmart::addCoorToShipsInProcess(int coorRow, int coorCol, std::pair<int, int>* nextPairTosearch, AttackResult result);
+	int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextPairTosearch, AttackResult result);
 
 	/* given a coordinate check all the coordinates (up/down/lwft/rgiht) and attack them if werent attacked yet.*/
-	std::pair<int, int> PlayerSmart::sizeOneAttack(const std::pair<int, int>& candidate) const;
+	Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const;
 
 	/*util function for attack
 	* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
-	std::pair<int, int>  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
+	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
 
 	/* given start index and pair. look for pair in all sets starting from index, if found, add pair
 	* to the ship at index and delete the ship that holds the matching pair
 	*/
-	void PlayerSmart::mergeShipDetails(std::pair<int, int>* pair, int indexToupdate);
+	void PlayerSmart::mergeShipDetails(Coordinate* pair, int indexToupdate);
 
 	/* given pair and start index, check if pair belongs to any of the attacked ships
 	* if found return index of ship the pair belongs to, else -1.
@@ -98,14 +98,14 @@ private:
 	/*return true if the input pair is in attackoptions, false- otherwise
 	* util function for attack
 	*/
-	bool PlayerSmart::isInAttackOptions(const std::pair<int, int>& coors) const;
+	bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
 
 	/* given a coordinate removefrom attackOptions is exists*/
-	void PlayerSmart::removeOneCoordinate(std::pair<int, int>& pairToDelete);
+	void PlayerSmart::removeOneCoordinate(Coordinate& coorToDelete);
 
 	/*remove the adjecent coordinates to pair. i.e if ship isvertical remove left,right coordinates to pair etc..  */
-	void  PlayerSmart::removeAllIrreleventCoordinates(const std::pair<int, int>& pair, bool isVertical, bool isHorizontal);
+	void  PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& pacoorir, bool isVertical, bool isHorizontal , bool isDimentional);
 
 	/* assume the ships handked here are of size at least 2*/
-	void PlayerSmart::removeSankFromReleventCoors(int indexOfPair);
+	void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor);
 };
