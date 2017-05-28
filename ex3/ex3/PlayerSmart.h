@@ -92,7 +92,7 @@ private:
 	int PlayerSmart::findCoorInAttackedShips(const Coordinate& coorToSearch, int startIndex);
 
 	/* given origin update its coordinates to <row,col>*/
-	static Coordinate updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
+	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
 
 	/*return true if the input pair is in attackoptions, false- otherwise
 	* util function for attack
