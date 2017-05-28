@@ -1,45 +1,89 @@
 #pragma once
 #include "ShipInProcess.h"
 
-
-void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, int constCoor, int firstCoor, int secondCoor)
+void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimensional, int firstCoor, int secondCoor)
 {
 	isVertical = vertical;
 	isHorizontal = horizontal;
-	constantCoor = constCoor;
-	incrementalCoors.push_back(firstCoor);
+	isDimentional = dimensional;
+
+	// insert to incrementalCoors vector<firstCoor,secondCoor>
+	incrementalCoors.push_back(firstCoor); 
 	incrementalCoors.push_back(secondCoor);
 	shipSize += 1;
+
+	if (isVertical)
+	{ // col & depth are constant
+		constantCoors.col = firstCoordinate.col;
+		constantCoors.depth = firstCoordinate.depth;
+		return;
+	}
+
+	if (isHorizontal)
+	{ // row & depth are constant
+		constantCoors.row= firstCoordinate.row;
+		constantCoors.depth = firstCoordinate.depth;
+		return;
+		
+	}
+	
+	if (isDimentional)
+	{
+		// row & col are constant
+		constantCoors.row = firstCoordinate.row;
+		constantCoors.col = firstCoordinate.col;
+		return;
+		
+	}
+
+
 }
 
-int ShipInProcess::addToSizeOneShip(int row, int col)
+int ShipInProcess::addToSizeOneShip(int row, int col, int dimention)
 {
-	// check if ship is horizontal and if so update inner state
-	if (row == firstPair.first)
+
+	// check if ship is horizontal (i.e x,z coordinates are constant) and if so update inner state
+	if ((row == firstCoordinate.row) && dimention == firstCoordinate.depth )
 	{
-		if (col == firstPair.second + 1) {
-			updateInnerFields(false, true, row, firstPair.second, col);
+		if (col == firstCoordinate.col + 1) {
+			updateInnerFields(false, true,false, firstCoordinate.col, col);
 			return 1;
 		}
 
-		if (col == firstPair.second - 1)
+		if (col == firstCoordinate.col - 1)
 		{
-			updateInnerFields(false, true, row, col, firstPair.second);
+			updateInnerFields(false, true, false, col, firstCoordinate.col);
 			return 1;
 		}
 	}
 
-	// check if ship is vertical and if so update inner state
-	if (col == firstPair.second)
+	// check if ship is vertical (i.e y,z coordinates are constant) and if so update inner state
+	if ((col == firstCoordinate.col) && (dimention == firstCoordinate.depth ))
 	{
-		if (row == firstPair.first + 1) { // ship is vertical 
-			updateInnerFields(true, false, col, firstPair.first, row);
+		if (row == firstCoordinate.row + 1) { // ship is vertical 
+			updateInnerFields(true, false, false, row, firstCoordinate.row);
 			return 1;
 		}
 
-		if (row == firstPair.first - 1)
+		if (row == firstCoordinate.row - 1)
 		{
-			updateInnerFields(true, false, col, row, firstPair.first);
+			updateInnerFields(true, false, false,  firstCoordinate.row,row);
+			return 1;
+		}
+	}
+
+	// check if ship is dimentional (i.e x,y coordinates are constant) and if so update inner state
+
+	if ((col == firstCoordinate.col) && (row == firstCoordinate.row))
+	{
+		if (dimention == firstCoordinate.depth + 1) { // ship is vertical 
+			updateInnerFields(false, false, true,, dimention, firstCoordinate.depth);
+			return 1;
+		}
+
+		if (row == firstCoordinate.row - 1)
+		{
+			updateInnerFields(false, false, true, firstCoordinate.depth, dimention);
 			return 1;
 		}
 	}
