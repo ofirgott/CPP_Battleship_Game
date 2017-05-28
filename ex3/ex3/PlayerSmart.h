@@ -42,7 +42,7 @@ public:
 	/* notify on last move result,update player smart by the information given*/
 	void notifyOnAttackResult(int player, Coordinate move, AttackResult result) override;
 
-//	static const int UNDEFINED_PLAYERID = -1;
+	static const int UNDEFINED_PLAYERID = -1;
 
 
 	//Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
