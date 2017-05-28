@@ -4,52 +4,46 @@
 #include "BattleshipGameUtils.h"
 #include "BattleshipBoard.h"
 #include <vector>
-#include <set>
 
 void PlayerSmart::setBoard(const BoardData& board)
 {
 	std::set<Coordinate> result; // insert all pairs that we arnt allow to attack
-	std::set<std::pair<char, std::set<std::pair<int, int>>>> setOfShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
+	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
 	std::pair<int, int> pairToInsert(0, 0);
-	id = player;
-	boardRows = numRows;
-	boardCols = numCols;
-	BattleshipBoard boardTemp(board, numRows, numCols); // create  
+	boardRows = board.rows();
+	boardCols = board.cols();
+	boardDepth = board.depth();
+	BattleshipBoard boardTemp(board); // create  
 
-	if (!boardTemp.isSuccessfullyCreated()) {
-		id = -1;
-	}
 	// board created successfuly
-	if (id != -1) {
+	setOfShipsDetails = boardTemp.ExtractShipsDetails();
+//	std::set<std::pair<int, int>> coordOfCurrentShip;
+	auto it = setOfShipsDetails.begin();
 
-		setOfShipsDetails = boardTemp.ExtractShipsDetails();
-		std::set<std::pair<int, int>> coordOfCurrentShip;
-		auto it = setOfShipsDetails.begin();
-
-		// foreach shipDetail add all its surroundings to the not allowed coors to attack 
-		while (it != setOfShipsDetails.end())
-		{
-			for (auto coord : it->second) {//for every ship we add each of her coord and around it
-				result.insert(coord);
-				if (coord.first + 1 <= numRows) {//down
-					updateCoordinates(pairToInsert, coord.first + 1, coord.second);
-					result.insert(pairToInsert);
-				}
-				if (coord.first - 1 > 0) {//up
-					updateCoordinates(pairToInsert, coord.first - 1, coord.second);
-					result.insert(pairToInsert);
-				}
-				if (coord.second + 1 <= numCols) {//right
-					updateCoordinates(pairToInsert, coord.first, coord.second + 1);
-					result.insert(pairToInsert);
-				}
-				if (coord.second - 1 > 0) {//left
-					updateCoordinates(pairToInsert, coord.first, coord.second - 1);
-					result.insert(pairToInsert);
-				}
+	// foreach shipDetail add all its surroundings to the not allowed coors to attack 
+	while (it != setOfShipsDetails.end())
+	{
+		for (auto coord : it->second) {//for every ship we add each of her coord and around it
+			result.insert(coord);
+			if (coord.row + 1 <= boardRows) {//down
+				updateCoordinates(pairToInsert, coord.first + 1, coord.second);
+				result.insert(pairToInsert);
 			}
-			++it;
+			if (coord.first - 1 > 0) {//up
+				updateCoordinates(pairToInsert, coord.first - 1, coord.second);
+				result.insert(pairToInsert);
+			}
+			if (coord.second + 1 <= numCols) {//right
+				updateCoordinates(pairToInsert, coord.first, coord.second + 1);
+				result.insert(pairToInsert);
+			}
+			if (coord.second - 1 > 0) {//left
+				updateCoordinates(pairToInsert, coord.first, coord.second - 1);
+				result.insert(pairToInsert);
+			}
 		}
+		++it;
+	}
 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
@@ -62,7 +56,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 		}
 	}
 
-}
+
 
 std::pair<int, int> PlayerSmart::attack()
 {

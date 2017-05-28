@@ -1,7 +1,6 @@
 #pragma once
 #include "ShipInProcess.h"
 #include <vector>
-#include <set>
 #include "IBattleshipGameAlgo.h"
 
 
@@ -34,7 +33,7 @@ public:
 	/* given a board update the set attackOptions with all the start options for attack */
 	void setBoard(const BoardData& board) override;
 
-	/* given a board update the set attackOptions with all the start options for attack */
+	// called every time the player changes his order
 	void setPlayer(int player) override;
 
 	/* ask player for his move, the attacked pair returned, if no more attackes the pair (-1,-1) is returned*/
@@ -43,7 +42,7 @@ public:
 	/* notify on last move result,update player smart by the information given*/
 	void notifyOnAttackResult(int player, Coordinate move, AttackResult result) override;
 
-	static const int UNDEFINED_PLAYERID = -1;
+//	static const int UNDEFINED_PLAYERID = -1;
 
 
 	//Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
@@ -57,13 +56,14 @@ private:
 	int id;					// players id , if id == -1 player is invalid or undefined
 	int boardRows;
 	int boardCols;
-	static const int PLAYERID_A = 0;
-	static const int PLAYERID_B = 1;
+	int boardDepth;
+//	static const int PLAYERID_A = 0;
+//	static const int PLAYERID_B = 1;
 	/*a vector of all current ship being attacked*/
 	std::vector<ShipInProcess> attackedShips;
 
 	/*a set of all the coordinates that are optional for attack*/
-	std::set<std::pair<int, int>> attackOptions;
+	std::set<Coordinate> attackOptions;
 
 	/*checking if a current coordinate is in the Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col) const;
