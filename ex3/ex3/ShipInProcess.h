@@ -27,12 +27,11 @@ class ShipInProcess
 	//todo: assume firstcoor<secondCoor
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimensional, int firstCoor, int secondCoor);
 
-
 	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
-	int addToSizeOneShip(int row, int col,int dimention);
-//
-//	/* merge Ships Vectors, assumse mainVector size>1 */
-//	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const std::pair<int, int>& addPair, bool vertical);
+	int addToSizeOneShip(int row, int col,int depth);
+
+	/* merge Ships Vectors, assumse mainVector size>1 */
+	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const Coordinate& addCoor, bool horizontal, bool vertical);
 
 	friend class PlayerSmart;
 public:
@@ -41,25 +40,22 @@ public:
 	ShipInProcess(int row, int col, int depth) : isVertical(true), isHorizontal(true),isDimentional(true), constantCoors(-1,-1,-1), firstCoordinate(row, col,depth), shipSize(1) {}
 	~ShipInProcess() {} //todo: maybe need to free Coordinate? 
 
+	/* given Coordinate add it to the ship's internal representation if the coordinates
+	* belongs to this ship. return 1 if added Coordinate to the Ship, else return -1
+	*/
+	int addCoordinate(int row, int col, int depth);
 
-	///* given Coordinate add it to the ship's internal representation if the coordinates
-	//* belongs to this ship. return 1 if added Coordinate to the Ship, else return -1
-	//*/
-	//int addCoordinate(int row, int col);
-
-	///* return true if coordinate <row,col> belongs to ship, elsereturn false*/
-	//bool isPartOfShip(int row, int col) const;
+	/* return true if coordinate(row,col,depth) belongs to ship, elsereturn false*/
+	bool isPartOfShip(int row, int col ,int depth) const;
 
 
-	///* given another ship the it'scoordinates belong to be, add its details to my ship*/
-	//void megreShipsInProcess(ShipInProcess& otherShip);
+	/* given other ship that it's coordinates belong to this ship, add its details to this ship*/
+	void megreShipsInProcess(ShipInProcess& otherShip);
 
 	/* assumes called for ships with size bigger then 1*/
 	int getMaxCoor() const { return incrementalCoors[shipSize - 1]; };
 	int getMinCoor() const { return incrementalCoors[0]; };
-	Coordinate getConstCoor() const { return constantCoors; };
-	//std::pair<int, int> getConstCoor() const { return constantCoor; }; // do we need to edit the returned coordinate? 
-
+	Coordinate getConstCoors() const { return constantCoors; };
 
 
 }; 
