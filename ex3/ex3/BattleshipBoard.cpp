@@ -23,7 +23,8 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 bool BattleshipBoard::IsShipCharInBoard(char ch)
 {
-	return false;
+	ch = toupper(ch);
+	return (ch == RUBBER_BOAT || ch == ROCKET_SHIP || ch == SUBMARINE || ch == DESTROYER);
 }
 
 std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDetails() const
@@ -59,14 +60,10 @@ char *** BattleshipBoard::AllocateNewMatrix(int rows, int cols, int depths)
 	return nullptr;
 }
 
-void BattleshipBoard::InitEmptyMatrix(char *** matrix, int rows, int cols, int depths)
+void BattleshipBoard::InitEmptyBoardVector(std::vector<char> board, int rows, int cols, int depths)
 {
 }
 
-bool BattleshipBoard::IsShip(char ch)
-{
-	return false;
-}
 
 void BattleshipBoard::CopyInputLineToBoard(char *** matrix, const std::string & line, int currRow, int cols, int depths)
 {
