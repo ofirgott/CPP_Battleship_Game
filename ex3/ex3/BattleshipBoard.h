@@ -1,12 +1,11 @@
 #pragma once
 #include <set>
-#include <iostream>
 #include "IBattleshipGameAlgo.h"
 
 class BattleshipBoard 
 {
 public:
-	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1), depth(-1), isSuccCreated(false) {}										/* empty constructor */
+	BattleshipBoard() : matrix(nullptr), rows(-1), cols(-1), depth(-1), isSuccCreated(false) {}								/* empty constructor */
 	explicit BattleshipBoard(const char *** inputMatix, int inputRows, int inputCols, int inputDepth);
 	explicit BattleshipBoard(const std::string& boardPath);
 	
@@ -34,7 +33,7 @@ public:
 
 																															/* given a player's matrix board,
 																															returns set of pairs, which contains for each ship it's coordinates:
-																															for example: {<'m', {<1,2>,<1,3>}> , <'P', {<8,5> , <8,6> , <8,7>}> } */
+																															for example: {<'m', {<1,2,1>,<1,3,1>}> , <'P', {<8,5,4> , <8,6,4> , <8,7,4>}> } */
 	std::set<std::pair<char, std::set<Coordinate>>> ExtractShipsDetails()const;
 
 	/* given matrix board and specific coordintets and ship char, inserts to the set coordOfCurrentShip all coordinates of this current ship (recursive function) */
@@ -74,11 +73,15 @@ private:
 	bool isSuccCreated;
 
 
-	static char*** AllocateNewMatrix(int rows, int cols, int depths);						 /* allocates new matrix in given size  */
-	static void InitEmptyMatrix(char*** matrix, int rows, int cols, int depths);				 /* init already allocated matrix with ' ' */
+	static char*** AllocateNewMatrix(int rows, int cols, int depths);												 /* allocates new matrix in given size  */
+	static void InitEmptyMatrix(char*** matrix, int rows, int cols, int depths);									 /* init already allocated matrix with ' ' */
 
-	static bool IsShip(char ch);								 /* given a char, checks if it a valid ship char*/
-	static void CopyInputLineToBoard(char*** matrix, const std::string& line, int currRow, int cols, int depths); /* given a input line string, copies this line to the matrix board */
+	static bool IsShip(char ch);																					 /* given a char, checks if it a valid ship char*/
+	static void CopyInputLineToBoard(char*** matrix, const std::string& line, int currRow, int cols, int depths);	 /* given a input line string, copies this line to the matrix board */
+
+
+
+	/* function from the game manager of ex2 - I think that in this ex it should be here. TODO: still I need to think if it is true */
 
 
 
