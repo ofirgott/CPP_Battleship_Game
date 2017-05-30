@@ -1,2 +1,2 @@
-﻿# c++ ex1
-# c++ ex1
+# BattleShip Game for Advanced Programming Course (C++), TAU 2017
+
