@@ -1,7 +1,6 @@
 #pragma once
-
-
-
+#include <string>
+#include "BattleshipBoard.h"
 
 
 class BattleshipTournamentManager
@@ -11,6 +10,12 @@ public:
 	~BattleshipTournamentManager();
 
 
+
+
+private:
+	
+	std::string inputDirPath;
+	std::vector<BattleshipBoard> boardsVec;
 
 
 };
