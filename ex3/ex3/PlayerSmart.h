@@ -30,7 +30,7 @@ static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
 class PlayerSmart : public IBattleshipGameAlgo
 {
 public:
-	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) ,boardDepth(-1) {};
+	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) ,boardDepth(-1), currSunkShipSize(-1), isBoardBalanced(true){};
 	~PlayerSmart() = default;
 	PlayerSmart& operator=(const PlayerSmart& otherSmartPlayer) = delete;
 	PlayerSmart(const PlayerSmart& otherSmartPlayer) = delete;
@@ -62,6 +62,8 @@ private:
 	int boardRows;
 	int boardCols;
 	int boardDepth;
+	int currSunkShipSize;
+	bool isBoardBalanced;
 
 //	static const int PLAYERID_A = 0;
 //	static const int PLAYERID_B = 1;
@@ -74,18 +76,26 @@ private:
 	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count>
 	std::set<Coordinate> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
 
+	/*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
+	void PlayerSmart::pourImbalancedToAttackOptions();
+	/*given the size of the ship that sunk,update that there is one less ship in this size*/
+	void PlayerSmart::updateShipsCount(int sunkShipSize);
+
+	/*return the size of the other player smallest ship */
+	int PlayerSmart::getMinShipSize();
+
 	/*given player's ship create vector that maps the ship's size to the ship's count*/
-	std::vector<std::pair<int, int>> createShipsCount(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails);
+	void PlayerSmart::createShipsCount(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails);
 	
 	/* given attacked coordinate check all 4 directions if can delete Coordinates from attackOptions */
-	void clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxInCoor ,bool isVertical , bool isHorizontal);
+	void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxInCoor ,bool isVertical , bool isHorizontal);
 
-	void checkSixDirections(Coordinate deadCoordinate);
+	void PlayerSmart::checkSixDirections(Coordinate deadCoordinate);
 
 	/* given a Coordinate count the number of available Coordinates to Attack  starting from startCoordinate up to the closest removed Coor*/
-	int countDistance(Coordinate startCoordinate, int minShipSize ,);
+	int PlayerSmart::countDistance(Coordinate startCoordinate, int minShipSize, bool isVertical, bool isHorizontal, int direction);
 
-	void transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors);
+	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool isVertical, bool isHorizontal, int direction);
 
 
 
