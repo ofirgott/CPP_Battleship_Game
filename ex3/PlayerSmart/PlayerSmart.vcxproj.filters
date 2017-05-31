@@ -19,7 +19,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ex3\ShipInProcess.h">
-      <Filter>Header Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
