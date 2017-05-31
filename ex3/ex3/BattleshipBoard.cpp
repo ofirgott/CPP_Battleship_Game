@@ -1,6 +1,8 @@
 #include "BattleshipBoard.h"
 #include <iostream>
 #include <fstream>
+#include <iterator>
+#include "BattleshipGameUtils.h"
 
 BattleshipBoard::BattleshipBoard(std::vector<char> board, int inputRows, int inputCols, int inputDepth) : boardVec(board), rows(inputRows), cols(inputCols), depth(inputDepth), isSuccCreated(true) {}
 
@@ -18,36 +20,49 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 
 		if (!parseBoardDimensions(line)) return;
 
-
-
-
-
-		int rowCnt = 0;											/* we need to read only (10) rows from the board input file */
-
-		while (rowCnt < rows && std::getline(boardFile, line))  /* while we read < rows lines or we don't reach to eof in board file */
+		
+		/* now parse the board - seperate matrix for every depth */
+		for (int d = 0; d < depth; d++)
 		{
-			CopyInputLineToBoard(matrix, line, rowCnt, cols);
-			rowCnt++;
+			std::getline(boardFile, line);		/* skip intermediate line between every matrix*/
+			int currRow = 0;
+			while (currRow < rows && std::getline(boardFile, line) && !line.empty())  
+			{
+				/* while we read < rows lines and we don't reach to eof in board file and line is not empty (end of current matrix) */
+				CopyInputLineToBoard(line, d, currRow);
+				currRow++;
+			}
+			while (!line.empty() && std::getline(boardFile, line));			/* skip redundant lines in current depth */
 		}
 		boardFile.close();
 	}
+
 	else {														/* we can't open the board file */
 		//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
 		return;
 	}
 
 	isSuccCreated = true;
-
-
-
-
-
 }
 
-BattleshipBoard & BattleshipBoard::operator=(const BattleshipBoard & otherBoard)
+BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
+
+BattleshipBoard::BattleshipBoard(BattleshipBoard && otherBoard) noexcept : boardVec(std::move(otherBoard.boardVec)), rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), isSuccCreated(otherBoard.isSuccessfullyCreated()) {}
+
+BattleshipBoard & BattleshipBoard::operator=(BattleshipBoard && otherBoard) noexcept
 {
-	// TODO: insert return statement here
+	boardVec = std::move(otherBoard.boardVec);
+	rows = otherBoard.rows;
+	cols = otherBoard.cols;
+	depth = otherBoard.depth;
+	isSuccCreated = otherBoard.isSuccCreated;
+	return *this;
 }
+
+
+
+
+
 
 std::vector<char> BattleshipBoard::createPlayerBoard(int playerID)const
 {
@@ -221,8 +236,6 @@ void BattleshipBoard::setCoord(int r, int c, int d, char ch)
 //}
 
 
-
-
 /* this is strange to return reference to a vector, so we will return by value, and then we will make move to prevent new allocation */
 std::vector<char> BattleshipBoard::InitNewEmptyBoardVector(int rows, int cols, int depths)
 {
@@ -231,26 +244,38 @@ std::vector<char> BattleshipBoard::InitNewEmptyBoardVector(int rows, int cols, i
 }
  
 
-void BattleshipBoard::CopyInputLineToBoard(const std::string & line)
+void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDepth, int currRow)
 {
+	size_t lineLen;
+	if (line.length() < unsigned(cols))
+		lineLen = line.length();
+	else
+		lineLen = cols;
+
+	for (size_t j = 0; j < lineLen; j++)
+	{
+		if (IsShipCharInBoard(line[j])) {
+			setCoord(currRow, j, currDepth, line[j]);	/*else it will remain ' ' */
+		}
+	}
 }
 
-bool BattleshipBoard::parseBoardDimensions(std::string line)
+bool BattleshipBoard::parseBoardDimensions(const std::string& line)
 {
 	std::vector<int> dimsVec;
-	
-	size_t pos;
+	std::vector<std::string> tokens;
 	char* stringEnd = nullptr;
 
-	while((pos = line.find(BOARD_DIM_DELIMITER)) != std::string::npos)
+	BattleshipGameUtils::splitStringByToken(line, BOARD_DIM_DELIMITER, std::back_inserter(tokens));
+
+	for (auto tok : tokens)
 	{
-		dimsVec.push_back(strtol(line.substr(0, pos).c_str(), &stringEnd, 10));
+		dimsVec.push_back(strtol(tok.c_str(), &stringEnd, 10));
 
 		if (*stringEnd) {
 			//todo: print to the logger "dimension row contains non-number chars
 			return false;
 		}
-		line.erase(0, pos + 1);
 	}
 
 	if(dimsVec.size() < 3){
