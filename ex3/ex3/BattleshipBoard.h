@@ -65,6 +65,8 @@ public:
 	/* TODO: need to check this calculation if it is true: http://www.cplusplus.com/forum/general/137677/, https://stackoverflow.com/questions/10238699/dynamically-allocating-3d-array, https://stackoverflow.com/questions/2178909/how-to-initialize-3d-array-in-c */
 	static int calcCoordIndex(int r, int c, int d, int boardRows, int boardCols, int boardDepth) { return r + c * boardCols + d * boardCols * boardRows;  }
 
+	static const char BLANK_CHAR = ' ';
+
 private:
 
 	static const int PLAYERID_A = 0;
@@ -73,7 +75,6 @@ private:
 	static const char ROCKET_SHIP = 'P';
 	static const char SUBMARINE = 'M';
 	static const char DESTROYER = 'D';
-	static const char BLANK_CHAR = ' ';
 	static const char BOARD_DIM_DELIMITER = 'x';
 
 

@@ -32,5 +32,8 @@
     <ClInclude Include="..\ex3\IBattleshipGameAlgo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ex3\BoardDataImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

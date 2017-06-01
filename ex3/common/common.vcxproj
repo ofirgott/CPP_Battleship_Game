@@ -25,6 +25,7 @@
   <ItemGroup>
     <ClInclude Include="..\ex3\BattleshipBoard.h" />
     <ClInclude Include="..\ex3\BattleshipGameUtils.h" />
+    <ClInclude Include="..\ex3\BoardDataImpl.h" />
     <ClInclude Include="..\ex3\IBattleshipGameAlgo.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
