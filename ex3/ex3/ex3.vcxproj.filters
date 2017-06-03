@@ -47,5 +47,8 @@
     <ClInclude Include="PlayerAlgoDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerGameResultData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

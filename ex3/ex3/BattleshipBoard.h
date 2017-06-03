@@ -65,6 +65,8 @@ public:
 	/* TODO: need to check this calculation if it is true: http://www.cplusplus.com/forum/general/137677/, https://stackoverflow.com/questions/10238699/dynamically-allocating-3d-array, https://stackoverflow.com/questions/2178909/how-to-initialize-3d-array-in-c */
 	static int calcCoordIndex(int r, int c, int d, int boardRows, int boardCols, int boardDepth) { return r + c * boardCols + d * boardCols * boardRows;  }
 
+	static void countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec);
+
 	static const char BLANK_CHAR = ' ';
 
 private:

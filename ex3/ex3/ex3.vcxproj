@@ -128,6 +128,7 @@
     <ClInclude Include="BattleshipTournamentManager.h" />
     <ClInclude Include="GamePlayerData.h" />
     <ClInclude Include="PlayerAlgoDetails.h" />
+    <ClInclude Include="PlayerGameResultData.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
