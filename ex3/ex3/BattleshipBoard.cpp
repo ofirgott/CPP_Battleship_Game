@@ -300,6 +300,7 @@ void BattleshipBoard::countShipsTypes(const std::set<std::pair<char, std::set<Co
 	int count_d = 0;//lenght = 4
 
 	for (auto shipType : allShipsDetails) {  
+		
 		char ch = tolower(shipType.first);
 		
 		if (ch == 'b') count_b++;
@@ -307,6 +308,7 @@ void BattleshipBoard::countShipsTypes(const std::set<std::pair<char, std::set<Co
 		if (ch == 'p') count_p++;
 		if (ch == 'd') count_d++;
 	}
+
 	shipsCountVec.push_back(std::make_pair(1, count_b));
 	shipsCountVec.push_back(std::make_pair(2, count_m));
 	shipsCountVec.push_back(std::make_pair(3, count_p));

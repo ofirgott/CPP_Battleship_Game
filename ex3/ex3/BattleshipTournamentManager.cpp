@@ -67,10 +67,16 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 	{
 		currBoardFullPath = inputDirPath + "/" + currBoardFilename;
 		BattleshipBoard currBoard(currBoardFullPath);
-
+		if (checkBoardValidity(currBoard))
+		{
+			boardsVec.push_back(std::move(currBoard));			/* take the board without create new board */
+		}
+		else
+		{
+			// TODO: print to the log :std::cout << "Board in: " << currBoardFullPath << "skipped, because of the errors above." << std::endl;
+		}
 	}
 	
-
 	if(boardsVec.empty())
 	{
 		std::cout << "No board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
@@ -80,50 +86,160 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 	
 }
 
-bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& board)const
+bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& board)
 {
-	if (!board .isSuccessfullyCreated()) return false;
+	if (!board.isSuccessfullyCreated()) return false;
 
-	size_t validShipsCnt_A, validShipsCnt_B;
-	hasShipWithWrongSize_A = hasShipWithWrongSize_B = hasTooManyShip_A = hasToManyShip_B = hasAdjacentShips = false;
-	hasTooFewShips_A = hasTooFewShips_B = true;
-
-	const char** matrixA = const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_A));						/* allocates new matrix */
-	BattleshipBoard boardA(matrixA, mainBoard.getRows(), mainBoard.getCols());
-	const char** MatrixB = const_cast<const char**>(mainBoard.createPlayerBoard(PLAYERID_B));
-	BattleshipBoard boardB(MatrixB, mainBoard.getRows(), mainBoard.getCols());
-	std::pair<size_t, std::set<char>> tmpPair;											/* for FindNumberOfValidShipsInBoard output*/
-	std::set<char> invalidShips_A;
-	std::set<char> invalidShips_B;
+	
+	std::set<std::pair<char, std::set<Coordinate>>> validShips_A, validShips_B;											/* for FindValidAndInvalidShipsInBoard output */
+	std::set<char> invalidShips_A, invalidShips_B;
 
 
-	tmpPair = FindNumberOfValidShipsInBoard(boardA);
-	validShipsCnt_A = tmpPair.first;
-	invalidShips_A = tmpPair.second;
-	BattleshipBoard::deleteMatrix(matrixA, boardA.getRows(), boardA.getCols());
+	FindValidAndInvalidShipsInBoard(board, validShips_A, invalidShips_A, validShips_B, invalidShips_B);
 
-	tmpPair = FindNumberOfValidShipsInBoard(boardB);
-	validShipsCnt_B = tmpPair.first;
-	invalidShips_B = tmpPair.second;
-	BattleshipBoard::deleteMatrix(MatrixB, boardB.getRows(), boardB.getCols());
-
-	PrintWrongSizeOrShapeForShips(invalidShips_A, A);
-	PrintWrongSizeOrShapeForShips(invalidShips_B, B);
-
-	bool isCorrectShipsNumA = isCorrectNumberOfShipsForPlayer(validShipsCnt_A, A);
-	bool isCorrectShipsNumB = isCorrectNumberOfShipsForPlayer(validShipsCnt_B, B);
-
-
-	hasAdjacentShips = mainBoard.CheckIfHasAdjacentShips();								/* if has adjacent ships, this funcion also prints relevant message */
-
-	if (isCorrectShipsNumA && isCorrectShipsNumB && !hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty())
-		return true;
-	else
+	if(validShips_A.empty())
+	{
+		// todo: print to the log - std::cout << "player A has no valid ships at all - invalid board." << std::endl;
 		return false;
+	}
+	else if(validShips_B.empty())
+	{
+		//todo: print to the log - std::cout << "player B has no valid ships at all - invalid board." << std::endl;
+		return false;
+	}
+	else {
+		PrintWrongSizeOrShapeForShips(invalidShips_A, A);
+		PrintWrongSizeOrShapeForShips(invalidShips_B, B);
 
+		comparePlayersShips(validShips_A, validShips_B);
+
+		bool hasAdjacentShips = board.CheckIfHasAdjacentShips();								/* if has adjacent ships, this funcion also prints relevant message */
+
+		return (!hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty());
+	}
+}
+
+
+void BattleshipTournamentManager::FindValidAndInvalidShipsInBoard(const BattleshipBoard& board, std::set<std::pair<char, std::set<Coordinate>>>& validShips_A, std::set<char>& invalidShips_A, std::set<std::pair<char, std::set<Coordinate>>>& validShips_B, std::set<char>& invalidShips_B)
+{
+	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails;					/* set of ships details - for example:
+																						{<'m', {<1,2,7>,<1,3,7>}> , <'P', {<8,5,1>, <8,6,1> , <8,7,1>}> } */
+	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
+
+
+	setOfShipsDetails = board.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid */
+
+
+	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);				 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips  updated*/
+
+	for (auto validShipDeatils : setOfShipsDetails)
+	{
+		if (BattleshipBoard::isPlayerShip(PLAYERID_A, validShipDeatils.first))
+			validShips_A.insert(validShipDeatils);
+		
+		else validShips_B.insert(validShipDeatils);
+	}
+
+	for (auto invalidShipChar : invalidShips)
+	{
+		if (BattleshipBoard::isPlayerShip(PLAYERID_A, invalidShipChar))
+			invalidShips_A.insert(invalidShipChar);
+		
+		else invalidShips_B.insert(invalidShipChar);
+	}
+
+}
+
+void BattleshipTournamentManager::DeleteInvalidShipsDetailsEntryFromSet(std::set<std::pair<char, std::set<Coordinate>>>& setOfShipsDetails, std::set<char>& invalidShips)
+{
+	auto it = setOfShipsDetails.begin();
+	while (it != setOfShipsDetails.end())
+	{
+		if (!Ship::isValidShipDetails(*it))
+		{
+			invalidShips.insert(it->first);
+			it = setOfShipsDetails.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+void BattleshipTournamentManager::PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar)
+{
+	if (invalidShipsSet.empty()) return;
+
+	for (auto shipChar : invalidShipsSet)
+	{
+		// TODO: print to the log std::cout << "Wrong size or shape for ship " << shipChar << " for player " << playerChar << std::endl;
+	}
+}
+
+void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>> validShips_A, std::set<std::pair<char, std::set<Coordinate>>> validShips_B)
+{
+	if(validShips_A.size() != validShips_B.size())
+	{
+		//TODO: PRINT TO THE LOG - std::cout << "WARNING - the board is not balanced, players have different number of ships." << std::endl;
+		return;
+	}
+
+	std::vector<std::pair<int, int>> shipsCountVec_A, shipsCountVec_B;
+
+	BattleshipBoard::countShipsTypes(validShips_A, shipsCountVec_A);
+	BattleshipBoard::countShipsTypes(validShips_B, shipsCountVec_B);
+	bool hasDiffTypesBalance = false;
+
+	if (shipsCountVec_A.size() != shipsCountVec_B.size())			/* we can have same number of ships, but different number from each type */
+		hasDiffTypesBalance = true;
+
+	else
+	{
+		for (int i = 0; i < shipsCountVec_A.size(); i++)			/* those vectors sorted by the ship type sizes */
+		{
+			if (shipsCountVec_A[i].first != shipsCountVec_A[i].first || shipsCountVec_A[i].second != shipsCountVec_A[i].second)
+				hasDiffTypesBalance = true;
+
+		}
+	}
+
+	if (hasDiffTypesBalance)
+		std::cout << "WARNING - the board is not balanced, players have same number of ships but not for each ship type." << std::endl; //TODO: PRINT TO THE LOG - 
 }
 
 bool BattleshipTournamentManager::loadTournamentAlgos()
 {
-	return false;
+	std::string currDllFullPath;
+	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".dll");
+
+
+	for (auto currDllFilename : tmpFilenamesVector)
+	{
+		loadPlayerDll(currDllFilename);
+	}
+
+	if(algosDetailsVec.size() < TOURNAMENT_MIN_PLAYERS)
+	{
+		std::cout << "Missing algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two) << std::endl";
+		return false;
+	}
+
+	return true;
+
+}
+
+void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilename)
+{
+	PlayerAlgoDetails currAlgo;
+	currAlgo.dllPath = inputDirPath + "/" + currDllFilename;
+	//TODO: print to the log - std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;
+	currAlgo.dllFileHandle = LoadLibraryA(currDllFilename.c_str()); // Notice: Unicode compatible version of LoadLibrary
+	
+	if (currAlgo.dllFileHandle)
+	{
+		//TODO: print to the log std::cout << "Cannot load dll: " << currDllFilename << std::endl;
+		return;
+	}
+
 }
