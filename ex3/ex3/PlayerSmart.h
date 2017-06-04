@@ -84,9 +84,6 @@ private:
 	/*return the size of the other player smallest ship */
 	int PlayerSmart::getMinShipSize();
 
-	/*given player's ship create vector that maps the ship's size to the ship's count*/
-	void PlayerSmart::createShipsCount(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails);
-	
 	/* given attacked coordinate check all 4 directions if can delete Coordinates from attackOptions */
 	void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxInCoor ,bool isVertical , bool isHorizontal);
 
