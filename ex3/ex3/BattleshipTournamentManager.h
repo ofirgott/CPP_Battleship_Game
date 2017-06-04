@@ -10,6 +10,9 @@ public:
 	BattleshipTournamentManager(int argc, char* argv[]);
 	~BattleshipTournamentManager();
 
+	bool isTournamentSuccessfullyCreated()const { return successfullyCreated; }
+	void Start()const;
+
 
 
 
