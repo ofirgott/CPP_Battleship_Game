@@ -19,7 +19,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 	setOfShipsDetails = boardTemp.ExtractShipsDetails();
 
 	//creat the ship count vector
-	createShipsCount(setOfShipsDetails);
+	boardTemp.countShipsTypes(setOfShipsDetails, shipsCount);
 
 	//std::set<std::pair<int, int>> coordOfCurrentShip;
 	auto it = setOfShipsDetails.begin();
@@ -70,34 +70,6 @@ void PlayerSmart::setBoard(const BoardData& board)
 			}
 		}
 	}
-void PlayerSmart::createShipsCount(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails) {
-	auto it = allShipsDetails.begin();
-	int count_b = 0;//1
-	int count_m = 0;//2
-	int count_p = 0;//3
-	int count_d = 0;//4
-
-	while (it != allShipsDetails.end()) {
-		if (tolower(it->first) == 'b') {
-			count_b++;
-		}
-		if (tolower(it->first) == 'm') {
-			count_m++;
-		}
-		if (tolower(it->first) == 'p') {
-			count_p++;
-		}
-		if (tolower(it->first) == 'd') {
-			count_d++;
-		}
-		it++;
-	}
-		shipsCount.push_back(std::make_pair(1, count_b));		
-		shipsCount.push_back(std::make_pair(2, count_m));
-		shipsCount.push_back(std::make_pair(3, count_p));
-		shipsCount.push_back(std::make_pair(4, count_d));	
-}
-
 
 Coordinate PlayerSmart::attack()
 {
