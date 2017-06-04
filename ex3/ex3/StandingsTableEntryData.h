@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <algorithm>
+#include <vector>
 
 /* we use class and not struct because we want to hide this information*/
 class StandingsTableEntryData
@@ -19,6 +20,9 @@ public:
 	int LossesNumber()const { return lossesCnt; }
 	int PointsFor()const { return pointsFor; }
 	int PointsAgainst()const { return pointsAgainst; }
+	
+	static size_t getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec);
+	
 
 	/* setters*/
 	void setWinsNumber(int newWinsNum) {  winsCnt = newWinsNum; }
@@ -28,12 +32,7 @@ public:
 
 
 	/* assume that we compare players with the same number of games */
-	bool operator > (const StandingsTableEntryData& other)const { 
-		if (winsCnt != other.winsCnt)
-			return winsCnt > other.winsCnt;
-		else
-			return pointsFor > other.pointsFor;
-	}
+	bool operator > (const StandingsTableEntryData& other)const;
 	
 	static void sortPlayersStandingsVector(std::vector<StandingsTableEntryData> standingsVector) { std::sort(standingsVector.begin(), standingsVector.end()); }
 

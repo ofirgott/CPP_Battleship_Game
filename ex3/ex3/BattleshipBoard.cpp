@@ -255,7 +255,7 @@ void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDep
 	for (size_t j = 0; j < lineLen; j++)
 	{
 		if (IsShipCharInBoard(line[j])) {
-			setCoord(currRow, j, currDepth, line[j]);	/*else it will remain ' ' */
+			setCoord(currRow, static_cast<int>(j), currDepth, line[j]);	/*else it will remain ' ' */
 		}
 	}
 }
