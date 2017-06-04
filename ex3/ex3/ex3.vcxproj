@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BattleshipGameManager.cpp" />
+    <ClCompile Include="BattleshipPrint.cpp" />
     <ClCompile Include="BattleshipTournamentManager.cpp" />
     <ClCompile Include="GamePlayerData.cpp" />
     <ClCompile Include="main.cpp" />
@@ -125,11 +126,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleshipGameManager.h" />
+    <ClInclude Include="BattleshipPrint.h" />
     <ClInclude Include="BattleshipTournamentManager.h" />
     <ClInclude Include="GamePlayerData.h" />
     <ClInclude Include="PlayerAlgoDetails.h" />
     <ClInclude Include="PlayerGameResultData.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="StandingsTableEntryData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

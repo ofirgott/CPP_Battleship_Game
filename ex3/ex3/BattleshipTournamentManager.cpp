@@ -4,10 +4,33 @@
 
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(false)
 {
+	if(!checkTournamentArguments(argc, argv)) return;
+
+	if (!checkTournamentBoards()) return;
+	
+	if (!loadTournamentAlgos()) return;
+
+	successfullyCreated = true;
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()
 {
+	std::vector<PlayerAlgoDetails>::iterator vitr;
+
+	// close all the dynamic libs we opened 
+
+	for (vitr = algosDetailsVec.begin(); vitr != algosDetailsVec.end(); ++vitr)
+	{
+		if(vitr->dllFileHandle)
+			FreeLibrary(vitr->dllFileHandle);
+	}
+}
+
+void BattleshipTournamentManager::Start() const
+{
+	//todo: create all games queue
+
+	
 }
 
 bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv[])
@@ -233,13 +256,26 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 {
 	PlayerAlgoDetails currAlgo;
 	currAlgo.dllPath = inputDirPath + "/" + currDllFilename;
+	currAlgo.playerName = currDllFilename.substr(0, currDllFilename.find(".dll"));
+
 	//TODO: print to the log - std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;
 	currAlgo.dllFileHandle = LoadLibraryA(currDllFilename.c_str()); // Notice: Unicode compatible version of LoadLibrary
 	
-	if (currAlgo.dllFileHandle)
+	if (!currAlgo.dllFileHandle)
 	{
-		//TODO: print to the log std::cout << "Cannot load dll: " << currDllFilename << std::endl;
+		//TODO: print to the log std::cout << "Cannot load dll in: " << currAlgo.dllPath << std::endl;
 		return;
 	}
+	else
+	{
+		currAlgo.getAlgoFunc = reinterpret_cast<GetAlgoFuncType>(GetProcAddress(currAlgo.dllFileHandle, "GetAlgorithm"));
+		if(!currAlgo.getAlgoFunc)
+		{
+			std::cout << "Error getting GetAlgorithm function from the dll file in: " << currAlgo.dllPath;
+			FreeLibrary(currAlgo.dllFileHandle);
+			return;
+		}
+	}
 
+	algosDetailsVec.push_back(currAlgo);
 }
