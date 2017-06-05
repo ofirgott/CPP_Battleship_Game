@@ -10,7 +10,7 @@ size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<Standing
 	return maxLen;
 }
 
-bool StandingsTableEntryData::operator>(const StandingsTableEntryData & other) const
+bool StandingsTableEntryData::operator > (const StandingsTableEntryData & other) const
 {
 	if (winsCnt != other.winsCnt)
 		return winsCnt > other.winsCnt;

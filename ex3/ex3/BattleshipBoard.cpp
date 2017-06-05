@@ -45,6 +45,14 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 	isSuccCreated = true;
 }
 
+BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.rows()), cols(boardData.cols()), depth(boardData.depth()), isSuccCreated(true)
+{
+	for (int d = 1; d <= depth; d++)
+		for (int r = 1; r <= rows; r++)
+			for (int c = 1; c <= cols; c++)
+				boardVec.push_back(boardData.charAt({r, c, d}));
+}
+
 BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
 
 BattleshipBoard::BattleshipBoard(BattleshipBoard && otherBoard) noexcept : boardVec(std::move(otherBoard.boardVec)), rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), isSuccCreated(otherBoard.isSuccessfullyCreated()) {}
@@ -99,7 +107,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 				if (currPos == ' ') continue;			/* if current position is not a ship - it is a ' ', because we clean the board at the begining */
 
-				auto nearbyCoordSet = getNearbyCoordinates(i, j, k);
+				auto nearbyCoordSet = getNearbyCoordinates({i,j,k});
 
 				for (auto adjacentCoor : nearbyCoordSet)		/* for each nearby coordinate we check if we have adjacent ship (surronding other char)  */
 				{
@@ -185,9 +193,12 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 
 
 
-std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(int r, int c, int d) const
+std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(Coordinate coord) const
 /* we check in this function every coordinate seperatly */
 {
+	int r = coord.row;
+	int c = coord.col;
+	int d = coord.depth;
 	std::set<Coordinate> adjCoordSet;
 	
 	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({r - 1, c, d});    //adjCoordSet.insert(std::make_pair(x - 1, y)

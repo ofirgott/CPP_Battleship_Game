@@ -34,7 +34,7 @@ public:
 	/* assume that we compare players with the same number of games */
 	bool operator > (const StandingsTableEntryData& other)const;
 	
-	static void sortPlayersStandingsVector(std::vector<StandingsTableEntryData> standingsVector) { std::sort(standingsVector.begin(), standingsVector.end()); }
+	static void sortPlayersStandingsVector(std::vector<StandingsTableEntryData>& standingsVector) { std::sort(standingsVector.begin(), standingsVector.end()); }
 
 private:
 

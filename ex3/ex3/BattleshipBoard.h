@@ -9,7 +9,8 @@ public:
 	BattleshipBoard() : rows(-1), cols(-1), depth(-1), isSuccCreated(false) {}								/* empty constructor */
 	explicit BattleshipBoard(std::vector<char> board, int inputRows, int inputCols, int inputDepth);
 	explicit BattleshipBoard(const std::string& boardPath);
-	
+	explicit BattleshipBoard(const BoardData& boardData);													/* constructor for player use */
+
 	~BattleshipBoard() = default;																			/* todo: check if we want to remain it as is now*/
 
 	BattleshipBoard(const BattleshipBoard& otherBoard);														/* copy constructor */
@@ -48,7 +49,7 @@ public:
 	static bool isCoordianteInBoard(int r, int c, int d, int rowsNum, int colsNum, int depthNum) { return (r >= 0 && r < rowsNum && c >= 0 && c < colsNum && d >= 0 && d < depthNum); }
 
 
-	std::set<Coordinate> getNearbyCoordinates(int r, int c, int d)const;												    /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
+	std::set<Coordinate> getNearbyCoordinates(Coordinate coord)const;												    /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
 
 	static bool isPlayerShip(const int playerId, const char shipChar);														//todo: document
 	

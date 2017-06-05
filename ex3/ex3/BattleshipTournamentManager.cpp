@@ -1,6 +1,7 @@
 #include "BattleshipTournamentManager.h"
 #include "BattleshipGameUtils.h"
 #include <iostream>
+#include "Ship.h"
 
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(false)
 {
