@@ -89,12 +89,13 @@ bool Ship::isValidShipLen(char id, int setSize)
 }
 
 
-bool Ship::isValidShipCoordinates(const std::set<std::pair<int, int>>& coordinates)
+bool Ship::isValidShipCoordinates(const std::set<Coordinate>& coordinates)
 {
 	int shipSize = (int)size(coordinates);
 
 	std::vector<int> rows;
 	std::vector<int> cols;
+	std::vector<int> depths;
 
 	// ship must contain at least 1 coordinate to exist
 	if (shipSize< 1) {
@@ -103,26 +104,42 @@ bool Ship::isValidShipCoordinates(const std::set<std::pair<int, int>>& coordinat
 
 	// extract all rows && columns coordinates
 	for (auto& coor : coordinates) {
-		rows.push_back(coor.first);
-		cols.push_back(coor.second);
+		rows.push_back(coor.row);
+		cols.push_back(coor.col);
+		depths.push_back(coor.depth);
 	}
 
 	// sort the vecors
 	std::sort(rows.begin(), rows.end());
 	std::sort(cols.begin(), cols.end());
+	std::sort(depths.begin(), depths.end());
 
 	//check if ship is Horizontal
 	if (isConstantCoors(rows, shipSize)) {
-		if (isIncrementalCoors(cols, shipSize)) {
-			return true;
+		if (isConstantCoors(depths, shipSize)) {
+			if (isIncrementalCoors(cols, shipSize)) {
+				return true;
+			}
 		}
 	}
 
 	//check if ship is vertical
 	if (isConstantCoors(cols, shipSize)) {
-		if (isIncrementalCoors(rows, shipSize)) {
-			return true;
+		if (isConstantCoors(depths, shipSize)) {
+			if (isIncrementalCoors(rows, shipSize)) {
+				return true;
+			}
 		}
+	}
+
+	//check if ship is dimantional
+	if (isConstantCoors(depths, shipSize)) {
+		if (isConstantCoors(cols, shipSize)) {
+			if (isIncrementalCoors(rows, shipSize)) {
+				return true;
+			}
+		}
+
 	}
 
 	return false;
@@ -170,7 +187,9 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 	points = sPoints;
 	notHit = length;
 	for (auto coor : coordinates) {
-		updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth);
+		coorToInsert.row = coor.row;
+		coorToInsert.col = coor.col;
+		coorToInsert.depth = coor.depth;
 		body.insert(std::make_pair(coorToInsert, 0));
 	}
 }
