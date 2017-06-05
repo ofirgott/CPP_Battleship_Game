@@ -10,10 +10,23 @@ size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<Standing
 	return maxLen;
 }
 
-bool StandingsTableEntryData::operator > (const StandingsTableEntryData & other) const
-{
-	if (winsCnt != other.winsCnt)
-		return winsCnt > other.winsCnt;
-	else
-		return pointsFor > other.pointsFor;
-}
+//StandingsTableEntryData & StandingsTableEntryData::operator=(StandingsTableEntryData && arg)
+//{
+//	playerName = arg.playerName;
+//	winsCnt = arg.winsCnt;
+//	lossesCnt = arg.lossesCnt;
+//	pointsFor = arg.pointsFor;
+//	pointsAgainst = arg.pointsFor;
+//	return *this;
+//
+//}
+//
+//StandingsTableEntryData & StandingsTableEntryData::operator=(const StandingsTableEntryData & arg)
+//{
+//	playerName = arg.playerName;
+//	winsCnt = arg.winsCnt;
+//	lossesCnt = arg.lossesCnt;
+//	pointsFor = arg.pointsFor;
+//	pointsAgainst = arg.pointsFor;
+//	return *this;
+//}

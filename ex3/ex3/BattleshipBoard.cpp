@@ -20,6 +20,7 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 
 		if (!parseBoardDimensions(line)) return;
 
+		boardVec = std::move(InitNewEmptyBoardVector(rows, cols, depth));
 		
 		/* now parse the board - seperate matrix for every depth */
 		for (int d = 0; d < depth; d++)

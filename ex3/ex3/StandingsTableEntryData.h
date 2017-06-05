@@ -12,7 +12,7 @@ public:
 	StandingsTableEntryData(std::string name, int wins, int losses, int pFor, int pAgainst) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
 
 	~StandingsTableEntryData() = default;
-	StandingsTableEntryData(const StandingsTableEntryData& other) = delete;					/* deletes copy constructor */
+
 
 	/* getters */
 	std::string PlayerName()const { return playerName; }
@@ -20,22 +20,21 @@ public:
 	int LossesNumber()const { return lossesCnt; }
 	int PointsFor()const { return pointsFor; }
 	int PointsAgainst()const { return pointsAgainst; }
-	
+
 	static size_t getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec);
-	
+
+
 
 	/* setters*/
-	void setWinsNumber(int newWinsNum) {  winsCnt = newWinsNum; }
-	void setLossesNumber(int newLossesNum) {  lossesCnt = newLossesNum; }
-	void setPointsFor(int newPointsForNum) {  pointsFor = newPointsForNum; }
-	void setPointsAgainst(int newPointsAgainstNum) {  pointsAgainst = newPointsAgainstNum; }
+	void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }
+	void setLossesNumber(int newLossesNum) { lossesCnt = newLossesNum; }
+	void setPointsFor(int newPointsForNum) { pointsFor = newPointsForNum; }
+	void setPointsAgainst(int newPointsAgainstNum) { pointsAgainst = newPointsAgainstNum; }
 
-
-	/* assume that we compare players with the same number of games */
-	bool operator > (const StandingsTableEntryData& other)const;
-	
-	static void sortPlayersStandingsVector(std::vector<StandingsTableEntryData>& standingsVector) { std::sort(standingsVector.begin(), standingsVector.end()); }
-
+	//StandingsTableEntryData& operator=(StandingsTableEntryData&& arg)noexcept = default;  			//move assignment
+	//StandingsTableEntryData& operator=(const StandingsTableEntryData& arg) = default;
+	//StandingsTableEntryData(const StandingsTableEntryData& other) = default;			/* deletes copy constructor */
+	//bool operator<(const StandingsTableEntryData &rhs) const { return playerName < rhs.playerName; }
 private:
 
 	std::string playerName;

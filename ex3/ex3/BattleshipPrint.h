@@ -25,6 +25,11 @@ public:
 	const static int printDefatultDealy = 300;
 	const static bool printDeafultIsQuiet = false;
 
+	const static int pointsWidth = 10;
+	const static int precWidth = 8;
+	const static int gamesCntWidth = 8;
+	const static int playerNumWidth = 8;
+
 	static void printStartBoard(const BattleshipBoard& board);
 	static void printCurrentAttack(int playerAttackedId, std::pair<int, int> coord, char currChar, AttackResult res);
 
@@ -36,7 +41,7 @@ public:
 
 
 	/* new functions */
-	static void printStandingsTable(const std::vector<StandingsTableEntryData>& sortedPlayersStandings);
+	static void printStandingsTable(std::vector<StandingsTableEntryData>& sortedPlayersStandings);
 	//todo: we need for this function: wins, loses, ptsFor, ptsAgainst. and also we need that vector to be sorted	
 private:
 	BattleshipPrint() = delete;
@@ -47,6 +52,6 @@ private:
 	static void hideCursor();
 	static void showCursor();
 	static void setColor(WORD color);
-	
+
 };
 
