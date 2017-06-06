@@ -197,13 +197,13 @@ void BattleshipTournamentManager::PrintWrongSizeOrShapeForShips(std::set<char>& 
 
 	for (auto shipChar : invalidShipsSet)
 	{
-		// TODO: print to the log std::cout << "Wrong size or shape for ship " << shipChar << " for player " << playerChar << std::endl;
+		 std::cout << "Wrong size or shape for ship " << shipChar << " for player " << playerChar << std::endl; //// TODO: print to the log
 	}
 }
 
 void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>> validShips_A, std::set<std::pair<char, std::set<Coordinate>>> validShips_B)
 {
-	if(validShips_A.size() != validShips_B.size())
+	if (validShips_A.size() != validShips_B.size())
 	{
 		//TODO: PRINT TO THE LOG - std::cout << "WARNING - the board is not balanced, players have different number of ships." << std::endl;
 		return;
@@ -224,13 +224,14 @@ void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, s
 		{
 			if (shipsCountVec_A[i].first != shipsCountVec_A[i].first || shipsCountVec_A[i].second != shipsCountVec_A[i].second)
 				hasDiffTypesBalance = true;
-
+		
 		}
 	}
 
 	if (hasDiffTypesBalance)
 		std::cout << "WARNING - the board is not balanced, players have same number of ships but not for each ship type." << std::endl; //TODO: PRINT TO THE LOG - 
 }
+
 
 bool BattleshipTournamentManager::loadTournamentAlgos()
 {
@@ -245,7 +246,7 @@ bool BattleshipTournamentManager::loadTournamentAlgos()
 
 	if(algosDetailsVec.size() < TOURNAMENT_MIN_PLAYERS)
 	{
-		std::cout << "Missing algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two) << std::endl";
+		std::cout << "Missing algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two) "<< std::endl;
 		return false;
 	}
 
