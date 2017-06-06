@@ -35,14 +35,14 @@ private:
 
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
-
+	BattleshipBoard mainBoard;
 	GamePlayerData playerA;																	/* an object that keeps all relevant data of playerA in the game */
 	GamePlayerData playerB;																	/* an object that keeps all relevant data of playerB in the game */
 
 	IBattleshipGameAlgo* playerAlgoA;														/* pointer to the algo of playerA - will deleted in **this** class destructor */
 	IBattleshipGameAlgo* playerAlgoB;														/* pointer to the algo of playerB - will deleted in **this** class destructor */
 
-	BattleshipBoard mainBoard;
+	
 	bool gameSuccessfullyCreated;
 
 	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
