@@ -6,6 +6,29 @@
 #include <windows.h>
 #include <algorithm>
 #include <iostream>
+#include "IBattleshipGameAlgo.h"
+
+using namespace std;
+
+bool operator<(const Coordinate & c1, const Coordinate & c2)
+{
+	if (c1.col == c2.col) {
+		if (c1.row == c2.row) {
+			return c1.depth < c2.depth;
+		}
+		return c1.row < c2.row;
+	}
+	return c1.col < c2.col;
+}
+
+std::string to_string(Coordinate c)
+{
+	return "(" + std::to_string(c.row) + ", " + std::to_string(c.col) + ", " + std::to_string(c.depth) + ")";
+}
+
+std::ostream& operator<<(std::ostream& out, const Coordinate& c) {
+	return out << to_string(c);
+}
 
 bool BattleshipGameUtils::getFullPath(std::string & path)
 {
@@ -66,4 +89,9 @@ std::vector<std::string> BattleshipGameUtils::SortedDirlistSpecificExtension(std
 	}
 
 	return outputFilenames;
+}
+
+bool BattleshipGameUtils::emptyLine(const std::string& str)
+{
+	return (str.empty() || str.compare("\r") == 0);
 }

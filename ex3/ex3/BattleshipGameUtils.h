@@ -15,13 +15,11 @@ public:
 	static bool isValidDir(const std::string& path);
 	static bool isStringEndsWith(const std::string& str, const std::string& suffix);
 	static std::vector<std::string> SortedDirlistSpecificExtension(std::string const& dirPath, std::string const& ext);
-
-
+	static bool emptyLine(const std::string& str);
 };
 
-
 template<typename Out>
-inline void BattleshipGameUtils::splitStringByToken(const std::string & str, char delim, Out result)
+void BattleshipGameUtils::splitStringByToken(const std::string & str, char delim, Out result)
 {
 	std::stringstream ss;
 	ss.str(str);
@@ -31,13 +29,6 @@ inline void BattleshipGameUtils::splitStringByToken(const std::string & str, cha
 	}
 }
 
-/* todo: add duco and understand we do we need this excactly..*/
-bool inline operator <(const Coordinate& c1, const Coordinate& c2) {
-	if (c1.col == c2.col) {
-		if (c1.row == c2.row) {
-			return c1.depth < c2.depth;
-		}
-		return c1.row < c2.row;
-	}
-	return c1.col < c2.col;
-}
+bool operator <(const Coordinate& c1, const Coordinate& c2);
+std::string to_string(Coordinate c);
+std::ostream& operator<<(std::ostream& out, const Coordinate& c);
