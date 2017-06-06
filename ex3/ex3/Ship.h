@@ -55,10 +55,10 @@ public:
 	/* @return Matrix of pointers to Battleships
 	* @assume - the set consists valid pointers to ships
 	*/
-	static Ship*** createShipMatrix(std::set <Ship*>, int rows, int cols,int depth);
+	static Ship*** createShipMatrix(std::set <Ship*>, int rows, int cols,int depth);//todo
 
 	/* deletes Ships matrix */
-	static void deleteShipMatrix(Ship*** matrix, int rows, int cols);
+	static void deleteShipMatrix(Ship*** matrix, int rows, int cols);//todo
 
 private:
 
@@ -75,7 +75,7 @@ private:
 
 											 /* updates ship's fields according to the input values
 											 */
-	void setFields(int length, int sPoints, std::set< Coordinate >  coordinates);
+	void setFields(int length, int sPoints, std::set<Coordinate>  coordinates);
 
 	/*@return - true if ship with symbol= id can have 'setSize' number of coordinates
 	*/
@@ -84,7 +84,7 @@ private:
 	/*
 	@return -true if ship is horizontal/vertical otherwise false
 	*/
-	static bool isValidShipCoordinates(const std::set<std::pair<int, int>>& coordinates);
+	static bool isValidShipCoordinates(const std::set<Coordinate>& coordinates);
 
 	/*@ return true if all coordinates are equal
 	@assume- coors vector is sorted
@@ -96,4 +96,4 @@ private:
 	*/
 	static bool isIncrementalCoors(const std::vector<int>& coors, int size);
 
-}; #pragma once
+}; 

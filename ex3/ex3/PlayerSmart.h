@@ -25,7 +25,6 @@
 * Coordinates from the second poll as a final resort
 *
 */
-static std::vector<IBattleshipGameAlgo *> _instancesVec; //our player collection
 
 class PlayerSmart : public IBattleshipGameAlgo
 {
