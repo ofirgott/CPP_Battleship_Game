@@ -19,27 +19,29 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 		std::getline(boardFile, line);
 
 		if (!parseBoardDimensions(line)) return;
-
 		boardVec = std::move(InitNewEmptyBoardVector(rows, cols, depth));
-		
+
+
 		/* now parse the board - seperate matrix for every depth */
 		for (int d = 0; d < depth; d++)
 		{
-			std::getline(boardFile, line);		/* skip intermediate line between every matrix*/
+			while (!BattleshipGameUtils::emptyLine(line) && std::getline(boardFile, line));
+			/* skip intermediate line between every matrix, and skip redundant lines */
+
 			int currRow = 0;
-			while (currRow < rows && std::getline(boardFile, line) && !line.empty())  
+			while (currRow < rows && std::getline(boardFile, line) && !BattleshipGameUtils::emptyLine(line))
 			{
 				/* while we read < rows lines and we don't reach to eof in board file and line is not empty (end of current matrix) */
 				CopyInputLineToBoard(line, d, currRow);
 				currRow++;
 			}
-			while (!line.empty() && std::getline(boardFile, line));			/* skip redundant lines in current depth */
+			//while (!BattleshipGameUtils::emptyLine(line) && std::getline(boardFile, line));			/* skip redundant lines in current depth */
 		}
 		boardFile.close();
 	}
 
 	else {														/* we can't open the board file */
-		//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
+																//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
 		return;
 	}
 
@@ -51,8 +53,9 @@ BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.r
 	for (int d = 1; d <= depth; d++)
 		for (int r = 1; r <= rows; r++)
 			for (int c = 1; c <= cols; c++)
-				boardVec.push_back(boardData.charAt({r, c, d}));
+				boardVec.push_back(boardData.charAt({ r, c, d }));
 }
+
 
 BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
 
@@ -77,7 +80,7 @@ std::vector<char> BattleshipBoard::createPlayerBoard(int playerID)const
 {
 	auto playerBoard = std::move(InitNewEmptyBoardVector(rows, cols, depth));
 
-	
+
 	for (auto i = 0; i < playerBoard.size(); i++)
 	{
 		if (IsShipCharInBoard(boardVec[i]) && playerID == PLAYERID_A && isPlayerShip(playerID, boardVec[i])) {		/* returns clean matrix of player A*/
@@ -108,7 +111,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 				if (currPos == ' ') continue;			/* if current position is not a ship - it is a ' ', because we clean the board at the begining */
 
-				auto nearbyCoordSet = getNearbyCoordinates({i,j,k});
+				auto nearbyCoordSet = getNearbyCoordinates({ i,j,k });
 
 				for (auto adjacentCoor : nearbyCoordSet)		/* for each nearby coordinate we check if we have adjacent ship (surronding other char)  */
 				{
@@ -116,7 +119,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 					if (IsShipCharInBoard(adjacentVal) && adjacentVal != currPos)
 					{
-						// TODO: print to the logger std::cout << "Adjacent Ships on Board" << std::endl;
+						// TODO: print to the logger  - std::cout << "Adjacent Ships on Board" << std::endl;
 						return true;
 					}
 				}
@@ -145,8 +148,8 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 			for (int k = 0; k < depth; k++)
 			{
 				int currIndex = calcCoordIndex(i, j, k, rows, cols, depth);
-				
-				if((currShipChar = boardVecCopy.at(currIndex)) == ' ') continue;
+
+				if ((currShipChar = boardVecCopy.at(currIndex)) == ' ') continue;
 
 				std::set<Coordinate> coordOfCurrentShip;
 
@@ -175,9 +178,9 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 	if (currShipChar == board.at(CoordIndex))
 	{
 		board.at(CoordIndex) = ' ';												/* clear the current position and add it to the coordinates set*/
-		coordOfCurrentShip.insert({r, c, d});
+		coordOfCurrentShip.insert({ r, c, d });
 
-		if(isCoordianteInBoard(r, c + 1, d, boardRows, boardCols, boardDepth))
+		if (isCoordianteInBoard(r, c + 1, d, boardRows, boardCols, boardDepth))
 			getAllCurrShipCoords(board, r, c + 1, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
 		if (isCoordianteInBoard(r, c - 1, d, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r, c - 1, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
@@ -201,13 +204,13 @@ std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(Coordinate coord) con
 	int c = coord.col;
 	int d = coord.depth;
 	std::set<Coordinate> adjCoordSet;
-	
-	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({r - 1, c, d});    //adjCoordSet.insert(std::make_pair(x - 1, y)
-	if (isCoordianteInBoard(r + 1, c, d)) adjCoordSet.insert({r + 1, c, d});
-	if (isCoordianteInBoard(r, c - 1, d)) adjCoordSet.insert({r, c - 1, d});
-	if (isCoordianteInBoard(r, c + 1, d)) adjCoordSet.insert({r, c + 1, d});
-	if (isCoordianteInBoard(r, c, d - 1)) adjCoordSet.insert({ r, c, d - 1});
-	if (isCoordianteInBoard(r, c, d + 1)) adjCoordSet.insert({ r, c, d + 1});
+
+	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({ r - 1, c, d });    //adjCoordSet.insert(std::make_pair(x - 1, y)
+	if (isCoordianteInBoard(r + 1, c, d)) adjCoordSet.insert({ r + 1, c, d });
+	if (isCoordianteInBoard(r, c - 1, d)) adjCoordSet.insert({ r, c - 1, d });
+	if (isCoordianteInBoard(r, c + 1, d)) adjCoordSet.insert({ r, c + 1, d });
+	if (isCoordianteInBoard(r, c, d - 1)) adjCoordSet.insert({ r, c, d - 1 });
+	if (isCoordianteInBoard(r, c, d + 1)) adjCoordSet.insert({ r, c, d + 1 });
 
 	return std::set<Coordinate>(adjCoordSet);
 }
@@ -254,7 +257,7 @@ std::vector<char> BattleshipBoard::InitNewEmptyBoardVector(int rows, int cols, i
 	std::vector<char> vec(rows * cols * depths, BLANK_CHAR);
 	return vec;
 }
- 
+
 
 void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDepth, int currRow)
 {
@@ -282,16 +285,23 @@ bool BattleshipBoard::parseBoardDimensions(const std::string& line)
 
 	for (auto tok : tokens)
 	{
-		dimsVec.push_back(strtol(tok.c_str(), &stringEnd, 10));
-
-		if (*stringEnd) {
-			//todo: print to the logger "dimension row contains non-number chars
+		int num = strtol(tok.c_str(), &stringEnd, 10);
+		if (num < 1)
+		{
+			//todo: print to the log std::cout << "Error, Coordinate must be positive int." << std::endl;	
 			return false;
 		}
+
+		if (*stringEnd) {
+			//todo: print to the logger - std::cout << " dimension row contains non-number chars" << std::endl; 
+			return false;
+		}
+
+		dimsVec.push_back(num);
 	}
 
-	if(dimsVec.size() < 3){
-		//todo: print to the logger: "dimesnions row contains less than 3 dimensions
+	if (dimsVec.size() < 3) {
+		//todo: print to the logger:  std::cout << "dimesnions row contains less than 3 dimensions" << std::endl; 
 		return false;
 	}
 
@@ -300,25 +310,25 @@ bool BattleshipBoard::parseBoardDimensions(const std::string& line)
 	depth = dimsVec[2];
 
 	return true;
-	
+
 }
 
 
 void BattleshipBoard::countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec) {
-	
+
 	int count_b = 0;//lenght = 1
 	int count_m = 0;//lenght = 2
 	int count_p = 0;//lenght = 3
 	int count_d = 0;//lenght = 4
 
-	for (auto shipType : allShipsDetails) {  
-		
+	for (auto shipType : allShipsDetails) {
+
 		char ch = tolower(shipType.first);
-		
-		if (ch == 'b') count_b++;
-		if (ch == 'm') count_m++;
-		if (ch == 'p') count_p++;
-		if (ch == 'd') count_d++;
+
+		if (ch == tolower(RUBBER_BOAT)) count_b++;
+		if (ch == tolower(SUBMARINE)) count_m++;
+		if (ch == tolower(ROCKET_SHIP)) count_p++;
+		if (ch == tolower(DESTROYER)) count_d++;
 	}
 
 	shipsCountVec.push_back(std::make_pair(1, count_b));
