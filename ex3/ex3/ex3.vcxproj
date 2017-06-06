@@ -123,6 +123,7 @@
     <ClCompile Include="GamePlayerData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="StandingsTableEntryData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleshipGameManager.h" />

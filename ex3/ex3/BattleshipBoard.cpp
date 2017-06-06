@@ -20,6 +20,7 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 
 		if (!parseBoardDimensions(line)) return;
 
+		boardVec = std::move(InitNewEmptyBoardVector(rows, cols, depth));
 		
 		/* now parse the board - seperate matrix for every depth */
 		for (int d = 0; d < depth; d++)
@@ -43,6 +44,14 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 	}
 
 	isSuccCreated = true;
+}
+
+BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.rows()), cols(boardData.cols()), depth(boardData.depth()), isSuccCreated(true)
+{
+	for (int d = 1; d <= depth; d++)
+		for (int r = 1; r <= rows; r++)
+			for (int c = 1; c <= cols; c++)
+				boardVec.push_back(boardData.charAt({r, c, d}));
 }
 
 BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
@@ -99,7 +108,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 				if (currPos == ' ') continue;			/* if current position is not a ship - it is a ' ', because we clean the board at the begining */
 
-				auto nearbyCoordSet = getNearbyCoordinates(i, j, k);
+				auto nearbyCoordSet = getNearbyCoordinates({i,j,k});
 
 				for (auto adjacentCoor : nearbyCoordSet)		/* for each nearby coordinate we check if we have adjacent ship (surronding other char)  */
 				{
@@ -185,9 +194,12 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 
 
 
-std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(int r, int c, int d) const
+std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(Coordinate coord) const
 /* we check in this function every coordinate seperatly */
 {
+	int r = coord.row;
+	int c = coord.col;
+	int d = coord.depth;
 	std::set<Coordinate> adjCoordSet;
 	
 	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({r - 1, c, d});    //adjCoordSet.insert(std::make_pair(x - 1, y)
@@ -255,7 +267,7 @@ void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDep
 	for (size_t j = 0; j < lineLen; j++)
 	{
 		if (IsShipCharInBoard(line[j])) {
-			setCoord(currRow, j, currDepth, line[j]);	/*else it will remain ' ' */
+			setCoord(currRow, static_cast<int>(j), currDepth, line[j]);	/*else it will remain ' ' */
 		}
 	}
 }
