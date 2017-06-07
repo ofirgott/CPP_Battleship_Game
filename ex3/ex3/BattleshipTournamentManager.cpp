@@ -27,11 +27,48 @@ BattleshipTournamentManager::~BattleshipTournamentManager()
 	}
 }
 
-void BattleshipTournamentManager::Start() const
-{
-	//todo: create all games queue
 
-	
+void BattleshipTournamentManager::RunTurnament() 
+{
+	createGamesQueue();
+	for (int i = 0; i< maxGamesThreads; i++)
+	{
+
+		threadsPool.push_back(std::thread(singleThreadJob));
+	}
+
+}
+
+void BattleshipTournamentManager::singleThreadJob()
+{
+	//get game locket
+	//game run
+	//update fileds
+	while (true)
+	{
+		{
+			unique_lock<mutex> lock(Queue_Mutex);
+
+			condition.wait(lock, [] {return !Queue.empty()});
+			Job = Queue.front();
+			Queue.pop();
+		}
+		Job(); // function<void()> type
+	}
+};
+
+void BattleshipTournamentManager::createGamesQueue()
+{
+	for (auto& player1 : algosDetailsVec) {
+		for (auto& player2 : algosDetailsVec) {
+			for (auto& borad : boardsVec) {
+				if (!PlayerAlgoDetails::isEqualPlayer(player1,player2)) {
+					gamesQueue.push(BattleshipGameManager(player1, player2, borad));
+
+				}
+			}
+		}
+	}
 }
 
 bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv[])
@@ -280,4 +317,12 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 	}
 
 	algosDetailsVec.push_back(currAlgo);
+}
+
+void RunTurnament(){
+	std::vector< std::vector<int> >::iterator row;
+	std::vector<int>::iterator col;
+
+
+
 }

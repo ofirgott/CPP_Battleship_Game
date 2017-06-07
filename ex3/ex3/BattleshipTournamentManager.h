@@ -2,7 +2,9 @@
 #include <string>
 #include "BattleshipBoard.h"
 #include "PlayerAlgoDetails.h"
-
+#include <queue> 
+#include "BattleshipGameManager.h"
+#include <thread>
 
 class BattleshipTournamentManager
 {
@@ -11,11 +13,9 @@ public:
 	~BattleshipTournamentManager();
 
 	bool isTournamentSuccessfullyCreated()const { return successfullyCreated; }
-	void Start()const;
+	void RunTurnament();
 
-
-
-
+	
 private:
 
 	static const int TOURNAMENT_MIN_PLAYERS = 2;
@@ -30,6 +30,16 @@ private:
 	std::vector<PlayerAlgoDetails> algosDetailsVec;
 	int maxGamesThreads;
 	bool successfullyCreated;
+	//diana and sharon adds
+	std::vector<std::thread> threadsPool;
+	std::queue<BattleshipGameManager> gamesQueue;
+
+	void createGamesQueue();
+	void BattleshipTournamentManager::singleThreadJob();
+
+
+	//diana and sharon adds
+
 
 
 	bool checkTournamentArguments(int argc, char* argv[]);
