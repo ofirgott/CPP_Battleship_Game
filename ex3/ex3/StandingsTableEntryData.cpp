@@ -1,6 +1,12 @@
 #include "StandingsTableEntryData.h"
 
 
+
+StandingsTableEntryData StandingsTableEntryData::createOpponentData(const StandingsTableEntryData & thisData, std::string otherName)
+{
+	return StandingsTableEntryData(otherName, thisData.LossesNumber, thisData.WinsNumber, thisData.PointsAgainst, thisData.PointsFor);
+}
+
 size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec)
 {
 	size_t maxLen = 0;

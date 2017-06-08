@@ -1,6 +1,7 @@
 #include "BattleshipTournamentManager.h"
 #include "BattleshipGameUtils.h"
 #include <iostream>
+#include <condition_variable>
 //#include "Ship.h"
 
 void BattleshipTournamentManager::RunTurnament()
@@ -9,28 +10,48 @@ void BattleshipTournamentManager::RunTurnament()
 	for (int i = 0; i< maxGamesThreads; i++)
 	{
 
-		threadsPool.push_back(std::thread(singleThreadJob));
+		threadsPool.push_back(std::thread(&singleThreadJob));
+	}
+	for (auto & t:threadsPool) {
+		t.join();
 	}
 
 }
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	//get game locket
-	//game run
-	//update fileds
+	BattleshipGameManager game;
+	StandingsTableEntryData gameResult;
+
 	while (true)
 	{
+		
 		{
-			unique_lock<mutex> lock(Queue_Mutex);
+			std::unique_lock<std::mutex> lock(gamesQueueMutex);
 
-			condition.wait(lock, [] {return !Queue.empty()});
-			Job = Queue.front();
-			Queue.pop();
+			queueEmptyCondition.wait(lock, [](std::queue<BattleshipGameManager> & const gamesQueue) {return !gamesQueue.empty(); });
+			game = gamesQueue.front();
+			gamesQueue.pop();
 		}
-		Job(); // function<void()> type
+	
+			gameResult = game.Run();// function<void()> type
+			updateAllGamesResults(gameResult ,sendotherPlayersName);
+		
 	}
-};
+}
+void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes,std::string otherName)
+{
+	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, otherName);
+	std::vector<int>::iterator it;
+	/*todo: check if the ++ of the atomic int works !!!!!!!!!!!!!!!!!!!!!!!! :(:(:(:(:(:(:(:(:(:(:(:(:(:(:(*/
+	int cnt1 = ++playersProgress.at(currGameRes.PlayerName);
+	int cnt2 = ++playersProgress.at(otherPlayerData.PlayerName); 
+
+	//split result for 2 players
+	// for player i and j allGamesResults[playersprogress[j]++] (atomic)
+	//if(min has canged)- update and send to print
+}
+
 
 void BattleshipTournamentManager::createGamesQueue()
 {
@@ -38,7 +59,8 @@ void BattleshipTournamentManager::createGamesQueue()
 		for (auto& player2 : algosDetailsVec) {
 			for (auto& borad : boardsVec) {
 				if (!PlayerAlgoDetails::isEqualPlayer(player1, player2)) {
-					gamesQueue.push(BattleshipGameManager(player1, player2, borad));
+					todo: check if game was created successfuly
+					gamesQueue.push(BattleshipGameManager(borad,player1, player2));
 
 				}
 			}
@@ -71,12 +93,6 @@ BattleshipTournamentManager::~BattleshipTournamentManager()
 	}
 }
 
-void BattleshipTournamentManager::Start() const
-{
-	//todo: create all games queue
-
-
-}
 
 bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv[])
 {
