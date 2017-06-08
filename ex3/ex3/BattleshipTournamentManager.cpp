@@ -12,6 +12,7 @@ void BattleshipTournamentManager::RunTurnament()
 
 		threadsPool.push_back(std::thread(&singleThreadJob));
 	}
+
 	for (auto & t:threadsPool) {
 		t.join();
 	}
@@ -39,6 +40,8 @@ void BattleshipTournamentManager::singleThreadJob()
 		
 	}
 }
+
+
 void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes,std::string otherName)
 {
 	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, otherName);
@@ -58,7 +61,8 @@ void BattleshipTournamentManager::createGamesQueue()
 	for (auto& player1 : algosDetailsVec) {
 		for (auto& player2 : algosDetailsVec) {
 			for (auto& borad : boardsVec) {
-				if (!PlayerAlgoDetails::isEqualPlayer(player1, player2)) {
+				if (!(player1 == player2)) {
+
 					todo: check if game was created successfuly
 					gamesQueue.push(BattleshipGameManager(borad,player1, player2));
 

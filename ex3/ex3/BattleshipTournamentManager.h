@@ -42,9 +42,9 @@ private:
 	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
 	std::atomic<int > currMinCycle;
-
 	
 	std::map<std::string, int> algosIndex;// <playerName, algo's index inallGamesResults> 
+	
 	void createGamesQueue();
 	void BattleshipTournamentManager::singleThreadJob();
 	void updateAllGamesResults(StandingsTableEntryData currGameRes, std::string otherName);
