@@ -3,6 +3,50 @@
 #include <iostream>
 //#include "Ship.h"
 
+void BattleshipTournamentManager::RunTurnament()
+{
+	createGamesQueue();
+	for (int i = 0; i< maxGamesThreads; i++)
+	{
+
+		threadsPool.push_back(std::thread(singleThreadJob));
+	}
+
+}
+
+void BattleshipTournamentManager::singleThreadJob()
+{
+	//get game locket
+	//game run
+	//update fileds
+	while (true)
+	{
+		{
+			unique_lock<mutex> lock(Queue_Mutex);
+
+			condition.wait(lock, [] {return !Queue.empty()});
+			Job = Queue.front();
+			Queue.pop();
+		}
+		Job(); // function<void()> type
+	}
+};
+
+void BattleshipTournamentManager::createGamesQueue()
+{
+	for (auto& player1 : algosDetailsVec) {
+		for (auto& player2 : algosDetailsVec) {
+			for (auto& borad : boardsVec) {
+				if (!PlayerAlgoDetails::isEqualPlayer(player1, player2)) {
+					gamesQueue.push(BattleshipGameManager(player1, player2, borad));
+
+				}
+			}
+		}
+	}
+}
+
+
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(false)
 {
 	if (!checkTournamentArguments(argc, argv)) return;
