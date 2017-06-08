@@ -133,6 +133,7 @@
     <ClInclude Include="PlayerAlgoDetails.h" />
     <ClInclude Include="PlayerGameResultData.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SingleGameProperties.h" />
     <ClInclude Include="StandingsTableEntryData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
