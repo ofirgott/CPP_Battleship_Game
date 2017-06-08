@@ -9,9 +9,13 @@ public:
 	BattleshipBoard() : rows(-1), cols(-1), depth(-1), isSuccCreated(false) {}								/* empty constructor */
 	explicit BattleshipBoard(std::vector<char> board, int inputRows, int inputCols, int inputDepth);
 	explicit BattleshipBoard(const std::string& boardPath);
-	BattleshipBoard::BattleshipBoard(const BoardData & boardData);
-	~BattleshipBoard() = default;																			/* todo: check if we want to remain it as is now*/
+	explicit BattleshipBoard(const BoardData & boardData);													/* constructor for player BoardData type */
+	
+	~BattleshipBoard() = default;																			
 
+	//todo: check if we can delete the copy ctor
+	
+	
 	BattleshipBoard(const BattleshipBoard& otherBoard);														/* copy constructor */
 	BattleshipBoard& operator=(const BattleshipBoard& otherBoard) = delete;									/* delete copy assignment */
 
@@ -19,15 +23,14 @@ public:
 	BattleshipBoard& operator=(BattleshipBoard&& otherBoard) noexcept;										/* move assignment */
 	
 
-																											//char*** GetCopyOfBoardMatrix()const { return copyMatrix(const_cast<const char***>(matrix), rows, cols, depth); };		/* returns a new copy of the main matrix  TODO: maybe we dont need it */
-
-
-	std::vector<char> createPlayerBoard(int playerID)const;															/* returns a new copy of a player matrix board  */
+	
 
 	int getRows() const { return rows; }
 	int getCols() const { return cols; }
 	int getDepth() const { return depth; }
 
+
+	std::vector<char> createPlayerBoard(int playerID)const;															// todo: maybe we can delete this function
 	bool isSuccessfullyCreated() const { return (rows > 0 && cols > 0 && depth > 0 && !boardVec.empty() && isSuccCreated); }
 
 	bool CheckIfHasAdjacentShips() const;																			/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
@@ -91,6 +94,11 @@ private:
 
 	void CopyInputLineToBoard(const std::string& line, int currDepth, int currRow);	 /* given a input line string, copies this line to the board */
 
-	bool parseBoardDimensions(const std::string& line);
+	/**
+	 * \brief 
+	 * \param line 
+	 * \return 
+	 */
+	bool parseBoardDimensions(const std::string& line);					
 
 };

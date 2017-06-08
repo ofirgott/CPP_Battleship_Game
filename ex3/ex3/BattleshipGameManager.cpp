@@ -1,9 +1,7 @@
 #include "BattleshipGameManager.h"
 #include "BattleshipGameUtils.h"
 #include "GamePlayerData.h"
-
-
-
+#include <iostream>
 
 
 void BattleshipGameManager::Run()

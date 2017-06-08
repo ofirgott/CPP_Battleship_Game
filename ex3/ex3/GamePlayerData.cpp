@@ -22,6 +22,7 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 
 GamePlayerData::~GamePlayerData()
 {
+	delete playerAlgo;
 	Ship::deleteShipMatrix(shipsMatrix, boardRows, boardCols);
 
 }

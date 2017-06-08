@@ -275,12 +275,12 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 	currAlgo.dllPath = inputDirPath + "/" + currDllFilename;
 	currAlgo.playerName = currDllFilename.substr(0, currDllFilename.find(".dll"));
 
-	//TODO: print to the log - std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl; 
+	std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;  //TODO: print to the log - 
 	currAlgo.dllFileHandle = LoadLibraryA(currDllFilename.c_str()); // Notice: Unicode compatible version of LoadLibrary
 
 	if (!currAlgo.dllFileHandle)
 	{
-		//TODO: print to the log  - std::cout << "Cannot load dll in: " << currAlgo.dllPath << std::endl;
+		std::cout << "Cannot load dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
 		return;
 	}
 	else
