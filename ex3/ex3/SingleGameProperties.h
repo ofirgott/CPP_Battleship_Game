@@ -4,7 +4,7 @@
 
 struct SingleGameProperties
 {
-	IBattleshipGameAlgo* playerA;
-	IBattleshipGameAlgo* playerB;
+	IBattleshipGameAlgo* playerA = nullptr;
+	IBattleshipGameAlgo* playerB = nullptr;
 	BattleshipBoard mainBoard;
 };
