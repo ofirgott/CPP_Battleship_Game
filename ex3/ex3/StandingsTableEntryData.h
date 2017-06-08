@@ -13,6 +13,8 @@ public:
 
 	~StandingsTableEntryData() = default;
 
+	/* given one players data create the opponents data by switchin the loss-wins and pointsfor-agqainst fields*/
+	static StandingsTableEntryData createOpponentData(const StandingsTableEntryData& thisData, std::string otherName);
 
 	/* getters */
 	std::string PlayerName()const { return playerName; }

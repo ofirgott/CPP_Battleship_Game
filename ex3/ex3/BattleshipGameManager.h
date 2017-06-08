@@ -24,7 +24,7 @@ public:
 	BattleshipGameManager() = delete;														/* deletes empty constructor */
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
-
+	//BattleshipGameManager(BattleshipGameManager&&);//todo - move constractor
 
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }				/* we will check the variable in the main */
 	void Run();																				/* given a game object, run's the game and outputs the results */
@@ -47,7 +47,7 @@ private:
 
 	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
-
+	
 	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
 
 	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const;

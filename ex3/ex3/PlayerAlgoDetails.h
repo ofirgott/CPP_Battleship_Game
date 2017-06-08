@@ -12,4 +12,6 @@ struct PlayerAlgoDetails
 	std::string dllPath;
 	std::string playerName;			/* short file name, without extentsion (for table) */
 	GetAlgoFuncType getAlgoFunc;	/* pointer to the getAlgo function pointer */
+
+	/*todo : create comparator == / != */
 };

@@ -2,6 +2,12 @@
 #include <string>
 #include "BattleshipBoard.h"
 #include "PlayerAlgoDetails.h"
+#include <queue> 
+#include "BattleshipGameManager.h"
+#include <thread>
+#include <mutex>
+#include <atomic>
+#include "StandingsTableEntryData.h"
 
 
 class BattleshipTournamentManager
@@ -11,11 +17,9 @@ public:
 	~BattleshipTournamentManager();
 
 	bool isTournamentSuccessfullyCreated()const { return successfullyCreated; }
-	void Start()const;
+	void RunTurnament();
 
-
-
-
+	
 private:
 
 	static const int TOURNAMENT_MIN_PLAYERS = 2;
@@ -30,6 +34,24 @@ private:
 	std::vector<PlayerAlgoDetails> algosDetailsVec;
 	int maxGamesThreads;
 	bool successfullyCreated;
+	//diana and sharon adds
+	std::vector<std::thread> threadsPool;
+	std::queue<BattleshipGameManager> gamesQueue;
+	std::mutex gamesQueueMutex;
+	std::condition_variable queueEmptyCondition;
+	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
+	std::vector<std::atomic<int>>playersProgress;
+	std::atomic<int > currMinCycle;
+	
+	std::map<std::string, int> algosIndex;// <playerName, algo's index inallGamesResults> 
+	
+	void createGamesQueue();
+	void BattleshipTournamentManager::singleThreadJob();
+	void updateAllGamesResults(StandingsTableEntryData currGameRes, std::string otherName);
+
+
+	//diana and sharon adds
+
 
 
 	bool checkTournamentArguments(int argc, char* argv[]);
