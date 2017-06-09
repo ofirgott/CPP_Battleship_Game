@@ -147,7 +147,7 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 		{
 			for (int k = 0; k < depth; k++)
 			{
-				int currIndex = calcCoordIndex(i, j, k, rows, cols, depth);
+				int currIndex = BattleshipGameUtils::calcCoordIndex(i, j, k, rows, cols, depth);
 
 				if ((currShipChar = boardVecCopy.at(currIndex)) == ' ') continue;
 
@@ -159,7 +159,7 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 
 				for (auto coord : coordOfCurrentShip)
 				{
-					currIndex = calcCoordIndex(coord.row, coord.col, coord.depth, rows, cols, depth);
+					currIndex = BattleshipGameUtils::calcCoordIndex(coord.row, coord.col, coord.depth, rows, cols, depth);
 					boardVecCopy.at(currIndex) = ' ';													/* clear the board from this ship (we should have a copy of the board) */
 				}
 				coordOfCurrentShip.clear();
@@ -174,7 +174,7 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 {
 	/*  note that in this function we can coordinate with line 0! if we want to use this function outside, we need to pay attention for this. */
 
-	int CoordIndex = calcCoordIndex(r, c, d, boardRows, boardCols, boardDepth);
+	int CoordIndex = BattleshipGameUtils::calcCoordIndex(r, c, d, boardRows, boardCols, boardDepth);
 	if (currShipChar == board.at(CoordIndex))
 	{
 		board.at(CoordIndex) = ' ';												/* clear the current position and add it to the coordinates set*/
@@ -232,7 +232,7 @@ bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar)
 char BattleshipBoard::operator()(int r, int c, int d)const
 {
 	if (isCoordianteInBoard(r, c, d)) {
-		return boardVec.at(calcCoordIndex(r, c, d, rows, cols, depth));
+		return boardVec.at(BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth));
 	}
 	else return BLANK_CHAR;
 }
@@ -241,7 +241,7 @@ void BattleshipBoard::setCoord(int r, int c, int d, char ch)
 {
 	if (!isCoordianteInBoard(r, c, d)) return;
 
-	boardVec[calcCoordIndex(r, c, d, rows, cols, depth)] = ch;
+	boardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth)] = ch;
 }
 
 

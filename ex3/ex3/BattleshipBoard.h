@@ -2,6 +2,7 @@
 #include <set>
 #include "IBattleshipGameAlgo.h"
 #include <vector>
+#include "BattleshipGameUtils.h"
 
 class BattleshipBoard
 {
@@ -47,8 +48,8 @@ public:
 	static void getAllCurrShipCoords(std::vector<char> board, int r, int c, int d, char currShipChar, std::set<Coordinate>& coordOfCurrentShip, int boardRows, int boardCols, int boardDepth);
 
 	/* checks if given coordinate is a valid location in board*/
-	bool isCoordianteInBoard(int r, int c, int d)const { return isCoordianteInBoard(r, c, d, rows, cols, depth); };
-	static bool isCoordianteInBoard(int r, int c, int d, int rowsNum, int colsNum, int depthNum) { return (r >= 0 && r < rowsNum && c >= 0 && c < colsNum && d >= 0 && d < depthNum); }
+	bool isCoordianteInBoard(int r, int c, int d)const { return BattleshipGameUtils::isCoordianteInBoard(r, c, d, rows, cols, depth); };
+	
 
 
 	std::set<Coordinate> getNearbyCoordinates(Coordinate coord)const;												    /* given a coordinate location in board, returns a set of surrondings coordinates of this point */
@@ -66,7 +67,7 @@ public:
 
 
 														/* TODO: need to check this calculation if it is true: http://www.cplusplus.com/forum/general/137677/, https://stackoverflow.com/questions/10238699/dynamically-allocating-3d-array, https://stackoverflow.com/questions/2178909/how-to-initialize-3d-array-in-c */
-	static int calcCoordIndex(int r, int c, int d, int boardRows, int boardCols, int boardDepth) { return r + c * boardCols + d * boardCols * boardRows; }
+	
 
 	static void countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec);
 

@@ -16,6 +16,8 @@ public:
 	static bool isStringEndsWith(const std::string& str, const std::string& suffix);
 	static std::vector<std::string> SortedDirlistSpecificExtension(std::string const& dirPath, std::string const& ext);
 	static bool emptyLine(const std::string& str);
+	static int calcCoordIndex(int r, int c, int d, int boardRows, int boardCols, int boardDepth) { return r + c * boardCols + d * boardCols * boardRows; }
+	static bool isCoordianteInBoard(int r, int c, int d, int rowsNum, int colsNum, int depthNum) { return (r >= 0 && r < rowsNum && c >= 0 && c < colsNum && d >= 0 && d < depthNum); }
 };
 
 template<typename Out>

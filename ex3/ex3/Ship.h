@@ -10,14 +10,14 @@
 
 
 class Ship {
-
+	friend class ShipsBoard;
 public:
 
 	/*
 	* input.first - ship's letter, input.second - coordinates for the ship
 	* @ assume letter is one of b/p/m/d/B/P/M/D
 	*/
-	Ship(const std::pair<char, std::set<Coordinate>>& input);
+	explicit Ship(const std::pair<char, std::set<Coordinate>>& input);
 
 	/* distructor*/
 	~Ship();
