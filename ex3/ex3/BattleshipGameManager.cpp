@@ -2,11 +2,12 @@
 #include "BattleshipGameUtils.h"
 #include "GamePlayerData.h"
 #include <iostream>
+#include "StandingsTableEntryData.h"
 
 
-void BattleshipGameManager::Run()
+StandingsTableEntryData BattleshipGameManager::Run()
 {
-	std::pair<int, int> nextAttack;
+	Coordinate nextAttack(-1,-1,-1);
 	std::pair<AttackResult, int> attackRes;
 
 	GamePlayerData* currPlayer = &playerA;
@@ -18,13 +19,12 @@ void BattleshipGameManager::Run()
 
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
-
 			std::swap(currPlayer, otherPlayer);
 			continue;
 		}
 
 		nextAttack = currPlayer->getAlgoNextAttack();
-		if (nextAttack.first == -1 && nextAttack.second == -1) {
+		if (nextAttack.row == -1 && nextAttack.col == -1 && nextAttack.depth == -1) {
 			// current player finished
 			currPlayer->hasMoreMoves = false;
 			continue;
@@ -33,8 +33,6 @@ void BattleshipGameManager::Run()
 
 		// attack other player 
 		attackRes = otherPlayer->realAttack(nextAttack);
-
-
 
 		if (attackRes.first == AttackResult::Miss) {
 			// the opponent doesnt have a ship in this coordinates; check if attacked myself
@@ -47,11 +45,9 @@ void BattleshipGameManager::Run()
 				otherPlayer->incrementScore(attackRes.second);
 			}
 
-			currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
-			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+			currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack, attackRes.first);
+			otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack, attackRes.first);
 			// pass turn to other player- if missed || if attacked myself
-
-
 
 			std::swap(currPlayer, otherPlayer);
 			//check if someone won
@@ -69,12 +65,13 @@ void BattleshipGameManager::Run()
 			}
 			else {
 				currPlayer->incrementScore(attackRes.second);
-				currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
-				otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack.first, nextAttack.second, attackRes.first);
+				currPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack, attackRes.first);
+				otherPlayer->playerAlgo->notifyOnAttackResult(currPlayer->id, nextAttack, attackRes.first);
 				// keep my turn 
 			}
 
-			if ((currPlayer->currShipsCount == 0) || (otherPlayer->currShipsCount == 0)) { //check if someone won
+			//check if someone won
+			if ((currPlayer->currShipsCount == 0) || (otherPlayer->currShipsCount == 0)) { 
 				break;
 			}
 		}
@@ -83,49 +80,40 @@ void BattleshipGameManager::Run()
 
 	// prints game results 
 	
-	outputGameResult(currPlayer, otherPlayer);
-
-	return;
+	return outputGameResult(currPlayer, otherPlayer);
 
 }
 
 
-void BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
+StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
 {
 
 	int currScore;
 	int otherScore;
 
+
 	if (currPlayer->currShipsCount == 0) {
-		if (currPlayer->id == PLAYERID_A) {
-			std::cout << "Player B won" << std::endl;
+		if (currPlayer->id == PLAYERID_A) { // currPlayer is playerA
+		//	 "Player B won" 
+			return StandingsTableEntryData("", LOST, WON, currScore, otherScore);
 		}
-		else {
-			std::cout << "Player A won" << std::endl;
+		else { // otherPlayer is playerA
+		//	 "Player A won" 
+			return StandingsTableEntryData("", WON, LOST, otherScore, currScore);
 		}
 	}
 
 	if (otherPlayer->currShipsCount == 0) {
-		if (otherPlayer->id == PLAYERID_A) {
-			std::cout << "Player B won" << std::endl;
+		if (otherPlayer->id == PLAYERID_A) { // otherPlayer is playerA
+			//	 "Player B won" 
+			return StandingsTableEntryData("", LOST, WON, otherScore, currScore);
 		}
-		else {
-			std::cout << "Player A won" << std::endl;
+		else {// currPlayer is playerA
+			//	 "Player A won" 
+			return StandingsTableEntryData("", WON, LOST, currScore, otherScore);
 		}
 	}
 
-	currScore = currPlayer->score;
-	otherScore = otherPlayer->score;
-	std::cout << "Points:" << std::endl;
-
-	if (currPlayer->id == PLAYERID_A) {
-		std::cout << "Player A: " << currScore << std::endl;
-		std::cout << "Player B: " << otherScore << std::endl;
-	}
-	else {
-		std::cout << "Player A: " << otherScore << std::endl;
-		std::cout << "Player B: " << currScore << std::endl;
-	}
 }
 
 

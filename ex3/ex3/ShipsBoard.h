@@ -6,6 +6,7 @@
 
 class ShipsBoard
 {
+public:
 	ShipsBoard() : rows(0), cols(0), depth(0) {}
 	ShipsBoard(std::set<Ship*> ShipsSet, int Rows, int Cols, int Depth);
 
@@ -22,8 +23,9 @@ class ShipsBoard
 	int Depth() const { return depth; }
 	
 	
-	
 	Ship* operator() (int r, int c, int d)const;
+	/* checks if given coordinate is a valid location in board*/
+	bool isCoordianteInShipBoard(int r, int c, int d)const { return BattleshipGameUtils::isCoordianteInBoard(r, c, d, rows, cols, depth); };
 
 private:
 
@@ -35,6 +37,4 @@ private:
 
 	void setShipPtrCoord(int r, int c, int d, Ship* newShipPtr);
 
-	/* checks if given coordinate is a valid location in board*/
-	bool isCoordianteInShipBoard(int r, int c, int d)const { return BattleshipGameUtils::isCoordianteInBoard(r, c, d, rows, cols, depth); };
 };

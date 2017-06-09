@@ -54,7 +54,9 @@ void BattleshipTournamentManager::singleThreadJob()
 		}
 		BattleshipGameManager game(singleProperty.mainBoard, singleProperty.playerA->getAlgoFunc(),singleProperty.playerB->getAlgoFunc());
 		gameResult = game.Run();// function<void()> type
+
 		// the game result returned is from the perspective of playerA
+		gameResult.PlayerName = singleProperty.playerA->playerName;
 		updateAllGamesResults(gameResult , singleProperty);
 		
 		

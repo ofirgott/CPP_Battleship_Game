@@ -27,7 +27,7 @@ public:
 	//BattleshipGameManager(BattleshipGameManager&&);//todo - move constractor
 
 	bool isGameSuccessfullyCreated()const { return gameSuccessfullyCreated; }				/* we will check the variable in the main */
-	void Run();																				/* given a game object, run's the game and outputs the results */
+	StandingsTableEntryData Run();																				/* given a game object, run's the game and outputs the results */
 
 
 
@@ -42,10 +42,15 @@ private:
 	IBattleshipGameAlgo* playerAlgoA;														/* pointer to the algo of playerA - will deleted in **this** class destructor */
 	IBattleshipGameAlgo* playerAlgoB;														/* pointer to the algo of playerB - will deleted in **this** class destructor */
 
-	
-	bool gameSuccessfullyCreated;
+	static const int WON = 1;
+	static const int LOST = 0;
 
-	static void outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
+	bool gameSuccessfullyCreated;
+	/* the output result will always be from the perspective of playerA, the name of the player is unknown
+	in the scope of this function ie the player's name in the return value will be the empty string
+	the function wich invokes Run, will update the player's name to be PlayersA name
+	*/
+	static StandingsTableEntryData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
 	
 	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
