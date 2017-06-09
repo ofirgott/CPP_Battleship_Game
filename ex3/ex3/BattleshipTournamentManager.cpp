@@ -85,6 +85,15 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
 	allGamesResults[playerBIndex][propertyIndexB] = otherPlayerData;
 
+
+	--allRounds[propertyIndexA].numOfGamesLeft;
+	if (allRounds[propertyIndexA].numOfGamesLeft==0) {
+		need to take care of locks and mutexes and condition variables here, need to set cv in .h
+	}
+	--allRounds[propertyIndexB].numOfGamesLeft;
+	if (allRounds[propertyIndexB].numOfGamesLeft == 0) {
+
+	}
 	//if plaeyrt.left == 0{
 	//	allvars[playerAIndex] = true;
 	//}
@@ -128,21 +137,25 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	successfullyCreated = true;
 	
 	algosIndex = 0;
-
 	createGamesPropertiesQueue();
 
 	int numOfplayers = algosDetailsVec.size();
 	int numOfBoards = boardsVec.size();
-	
 	int numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
+	
 	/*todo: init vector of vectors*/
-	allGamesResults.resize(numOfPlayers); // table: for each algo vector of his results
-	for (int i = 0; i < numOfplayers; i++) {
-		allGamesResults[i].resize(numberOfRounds);
+	allGamesResults.resize(numOfplayers); //vector of size number of players
+	for (int i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
+		allGamesResults[i].resize(numOfRounds);
 	}
 
-	allRounds.resize(numberOfRounds);
-	for numOf
+	allRounds.resize(numOfRounds); // 
+	for (int i = 0; i < numOfRounds; i++) {
+		allRounds[i].numOfGamesLeft = numOfplayers; 
+		allRounds[i].roundNumber = i;
+		allRounds[i].status = false;
+		//+mutex
+	}
 
 }
 
