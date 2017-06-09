@@ -17,7 +17,7 @@ public:
 	//todo: check if we can delete the copy ctor
 	
 	
-	BattleshipBoard(const BattleshipBoard& otherBoard);														/* copy constructor */
+	BattleshipBoard(const BattleshipBoard& otherBoard) = delete;														/* copy constructor */
 	BattleshipBoard& operator=(const BattleshipBoard& otherBoard) = delete;									/* delete copy assignment */
 
 	BattleshipBoard(BattleshipBoard&& otherBoard) noexcept;													/* move constructor */
@@ -32,12 +32,10 @@ public:
 
 
 	std::vector<char> createPlayerBoard(int playerID)const;															// todo: maybe we can delete this function
+	
 	bool isSuccessfullyCreated() const { return (rows > 0 && cols > 0 && depth > 0 && !boardVec.empty() && isSuccCreated); }
 
-	bool CheckIfHasAdjacentShips() const;																			/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
-
-	static bool IsShipCharInBoard(char ch);
-
+	
 
 	/* given a player's matrix board,
 	returns set of pairs, which contains for each ship it's coordinates:
@@ -100,6 +98,11 @@ private:
 	 * \param line 
 	 * \return 
 	 */
-	bool parseBoardDimensions(const std::string& line);					
+	bool parseBoardDimensions(const std::string& line);		
+	
+	bool CheckIfHasAdjacentShips() const;													/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
+
+	static bool IsShipCharInBoard(char ch);
+
 
 };
