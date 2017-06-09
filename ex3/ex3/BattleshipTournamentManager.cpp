@@ -4,9 +4,11 @@
 #include <condition_variable>
 //#include "Ship.h"
 
+
+
 void BattleshipTournamentManager::RunTurnament()
 {
-	createGamesQueue();
+	createGamesPropertiesQueue();
 	for (int i = 0; i< maxGamesThreads; i++)
 	{
 
@@ -21,8 +23,9 @@ void BattleshipTournamentManager::RunTurnament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	BattleshipGameManager game;
+	//BattleshipGameManager game;
 	StandingsTableEntryData gameResult;
+	SingleGameProperties singleProperty;
 
 	while (true)
 	{
@@ -30,41 +33,62 @@ void BattleshipTournamentManager::singleThreadJob()
 		{
 			std::unique_lock<std::mutex> lock(gamesQueueMutex);
 
-			queueEmptyCondition.wait(lock, [](std::queue<BattleshipGameManager> & const gamesQueue) {return !gamesQueue.empty(); });
-			game = gamesQueue.front();
-			gamesQueue.pop();
+			queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties> & const gamesQueue) {return !gamesQueue.empty(); });
+			singleProperty = gamesPropertiesQueue.front();
+			gamesPropertiesQueue.pop();
+
 		}
-	
-			gameResult = game.Run();// function<void()> type
-			updateAllGamesResults(gameResult ,sendotherPlayersName);
+		BattleshipGameManager game(singleProperty.mainBoard, singleProperty.playerA->getAlgoFunc(),singleProperty.playerB->getAlgoFunc());
+		gameResult = game.Run();// function<void()> type
+		// the game result returned is from the perspective of playerA
+		updateAllGamesResults(gameResult , singleProperty);
 		
 	}
 }
 
 
-void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes,std::string otherName)
+void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty)
 {
-	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, otherName);
-	std::vector<int>::iterator it;
-	/*todo: check if the ++ of the atomic int works !!!!!!!!!!!!!!!!!!!!!!!! :(:(:(:(:(:(:(:(:(:(:(:(:(:(:(*/
-	int cnt1 = ++playersProgress.at(currGameRes.PlayerName);
-	int cnt2 = ++playersProgress.at(otherPlayerData.PlayerName); 
 
 	//split result for 2 players
 	// for player i and j allGamesResults[playersprogress[j]++] (atomic)
 	//if(min has canged)- update and send to print
+
+	// players indexes 
+	int playerAIndex = gamsProperty.playerA->algosIndexInVec;
+	int playerBIndex = gamsProperty.playerB->algosIndexInVec;
+
+	//create gameResults for the second player 
+	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, gamsProperty.playerB->playerName);
+
+	// indexes of the properties in the specific player's vector 
+	/*todo: check if the ++ of the atomic int works !!!!!!!!!!!!!!!!!!!!!!!! :(:(:(:(:(:(:(:(:(:(:(:(:(:(:(*/
+	int propertyIndexA = ++playersProgress.at(playerAIndex);
+	int propertyIndexB = ++playersProgress.at(playerBIndex);
+
+	// update allGamesResults in the relevent indexes
+	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
+	allGamesResults[playerAIndex][propertyIndexA] = otherPlayerData;
+
+	// update the number if games need to wait before the next print
+	// print if needed
+
+
 }
 
 
-void BattleshipTournamentManager::createGamesQueue()
+void BattleshipTournamentManager::createGamesPropertiesQueue()
 {
+
 	for (auto& player1 : algosDetailsVec) {
 		for (auto& player2 : algosDetailsVec) {
-			for (auto& borad : boardsVec) {
+			for (auto& board : boardsVec) {
 				if (!(player1 == player2)) {
-
-					todo: check if game was created successfuly
-					gamesQueue.push(BattleshipGameManager(borad,player1, player2));
+					SingleGameProperties gameDetails;
+					gameDetails.mainBoard = board;
+					gameDetails.playerA = &player1;
+					gameDetails.playerB = &player2;
+					gamesPropertiesQueue.push(gameDetails);
 
 				}
 			}
@@ -82,6 +106,10 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	if (!loadTournamentAlgos()) return;
 
 	successfullyCreated = true;
+	
+	algosIndex = 0;
+
+	/*todo: init vector of vectors*/
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()
@@ -339,6 +367,7 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 	currAlgo.dllPath = inputDirPath + "/" + currDllFilename;
 	currAlgo.playerName = currDllFilename.substr(0, currDllFilename.find(".dll"));
 
+
 	std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;  //TODO: print to the log - 
 	currAlgo.dllFileHandle = LoadLibraryA(currDllFilename.c_str()); // Notice: Unicode compatible version of LoadLibrary
 
@@ -358,5 +387,7 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 		}
 	}
 
+	currAlgo.algosIndexInVec = algosIndex;
+	algosIndex++;
 	algosDetailsVec.push_back(currAlgo);
 }

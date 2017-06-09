@@ -8,6 +8,7 @@
 #include <mutex>
 #include <atomic>
 #include "StandingsTableEntryData.h"
+#include "SingleGameProperties.h"
 
 
 class BattleshipTournamentManager
@@ -34,20 +35,21 @@ private:
 	std::vector<PlayerAlgoDetails> algosDetailsVec;
 	int maxGamesThreads;
 	bool successfullyCreated;
+
 	//diana and sharon adds
 	std::vector<std::thread> threadsPool;
-	std::queue<BattleshipGameManager> gamesQueue;
+	std::queue<SingleGameProperties> gamesPropertiesQueue;
+
 	std::mutex gamesQueueMutex;
 	std::condition_variable queueEmptyCondition;
 	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
 	std::atomic<int > currMinCycle;
-	
-	std::map<std::string, int> algosIndex;// <playerName, algo's index inallGamesResults> 
-	
-	void createGamesQueue();
+	int algosIndex;
+
+	void createGamesPropertiesQueue();
 	void BattleshipTournamentManager::singleThreadJob();
-	void updateAllGamesResults(StandingsTableEntryData currGameRes, std::string otherName);
+	void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty);
 
 
 	//diana and sharon adds
