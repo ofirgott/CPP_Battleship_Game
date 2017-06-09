@@ -2,18 +2,32 @@
 #include "BattleshipGameUtils.h"
 #include <iostream>
 #include <condition_variable>
+#include <atomic>
 //#include "Ship.h"
 
 
 
 void BattleshipTournamentManager::RunTurnament()
 {
-	createGamesPropertiesQueue();
 	for (int i = 0; i< maxGamesThreads; i++)
 	{
-
 		threadsPool.push_back(std::thread(&singleThreadJob));
 	}
+
+	
+	//int numberOfRounds = 10;
+	//std::vector<numberOfRounds, condition_var> allVars of size numberOfRounds;
+	//int cnt = 0;
+	//while (cnt < numberOfRounds ){
+
+	//	allVars[cnt].wait((rounds) [] {return rounds[cnt]->numLeft == 0};);
+	//	if (round i is ready) {
+	//		go print
+	//		cnt++;
+	//	}
+
+	//}
+	
 
 	for (auto & t:threadsPool) {
 		t.join();
@@ -43,6 +57,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		// the game result returned is from the perspective of playerA
 		updateAllGamesResults(gameResult , singleProperty);
 		
+		
 	}
 }
 
@@ -68,10 +83,24 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 
 	// update allGamesResults in the relevent indexes
 	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
-	allGamesResults[playerAIndex][propertyIndexA] = otherPlayerData;
+	allGamesResults[playerBIndex][propertyIndexB] = otherPlayerData;
+
+
+	--allRounds[propertyIndexA].numOfGamesLeft;
+	if (allRounds[propertyIndexA].numOfGamesLeft==0) {
+		need to take care of locks and mutexes and condition variables here, need to set cv in .h
+	}
+	--allRounds[propertyIndexB].numOfGamesLeft;
+	if (allRounds[propertyIndexB].numOfGamesLeft == 0) {
+
+	}
+	//if plaeyrt.left == 0{
+	//	allvars[playerAIndex] = true;
+	//}
 
 	// update the number if games need to wait before the next print
 	// print if needed
+
 
 
 }
@@ -108,8 +137,26 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	successfullyCreated = true;
 	
 	algosIndex = 0;
+	createGamesPropertiesQueue();
 
+	int numOfplayers = algosDetailsVec.size();
+	int numOfBoards = boardsVec.size();
+	int numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
+	
 	/*todo: init vector of vectors*/
+	allGamesResults.resize(numOfplayers); //vector of size number of players
+	for (int i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
+		allGamesResults[i].resize(numOfRounds);
+	}
+
+	allRounds.resize(numOfRounds); // 
+	for (int i = 0; i < numOfRounds; i++) {
+		allRounds[i].numOfGamesLeft = numOfplayers; 
+		allRounds[i].roundNumber = i;
+		allRounds[i].status = false;
+		//+mutex
+	}
+
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()

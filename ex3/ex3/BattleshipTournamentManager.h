@@ -11,6 +11,16 @@
 #include "SingleGameProperties.h"
 
 
+struct Round
+{
+
+	int roundNumber;
+	std::atomic<int> numOfGamesLeft;
+	bool status;
+	//std::mutex 
+
+};
+
 class BattleshipTournamentManager
 {
 public:
@@ -39,19 +49,17 @@ private:
 	//diana and sharon adds
 	std::vector<std::thread> threadsPool;
 	std::queue<SingleGameProperties> gamesPropertiesQueue;
-
 	std::mutex gamesQueueMutex;
 	std::condition_variable queueEmptyCondition;
 	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
-	std::atomic<int > currMinCycle;
+	std::vector<Round> allRounds;
 	int algosIndex;
 
 	void createGamesPropertiesQueue();
 	void BattleshipTournamentManager::singleThreadJob();
 	void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty);
-
-
+		
 	//diana and sharon adds
 
 
