@@ -52,11 +52,11 @@ void BattleshipTournamentManager::singleThreadJob()
 			gamesPropertiesQueue.pop();
 
 		}
-		BattleshipGameManager game(singleProperty.mainBoard, singleProperty.playerA->getAlgoFunc(),singleProperty.playerB->getAlgoFunc());
+		BattleshipGameManager game(singleProperty.getBoard(), singleProperty.getPlayerA()->getAlgoFunc(),singleProperty.getPlayerB()->getAlgoFunc());
 		gameResult = game.Run();// function<void()> type
 
 		// the game result returned is from the perspective of playerA
-		gameResult.PlayerName = singleProperty.playerA->playerName;
+		gameResult.PlayerName = singleProperty.getPlayerA()->playerName;
 		updateAllGamesResults(gameResult , singleProperty);
 		
 		
@@ -72,11 +72,11 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	//if(min has canged)- update and send to print
 
 	// players indexes 
-	int playerAIndex = gamsProperty.playerA->algosIndexInVec;
-	int playerBIndex = gamsProperty.playerB->algosIndexInVec;
+	int playerAIndex = gamsProperty.getPlayerA()->algosIndexInVec;
+	int playerBIndex = gamsProperty.getPlayerB()->algosIndexInVec;
 
 	//create gameResults for the second player 
-	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, gamsProperty.playerB->playerName);
+	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, gamsProperty.getPlayerB()->playerName);
 
 	// indexes of the properties in the specific player's vector 
 	/*todo: check if the ++ of the atomic int works !!!!!!!!!!!!!!!!!!!!!!!! :(:(:(:(:(:(:(:(:(:(:(:(:(:(:(*/
@@ -115,10 +115,7 @@ void BattleshipTournamentManager::createGamesPropertiesQueue()
 		for (auto& player2 : algosDetailsVec) {
 			for (auto& board : boardsVec) {
 				if (!(player1 == player2)) {
-					SingleGameProperties gameDetails;
-					gameDetails.mainBoard = board;
-					gameDetails.playerA = &player1;
-					gameDetails.playerB = &player2;
+					SingleGameProperties gameDetails(board, &player1, &player2);
 					gamesPropertiesQueue.push(gameDetails);
 
 				}
@@ -300,17 +297,17 @@ void BattleshipTournamentManager::FindValidAndInvalidShipsInBoard(const Battlesh
 
 
 
-																 /* todo: delete this print */
-																 //int i = 0;
-																 //for(auto& shipDetail : setOfShipsDetails)
-																 //{
-																 //	std::cout << "ship: " << i++ <<"     " << shipDetail.first << "\t { ";
-																 //	for (auto shipCor : shipDetail.second)
-																 //	{
-																 //		std::cout << shipCor << ", ";
-																 //	}
-																 //	std::cout << "} " << std::endl;
-																 //}
+/* todo: delete this print */
+//int i = 0;
+//for(auto& shipDetail : setOfShipsDetails)
+//{
+//	std::cout << "ship: " << i++ <<"     " << shipDetail.first << "\t { ";
+//	for (auto shipCor : shipDetail.second)
+//	{
+//		std::cout << shipCor << ", ";
+//	}
+//	std::cout << "} " << std::endl;
+//}
 	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);				 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips  updated*/
 
 	for (auto validShipDeatils : setOfShipsDetails)
