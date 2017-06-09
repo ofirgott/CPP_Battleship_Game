@@ -180,17 +180,17 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 		board.at(CoordIndex) = ' ';												/* clear the current position and add it to the coordinates set*/
 		coordOfCurrentShip.insert({ r, c, d });
 
-		if (isCoordianteInBoard(r, c + 1, d, boardRows, boardCols, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r, c + 1, d, boardRows, boardCols, boardDepth))
 			getAllCurrShipCoords(board, r, c + 1, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
-		if (isCoordianteInBoard(r, c - 1, d, boardCols, boardRows, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r, c - 1, d, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r, c - 1, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
-		if (isCoordianteInBoard(r + 1, c, d, boardCols, boardRows, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r + 1, c, d, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r + 1, c, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
-		if (isCoordianteInBoard(r - 1, c, d, boardCols, boardRows, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r - 1, c, d, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r - 1, c, d, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
-		if (isCoordianteInBoard(r, c, d + 1, boardCols, boardRows, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r, c, d + 1, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r, c, d + 1, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
-		if (isCoordianteInBoard(r, c, d - 1, boardCols, boardRows, boardDepth))
+		if (BattleshipGameUtils::isCoordianteInBoard(r, c, d - 1, boardCols, boardRows, boardDepth))
 			getAllCurrShipCoords(board, r, c, d - 1, currShipChar, coordOfCurrentShip, boardCols, boardRows, boardDepth);
 	}
 }
@@ -267,10 +267,10 @@ void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDep
 	else
 		lineLen = cols;
 
-	for (size_t j = 0; j < lineLen; j++)
+	for (auto j = 0; j < lineLen; j++)
 	{
 		if (IsShipCharInBoard(line[j])) {
-			setCoord(currRow, static_cast<int>(j), currDepth, line[j]);	/*else it will remain ' ' */
+			setCoord(currRow, j, currDepth, line[j]);	/*else it will remain ' ' */
 		}
 	}
 }

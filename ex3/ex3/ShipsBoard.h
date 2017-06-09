@@ -21,8 +21,6 @@ class ShipsBoard
 	int Cols() const { return cols; }
 	int Depth() const { return depth; }
 	
-	
-	
 	Ship* operator() (int r, int c, int d)const;
 
 private:
