@@ -11,20 +11,15 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 	std::swap(playerAlgo, other.playerAlgo);
 	hasMoreMoves = other.hasMoreMoves;
 	score = other.score;
-	std::swap(shipsMatrix, other.shipsMatrix);
+	std::swap(shipsBoard, other.shipsBoard);
 	currShipsCount = other.currShipsCount;
-	boardRows = other.boardRows;
-	boardCols = other.boardCols;
-
-
+	
 	return *this;
 }
 
 GamePlayerData::~GamePlayerData()
 {
 	delete playerAlgo;
-	Ship::deleteShipMatrix(shipsMatrix, boardRows, boardCols);
-
 }
 
 std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
@@ -52,7 +47,7 @@ std::pair<int, int> GamePlayerData::getAlgoNextAttack() const
 
 std::pair<AttackResult, int> GamePlayerData::realAttack(std::pair<int, int> coor)
 {
-	if (!BattleshipBoard::isCoordianteInBoard(coor.first - 1, coor.second - 1, boardRows, boardCols)) {
+	if (!BattleshipGameUtils::isCoordianteInBoard(coor.first - 1, coor.second - 1, boardRows, boardCols)) {
 		return std::pair<AttackResult, int>(AttackResult::Miss, 0);
 	}
 

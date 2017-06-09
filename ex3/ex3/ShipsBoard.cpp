@@ -20,6 +20,20 @@ ShipsBoard::~ShipsBoard()
 	}
 }
 
+
+ShipsBoard::ShipsBoard(ShipsBoard && otherBoard) noexcept : rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), shipsBoardVec(std::move(otherBoard.shipsBoardVec)){}
+
+ShipsBoard & ShipsBoard::operator=(ShipsBoard && otherBoard) noexcept
+{
+	rows = otherBoard.rows;
+	cols = otherBoard.cols;
+	depth = otherBoard.depth;
+	shipsBoardVec = std::move(otherBoard.shipsBoardVec);
+
+	return *this;
+}
+
+
 void ShipsBoard::setShipPtrCoord(int r, int c, int d, Ship* newShipPtr)
 {
 	if (!isCoordianteInShipBoard(r, c, d)) return;

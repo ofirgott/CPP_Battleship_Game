@@ -6,13 +6,16 @@
 
 class ShipsBoard
 {
-	ShipsBoard() = delete;
+	ShipsBoard() : rows(0), cols(0), depth(0) {}
 	ShipsBoard(std::set<Ship*> ShipsSet, int Rows, int Cols, int Depth);
 
 	~ShipsBoard();
 	
 	ShipsBoard(const ShipsBoard& otherBoard) = delete;														/* deletes copy constructor */
 	ShipsBoard& operator=(const ShipsBoard& otherBoard) = delete;
+
+	ShipsBoard(ShipsBoard&& otherBoard) noexcept;													/* move constructor */
+	ShipsBoard& operator=(ShipsBoard&& otherBoard) noexcept;										/* move assignment */
 
 	int Rows() const { return rows; }
 	int Cols() const { return cols; }
@@ -21,9 +24,6 @@ class ShipsBoard
 	
 	
 	Ship* operator() (int r, int c, int d)const;
-	
-
-	
 
 private:
 

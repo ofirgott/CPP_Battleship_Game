@@ -1,6 +1,6 @@
 #include "Ship.h"
-#include <ctype.h>
-
+//#include <ctype.h>
+#include <algorithm>    // std::sort 
 
 Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
 {
@@ -26,7 +26,7 @@ Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
 
 Ship::~Ship()
 {
-	body.clear();
+	body.clear();				//todo: Ofir: why we need it?
 }
 
 int Ship::getPoints()const
@@ -47,7 +47,7 @@ bool Ship::isAlive()const
 	return false;
 }
 
-const std::vector<Coordinate> Ship::getCoordinates()
+const std::vector<Coordinate> Ship::getCoordinates()	//todo: Ofir: Resharper don't like the const in the return value, is it necessary?
 {
 	std::vector <Coordinate> coors;
 	for (auto& part : body)
@@ -194,7 +194,7 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 	}
 }
 
-bool Ship::isConstantCoors(const std::vector<int>& coors, int size)
+bool Ship::isConstantCoors(const std::vector<int>& coors, int size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
 {
 	int firstCoor;
 	if (size < 1) { // invlid number of coordinates
@@ -229,52 +229,6 @@ bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
 	return true;
 }
 
-Ship *** Ship::createShipMatrix(std::set <Ship*> allShips, int rows, int cols,int depth)
-{
-	Ship *** matrix = new Ship**[rows];
-
-	// init matrix pointers no NULL
-	for (int i = 0; i < rows; i++) {
-		matrix[i] = new Ship*[cols];
-		for (int j = 0; j < cols; j++) {
-			matrix[i][j] = nullptr;
-		}
-	}
-	// for each ship in the set. go overall its coordinates and put a pointer in the matrix
-	for (auto shipPtr : allShips) {
-		for (auto& part : shipPtr->body) {
-			matrix[part.first.first][part.first.second] = shipPtr;
-		}
-	}
-
-	return matrix;
-}
-
-void Ship::deleteShipMatrix(Ship *** matrix, int rows, int cols)
-{
-	std::vector <std::pair<int, int>> currCoor;
-
-	if (matrix == nullptr) {
-		return;
-	}
-
-	// release the ship's matrix
-	for (auto i = 0; i < rows; i++) {
-		for (auto j = 0; j < cols; j++) {
-			if (matrix[i][j] != nullptr) { // release ship exactly once 
-				currCoor.clear();
-				currCoor = matrix[i][j]->getCoordinates();
-				delete matrix[i][j];
-				// set all the pointers to this ship to nullptr 
-				for (auto& coor : currCoor) {
-					matrix[coor.first][coor.second] = nullptr;
-				}
-			}
-		}
-		delete[] matrix[i];
-	}
-	delete[] matrix;
-}
 
 std::set<Ship*> Ship::createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs)
 {

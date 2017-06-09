@@ -4,7 +4,7 @@
 #include <utility> //  std::pair
 #include <set> // std::set
 #include <vector> // std::vector
-#include <algorithm>    // std::sort 
+
 #include "IBattleshipGameAlgo.h"
 
 
@@ -51,14 +51,6 @@ public:
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
 	static std::set <Ship*> createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
-
-	/* @return Matrix of pointers to Battleships
-	* @assume - the set consists valid pointers to ships
-	*/
-	static Ship*** createShipMatrix(std::set <Ship*>, int rows, int cols,int depth);//todo
-
-	/* deletes Ships matrix */
-	static void deleteShipMatrix(Ship*** matrix, int rows, int cols);//todo
 
 private:
 

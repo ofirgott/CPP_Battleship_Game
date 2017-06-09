@@ -2,13 +2,14 @@
 
 #include "Ship.h"
 #include "IBattleshipGameAlgo.h"
+#include "ShipsBoard.h"
 
 
 
 /*keeps all current algo details*/
 class GamePlayerData {
-
 	friend class BattleshipGameManager;
+
 public:
 
 	GamePlayerData& operator=(const GamePlayerData& otherPlayer) = delete;		/* deletes assignment constructor */
@@ -23,16 +24,15 @@ private:
 	IBattleshipGameAlgo* playerAlgo;						  /* will be deleted by the BattleshipGameManager class!  */
 	bool hasMoreMoves;
 	int score;
-	Ship*** shipsMatrix;
+	ShipsBoard shipsBoard;
 	size_t currShipsCount;
-	int boardRows;
-	int boardCols;
+
 
 
 	static const int UNDEFINED_PLAYERID = -1;
 
-	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsMatrix(nullptr), currShipsCount(0), boardRows(0), boardCols(0) {}
-	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, Ship*** inputShipsMatrix, size_t shipsCount, int boardrows, int boardcols) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsMatrix(inputShipsMatrix), currShipsCount(shipsCount), boardRows(boardrows), boardCols(boardcols) {}
+	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), hasMoreMoves(true), score(0), shipsBoard(), currShipsCount(0) {}
+	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, ShipsBoard inputShipsBoard, size_t shipsCount, int boardrows, int boardcols) : id(playerID), playerAlgo(inputPlayerAlgo), hasMoreMoves(true), score(0), shipsBoard(inputShipsBoard), currShipsCount(shipsCount) {}
 
 
 	/*get next valid attack coordinates,if player doesnt have more moves return <-1,-1>*/
