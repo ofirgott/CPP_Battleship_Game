@@ -10,8 +10,8 @@ public:
 	SingleGameProperties(int boardIndex, int pAIndex, int pBIndex) : mainBoardIndex(boardIndex), playerAIndex(pAIndex), playerBIndex(pBIndex){}
 
 	
-	int getPlayerAIndex()const { return playerAIndex; }
-	int getPlayerBIndex()const { return playerBIndex; }
+	int getPlayerIndexA()const { return playerAIndex; }
+	int getPlayerIndexB()const { return playerBIndex; }
 	int getBoardIndex()const { return mainBoardIndex; }
 	
 private:
