@@ -40,7 +40,7 @@ void BattleshipTournamentManager::RunTurnament()
 				RoundDataToPrint[i].PointsFor += allGamesResults[i][cnt].PointsFor;
 				RoundDataToPrint[i].PointsAgainst += allGamesResults[i][cnt].PointsAgainst;
 			}
-			BattleshipPrint::printStandingsTable(RoundDataToPrint);//printing the round
+			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt, allRounds.size());//printing the round
 			cnt++;//next round to wait for
 		}
 
@@ -66,11 +66,11 @@ void BattleshipTournamentManager::singleThreadJob()
 		gamesPropertiesQueue.pop();
 		lock.unlock();
 		
-		BattleshipGameManager game(currGameProperty.getBoard(), currGameProperty.getPlayerA()->getAlgoFunc(),currGameProperty.getPlayerB()->getAlgoFunc());
+		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], algosDetailsVec[currGameProperty.getPlayerAIndex()].getAlgoFunc(), algosDetailsVec[currGameProperty.getPlayerBIndex()].getAlgoFunc());
 		gameResult = game.Run();// function<void()> type
 
 		// the game result returned is from the perspective of playerA
-		gameResult.PlayerName = currGameProperty.getPlayerA()->playerName;
+		gameResult.PlayerName = algosDetailsVec[currGameProperty.getPlayerAIndex()].playerName;
 		updateAllGamesResults(gameResult , currGameProperty);
 		
 		
@@ -82,11 +82,11 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 {
 
 	// players indexes 
-	int playerAIndex = gamsProperty.getPlayerA()->algosIndexInVec;
-	int playerBIndex = gamsProperty.getPlayerB()->algosIndexInVec;
+	int playerAIndex = algosDetailsVec[gamsProperty.getPlayerAIndex()].algosIndexInVec;
+	int playerBIndex = algosDetailsVec[gamsProperty.getPlayerBIndex()].algosIndexInVec;
 
 	//create gameResults for the second player 
-	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, gamsProperty.getPlayerB()->playerName);
+	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerBIndex()].playerName);
 
 	// indexes of the properties in the specific player's vector 
 	int propertyIndexA = ++playersProgress.at(playerAIndex);
@@ -120,17 +120,17 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 void BattleshipTournamentManager::createGamesPropertiesQueue()
 {
 
-	for (auto& player1 : algosDetailsVec) {
-		for (auto& player2 : algosDetailsVec) {
-			for (auto& board : boardsVec) {
-				if (!(player1 == player2)) {
-					SingleGameProperties gameDetails(board, &player1, &player2);
+	for (int i = 0; i < algosDetailsVec.size(); i++) {
+		for (int j = 0; j < algosDetailsVec.size(); j++) {
+			for (int k = 0; k < boardsVec.size(); k++) {
+				if (i != j) {
+					SingleGameProperties gameDetails(k,i,j);
 					gamesPropertiesQueue.push(gameDetails);
-
 				}
 			}
 		}
 	}
+
 }
 
 
