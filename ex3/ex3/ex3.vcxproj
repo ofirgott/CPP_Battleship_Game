@@ -35,7 +35,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -48,7 +48,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -121,6 +121,7 @@
     <ClCompile Include="BattleshipPrint.cpp" />
     <ClCompile Include="BattleshipTournamentManager.cpp" />
     <ClCompile Include="GamePlayerData.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="ShipsBoard.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="BattleshipPrint.h" />
     <ClInclude Include="BattleshipTournamentManager.h" />
     <ClInclude Include="GamePlayerData.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="PlayerAlgoDetails.h" />
     <ClInclude Include="PlayerGameResultData.h" />
     <ClInclude Include="Ship.h" />

@@ -178,7 +178,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 
 	if (argc > 4)
 	{
-		std::cout << "Error, Too many arguments!" << std::endl;
+		std::cout << "Error: Too many arguments!" << std::endl;
 		return false;
 	}
 
@@ -187,7 +187,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 		if (strcmp(argv[i], "-threads") == 0)
 		{
 			if (i == argc - 1) {	/* we got threads flag but this is the last argument - this is an error because we need the int*/
-				std::cout << "Error, got -threads flag, but threads value is missing." << std::endl;
+				std::cout << "Error: got -threads flag, but threads value is missing." << std::endl;
 				return false;
 			}
 			else
@@ -196,7 +196,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 				maxGamesThreads = static_cast<int>(strtol(argv[++i], &stringEnd, 10));
 				if (*stringEnd || maxGamesThreads < 1)
 				{
-					std::cout << "Error, -threads flag value is not a valid positive integer." << std::endl;
+					std::cout << "Error: -threads flag value is not a valid positive integer." << std::endl;
 					return false;
 				}
 			}

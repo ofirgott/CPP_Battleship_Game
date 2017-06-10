@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iterator>
 #include "BattleshipGameUtils.h"
+#include <algorithm>
 
 BattleshipBoard::BattleshipBoard(std::vector<char> board, int inputRows, int inputCols, int inputDepth) : boardVec(board), rows(inputRows), cols(inputCols), depth(inputDepth), isSuccCreated(true) {}
 
@@ -277,6 +278,8 @@ void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDep
 
 bool BattleshipBoard::parseBoardDimensions(const std::string& line)
 {
+	std::transform(line.begin(), line.end(), line.begin(), ::tolower);  //to support 'x' and 'X'
+	
 	std::vector<int> dimsVec;
 	std::vector<std::string> tokens;
 	char* stringEnd = nullptr;

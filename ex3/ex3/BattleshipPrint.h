@@ -41,7 +41,7 @@ public:
 
 
 	/* new functions */
-	static void printStandingsTable(std::vector<StandingsTableEntryData>& sortedPlayersStandings);
+	static void printStandingsTable(std::vector<StandingsTableEntryData> sortedPlayersStandings, int round);
 	//todo: we need for this function: wins, loses, ptsFor, ptsAgainst. and also we need that vector to be sorted	
 private:
 	BattleshipPrint() = delete;

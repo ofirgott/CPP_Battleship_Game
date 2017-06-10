@@ -3,17 +3,17 @@
 #include <iomanip>
 
 
-//todo: move the arg to const, and move the sort function to somewhere ekse
-void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData>& sortedPlayersStandings)
+//get the vector by value because we need a copy of the vector in order to sort it
+void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int round)
 {
-	std::sort(std::begin(sortedPlayersStandings), std::end(sortedPlayersStandings),
+	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
 		[](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
 		return lhs.WinsNumber() > rhs.WinsNumber();
 	});
 
 	int placeNum = 1;
-	auto nameWidth = max(StandingsTableEntryData::getMaxPlayerNameWidth(sortedPlayersStandings) + 4, strlen("Team Name") + 4);
-	int round = 7; //todo: delete
+	auto nameWidth = max(StandingsTableEntryData::getMaxPlayerNameWidth(playersStandingsVec) + 4, strlen("Team Name") + 4);
+	
 				   /* Table headers */
 	setColor(BLUE_COLOR);
 	std::cout << "Round " << round << std::endl;
@@ -29,7 +29,7 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData>& 
 	std::cout << std::setw(pointsWidth) << std::left << "Pts Against" << std::endl << std::endl;
 
 
-	for (auto& playerData : sortedPlayersStandings)
+	for (auto& playerData : playersStandingsVec)
 	{
 		std::cout << std::setw(playerNumWidth) << std::left << std::to_string(placeNum).append(".");
 		std::cout << std::setw(nameWidth) << std::left << playerData.PlayerName();
