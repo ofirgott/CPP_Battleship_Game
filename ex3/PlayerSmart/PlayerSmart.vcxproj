@@ -124,6 +124,8 @@
   <ItemGroup>
     <ClInclude Include="..\ex3\PlayerSmart.h" />
     <ClInclude Include="..\ex3\ShipInProcess.h" />
+    <ClInclude Include="..\ex3\testPlayerSmart.h" />
+    <ClInclude Include="..\ex3\testShipInProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ex3\PlayerSmart.cpp" />
