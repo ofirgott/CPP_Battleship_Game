@@ -4,7 +4,7 @@
 
 
 //get the vector by value because we need a copy of the vector in order to sort it
-void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int round)
+void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, int roundsNum)
 {
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
 		[](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
@@ -16,8 +16,8 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 	
 				   /* Table headers */
 	setColor(BLUE_COLOR);
-	std::cout << "Round " << round << std::endl;
-	std::cout << "********" << std::endl << std::endl;
+	std::cout << "Round " << currRound << "/" << roundsNum << std::endl;
+	std::cout << "***********" << std::endl << std::endl;
 	setColor(WHITE_COLOR);
 
 	std::cout << std::setw(playerNumWidth) << std::left << "#";
@@ -44,6 +44,15 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 
 	std::cout << std::endl << std::endl;
 
+
+	if(currRound == roundsNum)			/* last round, we will print the winner */
+	{
+		setColor(RED_COLOR);
+		std::cout << "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+" << std::endl;
+		std::cout << "The winner is: " << playersStandingsVec[1].PlayerName() << " !" << std::endl;
+		std::cout << "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+" << std::endl;
+	}
+	setColor(WHITE_COLOR);
 }
 
 void BattleshipPrint::setColor(WORD color)
