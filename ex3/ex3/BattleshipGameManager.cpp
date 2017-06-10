@@ -6,7 +6,7 @@
 #include "BoardDataImpl.h"
 
 
-BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board)
+BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), successfullyCreated(true)
 {
 	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;
 	mainBoard.ExtractShipsDetailsOfGamePlayers(shipDetailsA, shipDetailsB);
@@ -18,6 +18,8 @@ BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std:
 	initPlayerData(PLAYERID_B, std::move(algoB), shipDetailsB, tmpPlayersShipsBoard);
 	playerA = std::move(GamePlayerData(PLAYERID_B, std::move(algoB), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
 
+	if (!playerA.isSet() || !playerB.isSet())
+		successfullyCreated = false;
 }
 
 void BattleshipGameManager::initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const
@@ -63,7 +65,7 @@ StandingsTableEntryData BattleshipGameManager::Run()
 			// the opponent doesnt have a ship in this coordinates; check if attacked myself
 			attackRes = currPlayer->realAttack(nextAttack);
 
-			sendAttackForPrint(nextAttack, attackRes.first);
+			
 
 			if (attackRes.first != AttackResult::Miss) { // currPlayer attacked himself
 														 // the other player gets points
@@ -81,9 +83,7 @@ StandingsTableEntryData BattleshipGameManager::Run()
 			}
 		}
 		else {
-			sendAttackForPrint(nextAttack, attackRes.first);
-
-
+			
 			if (attackRes.second == -1) {	// hit opponents ship but not in a new coordinate; switch turns
 
 				std::swap(currPlayer, otherPlayer);

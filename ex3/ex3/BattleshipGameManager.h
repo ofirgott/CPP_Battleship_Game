@@ -31,7 +31,7 @@ public:
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 	//BattleshipGameManager(BattleshipGameManager&&);//todo - move constractor
 
-	
+	bool isGameSuccessfullyCreated()const { return successfullyCreated; }
 	StandingsTableEntryData Run();																				/* given a game object, run's the game and outputs the results */
 
 
@@ -50,7 +50,7 @@ private:
 	static const int WON = 1;
 	static const int LOST = 0;
 
-	//bool gameSuccessfullyCreated;
+	bool successfullyCreated;
 	/* the output result will always be from the perspective of playerA, the name of the player is unknown
 	in the scope of this function ie the player's name in the return value will be the empty string
 	the function wich invokes Run, will update the player's name to be PlayersA name
@@ -58,10 +58,6 @@ private:
 	static StandingsTableEntryData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
 	
-	bool initGamePlayers(const std::string& dllPathPlayerA, const std::string& dllPathPlayerB);
-
-	bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const;
-
-	void sendAttackForPrint(std::pair<int, int> nextAttack, AttackResult attackRes)const;
-	void BattleshipGameManager::initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const;
+	
+	void initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const;
 };
