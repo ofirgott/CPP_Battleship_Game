@@ -3,6 +3,7 @@
 #include <iostream>
 #include <condition_variable>
 #include <atomic>
+//	#include <thread>
 //#include "Ship.h"
 
 
@@ -18,10 +19,17 @@ void BattleshipTournamentManager::RunTournament()
 	if (maxGamesThreads > numberOfGames) {
 		maxGamesThreads = numberOfGames;
 	}
+
+	//std::vector <std::thread> threadsPool;
+	threadsPool.reserve(maxGamesThreads);
+
 	//creating a pool of threads
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.push_back(std::thread(&singleThreadJob));
+		threadsPool.emplace_back(std::thread(&singleThreadJob));
+		//threadsPool.push_back(std::thread(std::bind(&singleThreadJob, this)));
+		//threadsPool.push_back(std::thread(singleThreadJob));
+		//threadsPool.emplace_back(std::thread(&singleThreadJob));
 	}
 
 
@@ -418,7 +426,7 @@ void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, s
 	}
 
 	if (hasDiffTypesBalance)
-		;//TODO: PRINT TO THE LOG -  std::cout << "WARNING - the board is not balanced, players have same number of ships but not for each ship type." << std::endl; 
+		std::cout << "WARNING - the board is not balanced, players have same number of ships but not for each ship type." << std::endl; //TODO: PRINT TO THE LOG - 
 }
 
 bool BattleshipTournamentManager::loadTournamentAlgos()

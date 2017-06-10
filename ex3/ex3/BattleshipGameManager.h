@@ -8,6 +8,7 @@
 #include "StandingsTableEntryData.h"
 #include <memory>
 
+
 typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
 
 class BattleshipGameManager

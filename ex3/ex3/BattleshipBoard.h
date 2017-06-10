@@ -60,11 +60,11 @@ public:
 
 	void setCoord(int r, int c, int d, char ch);		/* setter */
 
-														//char getCoordValue(const int r, const int c, const int d)const { if (isCoordianteInBoard(r, c, d)) return (*this)(r, c, d); else return ' '; }  //todo: document and adjust to the board interface
-														//static char getBoardCoord(std::vector<char> boardVector, int r, int c, int d, int rowsNum, int colsNum, int depthNum);
+	//char getCoordValue(const int r, const int c, const int d)const { if (isCoordianteInBoard(r, c, d)) return (*this)(r, c, d); else return ' '; }  //todo: document and adjust to the board interface
+	//static char getBoardCoord(std::vector<char> boardVector, int r, int c, int d, int rowsNum, int colsNum, int depthNum);
 
 
-														/* TODO: need to check this calculation if it is true: http://www.cplusplus.com/forum/general/137677/, https://stackoverflow.com/questions/10238699/dynamically-allocating-3d-array, https://stackoverflow.com/questions/2178909/how-to-initialize-3d-array-in-c */
+	/* TODO: need to check this calculation if it is true: http://www.cplusplus.com/forum/general/137677/, https://stackoverflow.com/questions/10238699/dynamically-allocating-3d-array, https://stackoverflow.com/questions/2178909/how-to-initialize-3d-array-in-c */
 	
 
 	static void countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec);
@@ -99,7 +99,7 @@ private:
 	 * \param line 
 	 * \return 
 	 */
-	bool parseBoardDimensions(const std::string& line);		
+	bool parseBoardDimensions(std::string& line);		
 	
 
 

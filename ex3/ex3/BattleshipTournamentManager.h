@@ -48,7 +48,7 @@ private:
 	bool successfullyCreated;
 
 	//diana and sharon adds
-	std::vector<std::thread> threadsPool;
+	std::vector<std::thread> threadsPool;	//Ofir: maybe delete from here because of - https://stackoverflow.com/questions/40770913/c-threading-no-instance-of-constructor-stdthreadthread-matches-the-a
 	std::queue<SingleGameProperties> gamesPropertiesQueue;
 	std::mutex gamesQueueMutex;
 	std::condition_variable queueEmptyCondition;

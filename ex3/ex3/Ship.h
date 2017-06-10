@@ -4,6 +4,8 @@
 #include <utility> //  std::pair
 #include <set> // std::set
 #include <vector> // std::vector
+#include "BattleshipGameUtils.h"
+
 
 #include "IBattleshipGameAlgo.h"
 
