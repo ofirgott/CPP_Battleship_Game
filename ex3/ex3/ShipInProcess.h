@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 # include "IBattleshipGameAlgo.h" // for Coordinate
+#include "testPlayerSmart.h"
 
 /*
 *class to represent the attacked opponent's ship's
@@ -12,7 +13,7 @@
 */
 class ShipInProcess
 {
-
+	friend class testPlayerSmart;
 	bool isVertical; 
 	bool isHorizontal; 
 	bool isDimentional; 
