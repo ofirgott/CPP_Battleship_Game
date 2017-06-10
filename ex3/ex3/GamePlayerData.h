@@ -26,7 +26,7 @@ private:
 	
 	GamePlayerData(int playerID, std::unique_ptr<IBattleshipGameAlgo> inputPlayerAlgo, ShipsBoard inputShipsBoard, size_t shipsCount) : id(playerID), playerAlgo(std::move(inputPlayerAlgo)), shipsBoard(std::move(inputShipsBoard)), currShipsCount(shipsCount), score(0), hasMoreMoves(true) {}
 	
-	~GamePlayerData();
+	~GamePlayerData() = default;
 
 	GamePlayerData& operator=(const GamePlayerData& otherPlayer) = delete;			/* deletes assignment operator */
 	GamePlayerData(const GamePlayerData& otherPlayer) = delete;						/* deletes copy constructor */

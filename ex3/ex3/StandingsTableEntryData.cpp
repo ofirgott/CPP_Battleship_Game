@@ -4,7 +4,7 @@
 
 StandingsTableEntryData StandingsTableEntryData::createOpponentData(const StandingsTableEntryData & thisData, std::string otherName)
 {
-	return StandingsTableEntryData(otherName, thisData.LossesNumber, thisData.WinsNumber, thisData.PointsAgainst, thisData.PointsFor);
+	return StandingsTableEntryData(otherName, thisData.LossesNumber(), thisData.WinsNumber(), thisData.PointsAgainst(), thisData.PointsFor());
 }
 
 size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec)
@@ -18,14 +18,14 @@ size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<Standing
 
 
 
-void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin) {
-
-	playerName = dataOrigin.playerName;
-	winsCnt = dataOrigin.winsCnt;
-	lossesCnt = dataOrigin.lossesCnt;
-	pointsFor = dataOrigin.PointsFor;
-	pointsAgainst = dataOrigin.pointsAgainst;
-}
+//void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin) {
+//
+//	playerName = dataOrigin.playerName;
+//	winsCnt = dataOrigin.winsCnt;
+//	lossesCnt = dataOrigin.lossesCnt;
+//	pointsFor = dataOrigin.PointsFor;
+//	pointsAgainst = dataOrigin.pointsAgainst;
+//}
 
 //StandingsTableEntryData & StandingsTableEntryData::operator=(StandingsTableEntryData && arg)
 //{
@@ -38,12 +38,12 @@ void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOr
 //
 //}
 //
-//StandingsTableEntryData & StandingsTableEntryData::operator=(const StandingsTableEntryData & arg)
-//{
-//	playerName = arg.playerName;
-//	winsCnt = arg.winsCnt;
-//	lossesCnt = arg.lossesCnt;
-//	pointsFor = arg.pointsFor;
-//	pointsAgainst = arg.pointsFor;
-//	return *this;
-//}
+StandingsTableEntryData & StandingsTableEntryData::operator=(const StandingsTableEntryData & arg)
+{
+	playerName = arg.playerName;
+	winsCnt = arg.winsCnt;
+	lossesCnt = arg.lossesCnt;
+	pointsFor = arg.pointsFor;
+	pointsAgainst = arg.pointsFor;
+	return *this;
+}

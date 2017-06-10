@@ -17,10 +17,6 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 	return *this;
 }
 
-GamePlayerData::~GamePlayerData()
-{
-	delete playerAlgo;
-}
 
 Coordinate GamePlayerData::getAlgoNextAttack() const
 {

@@ -5,7 +5,7 @@
 #include "StandingsTableEntryData.h"
 #include "BoardDataImpl.h"
 
-
+// pass unique_ptr by value as described here - https://stackoverflow.com/a/8114913
 BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), successfullyCreated(true)
 {
 	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;

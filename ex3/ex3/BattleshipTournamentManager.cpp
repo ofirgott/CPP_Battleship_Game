@@ -7,11 +7,11 @@
 
 
 
-void BattleshipTournamentManager::RunTurnament()
+void BattleshipTournamentManager::RunTournament()
 {
-	int numberOfRounds = allRounds.size();
-	int numberOfGames = allGamesResults.size();
-	int numOfPlayers = algosDetailsVec.size();
+	auto numberOfRounds = allRounds.size();
+	auto numberOfGames = allGamesResults.size();
+	auto numOfPlayers = algosDetailsVec.size();
 	int cnt = 0;
 
 	//in case there are more threads then games
@@ -19,7 +19,7 @@ void BattleshipTournamentManager::RunTurnament()
 		maxGamesThreads = numberOfGames;
 	}
 	//creating a pool of threads
-	for (int i = 0; i< maxGamesThreads; i++)
+	for (auto i = 0; i< maxGamesThreads; i++)
 	{
 		threadsPool.push_back(std::thread(&singleThreadJob));
 	}
@@ -34,11 +34,11 @@ void BattleshipTournamentManager::RunTurnament()
 		lk.unlock();
 
 		if (allRounds[cnt].status) {//update sum fileds for current round 
-			for (int i = 0; i < numOfPlayers; i++) {
-				RoundDataToPrint[i].WinsNumber += allGamesResults[i][cnt].WinsNumber;
-				RoundDataToPrint[i].LossesNumber += allGamesResults[i][cnt].LossesNumber;
-				RoundDataToPrint[i].PointsFor += allGamesResults[i][cnt].PointsFor;
-				RoundDataToPrint[i].PointsAgainst += allGamesResults[i][cnt].PointsAgainst;
+			for (auto i = 0; i < numOfPlayers; i++) {
+				RoundDataToPrint[i].setWinsNumber(RoundDataToPrint[i].WinsNumber() + allGamesResults[i][cnt].WinsNumber());
+				RoundDataToPrint[i].setLossesNumber(RoundDataToPrint[i].LossesNumber() + allGamesResults[i][cnt].LossesNumber());
+				RoundDataToPrint[i].setPointsFor(RoundDataToPrint[i].PointsFor() + allGamesResults[i][cnt].PointsFor());
+				RoundDataToPrint[i].setPointsAgainst(RoundDataToPrint[i].PointsAgainst() + allGamesResults[i][cnt].PointsAgainst());
 			}
 			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt, allRounds.size());//printing the round
 			cnt++;//next round to wait for
@@ -61,7 +61,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);
 		//waiting for current thread to end his game
-		queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties> & const gamesQueue) {return !gamesQueue.empty(); });
+		queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties>const &  gamesQueue) {return !gamesQueue.empty(); });
 		auto currGameProperty =  gamesPropertiesQueue.front();
 		gamesPropertiesQueue.pop();
 		lock.unlock();
@@ -69,12 +69,12 @@ void BattleshipTournamentManager::singleThreadJob()
 		playerAlgoA =  std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexA()].getAlgoFunc());
 		playerAlgoA = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
 
-		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], playerAlgoA, playerAlgoB);
+		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
 		gameResult = game.Run();// function<void()> type
 
 		// the game result returned is from the perspective of playerA
-		gameResult.PlayerName = algosDetailsVec[currGameProperty.getPlayerIndexA()].playerName;
-		updateAllGamesResults(gameResult , currGameProperty);
+		gameResult.setPlayerName(algosDetailsVec[currGameProperty.getPlayerIndexA()].playerName);
+		updateAllGamesResults(gameResult, currGameProperty);
 		
 		
 	}
@@ -85,19 +85,19 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 {
 
 	// players indexes 
-	int playerAIndex = algosDetailsVec[gamsProperty.getPlayerIndexA()].algosIndexInVec;
-	int playerBIndex = algosDetailsVec[gamsProperty.getPlayerIndexB()].algosIndexInVec;
+	auto playerAIndex = algosDetailsVec[gamsProperty.getPlayerIndexA()].algosIndexInVec;
+	auto playerBIndex = algosDetailsVec[gamsProperty.getPlayerIndexB()].algosIndexInVec;
 
 	//create gameResults for the second player 
-	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
+	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = ++playersProgress.at(playerAIndex);
-	int propertyIndexB = ++playersProgress.at(playerBIndex);
+	auto propertyIndexA = ++playersProgress.at(playerAIndex);
+	auto propertyIndexB = ++playersProgress.at(playerBIndex);
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA].updateFields(currGameRes);
-	allGamesResults[playerBIndex][propertyIndexB].updateFields(otherPlayerData);
+	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
+	allGamesResults[playerBIndex][propertyIndexB] = otherPlayerData;
 
 
 	--allRounds[propertyIndexA].numOfGamesLeft;
@@ -122,10 +122,12 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 
 void BattleshipTournamentManager::createGamesPropertiesQueue()
 {
-
-	for (int i = 0; i < algosDetailsVec.size(); i++) {
-		for (int j = 0; j < algosDetailsVec.size(); j++) {
-			for (int k = 0; k < boardsVec.size(); k++) {
+	for (auto i = 0; i < algosDetailsVec.size(); i++) 
+	{
+		for (auto j = 0; j < algosDetailsVec.size(); j++) 
+		{
+			for (auto k = 0; k < boardsVec.size(); k++)
+			{
 				if (i != j) {
 					SingleGameProperties gameDetails(k,i,j);
 					gamesPropertiesQueue.push(gameDetails);
@@ -133,7 +135,6 @@ void BattleshipTournamentManager::createGamesPropertiesQueue()
 			}
 		}
 	}
-
 }
 
 
@@ -161,27 +162,27 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	algosIndex = 0;
 	createGamesPropertiesQueue();
 
-	int numOfplayers = algosDetailsVec.size();
-	int numOfBoards = boardsVec.size();
-	int numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
+	auto numOfplayers = algosDetailsVec.size();
+	auto numOfBoards = boardsVec.size();
+	auto numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
 	
 	/*todo: init vector of vectors*/
 	allGamesResults.resize(numOfplayers); //vector of size number of players
-	for (int i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
+	for (auto i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
 		allGamesResults[i].resize(numOfRounds);
 	}
 
 	allRounds.resize(numOfRounds); // 
-	for (int i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft = numOfplayers; //Ofir - ?
+	for (auto i = 0; i < numOfRounds; i++) {
+		allRounds[i].numOfGamesLeft = numOfplayers; 
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
 	}
 
-	for (int i = 0; i < numOfplayers; i++) {
+	for (auto i = 0; i < numOfplayers; i++) {
 		playersProgress.push_back(0);
 	}
-	for (int i = 0; i < numOfplayers; i++) {	//Ofir - dup	
+	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
 		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
 	}
 }
@@ -221,7 +222,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 			else
 			{
 				char* stringEnd = nullptr;
-				maxGamesThreads = static_cast<int>(strtol(argv[++i], &stringEnd, 10));
+				maxGamesThreads = static_cast<size_t>(strtol(argv[++i], &stringEnd, 10));
 				if (*stringEnd || maxGamesThreads < 1)
 				{
 					std::cout << "Error: -threads flag value is not a valid positive integer." << std::endl;
