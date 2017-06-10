@@ -3,6 +3,7 @@
 #include <vector>
 #include "IBattleshipGameAlgo.h"
 #include <set>
+#include"testPlayerSmart.h"
 
 
 /* smart algo- keep track on all the coordintes that have been attacked during the game.
@@ -29,6 +30,7 @@
 class PlayerSmart : public IBattleshipGameAlgo
 {
 public:
+	friend class testPlayerSmart;
 	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) ,boardDepth(-1), currSunkShipSize(-1), isBoardBalanced(true){};
 	~PlayerSmart() = default;
 	PlayerSmart& operator=(const PlayerSmart& otherSmartPlayer) = delete;
