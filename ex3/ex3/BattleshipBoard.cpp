@@ -317,8 +317,8 @@ bool BattleshipBoard::parseBoardDimensions(const std::string& line)
 void BattleshipBoard::countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec) {
 
 	int count_b = 0;//lenght = 1
-	int count_m = 0;//lenght = 2
-	int count_p = 0;//lenght = 3
+	int count_p = 0;//lenght = 2
+	int count_m = 0;//lenght = 3
 	int count_d = 0;//lenght = 4
 
 	for (auto shipType : allShipsDetails) {
@@ -332,7 +332,7 @@ void BattleshipBoard::countShipsTypes(const std::set<std::pair<char, std::set<Co
 	}
 
 	shipsCountVec.push_back(std::make_pair(1, count_b));
-	shipsCountVec.push_back(std::make_pair(2, count_m));
-	shipsCountVec.push_back(std::make_pair(3, count_p));
+	shipsCountVec.push_back(std::make_pair(2, count_p));
+	shipsCountVec.push_back(std::make_pair(3, count_m));
 	shipsCountVec.push_back(std::make_pair(4, count_d));
 }

@@ -68,7 +68,7 @@ public:
 	
 
 	static void countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec);
-
+	bool CheckIfHasAdjacentShips() const;													/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
 	static const char BLANK_CHAR = ' ';
 
 private:
@@ -100,7 +100,7 @@ private:
 	 */
 	bool parseBoardDimensions(const std::string& line);		
 	
-	bool CheckIfHasAdjacentShips() const;													/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
+
 
 	static bool IsShipCharInBoard(char ch);
 

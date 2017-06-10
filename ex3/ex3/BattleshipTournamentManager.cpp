@@ -348,12 +348,12 @@ void BattleshipTournamentManager::DeleteInvalidShipsDetailsEntryFromSet(std::set
 	auto it = setOfShipsDetails.begin();
 	while (it != setOfShipsDetails.end())
 	{
-		//if (!Ship::isValidShipDetails(*it))
-		//{
-		//invalidShips.insert(it->first);
-		//it = setOfShipsDetails.erase(it);
-		//}
-		//else
+		if (!Ship::isValidShipDetails(*it))
+		{
+		invalidShips.insert(it->first);
+		it = setOfShipsDetails.erase(it);
+		}
+		else
 		{
 			++it;
 		}

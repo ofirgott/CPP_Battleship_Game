@@ -62,22 +62,22 @@ bool Ship::isValidShipLen(char id, int setSize)
 {
 	char letter = toupper(id);
 	if (letter == RUBBER_BOAT) {
-		if (setSize != 1) {
+		if (setSize != RUBBER_BOAT_LEN) {
 			return false;
 		}
 	}
 	else if (letter == ROCKET_SHIP) {
-		if (setSize != 2) {
+		if (setSize != ROCKET_SHIP_LEN) {
 			return false;
 		}
 	}
 	else if (letter == SUBMARINE) {
-		if (setSize != 3) {
+		if (setSize != SUBMARINE_LEN) {
 			return false;
 		}
 	}
 	else if (letter == DESTROYER) {
-		if (setSize != 4) {
+		if (setSize != DESTROYER_LEN) {
 			return false;
 		}
 	}

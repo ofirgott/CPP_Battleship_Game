@@ -11,6 +11,10 @@ public:
 		_cols = gameMainBoard.getCols();
 		_depth = gameMainBoard.getDepth();
 	}
+
+	BoardDataImpl(const BoardDataImpl& otherBoard) = delete;											/*deletes copy constructor */
+	BoardDataImpl& operator=(const BoardDataImpl& otherBoard) = delete;									/* delete copy assignment */
+
 	
 	char charAt(Coordinate c)const override {
 		if (BattleshipBoard::isPlayerShip(playerID, gameMainBoard(c.row - 1, c.col - 1, c.depth - 1)))
