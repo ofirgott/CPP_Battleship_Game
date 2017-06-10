@@ -134,17 +134,27 @@ void BattleshipTournamentManager::createGamesPropertiesQueue()
 }
 
 
-BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(false)
+BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(true)
 {
 
-	if (!checkTournamentArguments(argc, argv)) return;
+	if (!checkTournamentArguments(argc, argv)) {
+		successfullyCreated = false;
+		return;
+	}
 
-	if (!checkTournamentBoards()) return;
+	if (!checkTournamentBoards())
+		successfullyCreated = false;
 
-	if (!loadTournamentAlgos()) return;
-
-	successfullyCreated = true;
+	if (!loadTournamentAlgos())
+		successfullyCreated = false;
 	
+	if (!successfullyCreated) return;
+	
+	std::cout << "Number of legal players: " << algosDetailsVec.size() << std::endl;
+	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl;
+
+	//Ofir -we need to put next rows in seperate function - init tournament data structures or something..
+
 	algosIndex = 0;
 	createGamesPropertiesQueue();
 
@@ -160,7 +170,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	allRounds.resize(numOfRounds); // 
 	for (int i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft = numOfplayers; 
+		allRounds[i].numOfGamesLeft = numOfplayers; //Ofir - ?
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
 	}
@@ -168,7 +178,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	for (int i = 0; i < numOfplayers; i++) {
 		playersProgress.push_back(0);
 	}
-	for (int i = 0; i < numOfplayers; i++) {		
+	for (int i = 0; i < numOfplayers; i++) {	//Ofir - dup	
 		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
 	}
 }
@@ -239,6 +249,11 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 	std::string currBoardFullPath;
 	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".sboard");
 
+	if(tmpFilenamesVector.empty())
+	{
+		std::cout << "No board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
+		return false;
+	}
 
 	for (auto currBoardFilename : tmpFilenamesVector)
 	{
@@ -257,10 +272,11 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 			// TODO: print to the log : std::cout << "Board in: " << currBoardFullPath << "skipped, because of the errors above." << std::endl; 
 		}
 	}
+	std::cout << "Number of valid bords: " << boardsVec.size() << std::endl; //todo: print to the log
 
 	if (boardsVec.empty())
 	{
-		std::cout << "No board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
+		std::cout << "Error: No valid board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
 		return false;
 	}
 	else return true;
@@ -406,15 +422,21 @@ bool BattleshipTournamentManager::loadTournamentAlgos()
 	std::string currDllFullPath;
 	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".dll");
 
+	if(tmpFilenamesVector.empty())
+	{
+		std::cout << "Missing algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two)" << std::endl;
+		return false;
+	}
 
 	for (auto currDllFilename : tmpFilenamesVector)
 	{
 		loadPlayerDll(currDllFilename);
 	}
 
+	std::cout << "Number of valid algos: " << algosDetailsVec.size() << std::endl; //todo: print to the log
 	if (algosDetailsVec.size() < TOURNAMENT_MIN_PLAYERS)
 	{
-		std::cout << "Missing algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two)" << std::endl;
+		std::cout << "Error: Missing minimum number of required Valid algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two)" << std::endl;
 		return false;
 	}
 
