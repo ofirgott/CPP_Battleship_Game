@@ -9,25 +9,42 @@
 
 void BattleshipTournamentManager::RunTurnament()
 {
+	int numberOfRounds = allRounds.size();
+	int numberOfGames = allGamesResults.size();
+	int numOfPlayers = algosDetailsVec.size();
+	int cnt = 0;
+
+	//in case there are more threads then games
+	if (maxGamesThreads > numberOfGames) {
+		maxGamesThreads = numberOfGames;
+	}
+	//creating a pool of threads
 	for (int i = 0; i< maxGamesThreads; i++)
 	{
 		threadsPool.push_back(std::thread(&singleThreadJob));
 	}
 
-	
-	//int numberOfRounds = 10;
-	//std::vector<numberOfRounds, condition_var> allVars of size numberOfRounds;
-	//int cnt = 0;
-	//while (cnt < numberOfRounds ){
 
-	//	allVars[cnt].wait((rounds) [] {return rounds[cnt]->numLeft == 0};);
-	//	if (round i is ready) {
-	//		go print
-	//		cnt++;
-	//	}
+	//while there are more rounds to print keep waiting for next round
+	while (cnt < numberOfRounds ){
 
-	//}
-	
+		std::unique_lock<std::mutex> lk(isRoundDoneMutex);
+		//waiting for current round to end by order (first till last)
+		isRoundDoneCondition.wait(lk, [](std::vector<Round>& const allRounds,int cnt) {return allRounds[cnt].status; });
+		lk.unlock();
+
+		if (allRounds[cnt].status) {//update sum fileds for current round 
+			for (int i = 0; i < numOfPlayers; i++) {
+				RoundDataToPrint[i].WinsNumber += allGamesResults[i][cnt].WinsNumber;
+				RoundDataToPrint[i].LossesNumber += allGamesResults[i][cnt].LossesNumber;
+				RoundDataToPrint[i].PointsFor += allGamesResults[i][cnt].PointsFor;
+				RoundDataToPrint[i].PointsAgainst += allGamesResults[i][cnt].PointsAgainst;
+			}
+			BattleshipPrint::printStandingsTable(RoundDataToPrint);//printing the round
+			cnt++;//next round to wait for
+		}
+
+	}
 
 	for (auto & t:threadsPool) {
 		t.join();
@@ -37,16 +54,13 @@ void BattleshipTournamentManager::RunTurnament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	//BattleshipGameManager game;
-	StandingsTableEntryData gameResult;
-	
+	StandingsTableEntryData gameResult;	
 
 	while (true)
 	{
 		
-		
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);
-
+		//waiting for current thread to end his game
 		queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties> & const gamesQueue) {return !gamesQueue.empty(); });
 		auto currGameProperty =  gamesPropertiesQueue.front();
 		gamesPropertiesQueue.pop();
@@ -67,10 +81,6 @@ void BattleshipTournamentManager::singleThreadJob()
 void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty)
 {
 
-	//split result for 2 players
-	// for player i and j allGamesResults[playersprogress[j]++] (atomic)
-	//if(min has canged)- update and send to print
-
 	// players indexes 
 	int playerAIndex = gamsProperty.getPlayerA()->algosIndexInVec;
 	int playerBIndex = gamsProperty.getPlayerB()->algosIndexInVec;
@@ -79,31 +89,30 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, gamsProperty.getPlayerB()->playerName);
 
 	// indexes of the properties in the specific player's vector 
-	/*todo: check if the ++ of the atomic int works !!!!!!!!!!!!!!!!!!!!!!!! :(:(:(:(:(:(:(:(:(:(:(:(:(:(:(*/
 	int propertyIndexA = ++playersProgress.at(playerAIndex);
 	int propertyIndexB = ++playersProgress.at(playerBIndex);
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
-	allGamesResults[playerBIndex][propertyIndexB] = otherPlayerData;
+	allGamesResults[playerAIndex][propertyIndexA].updateFields(currGameRes);
+	allGamesResults[playerBIndex][propertyIndexB].updateFields(otherPlayerData);
 
 
 	--allRounds[propertyIndexA].numOfGamesLeft;
 	if (allRounds[propertyIndexA].numOfGamesLeft==0) {
-		need to take care of locks and mutexes and condition variables here, need to set cv in .h
+		//need to take care of locks and mutexes and condition variables here, need to set cv in .h	
+		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
+		allRounds[propertyIndexA].status = true;
+		lock.unlock();
+		isRoundDoneCondition.notify_one();
+
 	}
 	--allRounds[propertyIndexB].numOfGamesLeft;
 	if (allRounds[propertyIndexB].numOfGamesLeft == 0) {
-
+		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
+		allRounds[propertyIndexB].status = true;
+		lock.unlock();
+		isRoundDoneCondition.notify_one();
 	}
-	//if plaeyrt.left == 0{
-	//	allvars[playerAIndex] = true;
-	//}
-
-	// update the number if games need to wait before the next print
-	// print if needed
-
-
 
 }
 
@@ -127,6 +136,7 @@ void BattleshipTournamentManager::createGamesPropertiesQueue()
 
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(false)
 {
+
 	if (!checkTournamentArguments(argc, argv)) return;
 
 	if (!checkTournamentBoards()) return;
@@ -153,9 +163,14 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		allRounds[i].numOfGamesLeft = numOfplayers; 
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
-		//+mutex
 	}
 
+	for (int i = 0; i < numOfplayers; i++) {
+		playersProgress.push_back(0);
+	}
+	for (int i = 0; i < numOfplayers; i++) {		
+		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
+	}
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()
