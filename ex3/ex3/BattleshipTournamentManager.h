@@ -79,7 +79,7 @@ private:
 	/* given a matrix board for a specific player, returns number of valid ships and set of invalid ships letters (according to the game rules
 	for example - <5, {'M', 'P'}> - input player board has 5 valid ships, but invalid size or shape 'M' and 'P' ships  */
 	//TODO: FIX THE DUCO, IT IS NOW TRUE!!!!!
-	static void BattleshipTournamentManager::FindValidAndInvalidShipsInBoard(const BattleshipBoard& board, std::set<std::pair<char, std::set<Coordinate>>>& validShips_A, std::set<char>& invalidShips_A, std::set<std::pair<char, std::set<Coordinate>>>& validShips_B, std::set<char>& invalidShips_B);
+	static void FindValidAndInvalidShipsInBoard(const BattleshipBoard& board, std::set<std::pair<char, std::set<Coordinate>>>& validShips_A, std::set<char>& invalidShips_A, std::set<std::pair<char, std::set<Coordinate>>>& validShips_B, std::set<char>& invalidShips_B);
 
 	/* given a set of sips details for player, this function deletes invalid ships from the set, according to the game rules */
 	/* in addition, adds letters of deleted found invalid ships to the set invalidShips*/
