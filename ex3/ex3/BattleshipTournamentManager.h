@@ -16,7 +16,7 @@ struct Round
 {
 
 	int roundNumber;
-	std::atomic<int> numOfGamesLeft;
+	std::atomic<size_t> numOfGamesLeft;
 	bool status;
 	//std::mutex 
 
