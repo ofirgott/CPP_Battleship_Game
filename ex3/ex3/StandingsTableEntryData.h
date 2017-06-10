@@ -37,6 +37,8 @@ public:
 	//StandingsTableEntryData& operator=(const StandingsTableEntryData& arg) = default;
 	//StandingsTableEntryData(const StandingsTableEntryData& other) = default;			/* deletes copy constructor */
 	//bool operator<(const StandingsTableEntryData &rhs) const { return playerName < rhs.playerName; }
+
+	void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin);
 private:
 
 	std::string playerName;

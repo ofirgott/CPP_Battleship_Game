@@ -9,6 +9,7 @@
 #include <atomic>
 #include "StandingsTableEntryData.h"
 #include "SingleGameProperties.h"
+#include "BattleshipPrint.h"
 
 
 struct Round
@@ -54,7 +55,11 @@ private:
 	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
 	std::vector<Round> allRounds;
+	std::vector<StandingsTableEntryData> RoundDataToPrint;
 	int algosIndex;
+
+	std::condition_variable isRoundDoneCondition;
+	std::mutex isRoundDoneMutex;
 
 	void createGamesPropertiesQueue();
 	void BattleshipTournamentManager::singleThreadJob();
