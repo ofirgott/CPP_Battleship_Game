@@ -469,7 +469,7 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 			FreeLibrary(currAlgo.dllFileHandle);
 			return;
 		}
-		std::cout << "Success loading dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
+		std::cout << "Success loading player algorithm from dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
 	}
 
 	currAlgo.algosIndexInVec = algosIndex;
