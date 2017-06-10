@@ -1,320 +1,537 @@
-//#pragma once
-//#include"ShipInProcess.h"
-//#include  <iostream>;
-//
-//class testShipInProcess {
-//public:
-//	testShipInProcess() {};
-//	~testShipInProcess() {};
-//
-//	static void printVector(std::vector<int> vec, int consCoor) {
-//		std::cout << "vector coors are";
-//		std::cout << "const is: " << consCoor << " incremental are: ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << vec.at(i);
-//		}
-//		std::cout << std::endl;
-//	}
-//
-//	static int testaddToSizeOneShip() {
-//
-//		ShipInProcess shipTest(2, 2);
-//		shipTest.addToSizeOneShip(2, 3);//right
-//		std::cout << "ships max shold be :  3" << std::endl;
-//		std::cout << "ships coors are : " << std::endl;
-//		std::cout << "right add " << shipTest.getMaxCoor() << std::endl;
-//
-//		ShipInProcess shipTest1(2, 2);
-//		shipTest1.addToSizeOneShip(2, 1);//left
-//		std::cout << "ships max shold be :  1" << std::endl;
-//		std::cout << "ships coors are : " << std::endl;
-//		std::cout << "left add " << shipTest1.getMinCoor() << std::endl;
-//
-//		ShipInProcess shipTest2(2, 2);
-//		shipTest2.addToSizeOneShip(1, 2);//up
-//		std::cout << "ships max shold be :  1" << std::endl;
-//		std::cout << "ships coors are : " << std::endl;
-//		std::cout << "up add " << shipTest2.getMinCoor() << std::endl;
-//
-//		ShipInProcess shipTest3(2, 2);
-//		shipTest3.addToSizeOneShip(3, 2);//down
-//		std::cout << "ships max shold be :  3" << std::endl;
-//		std::cout << "ships coors are : " << std::endl;
-//		std::cout << "down add " << shipTest3.getMaxCoor() << std::endl;
-//
-//
-//		ShipInProcess shipTest4(3, 3);
-//		shipTest4.addToSizeOneShip(1, 3);//should not add
-//		std::cout << "pair should be : 3,3 ";
-//		std::cout << " pair is: " << shipTest4.firstPair.first << shipTest4.firstPair.second;
-//		std::cout << " shipSize " << shipTest4.shipSize << std::endl;
-//
-//
-//		ShipInProcess shipTest5(3, 3);
-//		shipTest5.addToSizeOneShip(3, 1);//should not add
-//		std::cout << "pair should be : 3,3 ";
-//		std::cout << " pair is: " << shipTest5.firstPair.first << shipTest5.firstPair.second;
-//		std::cout << " shipSize " << shipTest5.shipSize << std::endl;
-//
-//
-//		ShipInProcess shipTest6(3, 3);
-//		shipTest6.addToSizeOneShip(3, 5);//should not add
-//		std::cout << "pair should be : 3,3 ";
-//		std::cout << " pair is: " << shipTest6.firstPair.first << shipTest6.firstPair.second;
-//		std::cout << " shipSize " << shipTest6.shipSize << std::endl;
-//
-//
-//		ShipInProcess shipTest7(3, 3);
-//		shipTest7.addToSizeOneShip(5, 3);//should not add
-//		std::cout << "pair should be : 3,3 ";
-//		std::cout << " pair is: " << shipTest7.firstPair.first << shipTest7.firstPair.second;
-//		std::cout << " shipSize " << shipTest7.shipSize << std::endl;
-//
-//
-//		return 0;
-//	}
-//
-//	static int testisPartOfShip() {
-//		ShipInProcess shipTest(2, 2);
-//		shipTest.isHorizontal = true;
-//		shipTest.isVertical = false;
-//		shipTest.constantCoor = 2;
-//		shipTest.shipSize = 4;
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 2);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 3);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 4);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 5);
-//
-//
-//		std::cout << "should be true " << shipTest.isPartOfShip(2, 4) << std::endl;
-//		std::cout << "should be true " << shipTest.isPartOfShip(2, 5) << std::endl;
-//		std::cout << "should be true " << shipTest.isPartOfShip(2, 2) << std::endl;
-//
-//		std::cout << "should be false " << shipTest.isPartOfShip(2, 6) << std::endl;
-//		std::cout << "should be false " << shipTest.isPartOfShip(1, 2) << std::endl;
-//		return 0;
-//	}
-//
-//	static int testaddCoordinate() {
-//		ShipInProcess shipTest(2, 2);
-//		shipTest.isHorizontal = true;
-//		shipTest.isVertical = false;
-//		shipTest.constantCoor = 2;
-//		shipTest.shipSize = 4;
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 2);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 3);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 4);
-//		shipTest.incrementalCoors.insert(shipTest.incrementalCoors.end(), 5);
-//
-//
-//		//good entery
-//		int res = shipTest.addCoordinate(2, 6);
-//		std::cout << "should be true for (2,6) " << shipTest.isPartOfShip(2, 6) << " res should be 1 got in" << res << std::endl;
-//		//not good
-//		res = shipTest.addCoordinate(2, 8);
-//		std::cout << "should be falue for(2,8) " << shipTest.isPartOfShip(2, 8) << " res should be -1 didnt get in" << res << std::endl;
-//		//was alredy in
-//		res = shipTest.addCoordinate(2, 2);
-//		std::cout << "should be true for (2,2) " << shipTest.isPartOfShip(2, 2) << " res should be 0 alredy in" << res << std::endl;
-//		return 0;
-//	}
-//
-//
-//	static int testMegreShipsVectors()
-//	{
-//		std::vector<int> vec;
-//		std::pair<int, int> coor;
-//		int consCoor = 5;
-//
-//
-//		/* check vorizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*/
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(consCoor, 3);
-//		// test <1,2> +  3  - horizintal
-//		// ships coors shold be : <5 , 1>  <5,2> , <5, 3>
-//
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, false);
-//		std::cout << "ships coors shold be : <consCoor, 1>  <consCoor, 2>, <consCoor, 3>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << consCoor << ',' << vec.at(i) << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//		// insert from left horizontal
-//		vec.push_back(4);
-//		vec.push_back(5);
-//		coor = std::make_pair(consCoor, 3);
-//
-//		// ships coors shold be : <5 , 3>  <5,4> , <5, 5>
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, false);
-//		std::cout << "ships coors shold be : <consCoor, 3>  <consCoor, 4>, <consCoor, 5>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << consCoor << ',' << vec.at(i) << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(consCoor, 5);
-//		// shouldnt add not not oncremental / coors
-//		// ships coors shold be : <5 , 1>  <5,2> 
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, false);
-//		std::cout << "ships coors shold be : <consCoor, 1>  <consCoor, 2>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << consCoor << ',' << vec.at(i) << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(consCoor, -1);
-//		// shouldnt add not not oncremental / coors
-//		// ships coors shold be : <5 , 1>  <5,2> 
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, false);
-//		std::cout << "ships coors shold be : <consCoor, 1>  <consCoor, 2>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << consCoor << ',' << vec.at(i) << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//
-//		/* check vertical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*/
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(3, consCoor);
-//
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, true);
-//		std::cout << "ships coors shold be : <1, consCoor>  < 2, consCoor>, <3, consCoor>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << vec.at(i) << ',' << consCoor << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//		// insert from left horizontal
-//		vec.push_back(4);
-//		vec.push_back(5);
-//		coor = std::make_pair(3, consCoor);
-//
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, true);
-//		std::cout << "ships coors shold be : <3, consCoor>  <4, consCoor>, <5 , consCoor>";
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << vec.at(i) << ',' << consCoor << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(5, consCoor);
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, true);
-//		std::cout << "ships coors shold be : <consCoor, 1>  <consCoor, 2>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << vec.at(i) << ',' << consCoor << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//
-//		vec.push_back(1);
-//		vec.push_back(2);
-//		coor = std::make_pair(-1, consCoor);
-//		// shouldnt add not not oncremental / coors
-//		vec = ShipInProcess::mergeShipsVectors(vec, coor, true);
-//		std::cout << "ships coors shold be : <consCoor, 1>  <consCoor, 2>";
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < vec.size(); i++)
-//		{
-//			std::cout << "<" << vec.at(i) << ',' << consCoor << "> ";
-//		}
-//		vec.clear();
-//		std::cout << std::endl;
-//		return 1;
-//	}
-//
-//
-//	static int testmegreShipsInProcess() {
-//		ShipInProcess shipTest(2, 2);
-//		shipTest.addCoordinate(2, 3);
-//		shipTest.addCoordinate(2, 4);
-//		ShipInProcess shipTest1(2, 5);
-//
-//		ShipInProcess shipTest2(2, 5);
-//		ShipInProcess shipTest3(2, 2);
-//		shipTest3.addCoordinate(2, 3);
-//		shipTest3.addCoordinate(2, 4);
-//
-//		ShipInProcess shipTest4(2, 2);
-//		shipTest4.addCoordinate(2, 3);
-//		shipTest4.addCoordinate(2, 4);
-//		ShipInProcess shipTest5(2, 5);
-//		shipTest5.addCoordinate(2, 6);
-//		shipTest5.addCoordinate(2, 7);
-//
-//
-//		ShipInProcess shipTest6(2, 6);
-//		ShipInProcess shipTest7(2, 7);
-//
-//
-//
-//		shipTest.megreShipsInProcess(shipTest1);// this ship-many to oter ship 1size 
-//		std::cout << "ships coors shold be : <2, 2>  <2, 3>	<2, 4>	<2, 5>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < shipTest.incrementalCoors.size(); i++)
-//		{
-//			std::cout << "<" << shipTest.constantCoor << ',' << shipTest.incrementalCoors.at(i) << "> ";
-//		}
-//		std::cout << std::endl;
-//
-//		shipTest2.megreShipsInProcess(shipTest3);// this ship-1size to oter ship many
-//		std::cout << "ships coors shold be : <2, 2>  <2, 3>	<2, 4>	<2, 5>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < shipTest2.incrementalCoors.size(); i++)
-//		{
-//			std::cout << "<" << shipTest2.constantCoor << ',' << shipTest2.incrementalCoors.at(i) << "> ";
-//		}
-//		std::cout << std::endl;
-//
-//		shipTest4.megreShipsInProcess(shipTest5);// this ship-many to oter ship many
-//		std::cout << "ships coors shold be : <2, 2>  <2, 3>	<2, 4>	<2, 5>	<2, 6>	<2, 7>" << std::endl;
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < shipTest4.incrementalCoors.size(); i++)
-//		{
-//			std::cout << "<" << shipTest4.constantCoor << ',' << shipTest4.incrementalCoors.at(i) << "> ";
-//		}
-//		std::cout << std::endl;
-//
-//		shipTest6.megreShipsInProcess(shipTest7);// this ship-1size to oter ship 1size
-//		std::cout << "ships coors shold be : <2, 6>  <2, 7>";
-//		std::cout << "ships coors are : ";
-//		for (int i = 0; i < shipTest6.incrementalCoors.size(); i++)
-//		{
-//			std::cout << "<" << shipTest6.constantCoor << ',' << shipTest6.incrementalCoors.at(i) << "> ";
-//		}
-//		std::cout << std::endl;
-//
-//		return 0;
-//	}
-//
-//};
+#pragma once
+#include "ShipInProcess.h"
+#include  <iostream>;
+#include <vector>
+
+class testShipInProcess {
+public:
+	testShipInProcess() {};
+	~testShipInProcess() {};
+
+	static void printVector(std::vector<int> vec) {
+
+		std::cout << "vector size" << vec.size() << std::endl;;
+		std::cout << "vector coors are " ;
+
+		for (int i = 0; i < vec.size(); i++) {
+			std::cout << vec[i] << " ";
+		}
+		std::cout << std::endl;;
+	}
+
+	static void printCoordinate(Coordinate coord) {
+		std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
+	}
+
+	static bool compareCoordinates(Coordinate coor1, Coordinate coor2) {
+		return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
+	}
+
+	static bool compareVector(std::vector<int> firstVec, std::vector<int> secVec) {
+		if (firstVec.size() != secVec.size()) {
+			return false;
+		}
+
+		for (int i = 0; i < firstVec.size(); i++) {
+			if (firstVec[i] != secVec[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	static bool compareShipsFields(ShipInProcess& shipToTest, bool Vertical, bool Horizontal, bool Dimentional,
+		Coordinate consCoors, Coordinate firstCoor,std::vector<int> incremtCoors, int Size) {
+		
+		return (shipToTest.isVertical == Vertical && shipToTest.isHorizontal == Horizontal &&
+			shipToTest.isDimentional == Dimentional && compareCoordinates(shipToTest.constantCoors, consCoors) &&
+			compareCoordinates(shipToTest.firstCoordinate, firstCoor) && compareVector(shipToTest.incrementalCoors, incremtCoors)
+			&& shipToTest.shipSize == Size);
+	}
+
+	// : isVertical(true), isHorizontal(true), isDimentional(true), constantCoors(-1, -1, -1), firstCoordinate(row, col, depth), shipSize(1) {}
+	static int testShipInProcessConstructor() {
+		//test constructor;
+		ShipInProcess sizeOneShip(2,2,2);
+		if (!compareShipsFields(sizeOneShip, true, true, true, Coordinate(-1, -1, -1), Coordinate(2, 2, 2),std::vector<int>() , 1)) {
+			std::cout << "error in size 1 ship constructor " << std::endl;
+		}
+
+		std::cout << "constructor is Good!! " << std::endl;
+		return 0;
+	}
+
+	static bool testMinMaxCoors(ShipInProcess& shiptoTest, int expectedMax, int expectedMin) {
+		return shiptoTest.getMaxCoor == expectedMax &&  shiptoTest.getMinCoor == expectedMin;
+	}
+
+	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
+	static int testaddToSizeOneShip() {
+
+		int tmp = 0;
+		//ship 0
+		ShipInProcess shipTest(2, 2 , 2);
+		tmp = shipTest.addToSizeOneShip(2, 2, 3);//depth
+		if (tmp != 1) {
+			std::cout << "error in addToSizeOneShip depth " << std::endl;
+		}
+
+		if (!compareShipsFields(shipTest, false, false, true, Coordinate(2, 2, -1), Coordinate(2, 2, 2), std::vector<int>(2, 3), 2)) {
+			std::cout << "error in addToSizeOneShip depth " << std::endl;
+		}
+
+		if (!testMinMaxCoors(shipTest, 3, 2)) {
+			std::cout << "error in addToSizeOneShip depth " << std::endl;
+		}
+
+		// ship 1 
+		ShipInProcess shipTest1(2, 2, 2);
+		tmp = shipTest1.addToSizeOneShip(2, 3, 2);//col
+		if (tmp != 1) {
+			std::cout << "error in addToSizeOneShip col " << std::endl;
+		}
+		if (!compareShipsFields(shipTest1, false, true, false, Coordinate(2, -1, 2), Coordinate(2, 2, 2), std::vector<int>(2, 3), 2)) {
+			std::cout << "error in addToSizeOneShip col " << std::endl;
+		}
+
+		if (!testMinMaxCoors(shipTest1, 3, 2)) {
+			std::cout << "error in addToSizeOneShip col " << std::endl;
+		}
+
+		// ship 2 
+		ShipInProcess shipTest2(2, 2, 2);
+		tmp = shipTest2.addToSizeOneShip(1, 2, 2);//row
+		if (tmp != 1) {
+			std::cout << "error in addToSizeOneShip row " << std::endl;
+		}
+		if (!compareShipsFields(shipTest2, true, false, false, Coordinate(-1, 2, 2), Coordinate(2, 2, 2), std::vector<int>(1, 2), 2)) {
+			std::cout << "error in addToSizeOneShip row " << std::endl;
+		}
+
+		if (!testMinMaxCoors(shipTest2, 2, 1)) {
+			std::cout << "error in addToSizeOneShip row " << std::endl;
+		}
+
+		//ship3
+		ShipInProcess shipTest3(2, 2, 2);
+		tmp = shipTest3.addToSizeOneShip(0,2,2);
+		if (tmp != -1) {
+			std::cout << "error in addToSizeOneShip ship3 " << std::endl;
+		}
+		if (!compareShipsFields(shipTest3, true, true, true, Coordinate(-1, -1, -1), Coordinate(2, 2, 2), std::vector<int>(), 1)) {
+			std::cout << "error in addToSizeOneShip shouldnt add ship3 " << std::endl;
+		}
+
+		//ship 4
+		ShipInProcess shipTest4(3,3,3);
+		tmp =shipTest4.addToSizeOneShip(3,1,3);//should not add
+		if (tmp != -1) {
+			std::cout << "error in addToSizeOneShip ship4 " << std::endl;
+		}
+		if (!compareShipsFields(shipTest4, true, true, true, Coordinate(-1, -1, -1), Coordinate(3,3,3), std::vector<int>(), 1)) {
+			std::cout << "error in addToSizeOneShip shouldnt add ship4 " << std::endl;
+		}
+
+		ShipInProcess shipTest5(3, 3,3);
+		tmp = shipTest5.addToSizeOneShip(3,3,1);//should not add
+		if (tmp != -1) {
+			std::cout << "error in addToSizeOneShip ship5 " << std::endl;
+		}
+		if (!compareShipsFields(shipTest5, true, true, true, Coordinate(-1, -1, -1), Coordinate(3, 3, 3), std::vector<int>(), 1)) {
+			std::cout << "error in addToSizeOneShip shouldnt add ship5 " << std::endl;
+		}
+
+
+		ShipInProcess shipTest6(3, 3 , 2);
+		tmp = shipTest6.addToSizeOneShip(3,3, 5);//should not add
+		if (tmp != -1) {
+			std::cout << "error in addToSizeOneShip ship6 " << std::endl;
+		}
+		if (!compareShipsFields(shipTest6, true, true, true, Coordinate(-1, -1, -1), Coordinate(3, 3, 2), std::vector<int>(), 1)) {
+			std::cout << "error in addToSizeOneShip shouldnt add ship6 " << std::endl;
+		}
+
+		ShipInProcess shipTest7(3, 3, 2);
+		tmp = shipTest7.addToSizeOneShip(4, 0, 5);//should not add
+		if (tmp != -1) {
+			std::cout << "error in addToSizeOneShip ship7 " << std::endl;
+		}
+		if (!compareShipsFields(shipTest7, true, true, true, Coordinate(-1, -1, -1), Coordinate(3, 3, 2), std::vector<int>(), 1)) {
+			std::cout << "error in addToSizeOneShip shouldnt add ship7 " << std::endl;
+		}
+		
+		std::cout << "addToSizeOneShip done!" << std::endl;
+		return 0;
+	}
+
+	static void setShipsFields(ShipInProcess* ship,bool vertical, bool horizontal, bool dim,Coordinate firstCoor, Coordinate cons, std::vector<int> incCoors, int Size) {
+		ship->isVertical = vertical;
+		ship->isHorizontal = horizontal;
+		ship->isDimentional = dim;
+		ship->constantCoors = cons;
+		ship->firstCoordinate = firstCoor;
+		ship->incrementalCoors = incCoors;
+		ship->shipSize = Size;
+	}
+
+	// create the vector a0,a1,a2,a3,a4
+	static std::vector<int> createVector(int a0, int a1, int a2, int a3, int a4 , int a5 , int a6) {
+		std::vector<int> vic;
+
+		if (a0 != -1) {
+			vic.push_back(a0);
+		}
+		if (a1 != -1) {
+			vic.push_back(a1);
+		}
+		if (a2 != -1) {
+			vic.push_back(a2);
+		}
+		if (a3 != -1) {
+			vic.push_back(a3);
+		}
+		if (a4 != -1) {
+			vic.push_back(a4);
+		}
+		if (a5 != -1) {
+			vic.push_back(a5);
+		}
+		if (a6 != -1) {
+			vic.push_back(a6);
+		}
+		return vic;
+	}
+
+	/* return true if coordinate(row,col,depth) belongs to ship, elsereturn false*/
+	static int testisPartOfShip() {
+		ShipInProcess shipTest(-1,-1,-1);
+
+		setShipsFields(&shipTest, true, false, false,Coordinate(2,1,2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, -1,-1,-1), 4);
+		if (!shipTest.isPartOfShip(2, 1, 4)) {
+			std::cout << "error in is part of ship " << "2,1,4" << std::endl;
+		}
+		if (!shipTest.isPartOfShip(3, 1, 4)) {
+			std::cout << "error in is part of ship " << "3,1,4" << std::endl;
+		}
+		if (!shipTest.isPartOfShip(4, 1, 4)) {
+			std::cout << "error in is part of ship " << "4,1,4" << std::endl;
+		}
+		if (!shipTest.isPartOfShip(5, 1, 4)) {
+			std::cout << "error in is part of ship " << "5,1,4" << std::endl;
+		}
+		// shouldnt be part of ship 
+		if (shipTest.isPartOfShip(6, 1, 4)) {
+			std::cout << "error in is part of ship " << "6,1,4" << std::endl;
+		}
+		if (shipTest.isPartOfShip(1, 1, 4)) {
+			std::cout << "error in is part of ship " << "1,1,4" << std::endl;
+		}
+		if (shipTest.isPartOfShip(5, 10, 4)) {
+			std::cout << "error in is part of ship " << "5,10,4" << std::endl;
+		}
+
+		if (shipTest.isPartOfShip(0, 0, 0)) {
+			std::cout << "error in is part of ship " << "0,0,0" << std::endl;
+		}
+		if (shipTest.isPartOfShip(5, 2, 4)) {
+			std::cout << "error in is part of ship " << "5,2,4" << std::endl;
+		}
+		if (shipTest.isPartOfShip(5, 1, 5)) {
+			std::cout << "error in is part of ship " << "5,1,5" << std::endl;
+		}
+		std::cout << "ispartOfship isDone !!!" << std::endl;
+		return 0;
+	}
+
+    /* given Coordinate add it to the ship's internal representation if the coordinates
+    belongs to this ship. return 1 if added Coordinate to the Ship, else return -1 */
+	static int testaddCoordinate() {
+		ShipInProcess shipTest(-1, -1, -1);
+		setShipsFields(&shipTest, true, false, false, Coordinate(2, 1, 2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, -1,-1,-1), 4);
+
+		//static bool compareShipsFields(ShipInProcess& shipToTest, bool Vertical, bool Horizontal, bool Dimentional,
+		//	Coordinate consCoors, Coordinate firstCoor, std::vector<int> incremtCoors, int Size)
+
+		//good entery
+		{
+			int res = shipTest.addCoordinate(6, 1, 2);
+			if (res != 1 || !compareShipsFields(shipTest, true, false, false, Coordinate(2, 1, 2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, 6, -1, -1), 5)) {
+				std::cout << "error in testaddCoordinate 6,1,2" << std::endl;
+			}
+
+		}
+		//not good
+		{
+			int res = shipTest.addCoordinate(7, 1, 2);
+			if (res != -1 || !compareShipsFields(shipTest, true, false, false, Coordinate(2, 1, 2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, -1, -1, -1), 5)) {
+				std::cout << "error in testaddCoordinate 7,1,2" << std::endl;
+			}
+		}
+		//was alredy in
+		{
+			int res = shipTest.addCoordinate(2, 1, 2);
+			if (res != 0 || !compareShipsFields(shipTest, true, false, false, Coordinate(2, 1, 2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, -1, -1, -1), 5)) {
+				std::cout << "error in testaddCoordinate 2,1,2" << std::endl;
+			}
+		}
+		//was alredy in
+		{
+			int res = shipTest.addCoordinate(3, 1, 2);
+			if (res != 0 || !compareShipsFields(shipTest, true, false, false, Coordinate(2, 1, 2), Coordinate(-1, 1, 2), createVector(2, 3, 4, 5, -1, -1, -1), 5)) {
+				std::cout << "error in testaddCoordinate 2,1,2" << std::endl;
+			}
+		}
+
+		std::cout << "testaddCoordinate is Done!!!! " << std::endl;
+		return 0;
+	}
+
+	// /* merge Ships Vectors, assumse mainVector size>1 */
+	static int testMegreShipsVectors()
+	{
+		/* check horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		{ // add from above
+			//Coordinate consCoor(5, -1, 1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1); 
+			Coordinate coorToadd(5, 3, 1);
+			std::vector<int> expectedRes = createVector(1, 2, 3, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, true,false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,2,1>  <5,3,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ // add from buttom
+			//Coordinate consCoor(5, -1, 1);
+			std::vector<int> originalVec = createVector(4, 5, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5, 3, 1);
+			std::vector<int> expectedRes = createVector(3, 4,5, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, true, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,3,1>  <5,4,1>  <5,5,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ // souldnt add from above
+		  //Coordinate consCoor(5, -1, 1);
+			std::vector<int> originalVec = createVector(1,2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5, 5, 1);
+			std::vector<int> expectedRes = createVector(1,2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, true, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,2,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //shoudnt add from buttom
+		  //Coordinate consCoor(5, -1, 1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5, -1, 1);
+			std::vector<int> expectedRes = createVector(1, 2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, true, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,2,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+
+		/* check vertical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		{ //add from above
+		  //Coordinate consCoor(-1, 5, 1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(3,5, 1);
+			std::vector<int> expectedRes = createVector(1, 2, 3, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, true);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <1,5,1>  <2,5,1> <3,5,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //add from buttom
+		  //Coordinate consCoor(-1, 5, 1);
+			std::vector<int> originalVec = createVector(4, 5, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(3, 5, 1);
+			std::vector<int> expectedRes = createVector(3, 4, 5, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, true);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <3,5,1>  <4,5,1> <5,5,1>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //shouldnt add from buttom
+		  //Coordinate consCoor(-1, 5, 1);
+			std::vector<int> originalVec = createVector(1,2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5, 5, 1);
+			std::vector<int> expectedRes = createVector(1,2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, true);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <1,5,1>  <2,5,1> " << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //shouldnt add from buttom
+		  //Coordinate consCoor(-1, 5, 1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(-1, 5, 1);
+			std::vector<int> expectedRes = createVector(1, 2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, true);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <1,5,1>  <2,5,1> " << std::endl;
+				printVector(actualRes);
+			}
+		}
+		
+		/* check dimentional !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		{ //add from above
+		  //Coordinate consCoor(5, 1 , -1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5,1,3);
+			std::vector<int> expectedRes = createVector(1, 2, 3, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,1,2> <5,1,3>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //add from buttom
+		  //Coordinate consCoor(5,1,-1);
+			std::vector<int> originalVec = createVector(4, 5, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5,1,3);
+			std::vector<int> expectedRes = createVector(3, 4, 5, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,3>  <5,1,4> <5,1,4>" << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //shouldnt add from buttom
+		  //Coordinate consCoor(5,1,-1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5, 1, 4);
+			std::vector<int> expectedRes = createVector(1, 2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,1,2> " << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		{ //shouldnt add from buttom
+		  //Coordinate consCoor(5,1,-1);
+			std::vector<int> originalVec = createVector(1, 2, -1, -1, -1, -1, -1);
+			Coordinate coorToadd(5,1,-1);
+			std::vector<int> expectedRes = createVector(1, 2, -1, -1, -1, -1, -1);
+
+			std::vector<int> actualRes = ShipInProcess::mergeShipsVectors(originalVec, coorToadd, false, false);
+			if (!compareVector(actualRes, expectedRes)) {
+				std::cout << " error in MegreShipsVectors ships coors should have been: <5,1,1>  <5,1,2> " << std::endl;
+				printVector(actualRes);
+			}
+		}
+
+		std::cout << "testMegreShipsVectors is Done !!!!!!!!!!!!!!" << std::endl;
+		return 1;
+	}
+	
+	//	/* given other ship that it's coordinates belong to this ship, add its details to this ship*/
+	static int testmegreShipsInProcess() {
+		{// many coors to one coor 
+			ShipInProcess originShip(2,2,2);
+			originShip.addCoordinate(2,2,3);
+			originShip.addCoordinate(2,2,4);
+			ShipInProcess secondShip(2,2,5);
+
+			originShip.megreShipsInProcess(secondShip);
+			if (!compareShipsFields(originShip, false, false, true, Coordinate(2, 2, -1), Coordinate(2, 2, 2), createVector(2, 3, 4, 5, -1, -1, -1), 4)) {
+				std::cout << "ships coors should have been : <2,2,2> <2,2,3> <2,2,4> <2,2,5>" << std::endl;
+			}
+		}
+
+		{ //one to many
+			ShipInProcess originShip(2, 2, 5);
+			ShipInProcess secondShip(2, 2, 2);
+			secondShip.addCoordinate(2, 2, 3);
+			secondShip.addCoordinate(2, 2, 4);
+
+			originShip.megreShipsInProcess(secondShip);
+			if (!compareShipsFields(originShip, false, false, true, Coordinate(2, 2, -1), Coordinate(2, 2, 2), createVector(2, 3, 4, 5, -1, -1, -1), 4)) {
+				std::cout << "ships coors should have been : <2,2,2> <2,2,3> <2,2,4> <2,2,5>" << std::endl;
+			}
+		}
+
+		{ //many to many
+			ShipInProcess originShip(2, 2, 2);
+			originShip.addCoordinate(2, 2, 3);
+			originShip.addCoordinate(2, 2, 4);
+
+			ShipInProcess secondShip(2, 2, 5);
+			secondShip.addCoordinate(2, 2, 6);
+			secondShip.addCoordinate(2, 2, 7);
+
+			originShip.megreShipsInProcess(secondShip);
+			if (!compareShipsFields(originShip, false, false, true, Coordinate(2, 2, -1), Coordinate(2, 2, 2), createVector(2, 3, 4, 5, 6, 7, -1), 6)) {
+				std::cout << "ships coors should have been : <2,2,2> <2,2,3> <2,2,4> <2,2,5> <2,2,5> <2,2,6> <2,2,7>" << std::endl;
+			}
+		}
+
+		{ //one to one
+			ShipInProcess originShip(2, 2, 6);
+			ShipInProcess secondShip(2, 2, 7);
+
+			originShip.megreShipsInProcess(secondShip);
+			if (!compareShipsFields(originShip, false, false, true, Coordinate(2, 2, -1), Coordinate(2, 2, 6), createVector(6,7,-1,-1,-1,-1,-1), 2)) {
+				std::cout << "ships coors should have been : <2,2,6> <2,2,7>" << std::endl;
+			}
+		}
+
+		std::cout << "testmegreShipsInProcess is Done!!!!!" << std::endl;
+		return 0;
+	}
+
+	static int testupdateInnerFields() {
+	//	updateInnerFields(bool vertical, bool horizontal, bool dimensional, int firstCoor, int secondCoor);
+	
+		ShipInProcess shipTest(1, 5, 9);
+		shipTest.updateInnerFields(false, true, false, 5, 6);
+		
+		if (!compareShipsFields(shipTest, false, true, false, Coordinate(1, -1, 9), Coordinate(1, 5, 9), createVector(5, 6, -1,-1,-1, -1, -1), 2)) {
+			std::cout << "error in updateInnerFields" << std::endl;
+		}
+		std::cout << "testupdateInnerFields is Done!!!!!" << std::endl;
+		return 0;
+	}
+
+};
+
+
+
+
+int main() {
+	testShipInProcess::testShipInProcessConstructor();
+	testShipInProcess::testaddToSizeOneShip();
+	testShipInProcess::testisPartOfShip();
+	testShipInProcess::testaddCoordinate();
+	testShipInProcess::testMegreShipsVectors();
+	testShipInProcess::testmegreShipsInProcess();
+	testShipInProcess::testupdateInnerFields();
+}
