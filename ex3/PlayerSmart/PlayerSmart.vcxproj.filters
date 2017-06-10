@@ -21,12 +21,6 @@
     <ClInclude Include="..\ex3\ShipInProcess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TestShipInProcess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TestPlayerSmart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ex3\ShipInProcess.cpp">

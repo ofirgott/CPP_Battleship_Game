@@ -17,7 +17,7 @@ public:
 private:
 	int mainBoardIndex;
 	int playerAIndex;
-	int playerBIndex
+	int playerBIndex;
 	
 
 };
