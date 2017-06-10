@@ -58,6 +58,10 @@ private:
 	static const char ROCKET_SHIP = 'P';
 	static const char SUBMARINE = 'M';
 	static const char DESTROYER = 'D';
+	static const int RUBBER_BOAT_LEN = 1;
+	static const int ROCKET_SHIP_LEN = 2;
+	static const int SUBMARINE_LEN = 3;
+	static const int DESTROYER_LEN = 4;
 
 	char symbol; // ship's representing letter
 	int len; // ship length
