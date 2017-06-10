@@ -70,6 +70,7 @@ public:
 	static void countShipsTypes(const std::set<std::pair<char, std::set<Coordinate>>>& allShipsDetails, std::vector<std::pair<int, int>>& shipsCountVec);
 	bool CheckIfHasAdjacentShips() const;													/* checks if the matrix conatins adjacent ships, if so - prints relevant message */
 	static const char BLANK_CHAR = ' ';
+	void ExtractShipsDetailsOfGamePlayers(std::set<std::pair<char, std::set<Coordinate>>> detailsPlayerA, std::set<std::pair<char, std::set<Coordinate>>> detailsPlayerB)const;
 
 private:
 
@@ -103,6 +104,5 @@ private:
 
 
 	static bool IsShipCharInBoard(char ch);
-
 
 };

@@ -3,7 +3,32 @@
 #include "GamePlayerData.h"
 #include <iostream>
 #include "StandingsTableEntryData.h"
+#include "BoardDataImpl.h"
 
+
+BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board)
+{
+	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;
+	mainBoard.ExtractShipsDetailsOfGamePlayers(shipDetailsA, shipDetailsB);
+	
+	ShipsBoard tmpPlayersShipsBoard;
+	initPlayerData(PLAYERID_A, std::move(algoA), shipDetailsA, tmpPlayersShipsBoard);
+	playerA = std::move(GamePlayerData(PLAYERID_A, std::move(algoA), std::move(tmpPlayersShipsBoard), shipDetailsA.size()));
+
+	initPlayerData(PLAYERID_B, std::move(algoB), shipDetailsB, tmpPlayersShipsBoard);
+	playerA = std::move(GamePlayerData(PLAYERID_B, std::move(algoB), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
+
+}
+
+void BattleshipGameManager::initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const
+{
+	BoardDataImpl boardData(playerId, mainBoard);
+	
+	playerAlgo->setPlayer(playerId);
+	playerAlgo->setBoard(boardData);
+	
+	playerShipBoard = ShipsBoard(Ship::createShipSet(shipsDetails), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
+}
 
 StandingsTableEntryData BattleshipGameManager::Run()
 {
@@ -116,90 +141,3 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 
 }
 
-
-bool BattleshipGameManager::loadAndInitPlayerDll(const std::string & dllPathPlayer, IBattleshipGameAlgo* &player, int playerId, HINSTANCE& hDll, Ship*** &shipsMatrix, size_t& shipsCnt)const
-{
-	hDll = LoadLibraryA(dllPathPlayer.c_str()); // Notice: Unicode compatible version of LoadLibrary
-	if (!hDll)
-	{
-		std::cout << "Cannot load dll: " << dllPathPlayer << std::endl;
-		return false;
-	}
-	// Get function pointer
-	auto getAlgoFunc = (GetAlgoFuncType)GetProcAddress(hDll, "GetAlgorithm");
-	if (!getAlgoFunc)
-	{
-		std::cout << "Cannot load dll: " << dllPathPlayer << std::endl;
-		return false;
-	}
-	player = getAlgoFunc();
-	const char** tmpPlayerMat = mainBoard.createPlayerBoard(playerId);
-
-	BattleshipBoard tmpBoardForPlayer(tmpPlayerMat, mainBoard.getRows(), mainBoard.getCols());
-
-	if (!tmpBoardForPlayer.isSuccessfullyCreated()) return false;
-
-	player->setBoard(playerId, tmpPlayerMat, tmpBoardForPlayer.getRows(), tmpBoardForPlayer.getCols());
-
-	// create a set containing all ships details i.e letter and coordinated for each ship (extract from board)
-	auto allShipsDetails = tmpBoardForPlayer.ExtractShipsDetails();
-
-	BattleshipBoard::deleteMatrix(tmpPlayerMat, tmpBoardForPlayer.getRows(), tmpBoardForPlayer.getCols());
-
-	shipsCnt = allShipsDetails.size();
-	// for each ship detail in allShipsDetails allocate a new ship with this details
-	std::set<Ship*> shipsSet = Ship::createShipSet(allShipsDetails);
-
-	// create matrix of pointers to the ships allocated for this player
-	shipsMatrix = Ship::createShipMatrix(shipsSet, mainBoard.getRows(), mainBoard.getCols());
-
-	if (!player->init(inputDirPath)) {
-		std::cout << "Algorithm initialization failed for dll: " << dllPathPlayer << std::endl;
-		return false;
-	}
-	return true;
-}
-
-void BattleshipGameManager::sendAttackForPrint(std::pair<int, int> nextAttack, AttackResult attackRes)const
-{
-	char currAttackedChar = mainBoard.getCoordValue(nextAttack.first - 1, nextAttack.second - 1);
-
-	int playerAttackedId = (mainBoard.isPlayerShip(PLAYERID_A, currAttackedChar) ? PLAYERID_A : PLAYERID_B);
-	if (currAttackedChar != ' ') attackRes = AttackResult::Hit;
-	else playerAttackedId = UNDEFINED_PLAYERID;
-	PrintGameBoard::printCurrentAttack(playerAttackedId, std::make_pair(nextAttack.first - 1, nextAttack.second - 1), currAttackedChar, attackRes);
-}
-
-bool BattleshipGameManager::initGamePlayers(const std::string & dllPathPlayerA, const std::string & dllPathPlayerB)
-{
-
-	Ship*** shipsMatA = nullptr;
-	Ship*** shipsMatB = nullptr;
-	size_t shipsCntA = 0, shipsCntB = 0;
-
-	HINSTANCE hDllA, hDllB;
-
-
-	/* PlayerA init */
-	if (!loadAndInitPlayerDll(dllPathPlayerA, playerAlgoA, PLAYERID_A, hDllA, shipsMatA, shipsCntA))
-		return false;
-
-	playerA = std::move(GamePlayerData(PLAYERID_A, playerAlgoA, shipsMatA, shipsCntA, mainBoard.getRows(), mainBoard.getCols()));
-
-	if (!playerA.isSet()) return false;
-
-	dll_vec.push_back(std::make_pair(PLAYERID_A, hDllA));
-
-	/* PlayerB init */
-	if (!loadAndInitPlayerDll(dllPathPlayerB, playerAlgoB, PLAYERID_B, hDllB, shipsMatB, shipsCntB))
-		return false;
-
-	playerB = std::move(GamePlayerData(PLAYERID_B, playerAlgoB, shipsMatB, shipsCntB, mainBoard.getRows(), mainBoard.getCols()));
-
-	if (!playerB.isSet()) return false;
-
-	dll_vec.push_back(std::make_pair(PLAYERID_B, hDllB));
-
-
-	return true;
-}
