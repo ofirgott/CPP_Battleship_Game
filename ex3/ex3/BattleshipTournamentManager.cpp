@@ -40,7 +40,7 @@ void BattleshipTournamentManager::RunTurnament()
 				RoundDataToPrint[i].PointsFor += allGamesResults[i][cnt].PointsFor;
 				RoundDataToPrint[i].PointsAgainst += allGamesResults[i][cnt].PointsAgainst;
 			}
-			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt);//printing the round
+			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt, allRounds.size());//printing the round
 			cnt++;//next round to wait for
 		}
 
@@ -66,11 +66,11 @@ void BattleshipTournamentManager::singleThreadJob()
 		gamesPropertiesQueue.pop();
 		lock.unlock();
 		
-		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], algosDetailsVec[currGameProperty.getPlayerAIndex()]->getAlgoFunc(), algosDetailsVec[currGameProperty.getPlayerBIndex()]->getAlgoFunc());
+		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], algosDetailsVec[currGameProperty.getPlayerAIndex()].getAlgoFunc(), algosDetailsVec[currGameProperty.getPlayerBIndex()].getAlgoFunc());
 		gameResult = game.Run();// function<void()> type
 
 		// the game result returned is from the perspective of playerA
-		gameResult.PlayerName = algosDetailsVec[currGameProperty.getPlayerAIndex()]->playerName;
+		gameResult.PlayerName = algosDetailsVec[currGameProperty.getPlayerAIndex()].playerName;
 		updateAllGamesResults(gameResult , currGameProperty);
 		
 		
@@ -82,11 +82,11 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 {
 
 	// players indexes 
-	int playerAIndex = algosDetailsVec[gamsProperty.getPlayerAIndex()]->algosIndexInVec;
-	int playerBIndex = algosDetailsVec[gamsProperty.getPlayerBIndex()]->algosIndexInVec;
+	int playerAIndex = algosDetailsVec[gamsProperty.getPlayerAIndex()].algosIndexInVec;
+	int playerBIndex = algosDetailsVec[gamsProperty.getPlayerBIndex()].algosIndexInVec;
 
 	//create gameResults for the second player 
-	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerBIndex()]->playerName);
+	StandingsTableEntryData otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerBIndex()].playerName);
 
 	// indexes of the properties in the specific player's vector 
 	int propertyIndexA = ++playersProgress.at(playerAIndex);
