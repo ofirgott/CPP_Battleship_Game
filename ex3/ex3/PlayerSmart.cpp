@@ -7,6 +7,14 @@
 
 void PlayerSmart::setBoard(const BoardData& board)
 {
+	/*todo: maybe need to check id id != -1 ???? */
+	currSunkShipSize = -1;
+	isBoardBalanced = true;
+	attackedShips.clear();
+	attackOptions.clear();
+	shipsCount.clear();
+	imbalancedAttackOptions.clear();
+
 	std::set<Coordinate> result; // insert all pairs that we arnt allow to attack
 	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
 	Coordinate coorToInsert(0, 0, 0);
@@ -71,10 +79,15 @@ void PlayerSmart::setBoard(const BoardData& board)
 		}
 	}
 
+void PlayerSmart::setPlayer(int player)
+{
+	id = player;
+}
+
 Coordinate PlayerSmart::attack()
 {
-	if (attackOptions.size == 0) {
-		if (imbalancedAttackOptions.size == 0) {
+	if (attackOptions.size() == 0) {
+		if (imbalancedAttackOptions.size() == 0) {
 			return Coordinate(-1, -1, -1);
 		}
 		else {
