@@ -452,7 +452,7 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 
 
 	std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;  //TODO: print to the log - 
-	currAlgo.dllFileHandle = LoadLibraryA(currDllFilename.c_str()); // Notice: Unicode compatible version of LoadLibrary
+	currAlgo.dllFileHandle = LoadLibraryA(currAlgo.dllPath.c_str()); // Notice: Unicode compatible version of LoadLibrary
 
 	if (!currAlgo.dllFileHandle)
 	{
@@ -461,13 +461,15 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 	}
 	else
 	{
+		std::cout << "Trying to get the GetAlgorithm function from the dll file" << std::endl;  //TODO: print to the log - 
 		currAlgo.getAlgoFunc = reinterpret_cast<GetAlgoFuncType>(GetProcAddress(currAlgo.dllFileHandle, "GetAlgorithm"));
 		if (!currAlgo.getAlgoFunc)
 		{
-			std::cout << "Error getting GetAlgorithm function from the dll file in: " << currAlgo.dllPath;
+			std::cout << "Error getting GetAlgorithm function from the dll file in: " << currAlgo.dllPath; //todo: print to the log
 			FreeLibrary(currAlgo.dllFileHandle);
 			return;
 		}
+		std::cout << "Success loading player algorithm from dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
 	}
 
 	currAlgo.algosIndexInVec = algosIndex;
