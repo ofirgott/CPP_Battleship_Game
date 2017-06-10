@@ -7,18 +7,17 @@ class SingleGameProperties
 {
 public:
 	SingleGameProperties() = delete;
-	SingleGameProperties(const BattleshipBoard& board, PlayerAlgoDetails* pA, PlayerAlgoDetails* pB) : mainBoard(board), playerA(pA), playerB(pB){}
+	SingleGameProperties(int boardIndex, int pAIndex, int pBIndex) : mainBoardIndex(boardIndex), playerAIndex(pAIndex), playerBIndex(pBIndex){}
 
 	
-	PlayerAlgoDetails* getPlayerA()const { return playerA; }
-	PlayerAlgoDetails* getPlayerB()const { return playerB; }
-	const BattleshipBoard& getBoard()const { return mainBoard; }
-
-
+	int getPlayerAIndex()const { return playerAIndex; }
+	int getPlayerBIndex()const { return playerBIndex; }
+	int getBoardIndex()const { return mainBoardIndex; }
+	
 private:
-	const BattleshipBoard& mainBoard;
-	PlayerAlgoDetails* playerA;
-	PlayerAlgoDetails* playerB;
+	int mainBoardIndex;
+	int playerAIndex;
+	int playerBIndex
 	
 
 };
