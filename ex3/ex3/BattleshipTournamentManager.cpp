@@ -39,25 +39,25 @@ void BattleshipTournamentManager::singleThreadJob()
 {
 	//BattleshipGameManager game;
 	StandingsTableEntryData gameResult;
-	SingleGameProperties singleProperty;
+	
 
 	while (true)
 	{
 		
-		{
-			std::unique_lock<std::mutex> lock(gamesQueueMutex);
+		
+		std::unique_lock<std::mutex> lock(gamesQueueMutex);
 
-			queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties> & const gamesQueue) {return !gamesQueue.empty(); });
-			singleProperty = gamesPropertiesQueue.front();
-			gamesPropertiesQueue.pop();
-
-		}
-		BattleshipGameManager game(singleProperty.getBoard(), singleProperty.getPlayerA()->getAlgoFunc(),singleProperty.getPlayerB()->getAlgoFunc());
+		queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties> & const gamesQueue) {return !gamesQueue.empty(); });
+		auto currGameProperty =  gamesPropertiesQueue.front();
+		gamesPropertiesQueue.pop();
+		lock.unlock();
+		
+		BattleshipGameManager game(currGameProperty.getBoard(), currGameProperty.getPlayerA()->getAlgoFunc(),currGameProperty.getPlayerB()->getAlgoFunc());
 		gameResult = game.Run();// function<void()> type
 
 		// the game result returned is from the perspective of playerA
-		gameResult.PlayerName = singleProperty.getPlayerA()->playerName;
-		updateAllGamesResults(gameResult , singleProperty);
+		gameResult.PlayerName = currGameProperty.getPlayerA()->playerName;
+		updateAllGamesResults(gameResult , currGameProperty);
 		
 		
 	}

@@ -716,3 +716,8 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 
 }
 
+ALGO_API IBattleshipGameAlgo* GetAlgorithm()
+{
+	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
+	return algoPtr;
+}

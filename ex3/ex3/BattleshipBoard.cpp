@@ -57,7 +57,7 @@ BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.r
 }
 
 
-BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
+//BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
 
 BattleshipBoard::BattleshipBoard(BattleshipBoard && otherBoard) noexcept : boardVec(std::move(otherBoard.boardVec)), rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), isSuccCreated(otherBoard.isSuccessfullyCreated()) {}
 
