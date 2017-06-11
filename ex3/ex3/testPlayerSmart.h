@@ -75,7 +75,7 @@ public:
 			}
 		}
 		tempPlayer.attackOptions = coordinates;
-		//case of in edge(shuold remove only one side) vertical
+		//case of in edge(shuold remove only one side of each) vertical
 		tempPlayer.removeAllIrreleventCoordinates(Coordinate(1, 1,1), true, false,false);
 		auto find = tempPlayer.attackOptions.find(Coordinate(1, 2,1));
 		auto find2 = tempPlayer.attackOptions.find(Coordinate(1, 1, 2));
@@ -97,9 +97,18 @@ public:
 		//case of in edge(shuold remove only one side) horizontal
 		tempPlayer.removeAllIrreleventCoordinates(Coordinate(8, 8,8), false, true,false);
 		find = tempPlayer.attackOptions.find(Coordinate(7, 8,8));
+		find2 = tempPlayer.attackOptions.find(Coordinate(8, 8, 7));
+
 		if (find != tempPlayer.attackOptions.end())
 		{
 			std::cout << "not good!didnt delete 7,8,8! wich is erelevent for horizontal! " << std::endl;
+		}
+		else {
+			std::cout << "good boy! " << std::endl;
+		}
+		if (find2 != tempPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 8,8,7! wich is erelevent for horizontal! " << std::endl;
 		}
 		else {
 			std::cout << "good boy! " << std::endl;
@@ -367,50 +376,56 @@ public:
 		std::vector<ShipInProcess> allShips;
 
 		//create Set of options
-		std::set<std::pair<int, int>> allCoors;
+		std::set<Coordinate> allCoors;
 		for (int i = 1; i<10; i++)
 		{
 			for (int j = 1; j<10; j++)
 			{
-				allCoors.insert(std::make_pair(i, j));
+				for (int k = 1; k < 10; k++) {
+					allCoors.insert(Coordinate(i, j,k));
+				}
 			}
 		}
 
-		allCoors.erase(allCoors.find(std::make_pair(1, 1)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 1)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(7, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 4)));
+		allCoors.erase(allCoors.find(Coordinate(1, 1,1)));
+		allCoors.erase(allCoors.find(Coordinate(4, 1,1)));
+		allCoors.erase(allCoors.find(Coordinate(3, 8,8)));
+		allCoors.erase(allCoors.find(Coordinate(7, 8,8)));
+		allCoors.erase(allCoors.find(Coordinate(8, 8,8)));
+		allCoors.erase(allCoors.find(Coordinate(4, 3,8)));
+		allCoors.erase(allCoors.find(Coordinate(4, 5,8)));
+		allCoors.erase(allCoors.find(Coordinate(4, 4,8)));
 
 
-		allCoors.erase(allCoors.find(std::make_pair(3, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 4)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 4)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(7, 7)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 7)));
-		allCoors.erase(allCoors.find(std::make_pair(7, 9)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 9)));
+		allCoors.erase(allCoors.find(Coordinate(3, 3,3)));
+		allCoors.erase(allCoors.find(Coordinate(3, 4,3)));
+		allCoors.erase(allCoors.find(Coordinate(3, 5,3)));
+		allCoors.erase(allCoors.find(Coordinate(5, 3,3)));
+		allCoors.erase(allCoors.find(Coordinate(5, 4,3)));
+		allCoors.erase(allCoors.find(Coordinate(5, 5,3)));
+		allCoors.erase(allCoors.find(Coordinate(7, 7,2)));
+		allCoors.erase(allCoors.find(Coordinate(8, 7,2)));
+		allCoors.erase(allCoors.find(Coordinate(7, 9,2)));
+		allCoors.erase(allCoors.find(Coordinate(8, 9,2)));
 
 		// create ships
-		ShipInProcess sizeOne_1(1, 1);
-		ShipInProcess sizeOne_2(3, 8);
+		ShipInProcess sizeOne_1(1, 1,1);
+		ShipInProcess sizeOne_2(3, 8,8);
 
-		ShipInProcess sizeTwo_1(7, 8);
-		sizeTwo_1.addCoordinate(8, 8);
+		ShipInProcess sizeTwo_1(7, 8,8);
+		sizeTwo_1.addCoordinate(8, 8,8);
 
-		ShipInProcess sizeThree_1(4, 3);
-		sizeThree_1.addCoordinate(4, 4);
-		sizeThree_1.addCoordinate(4, 5);
+		ShipInProcess sizeThree_1(4, 3,3);
+		sizeThree_1.addCoordinate(4, 4,3);
+		sizeThree_1.addCoordinate(4, 5,3);
 
+		ShipInProcess sizeThree_2(4, 4, 3);
+		sizeThree_2.addCoordinate(4, 4, 4);
+		sizeThree_2.addCoordinate(4, 4, 5);
 
 
 		allShips.push_back(sizeThree_1);
+		allShips.push_back(sizeThree_2);
 		allShips.push_back(sizeTwo_1);
 		allShips.push_back(sizeOne_1);
 		allShips.push_back(sizeOne_2);
@@ -421,42 +436,71 @@ public:
 
 		tmpPlayer.removeSankFromReleventCoors(0);
 		std::cout << "checking for vector 4-3,4,5 - horizontal " << std::endl;
-		auto find = tmpPlayer.attackOptions.find(std::make_pair(4, 2));
+		auto find = tmpPlayer.attackOptions.find(Coordinate(4, 2,3));
 		if (find != tmpPlayer.attackOptions.end())
 		{
-			std::cout << "not good!didnt delete 4,2! " << std::endl;
+			std::cout << "not good!didnt delete 4,2,3! " << std::endl;
 		}
 		else {//didnt find it was deleted before
-			std::cout << " good!4,2 deleted:)! " << std::endl;
+			std::cout << " good!4,2,3 deleted:)! " << std::endl;
 		}
-		find = tmpPlayer.attackOptions.find(std::make_pair(4, 6));
+		find = tmpPlayer.attackOptions.find(Coordinate(4, 6,3));
 		if (find != tmpPlayer.attackOptions.end())
 		{
-			std::cout << "not good!didnt delete 4,6! " << std::endl;
+			std::cout << "not good!didnt delete 4,6,3! " << std::endl;
 		}
 		else {//didnt find it was deleted before
-			std::cout << " good! 4,6 deleted:)! " << std::endl;
+			std::cout << " good! 4,6,3 deleted:)! " << std::endl;
+		}
+
+
+
+		tmpPlayer.removeSankFromReleventCoors(0);
+		std::cout << "checking for vector 4,4-3,4,5 - dimentional " << std::endl;
+		auto find = tmpPlayer.attackOptions.find(Coordinate(4, 4, 2));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 4,4,2! " << std::endl;
+		}
+		else {//didnt find it was deleted before
+			std::cout << " good!4,4,2 deleted:)! " << std::endl;
+		}
+		find = tmpPlayer.attackOptions.find(Coordinate(4, 4,6));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 4,4,6! " << std::endl;
+		}
+		else {//didnt find it was deleted before
+			std::cout << " good! 4,4,6 deleted:)! " << std::endl;
+		}
+		find = tmpPlayer.attackOptions.find(Coordinate(4, 4, 5));
+		if (find != tmpPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 4,4,5! " << std::endl;
+		}
+		else {//didnt find it was deleted before
+			std::cout << " good! 4,4,5 deleted:)! " << std::endl;
 		}
 
 
 
 		tmpPlayer.removeSankFromReleventCoors(0);
 		std::cout << "checking for vector 7,8-8 - vertical" << std::endl;
-		find = tmpPlayer.attackOptions.find(std::make_pair(6, 8));
+		find = tmpPlayer.attackOptions.find(Coordinate(6, 8,8));
 		if (find != tmpPlayer.attackOptions.end())
 		{
-			std::cout << "not good!didnt delete 6,8! " << std::endl;
+			std::cout << "not good!didnt delete 6,8,8! " << std::endl;
 		}
 		else {//didnt find it was deleted before
-			std::cout << " good!6,8 deleted:)! " << std::endl;
+			std::cout << " good!6,8,8 deleted:)! " << std::endl;
 		}
-		find = tmpPlayer.attackOptions.find(std::make_pair(9, 8));
+		find = tmpPlayer.attackOptions.find(Coordinate(9, 8,8));
 		if (find != tmpPlayer.attackOptions.end())
 		{
-			std::cout << "not good!didnt delete 9,8! " << std::endl;
+			std::cout << "not good!didnt delete 9,8,8! " << std::endl;
 		}
 		else {//didnt find it was deleted before
-			std::cout << " good! 9,8 deleted:)! " << std::endl;
+			std::cout << " good! 9,8,8 deleted:)! " << std::endl;
 		}
 
 		std::cout << " check that the vector 7,8-8 and 4-3,4,5 are gone!-->" << std::endl;

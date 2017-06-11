@@ -21,7 +21,7 @@ void BattleshipTournamentManager::RunTurnament()
 	//creating a pool of threads
 	for (int i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.push_back(std::thread(&singleThreadJob));
+		threadsPool.push_back(std::thread(singleThreadJob));
 	}
 
 
