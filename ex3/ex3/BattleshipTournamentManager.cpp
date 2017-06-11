@@ -43,7 +43,7 @@ void BattleshipTournamentManager::RunTournament()
 		//waiting for current round to end by order (first till last)
 		isRoundDoneCondition.wait(lk, [](std::vector<Round>const & allRounds,int cnt) {return allRounds[cnt].status; }); //Ofir - maybe prefer to do [&] ?
 		lk.unlock();
-
+		 
 		if (allRounds[cnt].status) {//update sum fileds for current round 
 			for (auto i = 0; i < numOfPlayers; i++) {
 				RoundDataToPrint[i].setWinsNumber(RoundDataToPrint[i].WinsNumber() + allGamesResults[i][cnt].WinsNumber());
