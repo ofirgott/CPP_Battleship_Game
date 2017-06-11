@@ -77,7 +77,7 @@ private:
 
 	/*@return - true if ship with symbol= id can have 'setSize' number of coordinates
 	*/
-	static bool Ship::isValidShipLen(char id, int setSize);
+	static bool Ship::isValidShipLen(char id, size_t setSize);
 
 	/*
 	@return -true if ship is horizontal/vertical otherwise false

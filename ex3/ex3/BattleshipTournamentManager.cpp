@@ -26,11 +26,14 @@ void BattleshipTournamentManager::RunTournament()
 	//creating a pool of threads
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.emplace_back(std::thread(&singleThreadJob));
+		threadsPool.emplace_back(std::thread(singleThreadJob()));			//the & is not need to be there, maybe we will need to use there std::bind or something
 		//threadsPool.push_back(std::thread(std::bind(&singleThreadJob, this)));
 		//threadsPool.push_back(std::thread(singleThreadJob));
 		//threadsPool.emplace_back(std::thread(&singleThreadJob));
 	}
+	//for the thread issue:
+	//https://stackoverflow.com/questions/26516683/reusing-thread-in-loop-c/29742586#29742586
+	//https://stackoverflow.com/questions/23717151/why-emplace-back-is-faster-than-push-back
 
 
 	//while there are more rounds to print keep waiting for next round
