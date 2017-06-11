@@ -59,7 +59,7 @@ int testShipInProcess::testShipInProcessConstructor()
 
 bool testShipInProcess::testMinMaxCoors(ShipInProcess & shiptoTest, int expectedMax, int expectedMin)
 {
-	return shiptoTest.getMaxCoor == expectedMax &&  shiptoTest.getMinCoor == expectedMin;
+	return shiptoTest.getMaxCoor() == expectedMax &&  shiptoTest.getMinCoor() == expectedMin;
 }
 
 int testShipInProcess::testaddToSizeOneShip()
