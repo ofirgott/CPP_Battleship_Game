@@ -103,8 +103,8 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = static_cast<int>(++playersProgress.at(playerAIndex));
-	int propertyIndexB = static_cast<int>(++playersProgress.at(playerBIndex));
+	int propertyIndexA = (++playersProgress.at(playerAIndex));
+	int propertyIndexB = (++playersProgress.at(playerBIndex));
 
 	// update allGamesResults in the relevent indexes
 	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
@@ -185,7 +185,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	allRounds.resize(numOfRounds); // 
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft = numOfRounds;
+		allRounds[i].numOfGamesLeft.store(numOfRounds);
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
 	}
@@ -488,5 +488,5 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 
 	currAlgo.algosIndexInVec = algosIndex;
 	algosIndex++;
-	algosDetailsVec.push_back(currAlgo);
+	algosDetailsVec.push_back(std::move(currAlgo));
 }
