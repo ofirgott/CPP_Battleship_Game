@@ -87,11 +87,11 @@ private:
 	/*@ return true if all coordinates are equal
 	@assume- coors vector is sorted
 	*/
-	static bool isConstantCoors(const std::vector<int>& coors, int size);
+	static bool isConstantCoors(const std::vector<int>& coors, size_t size);
 
 	/*@ return true if coordinates are incremenal (&& with no gaps)
 	@assume- coors vector is sorted
 	*/
-	static bool isIncrementalCoors(const std::vector<int>& coors, int size);
+	static bool isIncrementalCoors(const std::vector<int>& coors, size_t size);
 
 }; 

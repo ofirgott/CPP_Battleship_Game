@@ -180,7 +180,7 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 	}
 }
 
-bool Ship::isConstantCoors(const std::vector<int>& coors, int size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
+bool Ship::isConstantCoors(const std::vector<int>& coors, size_t size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
 {
 	int firstCoor;
 	if (size < 1) { // invlid number of coordinates
@@ -197,7 +197,7 @@ bool Ship::isConstantCoors(const std::vector<int>& coors, int size)		//todo: Ofi
 }
 
 
-bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
+bool Ship::isIncrementalCoors(const std::vector<int>& coors, size_t size)
 {
 	int prevCoor;
 	if (size < 1) { // invalid number of cordinates
