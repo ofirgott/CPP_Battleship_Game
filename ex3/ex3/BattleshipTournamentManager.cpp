@@ -103,8 +103,8 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	auto propertyIndexA = ++playersProgress.at(playerAIndex);
-	auto propertyIndexB = ++playersProgress.at(playerBIndex);
+	int propertyIndexA = static_cast<int>(++playersProgress.at(playerAIndex));
+	int propertyIndexB = static_cast<int>(++playersProgress.at(playerBIndex));
 
 	// update allGamesResults in the relevent indexes
 	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
@@ -401,7 +401,7 @@ void BattleshipTournamentManager::PrintWrongSizeOrShapeForShips(std::set<char>& 
 	}
 }
 
-void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>> validShips_A, std::set<std::pair<char, std::set<Coordinate>>> validShips_B)
+void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>>& validShips_A, std::set<std::pair<char, std::set<Coordinate>>>& validShips_B)
 {
 	if (validShips_A.size() != validShips_B.size())
 	{

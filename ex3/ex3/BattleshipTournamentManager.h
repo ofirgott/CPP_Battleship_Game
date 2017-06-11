@@ -88,7 +88,7 @@ private:
 	/* given a player name and set of invalid ships letter for this player , prints relevant error message to the log for each invalid ship in set */
 	static void PrintWrongSizeOrShapeForShips(std::set<char>& invalidShipsSet, char playerChar);
 
-	static void comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>> validShips_A, std::set<std::pair<char, std::set<Coordinate>>> validShips_B);
+	static void comparePlayersShips(std::set<std::pair<char, std::set<Coordinate>>>& validShips_A, std::set<std::pair<char, std::set<Coordinate>>>& validShips_B);
 	
 	bool loadTournamentAlgos();
 
