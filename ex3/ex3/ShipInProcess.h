@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 # include "IBattleshipGameAlgo.h" // for Coordinate
-#include "testPlayerSmart.h"
-
+#include "testShipInProcess.h"
 /*
 *class to represent the attacked opponent's ship's
 *<row,col,depth>
@@ -13,12 +12,12 @@
 */
 class ShipInProcess
 {
-	friend class testPlayerSmart;
+
 	bool isVertical; 
 	bool isHorizontal; 
 	bool isDimentional; 
 	Coordinate constantCoors; //for shipInProcess of size>1 we have 2 const coordinates , the non constant coor will be set to -1
-	Coordinate firstCoordinate; // first COordinate added to the ship (in case of size one ship- representes the ship)
+	Coordinate firstCoordinate; // first Coordinate added to the ship (in case of size one ship- representes the entire ship)
 	std::vector<int> incrementalCoors;//ship coordinates (only the non const part of every Coordinate)
 	int shipSize;//current ship size
 
@@ -33,7 +32,7 @@ class ShipInProcess
 
 	/* merge Ships Vectors, assumse mainVector size>1 */
 	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const Coordinate& addCoor, bool horizontal, bool vertical);
-
+	friend class testShipInProcess;
 	friend class PlayerSmart;
 public:
 

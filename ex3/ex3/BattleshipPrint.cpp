@@ -4,7 +4,7 @@
 
 
 //get the vector by value because we need a copy of the vector in order to sort it
-void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, int roundsNum)
+void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, size_t roundsNum)
 {
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
 		[](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {

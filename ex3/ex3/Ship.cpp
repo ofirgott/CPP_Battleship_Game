@@ -58,7 +58,7 @@ const std::vector<Coordinate> Ship::getCoordinates()	//todo: Ofir: Resharper don
 }
 
 
-bool Ship::isValidShipLen(char id, int setSize)
+bool Ship::isValidShipLen(char id, size_t setSize)
 {
 	char letter = toupper(id);
 	if (letter == RUBBER_BOAT) {
@@ -91,7 +91,7 @@ bool Ship::isValidShipLen(char id, int setSize)
 
 bool Ship::isValidShipCoordinates(const std::set<Coordinate>& coordinates)
 {
-	int shipSize = (int)size(coordinates);
+	auto shipSize = coordinates.size();
 
 	std::vector<int> rows;
 	std::vector<int> cols;
@@ -115,31 +115,17 @@ bool Ship::isValidShipCoordinates(const std::set<Coordinate>& coordinates)
 	std::sort(depths.begin(), depths.end());
 
 	//check if ship is Horizontal
-	if (isConstantCoors(rows, shipSize)) {
-		if (isConstantCoors(depths, shipSize)) {
-			if (isIncrementalCoors(cols, shipSize)) {
-				return true;
-			}
-		}
+	if (isConstantCoors(rows, shipSize) && isConstantCoors(depths, shipSize) && isIncrementalCoors(cols, shipSize)) {
+		return true;
 	}
 
 	//check if ship is vertical
-	if (isConstantCoors(cols, shipSize)) {
-		if (isConstantCoors(depths, shipSize)) {
-			if (isIncrementalCoors(rows, shipSize)) {
-				return true;
-			}
-		}
+	if (isConstantCoors(cols, shipSize) && isConstantCoors(depths, shipSize) && isIncrementalCoors(rows, shipSize)) {
+		return true;
 	}
-
 	//check if ship is dimantional
-	if (isConstantCoors(depths, shipSize)) {
-		if (isConstantCoors(cols, shipSize)) {
-			if (isIncrementalCoors(rows, shipSize)) {
-				return true;
-			}
-		}
-
+	if (isConstantCoors(rows, shipSize) && isConstantCoors(cols, shipSize) && isIncrementalCoors(depths, shipSize)) {
+		return true;
 	}
 
 	return false;
@@ -170,7 +156,7 @@ int Ship::updateAttack(int row, int col,int depth)
 
 bool Ship::isValidShipDetails(std::pair<char, std::set<Coordinate>> input)
 {
-	if (!isValidShipLen(input.first, (int)size(input.second))) {
+	if (!isValidShipLen(input.first, input.second.size())) {
 		return false;
 	}
 	if (!isValidShipCoordinates(input.second)) {
@@ -194,7 +180,7 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 	}
 }
 
-bool Ship::isConstantCoors(const std::vector<int>& coors, int size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
+bool Ship::isConstantCoors(const std::vector<int>& coors, size_t size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
 {
 	int firstCoor;
 	if (size < 1) { // invlid number of coordinates
@@ -211,7 +197,7 @@ bool Ship::isConstantCoors(const std::vector<int>& coors, int size)		//todo: Ofi
 }
 
 
-bool Ship::isIncrementalCoors(const std::vector<int>& coors, int size)
+bool Ship::isIncrementalCoors(const std::vector<int>& coors, size_t size)
 {
 	int prevCoor;
 	if (size < 1) { // invalid number of cordinates

@@ -28,6 +28,7 @@ public:
 
 
 	/* setters*/
+	void setPlayerName(std::string newName) { playerName = newName; }
 	void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }
 	void setLossesNumber(int newLossesNum) { lossesCnt = newLossesNum; }
 	void setPointsFor(int newPointsForNum) { pointsFor = newPointsForNum; }
@@ -38,7 +39,8 @@ public:
 	//StandingsTableEntryData(const StandingsTableEntryData& other) = default;			/* deletes copy constructor */
 	//bool operator<(const StandingsTableEntryData &rhs) const { return playerName < rhs.playerName; }
 
-	void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin);
+	//void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin);
+	StandingsTableEntryData& operator=(const StandingsTableEntryData & arg);
 private:
 
 	std::string playerName;

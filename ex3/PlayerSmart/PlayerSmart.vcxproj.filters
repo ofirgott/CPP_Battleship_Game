@@ -35,5 +35,8 @@
     <ClCompile Include="..\ex3\PlayerSmart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ex3\testShipInProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

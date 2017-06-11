@@ -8,7 +8,7 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 {
 
 	id = other.id;
-	std::swap(playerAlgo, other.playerAlgo);
+	playerAlgo = std::move(other.playerAlgo);
 	hasMoreMoves = other.hasMoreMoves;
 	score = other.score;
 	std::swap(shipsBoard, other.shipsBoard);
@@ -17,10 +17,6 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 	return *this;
 }
 
-GamePlayerData::~GamePlayerData()
-{
-	delete playerAlgo;
-}
 
 Coordinate GamePlayerData::getAlgoNextAttack() const
 {

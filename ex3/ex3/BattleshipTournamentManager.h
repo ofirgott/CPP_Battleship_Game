@@ -16,7 +16,7 @@ struct Round
 {
 
 	int roundNumber;
-	std::atomic<int> numOfGamesLeft;
+	std::atomic<size_t> numOfGamesLeft;
 	bool status;
 	//std::mutex 
 
@@ -29,13 +29,13 @@ public:
 	~BattleshipTournamentManager();
 
 	bool isTournamentSuccessfullyCreated()const { return successfullyCreated; }
-	void RunTurnament();
+	void RunTournament();
 
 	
 private:
 
 	static const int TOURNAMENT_MIN_PLAYERS = 2;
-	static const int DEFAULT_THREADS_NUM = 4;			/* TODO: we want to load it drim the config file for the bonus! need to think about nore parameters that we want to load from there*/
+	static const size_t DEFAULT_THREADS_NUM = 4;			/* TODO: we want to load it from the config file for the bonus! need to think about nore parameters that we want to load from there*/
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
 	static const int PLAYERID_A = 0;
@@ -44,11 +44,11 @@ private:
 	std::string inputDirPath;
 	std::vector<BattleshipBoard> boardsVec;
 	std::vector<PlayerAlgoDetails> algosDetailsVec;
-	int maxGamesThreads;
+	size_t maxGamesThreads;
 	bool successfullyCreated;
 
 	//diana and sharon adds
-	std::vector<std::thread> threadsPool;
+	//std::vector<std::thread> threadsPool;	//Ofir: maybe delete from here because of - https://stackoverflow.com/questions/40770913/c-threading-no-instance-of-constructor-stdthreadthread-matches-the-a
 	std::queue<SingleGameProperties> gamesPropertiesQueue;
 	std::mutex gamesQueueMutex;
 	std::condition_variable queueEmptyCondition;
@@ -62,8 +62,8 @@ private:
 	std::mutex isRoundDoneMutex;
 
 	void createGamesPropertiesQueue();
-	void BattleshipTournamentManager::singleThreadJob();
-	void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty);
+	void singleThreadJob();
+	void updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty);
 		
 	//diana and sharon adds
 

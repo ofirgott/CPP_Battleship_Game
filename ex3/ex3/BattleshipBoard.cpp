@@ -171,6 +171,20 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 	return std::set<std::pair<char, std::set<Coordinate>>>(setOfShipsDetails);
 }
 
+void BattleshipBoard::ExtractShipsDetailsOfGamePlayers(std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, std::set<std::pair<char, std::set<Coordinate>>> shipDetailsB)const
+{
+	auto allShipDeatils = ExtractShipsDetails();
+
+	for (auto shipDetail : allShipDeatils)
+	{
+		if (isPlayerShip(PLAYERID_A, shipDetail.first))
+			shipDetailsA.insert(shipDetail);
+		else 
+			shipDetailsB.insert(shipDetail);
+	}
+
+}
+
 void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c, int d, char currShipChar, std::set<Coordinate>& coordOfCurrentShip, int boardRows, int boardCols, int boardDepth)
 {
 	/*  note that in this function we can coordinate with line 0! if we want to use this function outside, we need to pay attention for this. */
@@ -276,7 +290,7 @@ void BattleshipBoard::CopyInputLineToBoard(const std::string & line, int currDep
 	}
 }
 
-bool BattleshipBoard::parseBoardDimensions(const std::string& line)
+bool BattleshipBoard::parseBoardDimensions(std::string& line)
 {
 	std::transform(line.begin(), line.end(), line.begin(), ::tolower);  //to support 'x' and 'X'
 	
