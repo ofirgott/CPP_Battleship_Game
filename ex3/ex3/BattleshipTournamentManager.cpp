@@ -190,9 +190,16 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		allRounds[i].status = false;
 	}
 
-	playersProgress = std::vector<std::atomic<int>>(numOfplayers, -1);
-	
+	//playersProgress = std::vector<std::atomic<int>>(numOfplayers, -1);
+	playersProgress.resize(numOfplayers);
+	for (auto i = 0; i < numOfplayers; i++)
+	{
+		playersProgress[i].store(-1);
+	}
+
+
 	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
+		
 		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
 	}
 }
