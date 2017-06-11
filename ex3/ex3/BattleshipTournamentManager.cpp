@@ -38,7 +38,7 @@ void BattleshipTournamentManager::RunTournament()
 
 		std::unique_lock<std::mutex> lk(isRoundDoneMutex);
 		//waiting for current round to end by order (first till last)
-		isRoundDoneCondition.wait(lk, [](std::vector<Round>& const allRounds,int cnt) {return allRounds[cnt].status; });
+		isRoundDoneCondition.wait(lk, [](std::vector<Round>const & allRounds,int cnt) {return allRounds[cnt].status; });
 		lk.unlock();
 
 		if (allRounds[cnt].status) {//update sum fileds for current round 

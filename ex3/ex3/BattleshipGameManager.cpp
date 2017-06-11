@@ -113,8 +113,8 @@ StandingsTableEntryData BattleshipGameManager::Run()
 StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
 {
 
-	int currScore;
-	int otherScore;
+	auto currScore = currPlayer->score;
+	auto otherScore = otherPlayer->score;
 
 
 	if (currPlayer->currShipsCount == 0) {
@@ -128,7 +128,7 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 		}
 	}
 
-	if (otherPlayer->currShipsCount == 0) {
+	else {// (otherPlayer->currShipsCount == 0) {				//ofir - see if this change is ok
 		if (otherPlayer->id == PLAYERID_A) { // otherPlayer is playerA
 			//	 "Player B won" 
 			return StandingsTableEntryData("", LOST, WON, otherScore, currScore);
