@@ -113,8 +113,8 @@ StandingsTableEntryData BattleshipGameManager::Run()
 StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
 {
 
-	int currScore;
-	int otherScore;
+	int currScore = currPlayer->score;
+	int otherScore = otherPlayer->score;
 
 
 	if (currPlayer->currShipsCount == 0) {
@@ -137,6 +137,14 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 			//	 "Player A won" 
 			return StandingsTableEntryData("", WON, LOST, currScore, otherScore);
 		}
+	}
+
+	//its a tie
+	if (currPlayer->id == PLAYERID_A) {
+		return StandingsTableEntryData("", LOST, LOST, currScore, otherScore);
+	}
+	else {
+		return StandingsTableEntryData("", LOST, LOST, otherScore, currScore);
 	}
 
 }

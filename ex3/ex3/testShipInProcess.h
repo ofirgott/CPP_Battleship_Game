@@ -1,7 +1,8 @@
 #pragma once
 #include "ShipInProcess.h"
-#include  <iostream>;
+#include  <iostream>
 #include <vector>
+
 
 class testShipInProcess {
 public:
@@ -17,15 +18,15 @@ public:
 			std::cout << vec[i] << " ";
 		}
 		std::cout << std::endl;;
-	}
+	};
 
 	static void printCoordinate(Coordinate coord) {
 		std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
-	}
+	};
 
 	static bool compareCoordinates(Coordinate coor1, Coordinate coor2) {
 		return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
-	}
+	};
 
 	static bool compareVector(std::vector<int> firstVec, std::vector<int> secVec) {
 		if (firstVec.size() != secVec.size()) {
@@ -52,18 +53,18 @@ public:
 	// : isVertical(true), isHorizontal(true), isDimentional(true), constantCoors(-1, -1, -1), firstCoordinate(row, col, depth), shipSize(1) {}
 	static int testShipInProcessConstructor() {
 		//test constructor;
-		ShipInProcess sizeOneShip(2,2,2);
+		ShipInProcess sizeOneShip (2,2,2);
 		if (!compareShipsFields(sizeOneShip, true, true, true, Coordinate(-1, -1, -1), Coordinate(2, 2, 2),std::vector<int>() , 1)) {
 			std::cout << "error in size 1 ship constructor " << std::endl;
 		}
 
 		std::cout << "constructor is Good!! " << std::endl;
 		return 0;
-	}
+	};
 
 	static bool testMinMaxCoors(ShipInProcess& shiptoTest, int expectedMax, int expectedMin) {
 		return shiptoTest.getMaxCoor == expectedMax &&  shiptoTest.getMinCoor == expectedMin;
-	}
+	};
 
 	/* assumes the ship is of size 1, if belongs to the ship add and return 1, else return -1*/
 	static int testaddToSizeOneShip() {
