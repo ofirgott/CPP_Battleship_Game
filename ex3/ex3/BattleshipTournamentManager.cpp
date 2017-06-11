@@ -26,7 +26,7 @@ void BattleshipTournamentManager::RunTournament()
 	//creating a pool of threads
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob));			//the & is not need to be there, maybe we will need to use there std::bind or something
+		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));			//the & is not need to be there, maybe we will need to use there std::bind or something
 		//threadsPool.push_back(std::thread(std::bind(&singleThreadJob, this)));
 		//threadsPool.push_back(std::thread(singleThreadJob));
 		//threadsPool.emplace_back(std::thread(&singleThreadJob));
@@ -41,7 +41,7 @@ void BattleshipTournamentManager::RunTournament()
 
 		std::unique_lock<std::mutex> lk(isRoundDoneMutex);
 		//waiting for current round to end by order (first till last)
-		isRoundDoneCondition.wait(lk, [](std::vector<Round>const & allRounds,int cnt) {return allRounds[cnt].status; }); //Ofir - maybe prefer to do [&] ?
+		isRoundDoneCondition.wait(lk, [&]() {return allRounds[cnt].status; }); //Ofir - maybe prefer to do [&] ?
 		lk.unlock();
 		 
 		if (allRounds[cnt].status) {//update sum fileds for current round 
@@ -72,7 +72,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);
 		//waiting for current thread to end his game
-		queueEmptyCondition.wait(lock, [](std::queue<SingleGameProperties>const &  gamesQueue) {return !gamesQueue.empty(); });
+		queueEmptyCondition.wait(lock, [&]() {return !gamesPropertiesQueue.empty(); });
 		auto currGameProperty =  gamesPropertiesQueue.front();
 		gamesPropertiesQueue.pop();
 		lock.unlock();
