@@ -191,7 +191,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	}
 
 	for (auto i = 0; i < numOfplayers; i++) {
-		playersProgress.push_back(-1);
+		playersProgress.push_back(std::move(std::atomic<int> (-1)));
 	}
 	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
 		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
