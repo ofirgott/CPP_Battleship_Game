@@ -19,7 +19,11 @@ struct Round
 	std::atomic<size_t> numOfGamesLeft;
 	bool status;
 	//std::mutex 
-
+	Round() : roundNumber(0), status(true){ numOfGamesLeft.store(0); }
+	Round(int rNum, int atom, bool s) : roundNumber(rNum), status(s){ numOfGamesLeft.store(0); }
+	explicit Round(const Round& round) : roundNumber(5), status(true) {
+		numOfGamesLeft.store(round.numOfGamesLeft.load()); }													/* copy constructor */
+	Round& operator=(Round& Round) { roundNumber = 5; numOfGamesLeft.store(0);  status = true; return *this; }								/* delete copy assignment */
 };
 
 class BattleshipTournamentManager
