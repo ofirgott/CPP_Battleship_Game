@@ -51,7 +51,7 @@ void BattleshipTournamentManager::RunTournament()
 				RoundDataToPrint[i].setPointsFor(RoundDataToPrint[i].PointsFor() + allGamesResults[i][cnt].PointsFor());
 				RoundDataToPrint[i].setPointsAgainst(RoundDataToPrint[i].PointsAgainst() + allGamesResults[i][cnt].PointsAgainst());
 			}
-			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt, allRounds.size());//printing the round
+			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt+1, allRounds.size());//printing the round
 			cnt++;//next round to wait for
 		}
 
@@ -185,13 +185,13 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	allRounds.resize(numOfRounds); // 
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft = numOfplayers; 
+		allRounds[i].numOfGamesLeft = numOfRounds;
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
 	}
 
 	for (auto i = 0; i < numOfplayers; i++) {
-		playersProgress.push_back(0);
+		playersProgress.push_back(-1);
 	}
 	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
 		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
