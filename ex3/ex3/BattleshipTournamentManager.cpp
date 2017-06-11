@@ -26,7 +26,7 @@ void BattleshipTournamentManager::RunTournament()
 	//creating a pool of threads
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.emplace_back(std::thread(singleThreadJob));			//the & is not need to be there, maybe we will need to use there std::bind or something
+		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob));			//the & is not need to be there, maybe we will need to use there std::bind or something
 		//threadsPool.push_back(std::thread(std::bind(&singleThreadJob, this)));
 		//threadsPool.push_back(std::thread(singleThreadJob));
 		//threadsPool.emplace_back(std::thread(&singleThreadJob));
