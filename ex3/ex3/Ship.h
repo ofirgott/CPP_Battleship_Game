@@ -52,7 +52,7 @@ public:
 	/* @return a set of dinamically allocated Battleships
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
-	static std::set <Ship*> createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
+	static std::set<Ship*> createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
 
 private:
 

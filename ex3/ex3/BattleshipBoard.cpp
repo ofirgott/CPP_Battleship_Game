@@ -171,7 +171,7 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 	return std::set<std::pair<char, std::set<Coordinate>>>(setOfShipsDetails);
 }
 
-void BattleshipBoard::ExtractShipsDetailsOfGamePlayers(std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, std::set<std::pair<char, std::set<Coordinate>>> shipDetailsB)const
+void BattleshipBoard::ExtractShipsDetailsOfGamePlayers(std::set<std::pair<char, std::set<Coordinate>>>& shipDetailsA, std::set<std::pair<char, std::set<Coordinate>>>& shipDetailsB)const
 {
 	auto allShipDeatils = ExtractShipsDetails();
 
