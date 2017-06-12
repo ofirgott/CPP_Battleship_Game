@@ -8,7 +8,7 @@ void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimen
 	isDimentional = dimensional;
 
 	// insert to incrementalCoors vector<firstCoor,secondCoor>
-	incrementalCoors.push_back(firstCoor); 
+	incrementalCoors.push_back(firstCoor);
 	incrementalCoors.push_back(secondCoor);
 	shipSize += 1;
 
@@ -21,53 +21,52 @@ void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimen
 
 	if (isHorizontal)
 	{ // row & depth are constant
-		constantCoors.row= firstCoordinate.row;
+		constantCoors.row = firstCoordinate.row;
 		constantCoors.depth = firstCoordinate.depth;
 		return;
-		
+
 	}
-	
+
 	if (isDimentional)
 	{
 		// row & col are constant
 		constantCoors.row = firstCoordinate.row;
 		constantCoors.col = firstCoordinate.col;
 		return;
-		
+
 	}
 }
 
 int ShipInProcess::addToSizeOneShip(int row, int col, int depth)
 {
-
 	// check if ship is horizontal (i.e x,z coordinates are constant) && col is is incremental||decremental
 	// and if so update inner state
-	if ((row == firstCoordinate.row) && depth == firstCoordinate.depth )
+	if ((row == firstCoordinate.row) && depth == firstCoordinate.depth)
 	{
 		if (col == firstCoordinate.col + 1) {
-			updateInnerFields(false, true,false, col,firstCoordinate.col);
+			updateInnerFields(false, true, false, firstCoordinate.col, col);
 			return 1;
 		}
 
 		if (col == firstCoordinate.col - 1)
 		{
-			updateInnerFields(false, true, false, firstCoordinate.col,col);
+			updateInnerFields(false, true, false, col, firstCoordinate.col);
 			return 1;
 		}
 	}
 
 	// check if ship is vertical (i.e y,z coordinates are constant)  && row is is incremental||decremental
 	// and if so update inner state
-	if ((col == firstCoordinate.col) && (depth == firstCoordinate.depth ))
+	if ((col == firstCoordinate.col) && (depth == firstCoordinate.depth))
 	{
-		if (row == firstCoordinate.row + 1) { 
-			updateInnerFields(true, false, false, row, firstCoordinate.row);
+		if (row == firstCoordinate.row + 1) {
+			updateInnerFields(true, false, false, firstCoordinate.row, row);
 			return 1;
 		}
 
 		if (row == firstCoordinate.row - 1)
 		{
-			updateInnerFields(true, false, false,  firstCoordinate.row,row);
+			updateInnerFields(true, false, false, row, firstCoordinate.row);
 			return 1;
 		}
 	}
@@ -77,13 +76,13 @@ int ShipInProcess::addToSizeOneShip(int row, int col, int depth)
 	if ((col == firstCoordinate.col) && (row == firstCoordinate.row))
 	{
 		if (depth == firstCoordinate.depth + 1) { // ship is vertical 
-			updateInnerFields(false, false, true, depth, firstCoordinate.depth);
+			updateInnerFields(false, false, true, firstCoordinate.depth, depth);
 			return 1;
 		}
 
 		if (depth == firstCoordinate.depth - 1)
 		{
-			updateInnerFields(false, false, true, firstCoordinate.depth, depth);
+			updateInnerFields(false, false, true, depth, firstCoordinate.depth);
 			return 1;
 		}
 	}
@@ -122,13 +121,13 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 
 	if (shipSize == 1)
 	{
-		return addToSizeOneShip(row, col,depth);
+		return addToSizeOneShip(row, col, depth);
 	}
 
 	// ship is larger then 1
 	if (isVertical)
 	{
-		if ((col == constantCoors.col) && (depth == constantCoors.depth) )
+		if ((col == constantCoors.col) && (depth == constantCoors.depth))
 		{
 			if (row == incrementalCoors[0] - 1) // is up
 			{
@@ -171,7 +170,7 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 		{
 			if (depth == incrementalCoors[0] - 1) //left
 			{
-				incrementalCoors.insert(incrementalCoors.begin(), col);
+				incrementalCoors.insert(incrementalCoors.begin(), depth);
 				shipSize += 1;
 				return 1;
 			}
@@ -190,7 +189,7 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 }
 
 
-std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVector, const Coordinate& addCoor, bool horizontal ,bool vertical)
+std::vector<int> ShipInProcess::mergeShipsVectors(const std::vector<int>& mainVector, const Coordinate& addCoor, bool horizontal, bool vertical)
 {
 	std::vector<int> tmpVector = mainVector;
 
@@ -255,7 +254,7 @@ void ShipInProcess::megreShipsInProcess(ShipInProcess& otherShip)
 
 	if (otherShip.shipSize == 1)
 	{// add one coordinate to large ship
-		incrementalCoors = mergeShipsVectors(incrementalCoors, otherShip.firstCoordinate,isHorizontal, isVertical);
+		incrementalCoors = mergeShipsVectors(incrementalCoors, otherShip.firstCoordinate, isHorizontal, isVertical);
 		shipSize = shipSize + otherShip.shipSize;
 		return;
 	}
@@ -274,3 +273,65 @@ void ShipInProcess::megreShipsInProcess(ShipInProcess& otherShip)
 	// update size
 	shipSize += otherShip.shipSize;
 }
+
+// todo: delete 
+//void ShipInProcess::printVector(std::vector<int> vec)
+//{
+//	std::cout << "vector size" << vec.size() << std::endl;
+//	std::cout << "vector coors are ";
+//
+//	for (int i = 0; i < vec.size(); i++) {
+//		std::cout << vec[i] << " ";
+//	}
+//	std::cout << std::endl;
+//}
+//
+//void ShipInProcess::printCoordinate(Coordinate coord)
+//{
+//	std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
+//}
+//
+//bool ShipInProcess::compareCoordinates(Coordinate coor1, Coordinate coor2)
+//{
+//	return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
+//}
+//
+//bool ShipInProcess::compareVector(std::vector<int> firstVec, std::vector<int> secVec)
+//{
+//
+//	if (firstVec.size() != secVec.size()) {
+//		return false;
+//	}
+//
+//	for (int i = 0; i < firstVec.size(); i++) {
+//		if (firstVec[i] != secVec[i]) {
+//			return false;
+//		}
+//	}
+//	return true;
+//
+//}
+//
+//bool ShipInProcess::compareShipsFields(bool Vertical, bool Horizontal, bool Dimentional, Coordinate consCoors, Coordinate firstCoor, std::vector<int> incremtCoors, int Size)
+//{
+//	return (isVertical == Vertical && isHorizontal == Horizontal &&
+//		isDimentional == Dimentional && compareCoordinates(constantCoors, consCoors) &&
+//		compareCoordinates(firstCoordinate, firstCoor) && compareVector(incrementalCoors, incremtCoors)
+//		&& shipSize == Size);
+//}
+//
+//bool ShipInProcess::testMinMaxCoors(const ShipInProcess & shiptoTest, int expectedMax, int expectedMin)
+//{
+//	return shiptoTest.getMaxCoor() == expectedMax &&  shiptoTest.getMinCoor() == expectedMin;
+//}
+//
+//void ShipInProcess::setShipsFields(bool vertical, bool horizontal, bool dim, Coordinate firstCoor, Coordinate cons, std::vector<int> incCoors, int Size)
+//{
+//	isVertical = vertical;
+//	isHorizontal = horizontal;
+//	isDimentional = dim;
+//	constantCoors = cons;
+//	firstCoordinate = firstCoor;
+//	incrementalCoors = incCoors;
+//	shipSize = Size;
+//}
