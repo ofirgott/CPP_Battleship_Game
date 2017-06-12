@@ -78,7 +78,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		lock.unlock();
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoA, playerAlgoB;
 		playerAlgoA =  std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexA()].getAlgoFunc());
-		playerAlgoA = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
+		playerAlgoB = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
 
 		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
 		gameResult = game.Run();// function<void()> type
