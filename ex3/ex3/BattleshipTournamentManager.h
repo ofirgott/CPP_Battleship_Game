@@ -11,7 +11,7 @@
 #include "SingleGameProperties.h"
 #include "BattleshipPrint.h"
 
-
+//todo: move it to seperate file
 struct Round
 {
 
@@ -21,9 +21,9 @@ struct Round
 	//std::mutex 
 	Round() : roundNumber(0), status(true){ numOfGamesLeft.store(0); }
 	Round(int rNum, int atom, bool s) : roundNumber(rNum), status(s){ numOfGamesLeft.store(0); }
-	explicit Round(const Round& round) : roundNumber(5), status(true) {
+	explicit Round(const Round& round) : roundNumber(round.roundNumber), status(round.status) {
 		numOfGamesLeft.store(round.numOfGamesLeft.load()); }													/* copy constructor */
-	Round& operator=(Round& Round) { roundNumber = 5; numOfGamesLeft.store(0);  status = true; return *this; }								/* delete copy assignment */
+	Round& operator=(Round& round) { roundNumber = round.roundNumber; numOfGamesLeft.store(round.numOfGamesLeft.load());  status = round.status; return *this; }								/* delete copy assignment */
 };
 
 class BattleshipTournamentManager

@@ -16,7 +16,7 @@ BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std:
 	playerA = std::move(GamePlayerData(PLAYERID_A, std::move(algoA), std::move(tmpPlayersShipsBoard), shipDetailsA.size()));
 
 	initPlayerData(PLAYERID_B, std::move(algoB), shipDetailsB, tmpPlayersShipsBoard);
-	playerA = std::move(GamePlayerData(PLAYERID_B, std::move(algoB), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
+	playerB = std::move(GamePlayerData(PLAYERID_B, std::move(algoB), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
 
 	if (!playerA.isSet() || !playerB.isSet())
 		successfullyCreated = false;

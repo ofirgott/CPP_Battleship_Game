@@ -78,7 +78,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		lock.unlock();
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoA, playerAlgoB;
 		playerAlgoA =  std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexA()].getAlgoFunc());
-		playerAlgoA = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
+		playerAlgoB = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
 
 		BattleshipGameManager game(boardsVec[currGameProperty.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
 		gameResult = game.Run();// function<void()> type
@@ -103,8 +103,8 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = (++playersProgress.at(playerAIndex));
-	int propertyIndexB = (++playersProgress.at(playerBIndex));
+	int propertyIndexA = ++(playersProgress.at(playerAIndex));		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
+	int propertyIndexB = ++(playersProgress.at(playerBIndex));
 
 	// update allGamesResults in the relevent indexes
 	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
@@ -162,9 +162,9 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	if (!loadTournamentAlgos())
 		successfullyCreated = false;
-	
+
 	if (!successfullyCreated) return;
-	
+
 	std::cout << "Number of legal players: " << algosDetailsVec.size() << std::endl;
 	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl;
 
@@ -176,7 +176,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	auto numOfplayers = algosDetailsVec.size();
 	auto numOfBoards = boardsVec.size();
 	auto numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
-	
+
 	/*todo: init vector of vectors*/
 	allGamesResults.resize(numOfplayers); //vector of size number of players
 	for (auto i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
@@ -190,18 +190,21 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		allRounds[i].status = false;
 	}
 
-	//playersProgress = std::vector<std::atomic<int>>(numOfplayers, -1);
-	playersProgress.resize(numOfplayers);
-	for (auto i = 0; i < numOfplayers; i++)
-	{
-		playersProgress[i].store(-1);
-	}
-
+	playersProgress = std::vector<std::atomic<int>>(numOfplayers);
+	//playersProgress.resize(numOfplayers);
+	//for (auto i = 0; i < numOfplayers; i++)
+	//{
+		//playersProgress[i].store(-1);
+		//std::atomic<int>		 a{ 0 };
+		//playersProgress.emplace_back(a);
+		//std::atomic_init(a, 0);
+	//}
 
 	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
-		
-		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));
+
+		RoundDataToPrint.push_back(StandingsTableEntryData(algosDetailsVec[i].playerName, 0, 0, 0, 0));	//add a contrucor with initial values
 	}
+
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()
