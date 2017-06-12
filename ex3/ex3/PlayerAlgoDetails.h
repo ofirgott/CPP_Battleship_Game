@@ -16,7 +16,7 @@ struct PlayerAlgoDetails
 	
 	PlayerAlgoDetails() = default;
 	PlayerAlgoDetails(const PlayerAlgoDetails& other) = delete;
-	PlayerAlgoDetails(PlayerAlgoDetails&& otherPlayer) noexcept : dllFileHandle(otherPlayer.dllFileHandle), dllPath(otherPlayer.dllPath), playerName(otherPlayer.playerName), algosIndexInVec(otherPlayer.algosIndexInVec) { std::swap(getAlgoFunc, otherPlayer.getAlgoFunc); }		/* move constructor */
+	PlayerAlgoDetails(PlayerAlgoDetails&& otherPlayer) noexcept : dllFileHandle(std::move(otherPlayer.dllFileHandle)), dllPath(otherPlayer.dllPath), playerName(otherPlayer.playerName), algosIndexInVec(otherPlayer.algosIndexInVec) { std::swap(getAlgoFunc, otherPlayer.getAlgoFunc); }		/* move constructor */
 	inline bool operator==(const PlayerAlgoDetails& other) const {
 		return algosIndexInVec == other.algosIndexInVec;
 	}

@@ -7,6 +7,7 @@
 #include "GamePlayerData.h"
 #include "StandingsTableEntryData.h"
 #include <memory>
+#include "BoardDataImpl.h"
 
 
 typedef IBattleshipGameAlgo *(*GetAlgoFuncType)();
@@ -40,7 +41,8 @@ private:
 	const BattleshipBoard& mainBoard;
 	GamePlayerData playerA;																	/* an object that keeps all relevant data of playerA in the game */
 	GamePlayerData playerB;																	/* an object that keeps all relevant data of playerB in the game */
-
+	std::unique_ptr<IBattleshipGameAlgo> algorithmB;
+	std::unique_ptr<IBattleshipGameAlgo> algorithmA;
 
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
@@ -55,5 +57,5 @@ private:
 	*/
 	static StandingsTableEntryData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
-	void initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const;
+	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo, const std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const;
 };

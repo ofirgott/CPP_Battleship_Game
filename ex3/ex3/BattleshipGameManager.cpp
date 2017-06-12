@@ -6,40 +6,44 @@
 #include "BoardDataImpl.h"
 
 // pass unique_ptr by value as described here - https://stackoverflow.com/a/8114913
-BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), successfullyCreated(true)
+BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), algorithmA(std::move(algoA)), algorithmB(std::move(algoB)), successfullyCreated(true)
 {
 	
 	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;
 	mainBoard.ExtractShipsDetailsOfGamePlayers(shipDetailsA, shipDetailsB);
-	BoardDataImpl boardDataA(PLAYERID_A, mainBoard);
+	//BoardDataImpl boardDataA(PLAYERID_A, mainBoard);
 	ShipsBoard tmpPlayersShipsBoard;
-
-	//initPlayerData(PLAYERID_A, std::move(algoA), shipDetailsA, tmpPlayersShipsBoard);
-	algoA->setPlayer(PLAYERID_A);
-	algoA->setBoard(boardDataA);
-	tmpPlayersShipsBoard = ShipsBoard(Ship::createShipSet(shipDetailsA), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
-	playerA = std::move(GamePlayerData(PLAYERID_A, std::move(algoA), std::move(tmpPlayersShipsBoard), shipDetailsA.size()));
-	BoardDataImpl boardDataB(PLAYERID_B, mainBoard);
-	//initPlayerData(PLAYERID_B, std::move(algoB), shipDetailsB, tmpPlayersShipsBoard);
+	BoardDataImpl boardDataA(PLAYERID_A, mainBoard);
 	
-	algoB->setPlayer(PLAYERID_B);
-	algoB->setBoard(boardDataB);	
-	tmpPlayersShipsBoard = ShipsBoard((Ship::createShipSet(shipDetailsB)), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
-	playerB = std::move(GamePlayerData(PLAYERID_B, std::move(algoB), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
+	initPlayerData(PLAYERID_A, algorithmA.get(), shipDetailsA, tmpPlayersShipsBoard, boardDataA);
+	//algoA->setPlayer(PLAYERID_A);
+	//algoA->setBoard(boardDataA);
+	//tmpPlayersShipsBoard = ShipsBoard(Ship::createShipSet(shipDetailsA), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
+	playerA = std::move(GamePlayerData(PLAYERID_A, algorithmA.get(), std::move(tmpPlayersShipsBoard), shipDetailsA.size()));
+	
+	BoardDataImpl boardDataB(PLAYERID_B, mainBoard);
+	initPlayerData(PLAYERID_B, algorithmB.get(), shipDetailsB, tmpPlayersShipsBoard, boardDataB);
+	//BoardDataImpl boardDataB(PLAYERID_B, mainBoard);
+	
+	
+	//algoB->setPlayer(PLAYERID_B);
+	//algoB->setBoard(boardDataB);	
+	//tmpPlayersShipsBoard = ShipsBoard((Ship::createShipSet(shipDetailsB)), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
+	playerB = std::move(GamePlayerData(PLAYERID_B, algorithmB.get(), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
 
 	if (!playerA.isSet() || !playerB.isSet())
 		successfullyCreated = false;
 }
 
-//void BattleshipGameManager::initPlayerData(int playerId, std::unique_ptr<IBattleshipGameAlgo> playerAlgo, std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard)const
-//{
-//	BoardDataImpl boardData(playerId, mainBoard);
-//	
-//	playerAlgo->setPlayer(playerId);
-//	playerAlgo->setBoard(boardData);
-//	
-//	playerShipBoard = ShipsBoard(Ship::createShipSet(shipsDetails), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
-//}
+void BattleshipGameManager::initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo, const std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const
+{
+	
+	playerAlgo->setPlayer(playerId);
+	playerAlgo->setBoard(playerBoardData);
+	
+	playerShipBoard = ShipsBoard(Ship::createShipSet(shipsDetails), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
+	//playerA = GamePlayerData(playerId, playerAlgo, std::move(playerShipBoard), shipsDetails.size());
+}
 
 StandingsTableEntryData BattleshipGameManager::Run()
 {
@@ -113,7 +117,7 @@ StandingsTableEntryData BattleshipGameManager::Run()
 	}
 
 	// prints game results 
-	
+	std::cout << currPlayer->id << ": " << currPlayer->score << ", " << otherPlayer->id << ": " << otherPlayer->score << std::endl;
 	return outputGameResult(currPlayer, otherPlayer);
 
 }
@@ -125,16 +129,16 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 	int currScore = currPlayer->score;
 	int otherScore = otherPlayer->score;
 
-
+	std::cout << "*************************curr score: " << currScore << ", and otherScore: " << otherScore << std::endl;
 	if (currPlayer->currShipsCount == 0) {
 		if (currPlayer->id == PLAYERID_A) { // currPlayer is playerA
 		//	 "Player B won" 
-			std::cout << " B WON! " << std::endl;
+			//std::cout << " B WON! " << std::endl;
 			return StandingsTableEntryData("", LOST, WON, currScore, otherScore);
 		}
 		else { // otherPlayer is playerA
 		//	 "Player A won" 
-			std::cout << " A WON! " << std::endl;
+			//std::cout << " A WON! " << std::endl;
 			return StandingsTableEntryData("", WON, LOST, otherScore, currScore);
 		}
 	}
@@ -142,23 +146,23 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 	if (otherPlayer->currShipsCount == 0) {
 		if (otherPlayer->id == PLAYERID_A) { // otherPlayer is playerA
 			//	 "Player B won" 
-			std::cout << " B WON! " << std::endl;
+			//std::cout << " B WON! " << std::endl;
 			return StandingsTableEntryData("", LOST, WON, otherScore, currScore);
 		}
 		else {// currPlayer is playerA
 			//	 "Player A won" 
-			std::cout << " A WON! " << std::endl;
+			//std::cout << " A WON! " << std::endl;
 			return StandingsTableEntryData("", WON, LOST, currScore, otherScore);
 		}
 	}
 
 	//its a tie
 	if (currPlayer->id == PLAYERID_A) {
-		std::cout << " TIE! " << std::endl;
+		//std::cout << " TIE! " << std::endl;
 		return StandingsTableEntryData("", LOST, LOST, currScore, otherScore);
 	}
 	else {
-		std::cout << " TIE! " << std::endl;
+		//std::cout << " TIE! " << std::endl;
 		return StandingsTableEntryData("", LOST, LOST, otherScore, currScore);
 	}
 	

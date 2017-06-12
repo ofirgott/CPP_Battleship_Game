@@ -49,7 +49,7 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 	{
 		setColor(RED_COLOR);
 		std::cout << "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+" << std::endl;
-		std::cout << "The winner is: " << playersStandingsVec[1].PlayerName() << " !" << std::endl;
+		std::cout << "The winner is: " << playersStandingsVec[0].PlayerName() << " !" << std::endl;
 		std::cout << "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+" << std::endl;
 	}
 	setColor(WHITE_COLOR);

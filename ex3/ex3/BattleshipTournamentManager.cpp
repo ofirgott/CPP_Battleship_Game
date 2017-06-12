@@ -404,6 +404,7 @@ void BattleshipTournamentManager::RunTournament()
 				RoundDataToPrint[i].setPointsAgainst(RoundDataToPrint[i].PointsAgainst() + allGamesResults[i][cnt].PointsAgainst());
 			}
 			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt + 1, allRounds.size());//printing the round
+			std::cout << "here cnt++" << std::endl;
 			cnt++;//next round to wait for
 		}
 
@@ -419,15 +420,19 @@ void BattleshipTournamentManager::singleThreadJob()
 {
 	StandingsTableEntryData gameResult;
 
-	//while (true)
-	//{
+	while (true)
+	{
 
-	//std::unique_lock<std::mutex> lock(gamesQueueMutex);
+	std::unique_lock<std::mutex> lock(gamesQueueMutex);
 	//waiting for current thread to end his game
-	//queueEmptyCondition.wait(lock, [&]() {return !gamesPropertiesQueue.empty(); });
+	if (gamesPropertiesQueue.empty()) {
+		lock.unlock();
+		break;
+	}
+	queueEmptyCondition.wait(lock, [&]() {return !gamesPropertiesQueue.empty(); });
 	auto currGameProperty = gamesPropertiesQueue.front();
-	//gamesPropertiesQueue.pop();
-	//lock.unlock();
+	gamesPropertiesQueue.pop();
+	lock.unlock();
 	std::unique_ptr<IBattleshipGameAlgo> playerAlgoA, playerAlgoB;
 	playerAlgoA = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexA()].getAlgoFunc());
 	playerAlgoB = std::unique_ptr<IBattleshipGameAlgo>(algosDetailsVec[currGameProperty.getPlayerIndexB()].getAlgoFunc());
@@ -438,13 +443,14 @@ void BattleshipTournamentManager::singleThreadJob()
 							// the game result returned is from the perspective of playerA
 	gameResult.setPlayerName(algosDetailsVec[currGameProperty.getPlayerIndexA()].playerName);
 	updateAllGamesResults(gameResult, currGameProperty);
+	//std::cout << "Game Done" << std::endl;
 
 
-	//}
+	}
 }
 
 
-void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty)
+void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntryData& currGameRes, const SingleGameProperties& gamsProperty)
 {
 
 	// players indexes 
@@ -455,27 +461,27 @@ void BattleshipTournamentManager::updateAllGamesResults(StandingsTableEntryData 
 	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = ++(playersProgress.at(playerAIndex));		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
+	int propertyIndexA = ++playersProgress.at(playerAIndex);		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
 	int propertyIndexB = ++(playersProgress.at(playerBIndex));
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA] = currGameRes;
-	allGamesResults[playerBIndex][propertyIndexB] = otherPlayerData;
+	allGamesResults[playerAIndex][propertyIndexA-1] = currGameRes;
+	allGamesResults[playerBIndex][propertyIndexB-1] = otherPlayerData;
 
 
-	--allRounds[propertyIndexA].numOfGamesLeft;
-	if (allRounds[propertyIndexA].numOfGamesLeft == 0) {
+	--allRounds[propertyIndexA-1].numOfGamesLeft;
+	if (allRounds[propertyIndexA-1].numOfGamesLeft == 0) {
 		//need to take care of locks and mutexes and condition variables here, need to set cv in .h	
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRounds[propertyIndexA].status = true;
+		allRounds[propertyIndexA-1].status = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 
 	}
-	--allRounds[propertyIndexB].numOfGamesLeft;
-	if (allRounds[propertyIndexB].numOfGamesLeft == 0) {
+	--allRounds[propertyIndexB-1].numOfGamesLeft;
+	if (allRounds[propertyIndexB-1].numOfGamesLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRounds[propertyIndexB].status = true;
+		allRounds[propertyIndexB-1].status = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 	}

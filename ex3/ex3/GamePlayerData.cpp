@@ -8,7 +8,7 @@ GamePlayerData & GamePlayerData::operator=(GamePlayerData && other) noexcept
 {
 
 	id = other.id;
-	playerAlgo = std::move(other.playerAlgo);
+	playerAlgo = other.playerAlgo;
 	hasMoreMoves = other.hasMoreMoves;
 	score = other.score;
 	std::swap(shipsBoard, other.shipsBoard);

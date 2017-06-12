@@ -22,7 +22,7 @@ public:
 	explicit Ship(const std::pair<char, std::set<Coordinate>>& input);
 
 	/* distructor*/
-	~Ship();
+	~Ship() = default;
 
 	/* returns how much score is gained by hitting this ship*/
 	int getPoints()const;

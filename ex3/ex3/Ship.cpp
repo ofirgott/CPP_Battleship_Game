@@ -24,10 +24,10 @@ Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
 	}
 }
 
-Ship::~Ship()
-{
-	body.clear();				//todo: Ofir: why we need it?
-}
+//Ship::~Ship()
+//{
+//	body.clear();				//todo: Ofir: why we need it?
+//}
 
 int Ship::getPoints()const
 {

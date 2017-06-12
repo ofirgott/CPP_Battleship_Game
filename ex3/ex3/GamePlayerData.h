@@ -14,7 +14,7 @@ class GamePlayerData {
 private:
 
 	int id;
-	std::unique_ptr<IBattleshipGameAlgo> playerAlgo;
+	IBattleshipGameAlgo* playerAlgo;
 	ShipsBoard shipsBoard;
 	size_t currShipsCount;
 	int score;
@@ -24,7 +24,7 @@ private:
 
 	GamePlayerData() : id(UNDEFINED_PLAYERID), playerAlgo(nullptr), shipsBoard(), currShipsCount(0), score(0), hasMoreMoves(true) {}
 	
-	GamePlayerData(int playerID, std::unique_ptr<IBattleshipGameAlgo> inputPlayerAlgo, ShipsBoard inputShipsBoard, size_t shipsCount) : id(playerID), playerAlgo(std::move(inputPlayerAlgo)), shipsBoard(std::move(inputShipsBoard)), currShipsCount(shipsCount), score(0), hasMoreMoves(true) {}
+	GamePlayerData(int playerID, IBattleshipGameAlgo* inputPlayerAlgo, ShipsBoard inputShipsBoard, size_t shipsCount) : id(playerID), playerAlgo(inputPlayerAlgo), shipsBoard(std::move(inputShipsBoard)), currShipsCount(shipsCount), score(0), hasMoreMoves(true) {}
 	
 	~GamePlayerData() = default;
 
