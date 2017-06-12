@@ -11,7 +11,7 @@
 #include "SingleGameProperties.h"
 #include "BattleshipPrint.h"
 
-
+//todo: move it to seperate file
 struct Round
 {
 
