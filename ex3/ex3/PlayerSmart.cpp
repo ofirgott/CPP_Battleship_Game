@@ -430,12 +430,12 @@ int PlayerSmart::countDistance(Coordinate startCoordinate, int minShipSize, bool
 	int i = 0; 
 	int count = 0;
 	Coordinate tempCoor(-1, -1, -1);
+	
+	// go along the vertical direction up/down according to the direction input parameter
 	if (isVertical) {
 		i= startCoordinate.row+ direction;
 		updateCoordinates(tempCoor, i, startCoordinate.col, startCoordinate.depth);
-
-		while (isInAttackOptions(tempCoor) && count < minShipSize) {
-			
+		while (isInAttackOptions(tempCoor) && count < minShipSize) {		
 			i += direction;
 			count += 1;
 			updateCoordinates(tempCoor, i, startCoordinate.col, startCoordinate.depth);
@@ -486,7 +486,10 @@ bool  PlayerSmart::isInBoard(int row, int col, int depth) const
 void PlayerSmart::updateShipsCount(int sunkShipSize) {
 	auto it = shipsCount.begin()+ sunkShipSize-1;
 	it->second -= 1;
-
+	if (it->second == -1) { // the boeard is imbalanced - number of ships in this size doesnt exist anymore in balanced board
+		isBoardBalanced = false;
+		pourImbalancedToAttackOptions();
+	}
 }
 
 int PlayerSmart::getMinShipSize() {

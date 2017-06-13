@@ -10,20 +10,353 @@ public:
 	//sharon done	
 	//done
 
-	void testpourImbalancedToAttackOptions() {};
-	static void testupdateShipsCount(int sunkShipSize) {};
+	static void printCoordinate(Coordinate coord)
+	{
+		std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
+	}
 
-	static 	int testgetMinShipSize() {};
+	static void testpourImbalancedToAttackOptions() {
+		PlayerSmart tempPlayer;
+		std::set<Coordinate> coordinates;
+		for (int i = 1; i < 6; i++) {
+			for (int j = 1; j < 6; j++) {
+				for (int k = 1; k < 6; k++) {
+					coordinates.insert(Coordinate(i, j, k));
+				}
+			}
+		}
+
+		tempPlayer.imbalancedAttackOptions = coordinates;
+		tempPlayer.pourImbalancedToAttackOptions();
+
+		for (int i = 1; i < 6; i++) {
+			for (int j = 1; j < 6; j++) {
+				for (int k = 1; k < 6; k++) {
+					if (tempPlayer.attackOptions.find(Coordinate(i, j, k)) == tempPlayer.attackOptions.end()) {
+						std::cout << "bad bad bad bad bad bad news didnt pour ";
+						printCoordinate(Coordinate(i, j, k));
+						std::cout << "to attack options from Imbalanced" << std::endl;
+					}
+				}
+			}
+		}
+
+		std::cout << "only good things can be said about pourImbalancedToAttackOptions !!!!!! " << std::endl;
+	};
+
+	static void testupdateShipsCount() {
+		PlayerSmart tmpPlayer;
+		std::vector<std::pair<int, int>> count; // vector of enemie's ship's: pair of <shipSize,count>
+
+		count.push_back(std::make_pair(1, 2));
+		count.push_back(std::make_pair(2, 3));
+		count.push_back(std::make_pair(3, 0));
+		count.push_back(std::make_pair(4, 1));
+
+		tmpPlayer.shipsCount = count;
+		tmpPlayer.updateShipsCount(1);
+		tmpPlayer.updateShipsCount(4);
+		if (tmpPlayer.shipsCount.at(0).second != 1) {
+			std::cout << "ho no didnt update the ships count properly index0 :(" << std::endl;
+		}
+		if (tmpPlayer.shipsCount.at(3).second != 0) {
+			std::cout << "ho no didnt update the ships count properly index3 :(" << std::endl;
+		}
+
+		std::set<Coordinate> coordinates;
+		for (int i = 1; i < 6; i++) {
+			for (int j = 1; j < 6; j++) {
+				for (int k = 1; k < 6; k++) {
+					coordinates.insert(Coordinate(i, j, k));
+				}
+			}
+		}
+
+		tmpPlayer.imbalancedAttackOptions = coordinates;
+		tmpPlayer.updateShipsCount(2);
+		if (tmpPlayer.isBoardBalanced == true) {
+			std::cout << "omg didnt set imbalnced properly!!!!!1" << std::endl;
+		}
+
+		for (int i = 1; i < 6; i++) {
+			for (int j = 1; j < 6; j++) {
+				for (int k = 1; k < 6; k++) {
+					if (tmpPlayer.attackOptions.find(Coordinate(i, j, k)) == tmpPlayer.attackOptions.end()) {
+						std::cout << "bad bad bad bad bad bad news didnt pour ";
+						printCoordinate(Coordinate(i, j, k));
+						std::cout << "to attack options from Imbalanced" << std::endl;
+					}
+				}
+			}
+		}
+
+		std::cout << "tupdateShipsCount is very very Good :)" << std::endl;
+	};
+
+	static 	void testgetMinShipSize() {
+		PlayerSmart tmpPlayer;
+		std::vector<std::pair<int, int>> count; // vector of enemie's ship's: pair of <shipSize,count>
+
+		count.push_back(std::make_pair(1, 2));
+		count.push_back(std::make_pair(2, 3));
+		count.push_back(std::make_pair(3, 0));
+		count.push_back(std::make_pair(4, 1));
+
+		tmpPlayer.shipsCount = count;
+		int res = tmpPlayer.getMinShipSize();
+		if (res != 1) {
+			std::cout << "ho no min ship size should be 1 but we got "<< res<< " :(" << std::endl;
+		}
+
+		tmpPlayer.shipsCount.at(0).second = 0;
+		tmpPlayer.shipsCount.at(1).second = 0;
+
+		res = tmpPlayer.getMinShipSize();
+		if (res != 3) {
+			std::cout << "ho no min ship size should be 3 but we got " << res << " :(" << std::endl;
+		}
+
+		std::cout << "Good boy! " << std::endl;
+	};
+
+
 	static void testclearFourAdjecentCoors(Coordinate attackedCoordinate,
 		AttackResult res, int minIncCoor, int maxInCoor, bool isVertical, bool isHorizontal){};
 
-	void testcheckSixDirections(Coordinate deadCoordinate) {};
+	static void testcheckSixDirections(Coordinate deadCoordinate) {};
 
-	static int testcountDistance(Coordinate startCoordinate,
-		int minShipSize, bool isVertical, bool isHorizontal, int direction) {};
 
 	static void testtransferCoordinatesToSecondPoll(Coordinate startCoordinate,
-		int numOfCoors, bool isVertical, bool isHorizontal, int direction) {};
+		int numOfCoors, bool isVertical, bool isHorizontal, int direction) {
+
+			{
+				PlayerSmart tempPlayer;
+				std::set<Coordinate> coordinates;
+				for (int i = 1; i < 6; i++) {
+					for (int j = 1; j < 6; j++) {
+						for (int k = 1; k < 6; k++) {
+							coordinates.insert(Coordinate(i, j, k));
+						}
+					}
+				}
+				int res;
+
+				//// Horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+				coordinates.erase(coordinates.find(Coordinate(2, 5, 4)));
+				coordinates.erase(coordinates.find(Coordinate(2, 1, 4)));
+				tempPlayer.attackOptions = coordinates;
+
+				tempPlayer.transferCoordinatesToSecondPoll(Coordinate(2, 5, 4), 3, false, true, -1);
+
+				std::set<Coordinate> imbalancedTest;
+				imbalancedTest.insert(Coordinate(2,2,4));
+				imbalancedTest.insert(Coordinate(2, 3, 4));
+				imbalancedTest.insert(Coordinate(2, 4, 4));
+
+				for (auto coor : imbalancedTest) {
+					if (tempPlayer.imbalancedAttackOptions.find(coor) == tempPlayer.imbalancedAttackOptions.end) {
+						std::cout << "missing coordinate in imbalanced horizontal";
+						printCoordinate(coor);
+						std::cout << " fix this now!!!!!" << std::endl;
+					}
+				}
+			}
+
+
+			{
+				PlayerSmart tempPlayer;
+				std::set<Coordinate> coordinates;
+				for (int i = 1; i < 6; i++) {
+					for (int j = 1; j < 6; j++) {
+						for (int k = 1; k < 6; k++) {
+							coordinates.insert(Coordinate(i, j, k));
+						}
+					}
+				}
+				int res;
+				//// Vertical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+				tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(5, 3, 4)));
+				tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(1, 3, 4)));
+
+				tempPlayer.transferCoordinatesToSecondPoll(Coordinate(1, 3, 4), 3, true, false, +1);
+
+				std::set<Coordinate> imbalancedTest;
+				imbalancedTest.insert(Coordinate(2, 3, 4));
+				imbalancedTest.insert(Coordinate(3, 3, 4));
+				imbalancedTest.insert(Coordinate(4, 2, 4));
+
+				for (auto coor : imbalancedTest) {
+					if (tempPlayer.imbalancedAttackOptions.find(coor) == tempPlayer.imbalancedAttackOptions.end) {
+						std::cout << "missing coordinate in imbalanced vertical ";
+						printCoordinate(coor);
+						std::cout << " fix this now!!!!!" << std::endl;
+					}
+				}
+
+			}
+
+			{
+				PlayerSmart tempPlayer;
+				std::set<Coordinate> coordinates;
+				for (int i = 1; i < 10; i++) {
+					for (int j = 1; j < 10; j++) {
+						for (int k = 1; k < 10; k++) {
+							coordinates.insert(Coordinate(i, j, k));
+						}
+					}
+				}
+				int res;
+
+				//// deptical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+				tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(7, 3, 1)));
+				tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(7, 3, 8)));
+
+				tempPlayer.transferCoordinatesToSecondPoll(Coordinate(7, 3, 8), 6, false, false, -1);
+
+
+				std::set<Coordinate> imbalancedTest;
+				imbalancedTest.insert(Coordinate(7, 3, 2));
+				imbalancedTest.insert(Coordinate(7, 3, 3));
+				imbalancedTest.insert(Coordinate(7, 3, 4));
+				imbalancedTest.insert(Coordinate(7, 3, 5));
+				imbalancedTest.insert(Coordinate(7, 3, 6));
+				imbalancedTest.insert(Coordinate(7, 3, 7));
+
+				for (auto coor : imbalancedTest) {
+					if (tempPlayer.imbalancedAttackOptions.find(coor) == tempPlayer.imbalancedAttackOptions.end) {
+						std::cout << "missing coordinate in imbalanced vertical ";
+						printCoordinate(coor);
+						std::cout << " fix this now!!!!! deptical" << std::endl;
+					}
+				}
+			}
+
+			std::cout << "Hopefully we got here and the transfer function works fine !!! praise the lord!!!!!" << std::endl;
+	};
+
+
+	static void testcountDistance() {
+
+		{
+			PlayerSmart tempPlayer;
+			std::set<Coordinate> coordinates;
+			for (int i = 1; i < 6; i++) {
+				for (int j = 1; j < 6; j++) {
+					for (int k = 1; k < 6; k++) {
+						coordinates.insert(Coordinate(i, j, k));
+					}
+				}
+			}
+			int res;
+
+			//// Horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+			coordinates.erase(coordinates.find(Coordinate(2, 5, 4)));
+			coordinates.erase(coordinates.find(Coordinate(2, 1, 4)));
+			tempPlayer.attackOptions = coordinates;
+
+			res = tempPlayer.countDistance(Coordinate(2, 5, 4), 0, false, true, -1);
+			if (res != -1) {
+				std::cout << "the distance was supposed to be -1 !!!!  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(2, 5, 4), 4, false, true, -1);
+			if (res != 3) {
+				std::cout << "the distance was supposed to be 3 (2,5,4) !!!!  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(2, 1, 4), 4, false, true, +1);
+			if (res != 3) {
+				std::cout << "the distance was supposed to be 3 (2,1,4)!!!!  got " << res << " :(" << std::endl;
+			}
+
+			// wall at 2,6,4
+			res = tempPlayer.countDistance(Coordinate(2, 5, 4), 5, false, true, -1);
+			if (res != 4) {
+				std::cout << "the distance was supposed to be 4 (2,6,4) !!!!  got " << res << " :(" << std::endl;
+			}
+		}
+
+		{
+			PlayerSmart tempPlayer;
+			std::set<Coordinate> coordinates;
+			for (int i = 1; i < 6; i++) {
+				for (int j = 1; j < 6; j++) {
+					for (int k = 1; k < 6; k++) {
+						coordinates.insert(Coordinate(i, j, k));
+					}
+				}
+			}
+			int res;
+			//// Vertical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+			tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(5, 3, 4)));
+			tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(1, 3, 4)));
+
+			res = tempPlayer.countDistance(Coordinate(5, 3, 4), 0, true, false, -1);
+			if (res != -1) {
+				std::cout << "the distance was supposed to be -1 !!!!(vertical)  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(5, 3, 4), 5, true, false, -1);
+			if (res != 4) {
+				std::cout << "the distance was supposed to be 4 (5,3,4) !!!!  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(1, 3, 4), 5, true, false, +1);
+			if (res != 4) {
+				std::cout << "the distance was supposed to be 4 (1,3,4)!!!!  got " << res << " :(" << std::endl;
+			}
+
+			// wall at 6,3,4
+			res = tempPlayer.countDistance(Coordinate(5, 3, 4), 5, true, false, +1);
+			if (res != 0) {
+				std::cout << "the distance was supposed to be 0 (6,3,4) !!!!  got " << res << " :(" << std::endl;
+			}
+		}
+		{
+			PlayerSmart tempPlayer;
+			std::set<Coordinate> coordinates;
+			for (int i = 1; i < 10; i++) {
+				for (int j = 1; j < 10; j++) {
+					for (int k = 1; k < 10; k++) {
+						coordinates.insert(Coordinate(i, j, k));
+					}
+				}
+			}
+			int res;
+
+			//// deptical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+			tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(7,3,1)));
+			tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(7,3,8)));
+
+			res = tempPlayer.countDistance(Coordinate(7, 3, 8), 0, false, false, -1);
+			if (res != -1) {
+				std::cout << "the distance was supposed to be -1 !!!!(horizontal)  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(7, 3, 8), 7, false, false, -1);
+			if (res != 6) {
+				std::cout << "the distance was supposed to be 6 (7,3,8) !!!!  got " << res << " :(" << std::endl;
+			}
+
+			res = tempPlayer.countDistance(Coordinate(7, 3, 1), 7, false, false, +1);
+			if (res != 6) {
+				std::cout << "the distance was supposed to be 6 (7,3,1)!!!!  got " << res << " :(" << std::endl;
+			}
+
+			// wall at 7,3,10
+			res = tempPlayer.countDistance(Coordinate(7, 3, 1), 10, false, false, +1);
+			if (res != 8) {
+				std::cout << "the distance was supposed to be 8 (7, 3, 1) wall !!!!  got " << res << " :(" << std::endl;
+			}
+		}
+		std::cout << "Hopefully we got here and the count function works fine !!! praise the lord!!!!!" << std::endl;
+
+	};
+
 
 
 	static int testisInAttackOptions() {
