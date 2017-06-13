@@ -16,12 +16,14 @@ int main(int argc, char* argv[])
 		}
 		else {
 			//TODO: print to the logger
+			system("pause");
 			return -1;
 		}
 	}
 	catch (std::exception ex)
 	{
 		//TODO: print to the logger
+		system("pause");
 		return -1;
 	}
 

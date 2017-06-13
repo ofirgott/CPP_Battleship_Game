@@ -404,7 +404,7 @@ void BattleshipTournamentManager::RunTournament()
 				RoundDataToPrint[i].setPointsAgainst(RoundDataToPrint[i].PointsAgainst() + allGamesResults[i][cnt].PointsAgainst());
 			}
 			BattleshipPrint::printStandingsTable(RoundDataToPrint, cnt + 1, allRounds.size());//printing the round
-			std::cout << "here cnt++" << std::endl;
+			//std::cout << "here cnt++" << std::endl;
 			cnt++;//next round to wait for
 		}
 
@@ -461,8 +461,8 @@ void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntr
 	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = ++playersProgress.at(playerAIndex);		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
-	int propertyIndexB = ++(playersProgress.at(playerBIndex));
+	int propertyIndexA = ++playersProgress[playerAIndex];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
+	int propertyIndexB = ++playersProgress[playerBIndex];
 
 	// update allGamesResults in the relevent indexes
 	allGamesResults[playerAIndex][propertyIndexA-1] = currGameRes;
