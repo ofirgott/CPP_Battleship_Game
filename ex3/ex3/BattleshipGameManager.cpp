@@ -117,7 +117,7 @@ StandingsTableEntryData BattleshipGameManager::Run()
 	}
 
 	// prints game results 
-	std::cout << currPlayer->id << ": " << currPlayer->score << ", " << otherPlayer->id << ": " << otherPlayer->score << std::endl;
+	//std::cout << currPlayer->id << ": " << currPlayer->score << ", " << otherPlayer->id << ": " << otherPlayer->score << std::endl;
 	return outputGameResult(currPlayer, otherPlayer);
 
 }
@@ -129,7 +129,7 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 	int currScore = currPlayer->score;
 	int otherScore = otherPlayer->score;
 
-	std::cout << "*************************curr score: " << currScore << ", and otherScore: " << otherScore << std::endl;
+	//std::cout << "*************************curr score: " << currScore << ", and otherScore: " << otherScore << std::endl;
 	if (currPlayer->currShipsCount == 0) {
 		if (currPlayer->id == PLAYERID_A) { // currPlayer is playerA
 		//	 "Player B won" 

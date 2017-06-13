@@ -7,8 +7,11 @@
 void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, size_t roundsNum)
 {
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
-		[](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
-		return lhs.WinsNumber() > rhs.WinsNumber();
+		[currRound](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
+		double prec_lhs = static_cast<double>(lhs.WinsNumber()) / currRound * 100.0;
+		double prec_rhs = static_cast<double>(rhs.WinsNumber()) / currRound * 100.0;
+		if (prec_lhs == prec_rhs) return lhs.WinsNumber() > rhs.WinsNumber();
+		else return prec_lhs > prec_rhs;
 	});
 
 	int placeNum = 1;
@@ -35,7 +38,7 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 		std::cout << std::setw(nameWidth) << std::left << playerData.PlayerName();
 		std::cout << std::setw(gamesCntWidth) << std::left << playerData.WinsNumber();
 		std::cout << std::setw(gamesCntWidth) << std::left << playerData.LossesNumber();
-		double currPlayerWinsPrec = static_cast<double>(playerData.WinsNumber() / currRound * 100);
+		double currPlayerWinsPrec = static_cast<double>(playerData.WinsNumber()) / currRound * 100.0;
 		std::cout << std::setw(precWidth) << std::left << std::setprecision(4) << currPlayerWinsPrec;
 		std::cout << std::setw(pointsWidth) << std::left << playerData.PointsFor();
 		std::cout << std::setw(pointsWidth) << std::left << playerData.PointsAgainst() << std::endl;
