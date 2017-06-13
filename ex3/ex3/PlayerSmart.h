@@ -95,8 +95,6 @@ private:
 
 	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool isVertical, bool isHorizontal, int direction);
 
-
-
 	/*checking if a current coordinate is in the Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
 

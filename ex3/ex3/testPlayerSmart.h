@@ -9,6 +9,23 @@ public:
 	~testPlayerSmart() {};
 	//sharon done	
 	//done
+
+	void testpourImbalancedToAttackOptions() {};
+	static void testupdateShipsCount(int sunkShipSize) {};
+
+	static 	int testgetMinShipSize() {};
+	static void testclearFourAdjecentCoors(Coordinate attackedCoordinate,
+		AttackResult res, int minIncCoor, int maxInCoor, bool isVertical, bool isHorizontal){};
+
+	void testcheckSixDirections(Coordinate deadCoordinate) {};
+
+	static int testcountDistance(Coordinate startCoordinate,
+		int minShipSize, bool isVertical, bool isHorizontal, int direction) {};
+
+	static void testtransferCoordinatesToSecondPoll(Coordinate startCoordinate,
+		int numOfCoors, bool isVertical, bool isHorizontal, int direction) {};
+
+
 	static int testisInAttackOptions() {
 		PlayerSmart tempPlayer;
 		Coordinate coorToInsert(0, 0, 0);
@@ -63,6 +80,7 @@ public:
 		return 0;
 	}//done
 	 //done
+
 	static int testremoveAllIrreleventCoordinates() {
 		PlayerSmart tempPlayer;
 
@@ -169,10 +187,8 @@ public:
 			std::cout << "good boy! " << std::endl;
 		}
 
-
-
 		//case of in middle(shuold remove two side) horizontal
-		tempPlayer.removeAllIrreleventCoordinates(Coordinate(6, 6,6), false, true);
+		tempPlayer.removeAllIrreleventCoordinates(Coordinate(6, 6,6), false, true,false);
 		find = tempPlayer.attackOptions.find(Coordinate(5, 6,6));
 		if (find != tempPlayer.attackOptions.end())
 		{
@@ -206,7 +222,7 @@ public:
 			std::cout << "good boy! " << std::endl;
 		}
 		//case of in middle(shuold remove two side) dimentional
-		tempPlayer.removeAllIrreleventCoordinates(Coordinate(6, 6, 6), false, true);
+		tempPlayer.removeAllIrreleventCoordinates(Coordinate(6, 6, 6), false,false, true);
 		find = tempPlayer.attackOptions.find(Coordinate(5, 6, 6));
 		if (find != tempPlayer.attackOptions.end())
 		{
