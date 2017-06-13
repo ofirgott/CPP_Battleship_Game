@@ -205,10 +205,44 @@ public:
 		else {
 			std::cout << "good boy! " << std::endl;
 		}
+		//case of in middle(shuold remove two side) dimentional
+		tempPlayer.removeAllIrreleventCoordinates(Coordinate(6, 6, 6), false, true);
+		find = tempPlayer.attackOptions.find(Coordinate(5, 6, 6));
+		if (find != tempPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 5,6,6! wich is erelevent for horizontal! " << std::endl;
+		}
+		else {
+			std::cout << "good boy! " << std::endl;
+		}
+		find = tempPlayer.attackOptions.find(Coordinate(7, 6, 6));
+		if (find != tempPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 7,6,6! wich is erelevent for horizontal! " << std::endl;
+		}
+		else {
+			std::cout << "good boy! " << std::endl;
+		}
+		find = tempPlayer.attackOptions.find(Coordinate(6, 5,6));
+		if (find != tempPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 6,5,6! wich is erelevent for horizontal! " << std::endl;
+		}
+		else {
+			std::cout << "good boy! " << std::endl;
+		}
+		find = tempPlayer.attackOptions.find(Coordinate(6, 7,6));
+		if (find != tempPlayer.attackOptions.end())
+		{
+			std::cout << "not good!didnt delete 6,7,6! wich is erelevent for horizontal! " << std::endl;
+		}
+		else {
+			std::cout << "good boy! " << std::endl;
+		}
 
 		return 0;
 	}
-	//dene
+	//done
 	static int testmergeShipDetails() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -394,7 +428,7 @@ public:
 
 		return 0;
 	}
-	//done
+	//
 	static int testremoveSankFromReleventCoors() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -509,7 +543,7 @@ public:
 
 		return 0;
 	}
-	//done	
+	//
 	static int testnotifyOnAttackResult() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -693,7 +727,7 @@ public:
 
 		return 0;
 	}
-	//diana done
+	//
 	static int testaddCoorToShipsInProcess() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -846,7 +880,7 @@ public:
 
 		return 0;
 	}
-	//done
+	//
 	static int testnextAttackFromCoors() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -936,7 +970,7 @@ public:
 		return 0;
 
 	}
-	//done
+	//
 	static int testfindPairInAttackedShips() {
 		PlayerSmart tmpPlayer;
 		std::vector<ShipInProcess> allShips;
@@ -1045,7 +1079,7 @@ public:
 
 		return 0;
 	}
-	//done
+	//
 	static int testsizeOneAttack() {
 		PlayerSmart tmpPlayer;
 		std::set<std::pair<int, int>> allCoors;
@@ -1138,7 +1172,7 @@ public:
 
 		return 0;
 	}
-	//done
+	//
 	static int testattack() {
 
 		PlayerSmart tmpPlayer;
