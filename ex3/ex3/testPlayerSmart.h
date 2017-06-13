@@ -1705,200 +1705,271 @@ public:
 		return 0;
 	}
 	//
+
+
 	static int testsizeOneAttack() {
 		PlayerSmart tmpPlayer;
-		std::set<std::pair<int, int>> allCoors;
-		for (int i = 1; i<6; i++)
+		std::set<Coordinate> allCoors;
+
+		for (int i = 1; i<10; i++)
 		{
-			for (int j = 1; j<6; j++)
+			for (int j = 1; j<10; j++)
 			{
-				allCoors.insert(std::make_pair(i, j));
+				for (int k = 1; k < 10; k++) {
+					allCoors.insert(Coordinate(i, j, k));
+				}
+
 			}
 		}
 
 		// check all sides
-		std::pair<int, int> res;
-		std::pair<int, int> target(2, 3);
+		Coordinate res(-1, -1, -1);
+		Coordinate target(2, 3, 3);
 		allCoors.erase(allCoors.find(target));
 
 		tmpPlayer.attackOptions = allCoors;
-		//should return <1,3> up
+		//should return <1,3,3> x-1
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 1) || (res.second != 3))
+		if (!compareCoordinates(res, Coordinate(1, 3, 3)))
 		{
-			std::cout << "error 1,3" << std::endl;
+			std::cout << "error 1,3,3" << std::endl;
+			return -1;
+		}
+
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
+
+		//should return <3,3,3> down x+1
+		res = tmpPlayer.sizeOneAttack(target);
+		if (!compareCoordinates(res, Coordinate(3, 3, 3)))
+		{
+			std::cout << "error 3,3,3" << std::endl;
+			return -1;
+		}
+
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
+		//should return <2,2,3>  left y-1
+		res = tmpPlayer.sizeOneAttack(target);
+		if (!compareCoordinates(Coordinate(2, 2, 2), res))
+		{
+			std::cout << "error 2,2,3" << std::endl;
 			return -1;
 		}
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
-		//should return <3,3> down
+		//should return <2,4,3> right y+1
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 3) || (res.second != 3))
+		if (!compareCoordinates(Coordinate(2, 4, 3), res))
 		{
-			std::cout << "error 3,3" << std::endl;
+			std::cout << "error 2,4,3" << std::endl;
 			return -1;
 		}
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
-		//should return <2,2>  left
+
+		//should return <2,3,2> right z-1
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 2) || (res.second != 2))
+		if (!compareCoordinates(Coordinate(2, 3, 2), res))
 		{
-			std::cout << "error 2,2" << std::endl;
+			std::cout << "error 2,3,2" << std::endl;
 			return -1;
 		}
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
-		//should return <3,3> right
+		//should return <2,3,4> right z+1
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 2) || (res.second != 4))
+		if (!compareCoordinates(Coordinate(2, 3, 4), res))
 		{
-			std::cout << "error 2,4" << std::endl;
+			std::cout << "error 2,3,4" << std::endl;
 			return -1;
 		}
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-
 
 		//should return <-1, -1> none
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != -1) || (res.second != -1))
+		if (!compareCoordinates(Coordinate(-1, -1, -1), res))
 		{
-			std::cout << "error -1,-1" << std::endl;
+			std::cout << "error -1,-1,-1" << std::endl;
 			return -1;
 		}
 		tmpPlayer.removeOneCoordinate(res);
 		//		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
-		//check rightest edge 
-		target = std::make_pair(4, 5);
+		///////////////////////////////////////////////////////////////////////////////check rightest edge 
+		target = Coordinate(9, 10, 10);
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(target));
-		target = std::make_pair(5, 5);
-		// should return left (5,4)
+		target = Coordinate(10, 10, 10);
+		// should return left (10,9,10)
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 5) || (res.second != 4))
+		if (!compareCoordinates(Coordinate(10, 9, 10), res))
 		{
-			std::cout << "error 5,4" << std::endl;
+			std::cout << "error 10,9,10" << std::endl;
+			return -1;
+		}
+		tmpPlayer.removeOneCoordinate(res);
+
+		//in depth
+		res = tmpPlayer.sizeOneAttack(target);
+		if (!compareCoordinates(Coordinate(10, 10, 9), res))
+		{
+			std::cout << "error 10,10,9" << std::endl;
+			return -1;
+		}
+		tmpPlayer.removeOneCoordinate(res);
+
+		//none left
+		res = tmpPlayer.sizeOneAttack(target);
+		if (!compareCoordinates(Coordinate(-1, -1, -1), res))
+		{
+			std::cout << "error -1,-1,-1" << std::endl;
 			return -1;
 		}
 
-		tmpPlayer.removeOneCoordinate(res);
-
 
 		// check the leftest 
-		target = std::make_pair(1, 1);
+		target = Coordinate(1, 1, 1);
 		res = tmpPlayer.sizeOneAttack(target);
-		if ((res.first != 2) || (res.second != 1))
+		if (!compareCoordinates(Coordinate(2, 1, 1), res))
 		{
-			std::cout << "error 2,1" << std::endl;
+			std::cout << "error 2,1, 1" << std::endl;
 			return -1;
 		}
 		tmpPlayer.removeOneCoordinate(res);
 		std::cout << "done!" << std::endl;
-
 		return 0;
 	}
+
+
 	//
 	static int testattack() {
 
-		PlayerSmart tmpPlayer;
-		std::vector<ShipInProcess> allShips;
 
+		PlayerSmart tmpPlayer;
+
+		//check the case that attack options is empty and imbalanced options is empty
+		Coordinate nextCoordinate = tmpPlayer.attack();
+		if (!compareCoordinates(nextCoordinate, Coordinate(-1, -1, -1))) {
+			std::cout << "error in case that both pool's are empty" << std::endl;
+		}
+
+
+		// in case that imbalanced not empty should pour the new options to attack options
+		tmpPlayer.imbalancedAttackOptions.insert(Coordinate(5, 5, 5));
+		nextCoordinate = tmpPlayer.attack();
+		if (!compareCoordinates(nextCoordinate, Coordinate(5, 5, 5))) {
+			std::cout << " error in the case attackoptions is empty but imbalanced isnt empty" << std::endl;
+		}
+		tmpPlayer.imbalancedAttackOptions.clear();
+
+		///////////////////////////////////////////////////
+		std::vector<ShipInProcess> allShips;
+		std::set<Coordinate> allCoors;
 		//create Set of options
-		std::set<std::pair<int, int>> allCoors;
 		for (int i = 1; i<10; i++)
 		{
 			for (int j = 1; j<10; j++)
 			{
-				allCoors.insert(std::make_pair(i, j));
+				for (int k = 1; j < 10; j++) {
+					allCoors.insert(Coordinate(i, j, k));
+				}
+
 			}
 		}
 
-		allCoors.erase(allCoors.find(std::make_pair(1, 1)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(7, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 8)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(4, 4)));
-
+		allCoors.erase(allCoors.find(Coordinate(1, 5, 1)));
+		allCoors.erase(allCoors.find(Coordinate(3, 5, 8)));
+		allCoors.erase(allCoors.find(Coordinate(7, 6, 8)));
+		allCoors.erase(allCoors.find(Coordinate(8, 6, 8)));
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 3)));
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 5)));
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 4)));
 
 		// create ships
-		ShipInProcess sizeOne_1(1, 1);
-		ShipInProcess sizeOne_2(3, 8);
+		ShipInProcess sizeOne_1(1, 5, 1);
+		ShipInProcess sizeOne_2(3, 5, 8);
 
-		ShipInProcess sizeTwo_1(7, 8);
-		sizeTwo_1.addCoordinate(8, 8);
+		ShipInProcess sizeTwo_1(7, 6, 8);
+		sizeTwo_1.addCoordinate(8, 6, 8);
 
-		ShipInProcess sizeThree_1(4, 3);
-		sizeThree_1.addCoordinate(4, 4);
-		sizeThree_1.addCoordinate(4, 5);
-
+		ShipInProcess sizeThree_1(4, 2, 3);
+		sizeThree_1.addCoordinate(4, 2, 4);
+		sizeThree_1.addCoordinate(4, 2, 5);
 
 		allShips.push_back(sizeThree_1);
 		allShips.push_back(sizeTwo_1);
 		allShips.push_back(sizeOne_1);
 		allShips.push_back(sizeOne_2);
 
-
 		// clear envirnment
-		allCoors.erase(allCoors.find(std::make_pair(7, 6)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 6)));
-		allCoors.erase(allCoors.find(std::make_pair(7, 9)));
-		allCoors.erase(allCoors.find(std::make_pair(8, 9)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(3, 4)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 3)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 5)));
-		allCoors.erase(allCoors.find(std::make_pair(5, 4)));
+		allCoors.erase(allCoors.find(Coordinate(7, 6, 8)));
+		allCoors.erase(allCoors.find(Coordinate(8, 6, 8)));
+		allCoors.erase(allCoors.find(Coordinate(7, 6, 9)));
+		allCoors.erase(allCoors.find(Coordinate(8, 6, 9)));
+		allCoors.erase(allCoors.find(Coordinate(7, 7, 8)));
+		allCoors.erase(allCoors.find(Coordinate(8, 7, 8)));
+		allCoors.erase(allCoors.find(Coordinate(7, 5, 8)));
+		allCoors.erase(allCoors.find(Coordinate(8, 5, 8)));
+		allCoors.erase(allCoors.find(Coordinate(7, 6, 7)));
+		allCoors.erase(allCoors.find(Coordinate(8, 6, 7)));
+
+		ShipInProcess sizeThree_1(4, 2, 3);
+		sizeThree_1.addCoordinate(4, 2, 4);
+		sizeThree_1.addCoordinate(4, 2, 5);
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 3)));
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 4)));
+		allCoors.erase(allCoors.find(Coordinate(4, 2, 5)));
+		allCoors.erase(allCoors.find(Coordinate(3, 2, 3)));
+		allCoors.erase(allCoors.find(Coordinate(5, 2, 3)));
+		allCoors.erase(allCoors.find(Coordinate(4, 1, 3)));
+		allCoors.erase(allCoors.find(Coordinate(4, 3, 3)));
+		allCoors.erase(allCoors.find(Coordinate(3, 2, 4)));
+		allCoors.erase(allCoors.find(Coordinate(5, 2, 4)));
+		allCoors.erase(allCoors.find(Coordinate(4, 1, 4)));
+		allCoors.erase(allCoors.find(Coordinate(4, 3, 4)));
+		allCoors.erase(allCoors.find(Coordinate(3, 2, 5)));
+		allCoors.erase(allCoors.find(Coordinate(5, 2, 5)));
+		allCoors.erase(allCoors.find(Coordinate(4, 1, 5)));
+		allCoors.erase(allCoors.find(Coordinate(4, 3, 5)));
 
 		tmpPlayer.attackOptions = allCoors;
 		tmpPlayer.attackedShips = allShips;
 
-		std::pair <int, int> nextPair = tmpPlayer.attack();
 
-		if ((nextPair.first != 4) || (nextPair.second != 2))
+		nextCoordinate = tmpPlayer.attack();
+
+		if (!compareCoordinates(Coordinate(4, 2, 2), nextCoordinate))
 		{
-			std::cout << "error <4,2> " << std::endl;
+			std::cout << "error <4,2,2> " << std::endl;
 			return -1;
 		}
 
-		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(std::make_pair(4, 2)));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(Coordinate(4, 2, 2)));
 
-		nextPair = tmpPlayer.attack();
-		if ((nextPair.first != 4) || (nextPair.second != 6))
+		nextCoordinate = tmpPlayer.attack();
+		if (!compareCoordinates(Coordinate(4, 2, 6), nextCoordinate))
 		{
-			std::cout << "error <4,6> " << std::endl;
+			std::cout << "error <4,2,6> " << std::endl;
 			return -1;
 		}
-		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(std::make_pair(4, 6)));
+		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(Coordinate(4, 2, 6)));
 		tmpPlayer.attackedShips.erase(tmpPlayer.attackedShips.begin(), tmpPlayer.attackedShips.end());
 
-		nextPair = tmpPlayer.attack();
-		if (!tmpPlayer.isInAttackOptions(nextPair))
+		// in case there are no ships in process return random element 
+		nextCoordinate = tmpPlayer.attack();
+		if (!tmpPlayer.isInAttackOptions(nextCoordinate))
 		{
 			std::cout << "last " << std::endl;
 			return -1;
 		}
 
-		PlayerSmart tmpPlayer2;
-
-		tmpPlayer2.attackOptions = allCoors;
-
-		nextPair = tmpPlayer.attack();
-		std::cout << nextPair.first << ',' << nextPair.second << std::endl;
-
-		nextPair = tmpPlayer.attack();
-		std::cout << nextPair.first << ',' << nextPair.second << std::endl;
-
-		nextPair = tmpPlayer.attack();
-		std::cout << nextPair.first << ',' << nextPair.second << std::endl;
-
-
 		std::cout << "done!!!!!!!!!!!!! " << std::endl;
 		return 0;
 	}
 	/////////////////////////////////////////////
+	static bool compareCoordinates(Coordinate coor1, Coordinate coor2)
+	{
+		return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
+	}
+
 
 	//static int testsetBoard() {
 	//	}
