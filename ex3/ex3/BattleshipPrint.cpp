@@ -35,7 +35,7 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 		std::cout << std::setw(nameWidth) << std::left << playerData.PlayerName();
 		std::cout << std::setw(gamesCntWidth) << std::left << playerData.WinsNumber();
 		std::cout << std::setw(gamesCntWidth) << std::left << playerData.LossesNumber();
-		double currPlayerWinsPrec = (static_cast<double>(playerData.WinsNumber()) / (playerData.WinsNumber() + playerData.LossesNumber()) * 100);
+		double currPlayerWinsPrec = static_cast<double>(playerData.WinsNumber() / currRound * 100);
 		std::cout << std::setw(precWidth) << std::left << std::setprecision(4) << currPlayerWinsPrec;
 		std::cout << std::setw(pointsWidth) << std::left << playerData.PointsFor();
 		std::cout << std::setw(pointsWidth) << std::left << playerData.PointsAgainst() << std::endl;

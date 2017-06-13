@@ -33,8 +33,8 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	auto numOfplayers = algosDetailsVec.size();
 	auto numOfBoards = boardsVec.size();
-	auto numOfRounds = gamesPropertiesQueue.size() / numOfplayers;
-
+	int numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
+	std::cout <<"num of round: "<< numOfRounds << " num of games: "<< gamesPropertiesQueue.size()  << std::endl;
 	/*todo: init vector of vectors*/
 	allGamesResults.resize(numOfplayers); //vector of size number of players
 	for (auto i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
@@ -43,7 +43,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	allRounds.resize(numOfRounds); // 
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft.store(numOfRounds);
+		allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now
 		allRounds[i].roundNumber = i;
 		allRounds[i].status = false;
 	}
@@ -429,7 +429,7 @@ void BattleshipTournamentManager::singleThreadJob()
 		lock.unlock();
 		break;
 	}
-	queueEmptyCondition.wait(lock, [&]() {return !gamesPropertiesQueue.empty(); });
+	queueEmptyCondition.wait(lock, [&]() {return !gamesPropertiesQueue.empty(); });		//ofir - why we need it?
 	auto currGameProperty = gamesPropertiesQueue.front();
 	gamesPropertiesQueue.pop();
 	lock.unlock();
