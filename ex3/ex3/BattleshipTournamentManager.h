@@ -11,7 +11,7 @@
 #include "SingleGameProperties.h"
 #include "BattleshipPrint.h"
 
-
+//todo: move it to seperate file
 struct Round
 {
 
@@ -19,7 +19,11 @@ struct Round
 	std::atomic<size_t> numOfGamesLeft;
 	bool status;
 	//std::mutex 
-
+	Round() : roundNumber(0), status(false){ numOfGamesLeft.store(0); }
+	Round(int rNum, int atom, bool s) : roundNumber(rNum), status(s){ numOfGamesLeft.store(0); }
+	explicit Round(const Round& round) : roundNumber(round.roundNumber), status(round.status) {
+		numOfGamesLeft.store(round.numOfGamesLeft.load()); }													/* copy constructor */
+	Round& operator=(Round& round) { roundNumber = round.roundNumber; numOfGamesLeft.store(round.numOfGamesLeft.load());  status = round.status; return *this; }								/* delete copy assignment */
 };
 
 class BattleshipTournamentManager
@@ -63,7 +67,7 @@ private:
 
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
-	void updateAllGamesResults(StandingsTableEntryData currGameRes, SingleGameProperties gamsProperty);
+	void updateAllGamesResults(const StandingsTableEntryData& currGameRes, const SingleGameProperties& gamsProperty);
 		
 	//diana and sharon adds
 

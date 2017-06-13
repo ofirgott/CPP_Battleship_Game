@@ -1,5 +1,6 @@
 #include "ShipsBoard.h"
 
+
 ShipsBoard::ShipsBoard(std::set<Ship*> ShipsSet, int Rows, int Cols, int Depth) : rows(Rows), cols(Cols), depth(Depth), shipsSet(ShipsSet), shipsBoardVec(Rows*Cols*Depth)
 {
 	/*shipsBoardVec entries already set to nullptr */
@@ -21,15 +22,19 @@ ShipsBoard::~ShipsBoard()
 }
 
 
-ShipsBoard::ShipsBoard(ShipsBoard && otherBoard) noexcept : rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), shipsBoardVec(std::move(otherBoard.shipsBoardVec)){}
+ShipsBoard::ShipsBoard(ShipsBoard && otherBoard) noexcept : rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth)
+{
+	std::swap(shipsSet, otherBoard.shipsSet);
+	std::swap(shipsBoardVec, otherBoard.shipsBoardVec);
+}
 
 ShipsBoard & ShipsBoard::operator=(ShipsBoard && otherBoard) noexcept
 {
 	rows = otherBoard.rows;
 	cols = otherBoard.cols;
 	depth = otherBoard.depth;
-	shipsBoardVec = std::move(otherBoard.shipsBoardVec);
-
+	std::swap(shipsSet, otherBoard.shipsSet);
+	std::swap(shipsBoardVec, otherBoard.shipsBoardVec);
 	return *this;
 }
 

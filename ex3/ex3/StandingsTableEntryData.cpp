@@ -44,6 +44,6 @@ StandingsTableEntryData & StandingsTableEntryData::operator=(const StandingsTabl
 	winsCnt = arg.winsCnt;
 	lossesCnt = arg.lossesCnt;
 	pointsFor = arg.pointsFor;
-	pointsAgainst = arg.pointsFor;
+	pointsAgainst = arg.pointsAgainst;
 	return *this;
 }
