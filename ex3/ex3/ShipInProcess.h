@@ -35,6 +35,7 @@ class ShipInProcess
 	static std::vector<int> mergeShipsVectors(const std::vector<int>& mainVector, const Coordinate& addCoor, bool horizontal, bool vertical);
 //	friend class testShipInProcess; // todo: for tester - delete////////////////////////////////////////////////////////////////////
 	friend class PlayerSmart;
+	friend class testPlayerSmart;
 public:
 
 	ShipInProcess() = delete; // dont allow ships with no coordinates
