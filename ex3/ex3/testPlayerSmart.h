@@ -90,7 +90,7 @@ public:
 			}
 		}
 
-		std::cout << "tupdateShipsCount is very very Good :)" << std::endl;
+		std::cout << "updateShipsCount is very very Good :)" << std::endl;
 	};
 
 	static 	void testgetMinShipSize() {
@@ -123,7 +123,149 @@ public:
 	static void testclearFourAdjecentCoors(Coordinate attackedCoordinate,
 		AttackResult res, int minIncCoor, int maxInCoor, bool isVertical, bool isHorizontal){};
 
-	static void testcheckSixDirections(Coordinate deadCoordinate) {};
+	static void testCheck6Util1() {
+	
+		PlayerSmart tempPlayer;
+		// create 10*10*10 board
+		std::set<Coordinate> coordinates;
+		for (int i = 1; i < 10; i++) {
+			for (int j = 1; j < 10; j++) {
+				for (int k = 1; k < 10; k++) {
+					coordinates.insert(Coordinate(i, j, k));
+				}
+			}
+		}
+		int res;
+		
+		std::vector<std::pair<int, int>> count;
+		count.push_back(std::make_pair(10, 5));
+
+
+		// target coor will be 2, 5, 4
+		coordinates.erase(coordinates.find(Coordinate(2, 5, 4)));
+
+		// create 'walls' around it
+		//horizontal
+		coordinates.erase(coordinates.find(Coordinate(2, 1, 4)));
+		coordinates.erase(coordinates.find(Coordinate(2, 8, 4)));
+		
+		//vertical
+		coordinates.erase(coordinates.find(Coordinate(6, 5, 4)));
+		//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
+		
+		//deptical
+		//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
+		coordinates.erase(coordinates.find(Coordinate(2, 5, 8)));
+
+		std::set<Coordinate> imbalancedTest;
+		// horizontal
+		imbalancedTest.insert(Coordinate(2, 2, 4));
+		imbalancedTest.insert(Coordinate(2, 3, 4));
+		imbalancedTest.insert(Coordinate(2, 4, 4));
+		imbalancedTest.insert(Coordinate(2, 5, 4));
+		imbalancedTest.insert(Coordinate(2, 7, 4));
+
+		//vertical
+		imbalancedTest.insert(Coordinate(3, 5, 4));
+		imbalancedTest.insert(Coordinate(4, 5, 4));
+		imbalancedTest.insert(Coordinate(5, 5, 4));
+		imbalancedTest.insert(Coordinate(1, 5, 4));
+
+		// deptical 
+		imbalancedTest.insert(Coordinate(2, 5, 1));
+		imbalancedTest.insert(Coordinate(2, 5, 2));
+		imbalancedTest.insert(Coordinate(2, 5, 3));
+		imbalancedTest.insert(Coordinate(2, 5, 4));
+		imbalancedTest.insert(Coordinate(2, 5, 6));
+		imbalancedTest.insert(Coordinate(2, 5, 7));
+
+		// set attack options 
+		tempPlayer.attackOptions = coordinates;
+		tempPlayer.shipsCount = count;
+
+		// test function
+		tempPlayer.checkSixDirections(Coordinate(2, 5, 4));
+
+		for (auto coor : imbalancedTest) {
+			if (tempPlayer.imbalancedAttackOptions.find(coor) == tempPlayer.imbalancedAttackOptions.end) {
+				std::cout << "missing coordinate in imbalanced horizontal";
+				printCoordinate(coor);
+				std::cout << " fix this now!!!!!" << std::endl;
+			}
+
+			if (tempPlayer.attackOptions.find(coor) != tempPlayer.attackOptions.end()) {
+				std::cout << "coordinate shoukdnt be in attack options";
+				printCoordinate(coor);
+				std::cout << " fix this now!!!!!" << std::endl;
+			}
+		}
+	};
+
+	static void testch eck6Util2() {
+
+		PlayerSmart tempPlayer;
+		// create 10*10*10 board
+		std::set<Coordinate> coordinates;
+		for (int i = 1; i < 10; i++) {
+			for (int j = 1; j < 10; j++) {
+				for (int k = 1; k < 10; k++) {
+					coordinates.insert(Coordinate(i, j, k));
+				}
+			}
+		}
+		int res;
+
+		std::vector<std::pair<int, int>> count;
+		count.push_back(std::make_pair(1, 5));
+
+
+		// target coor will be 2, 5, 4
+		coordinates.erase(coordinates.find(Coordinate(2, 5, 4)));
+
+		// create 'walls' around it
+		//horizontal
+		coordinates.erase(coordinates.find(Coordinate(2, 1, 4)));
+		coordinates.erase(coordinates.find(Coordinate(2, 8, 4)));
+
+		//vertical
+		coordinates.erase(coordinates.find(Coordinate(6, 5, 4)));
+		//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
+
+		//deptical
+		//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
+		coordinates.erase(coordinates.find(Coordinate(2, 5, 8)));
+
+		// set attack options 
+		tempPlayer.attackOptions = coordinates;
+		tempPlayer.shipsCount = count;
+
+		// test function
+		tempPlayer.checkSixDirections(Coordinate(2, 5, 4));
+
+		if (tempPlayer.imbalancedAttackOptions.size() != 0) {
+			std::cout << "imbalanced should be of size 0";
+		}
+
+		for (auto coor : coordinates) {
+			if (tempPlayer.attackOptions.find(coor) == tempPlayer.attackOptions.end()) {
+				std::cout << "coordinate should be in attack options";
+				printCoordinate(coor);
+				std::cout << " fix this now!!!!!" << std::endl;
+			}
+		}
+
+
+	};
+
+	static void testchec kSixDirections(Coordinate deadCoordinate) {
+	
+		std::cout << " should remove from all directions of 2,5,4 " << std::endl;
+		testCheck6Util1();
+	
+	
+	
+	
+	};
 
 
 	static void testtransferCoordinatesToSecondPoll(Coordinate startCoordinate,
