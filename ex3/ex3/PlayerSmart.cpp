@@ -630,6 +630,7 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 	if (result == AttackResult::Miss)
 	{
 		removeOneCoordinate(attackedCoor);
+		checkSixDirections(attackedCoor);
 		return;
 	}
 
@@ -721,6 +722,7 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 		removeOneCoordinate(coorsToDelete);
 	
 	}
+
 	if (currSunkShipSize == -1) {
 		currSunkShipSize = attackedShips[0].shipSize;
 	}
@@ -730,8 +732,8 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 
 }
 
-ALGO_API IBattleshipGameAlgo* GetAlgorithm()
-{
-	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
-	return algoPtr;
-}
+//ALGO_API IBattleshipGameAlgo* GetAlgorithm()
+//{
+//	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
+//	return algoPtr;
+//}

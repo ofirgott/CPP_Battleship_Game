@@ -103,8 +103,8 @@ void testPlayerSmart::testgetMinShipSize()
 	tmpPlayer.shipsCount.at(1).second = 0;
 
 	res = tmpPlayer.getMinShipSize();
-	if (res != 3) {
-		std::cout << "ho no min ship size should be 3 but we got " << res << " :(" << std::endl;
+	if (res != 4) {
+		std::cout << "ho no min ship size should be 4 but we got " << res << " :(" << std::endl;
 	}
 
 	std::cout << "Good boy! " << std::endl;
@@ -810,7 +810,6 @@ int testPlayerSmart::testmergeShipDetails()
 	ShipInProcess sizeOne_2(3, 8, 8);
 	ShipInProcess sizeOne_3(7, 9, 8);
 
-
 	ShipInProcess sizeTwo_1(7, 8, 8);
 	sizeTwo_1.addCoordinate(8, 8, 8);
 
@@ -821,12 +820,12 @@ int testPlayerSmart::testmergeShipDetails()
 	ShipInProcess sizeTwo_2(4, 1, 2);
 	sizeTwo_2.addCoordinate(4, 2, 2);
 
-	ShipInProcess sizeThree_2(2, 4, 3);
-	sizeThree_2.addCoordinate(2, 4, 4);
-	sizeThree_2.addCoordinate(2, 4, 5);
+	ShipInProcess sizeThree_2(2, 4, 7);
+	sizeThree_2.addCoordinate(2, 4, 8);
+	sizeThree_2.addCoordinate(2, 4, 9);
 
-	ShipInProcess sizeTwo_3(2, 4, 1);
-	sizeTwo_3.addCoordinate(2, 4, 2);
+	ShipInProcess sizeTwo_3(2, 4, 5);
+	sizeTwo_3.addCoordinate(2, 4, 6);
 
 	allShips.push_back(sizeThree_2);
 	allShips.push_back(sizeThree_1);
@@ -906,8 +905,8 @@ int testPlayerSmart::testmergeShipDetails()
 		i++;
 	}
 
-	std::cout << "this is after marged 3,4,5 with 1, 2 ,shuold have marged  3,4,5 with 1, 2 and erace not needed vector" << std::endl;
-	Coordinate nextPairTosearch4 (2, 4, 2);
+	std::cout << "this is after marged 7,8,9 with 5, 6,shuold have marged   7,8,9 with 5,6 and erace not needed vector" << std::endl;
+	Coordinate nextPairTosearch4 (2, 4, 7);
 	tmpPlayer.mergeShipDetails(&nextPairTosearch4, 0);// does one is the first index or second(i need second)
 
 	i = 0;
@@ -925,7 +924,7 @@ int testPlayerSmart::testmergeShipDetails()
 
 	std::cout << "before another try for marge " << std::endl;
 
-	Coordinate nextPairTosearch2 (2, 4, 3);
+	Coordinate nextPairTosearch2 (2, 4, 8);
 	tmpPlayer.mergeShipDetails(&nextPairTosearch2, 2);// does one is the first index or second(i need second)
 
 	i = 0;
