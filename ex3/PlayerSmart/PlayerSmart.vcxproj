@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="..\ex3\PlayerSmart.cpp" />
     <ClCompile Include="..\ex3\ShipInProcess.cpp" />
+    <ClCompile Include="..\ex3\testPlayerSmart.cpp" />
     <ClCompile Include="..\ex3\testShipInProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

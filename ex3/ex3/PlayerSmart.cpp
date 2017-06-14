@@ -64,19 +64,19 @@ void PlayerSmart::setBoard(const BoardData& board)
 		++it;
 	}
 
-		for (int i = 0; i < boardRows; i++) {
-			for (int j = 0; j < boardCols; j++) {
-				for (int p = 0; j < boardDepth; p++) {
-					updateCoordinates(coorToInsert, i, j ,p);
-					if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
-						updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
-						attackOptions.insert(coorToInsert);//adding to the set of option for attack						
-					}
+	for (int i = 0; i < boardRows; i++) {
+		for (int j = 0; j < boardCols; j++) {
+			for (int p = 0; j < boardDepth; p++) {
+				updateCoordinates(coorToInsert, i, j ,p);
+				if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
+					updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
+					attackOptions.insert(coorToInsert);//adding to the set of option for attack						
 				}
-
 			}
+
 		}
 	}
+}
 
 void PlayerSmart::setPlayer(int player)
 {

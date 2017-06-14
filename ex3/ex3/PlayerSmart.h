@@ -11,8 +11,9 @@
 * after every attack remove the relevent coordiate from attackOptions.
 * if possible remove the coordinates that surround the attacked coordinate (for example for a ship that 2 of her
 * coordinates have been attacked, if the ship is horizontal remove the coordinates left & right to the ship from attackOptions)
-* because of the new assumptions that player A and player B have the same kind of ships, the smart player holds an ordered vector that simulates the ship of the enemy
-* and he is following what kind of ships the enemy holds all the time. if the minimal size of ship the enemy has is for exemple 3 we can remove all attackOptions that are only in size 2
+* because of the new assumptions that player A and player B have the same kind of ships, the smart player holds an ordered vector
+* that simulates the ship of the enemy and he is following what kind of ships the enemy holds all the time. 
+* if the minimal size of ship the enemy has is for exemple 3 we can remove all attackOptions that are only in size 2
 * those cordinates are being moved to another pulll and are saved of a case of inbalance between the two ship.
 * if in any part of the game we find out that the two players are inbalance' all the coordinates from the new pool are going back to attackOptions pool
 * if attackOptions is done and the game is not its another sign for  inbalance between the two ship, and in that case also 
@@ -146,4 +147,16 @@ private:
 
 	/* assume the ships handked here are of size at least 2*/
 	void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor);
+
+	//for tester +---------------------------------------------------------------------------------- delete 
+	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const
+	{
+		auto it = imbalancedAttackOptions.find(coors);
+		if (it != imbalancedAttackOptions.end())//coordinate was found in attackOptions
+		{
+			return true;
+		}
+
+		return false;
+	}
 };
