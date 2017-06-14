@@ -29,16 +29,20 @@
 
 */
 
-struct compareCoordinates {
-	friend bool operator<(const Coordinate& c1, const Coordinate& c2) {
-		if (c1.col == c2.col) {
-			if (c1.row == c2.row) {
-				return c1.depth < c2.depth;
-			}
-			return c1.row < c2.row;
-		}
-		return c1.col < c2.col;
-	}
+//struct compareCoordinates {
+//	friend bool operator<(const Coordinate& c1, const Coordinate& c2) const{
+//		if (c1.col == c2.col) {
+//			if (c1.row == c2.row) {
+//				return c1.depth < c2.depth;
+//			}
+//			return c1.row < c2.row;
+//		}
+//		return c1.col < c2.col;
+//	}
+//};
+
+struct compare {
+	bool operator()(const Coordinate& a, const Coordinate& b) const {return true;}
 };
 
 class PlayerSmart : public IBattleshipGameAlgo
@@ -88,11 +92,11 @@ private:
 	/*a vector of all current ship being attacked*/
 	std::vector<ShipInProcess> attackedShips;
 	/*a set of all the coordinates that are optional for attack*/
-	std::set<Coordinate, compareCoordinates> attackOptions;
+	std::set<Coordinate, compare> attackOptions;
 
 	/*improvments according to the new assumptions - balance of ships in board*/
 	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count> kept in icreasing order (by ship's size)
-	std::set<Coordinate, compareCoordinates> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
+	std::set<Coordinate, compare> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
 
 	/*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
 	void PlayerSmart::pourImbalancedToAttackOptions();
