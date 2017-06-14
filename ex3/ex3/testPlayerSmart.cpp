@@ -127,7 +127,7 @@ void testPlayerSmart::testCheck6Util1()
 			}
 		}
 	}
-	int res;
+
 
 	std::vector<std::pair<int, int>> count;
 	count.push_back(std::make_pair(10, 5));
@@ -206,7 +206,7 @@ void testPlayerSmart::testcheck6Util2()
 			}
 		}
 	}
-	int res;
+
 
 	std::vector<std::pair<int, int>> count;
 	count.push_back(std::make_pair(1, 5));
@@ -261,7 +261,7 @@ void testPlayerSmart::testCheck6Util3()
 			}
 		}
 	}
-	int res;
+
 
 	std::vector<std::pair<int, int>> count;
 	count.push_back(std::make_pair(2, 2));
@@ -340,7 +340,7 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 				}
 			}
 		}
-		int res;
+
 
 		//// Horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
 		coordinates.erase(coordinates.find(Coordinate(2, 5, 4)));
@@ -374,7 +374,7 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 				}
 			}
 		}
-		int res;
+
 		//// Vertical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		tempPlayer.attackOptions.erase(tempPlayer.attackOptions.find(Coordinate(5, 3, 4)));
@@ -407,7 +407,7 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 				}
 			}
 		}
-		int res;
+
 
 		//// deptical !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -57,7 +57,7 @@ public:
 	/////////////////////////////////////////////
 	static bool compareCoordinates(Coordinate coor1, Coordinate coor2);
 
-	//static int testsetBoard() {
-	//	}
+	static int testsetBoard() {
+		}
 
 };
