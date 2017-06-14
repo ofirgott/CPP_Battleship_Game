@@ -1,6 +1,7 @@
 #include "Ship.h"
 //#include <ctype.h>
 #include <algorithm>    // std::sort 
+#include <iostream>
 
 Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
 {
@@ -216,13 +217,20 @@ bool Ship::isIncrementalCoors(const std::vector<int>& coors, size_t size)
 }
 
 
-std::set<Ship*> Ship::createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs)
+std::list<Ship> Ship::createShipsList(const std::set<std::pair<char, std::set<Coordinate>>>& coordsSet)
 {
-	std::set<Ship*> allBattleships;
-
-	for (auto& elem : allPairs) {
-		Ship* shipPtr = new Ship(elem);
-		allBattleships.insert(shipPtr);
+	std::list<Ship> ships;
+	
+	for (auto& elem : coordsSet) {
+		//Ship* shipPtr = new Ship(elem);
+		//std::cout << elem.first << ", ";
+		ships.emplace_back(Ship(elem));
 	}
-	return allBattleships;
-}
+	/*std::cout << std::endl;
+	for (auto& ship : ships)
+	{
+		std::cout << ship.symbol << ", ";
+	}
+	std::cout << std::endl;*/
+	return ships;
+} 

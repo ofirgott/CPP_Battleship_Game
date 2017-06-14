@@ -57,5 +57,5 @@ private:
 	*/
 	static StandingsTableEntryData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
-	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo, const std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const;
+	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo,  std::set<std::pair<char,  std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const;
 };

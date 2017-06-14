@@ -8,9 +8,9 @@ class ShipsBoard
 {
 public:
 	ShipsBoard() : rows(0), cols(0), depth(0) {}
-	ShipsBoard(std::set<Ship*> ShipsSet, int Rows, int Cols, int Depth);
+	ShipsBoard(std::list<Ship>& ShipsSet, int Rows, int Cols, int Depth);
 
-	~ShipsBoard();
+	~ShipsBoard() = default;
 	
 	ShipsBoard(const ShipsBoard& otherBoard) = delete;														/* deletes copy constructor */
 	ShipsBoard& operator=(const ShipsBoard& otherBoard) = delete;
@@ -33,9 +33,9 @@ private:
 	int rows;
 	int cols;
 	int depth;
-	std::set<Ship*> shipsSet;
+	std::list<Ship> shipsList;
 	std::vector<Ship*> shipsBoardVec;
 
-	void setShipPtrCoord(int r, int c, int d, Ship* newShipPtr);
+	void setShipPtrCoord(int r, int c, int d, Ship* newShip);
 
 };

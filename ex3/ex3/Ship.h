@@ -8,7 +8,7 @@
 
 
 #include "IBattleshipGameAlgo.h"
-
+#include <unordered_set>
 
 
 class Ship {
@@ -23,7 +23,12 @@ public:
 
 	/* distructor*/
 	~Ship() = default;
-
+	Ship(Ship & otherShip) = delete;
+	Ship(Ship && otherShip) noexcept : symbol(otherShip.symbol), len(otherShip.len), points(otherShip.points), notHit(otherShip.notHit)
+	{
+		
+		std::swap(body, otherShip.body);
+	}
 	/* returns how much score is gained by hitting this ship*/
 	int getPoints()const;
 
@@ -52,8 +57,7 @@ public:
 	/* @return a set of dinamically allocated Battleships
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
-	static std::set<Ship*> createShipSet(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
-
+	static std::list<Ship> Ship::createShipsList(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
 private:
 
 	static const char RUBBER_BOAT = 'B';

@@ -29,7 +29,6 @@ void PlayerSmart::setBoard(const BoardData& board)
 	//creat the ship count vector
 	boardTemp.countShipsTypes(setOfShipsDetails, shipsCount);
 
-	//std::set<std::pair<int, int>> coordOfCurrentShip;
 	auto it = setOfShipsDetails.begin();
 
 	// foreach shipDetail add all its surroundings to the not allowed coors to attack 
