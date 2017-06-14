@@ -1,9 +1,8 @@
 #pragma once
 #include "PlayerSmart.h"
 #include <algorithm>
-#include "BattleshipGameUtils.h"
 #include "BattleshipBoard.h"
-#include <vector>
+
 
 void PlayerSmart::setBoard(const BoardData& board)
 {
