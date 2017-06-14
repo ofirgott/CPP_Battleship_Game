@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 # include "IBattleshipGameAlgo.h" // for Coordinate
-//#include "testShipInProcess.h" //todo: for tester -delete
 #include <iostream>
 /*
 *class to represent the attacked opponent's ship's
