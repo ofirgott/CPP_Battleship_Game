@@ -11,37 +11,30 @@ BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std:
 	
 	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;
 	mainBoard.ExtractShipsDetailsOfGamePlayers(shipDetailsA, shipDetailsB);
-	//BoardDataImpl boardDataA(PLAYERID_A, mainBoard);
-	ShipsBoard tmpPlayersShipsBoard;
+	
+	ShipsBoard shipsBoardA, shipsBoardB;
 	BoardDataImpl boardDataA(PLAYERID_A, mainBoard);
 	
-	initPlayerData(PLAYERID_A, algorithmA.get(), shipDetailsA, tmpPlayersShipsBoard, boardDataA);
-	//algoA->setPlayer(PLAYERID_A);
-	//algoA->setBoard(boardDataA);
-	//tmpPlayersShipsBoard = ShipsBoard(Ship::createShipSet(shipDetailsA), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
-	playerA = std::move(GamePlayerData(PLAYERID_A, algorithmA.get(), std::move(tmpPlayersShipsBoard), shipDetailsA.size()));
+	initPlayerData(PLAYERID_A, algorithmA.get(), shipDetailsA, shipsBoardA, boardDataA);
+
+	playerA = std::move(GamePlayerData(PLAYERID_A, algorithmA.get(), std::move(shipsBoardA), shipDetailsA.size()));
 	
 	BoardDataImpl boardDataB(PLAYERID_B, mainBoard);
-	initPlayerData(PLAYERID_B, algorithmB.get(), shipDetailsB, tmpPlayersShipsBoard, boardDataB);
-	//BoardDataImpl boardDataB(PLAYERID_B, mainBoard);
+	initPlayerData(PLAYERID_B, algorithmB.get(), shipDetailsB, shipsBoardB, boardDataB);
 	
-	
-	//algoB->setPlayer(PLAYERID_B);
-	//algoB->setBoard(boardDataB);	
-	//tmpPlayersShipsBoard = ShipsBoard((Ship::createShipSet(shipDetailsB)), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
-	playerB = std::move(GamePlayerData(PLAYERID_B, algorithmB.get(), std::move(tmpPlayersShipsBoard), shipDetailsB.size()));
+	playerB = std::move(GamePlayerData(PLAYERID_B, algorithmB.get(), std::move(shipsBoardB), shipDetailsB.size()));
 
 	if (!playerA.isSet() || !playerB.isSet())
 		successfullyCreated = false;
 }
 
-void BattleshipGameManager::initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo, const std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const
+void BattleshipGameManager::initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo,  std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const
 {
 	
 	playerAlgo->setPlayer(playerId);
 	playerAlgo->setBoard(playerBoardData);
-	
-	playerShipBoard = ShipsBoard(Ship::createShipSet(shipsDetails), mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
+	auto playerShipsList = Ship::createShipsList(shipsDetails);
+	playerShipBoard = ShipsBoard(playerShipsList, mainBoard.getRows(), mainBoard.getCols(), mainBoard.getDepth());
 	//playerA = GamePlayerData(playerId, playerAlgo, std::move(playerShipBoard), shipsDetails.size());
 }
 

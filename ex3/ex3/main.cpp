@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	BattleshipPrint::printStandingsTable(standings);*/
 	//std::string BoardPath = "C:/Users/Ofir/Documents/GitHub/ex3/TRY_RELEASE/good_board.sboard";
 	//BattleshipBoard board(BoardPath);
-	//std::string dllPathPlayerA = "C:/Users/Ofir/Documents/GitHub/ex3/TRY_RELEASE/NoamGotlibPlayer.dll", dllPathPlayerB = "C:/Users/Ofir/Documents/GitHub/ex3/TRY_RELEASE/naiveGALARNON.dll";
+	//std::string dllPathPlayerA = "C:/Users/Ofir/Documents/GitHub/ex3/TRY_RELEASE/NoamGotlibPlayer.dll", dllPathPlayerB = "C:/Users/Ofir/Documents/GitHub/ex3/TRY_RELEASE/NoamGotlibPlayer - Copy.dll";
 	//HINSTANCE dllA = LoadLibraryA(dllPathPlayerA.c_str());
 	//HINSTANCE dllB = LoadLibraryA(dllPathPlayerB.c_str());
 	//auto getAlgoFuncA = reinterpret_cast<GetAlgoFuncType>(GetProcAddress(dllA, "GetAlgorithm"));
