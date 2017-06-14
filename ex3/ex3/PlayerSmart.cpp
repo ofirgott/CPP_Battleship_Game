@@ -507,7 +507,7 @@ void PlayerSmart::mergeShipDetails(Coordinate* coor, int startIndex)
 
 	// make sure that the nextPair to search is in board limits
 
-	if (isInBoard(coor->col, coor->row, coor->depth))
+	if (isInBoard(coor->row, coor->col, coor->depth))
 	{
 		index = findCoorInAttackedShips(*coor, startIndex + 1);
 	}
@@ -557,16 +557,16 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 	if (isVertical)
 	{
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row - 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col - 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row + 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col + 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth -1);
+		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth -1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth +1);
+		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth +1);
 		removeOneCoordinate(removeCandidate);
 
 	}
@@ -574,32 +574,32 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 	if (isHorizontal)
 	{
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col - 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row - 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col + 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row + 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row, coor.depth - 1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth - 1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row, coor.depth + 1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth + 1);
 		removeOneCoordinate(removeCandidate);
 
 	}
 	if (isDimentional)
 	{
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col - 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row - 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col + 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row + 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row - 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col - 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row + 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col + 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 	}
 }
