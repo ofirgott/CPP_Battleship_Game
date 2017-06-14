@@ -74,12 +74,15 @@ private:
 	std::set<Coordinate> attackOptions;
 
 	/*improvments according to the new assumptions*/
-	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count>
+	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count> kept in icreasing order (by ship's size)
 	std::set<Coordinate> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
 
 	/*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
 	void PlayerSmart::pourImbalancedToAttackOptions();
-	/*given the size of the ship that sunk,update that there is one less ship in this size*/
+	/*given the size of the ship that sunk,update that there is one less ship in this size
+	if after the update the number of ships of size sunkShipSize is -1, the board was imbalanced 
+	set isBoardBalanced = false and update the attack ptions pool
+	*/
 	void PlayerSmart::updateShipsCount(int sunkShipSize);
 
 	/*return the size of the other player smallest ship */
@@ -90,12 +93,13 @@ private:
 
 	void PlayerSmart::checkSixDirections(Coordinate deadCoordinate);
 
-	/* given a Coordinate count the number of available Coordinates to Attack  starting from startCoordinate up to the closest removed Coor*/
+	/* given a Coordinate count the number of available Coordinates to Attack  starting from startCoordinate 
+	up to the closest removed Coor. if the distance between the "walls" is larger then the smallest ship the opponent owns
+	return -1, (= cant remove anything in thiscase) else return the number of coordinates that should be removed.
+	*/
 	int PlayerSmart::countDistance(Coordinate startCoordinate, int minShipSize, bool isVertical, bool isHorizontal, int direction);
 
 	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool isVertical, bool isHorizontal, int direction);
-
-
 
 	/*checking if a current coordinate is in the Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
