@@ -4,7 +4,7 @@
 
 void testPlayerSmart::printCoordinate(const Coordinate& coord)
 {
-	//std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
+	std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
 }
 
 void testPlayerSmart::testpourImbalancedToAttackOptions()
@@ -1457,6 +1457,105 @@ int testPlayerSmart::testnotifyOnAttackResult()
 			i++;
 		}
 	}
+
+
+	//check for new terms
+	////////////////////////////////////////////////////////////////////
+	PlayerSmart tmpPlayer;
+	std::vector<ShipInProcess> allShips;
+
+	//create Set of options
+	for (int i = 1; i < 4; i++)
+	{
+		for (int j = 1; j < 4; j++)
+		{
+			for (int k = 1; k < 4; k++) {
+				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+			}
+		}
+	}
+	
+	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(Coordinate(4,2,1)));
+	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(Coordinate(4,3,1)));
+	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(Coordinate(4,4,1)));
+	
+
+	// create ships
+
+	ShipInProcess sizeThree_1(4, 2, 1);
+	sizeThree_1.addCoordinate(4, 3, 1);
+	sizeThree_1.addCoordinate(4, 4, 1);
+
+	
+	allShips.push_back(sizeThree_1);
+
+
+	tmpPlayer.attackedShips = allShips;
+	//miss
+	auto find = tmpPlayer.attackOptions.find(Coordinate(2, 2, 1));
+	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 8,2,1
+	find = tmpPlayer.attackOptions.find(Coordinate(2, 2, 1));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+	}
+	else {
+		std::cout << " good!2,2,1 deleted from options:)! " << std::endl;
+	}
+
+	find = tmpPlayer.attackOptions.find(Coordinate(2, 3, 1));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt delete 2,3,1 to options ! " << std::endl;
+	}
+	else {
+		std::cout << " good!2,3,1 deleted from options:)! " << std::endl;
+	}
+
+	find = tmpPlayer.attackOptions.find(Coordinate(2, 1, 1));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt delete 2,1,1 to options ! " << std::endl;
+	}
+	else {
+		std::cout << " good!2,1,1 deleted from options:)! " << std::endl;
+	}
+
+	find = tmpPlayer.attackOptions.find(Coordinate(2, 4, 1));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt delete 2,4,1 to options ! " << std::endl;
+	}
+	else {
+		std::cout << " good!2,4,1 deleted from options:)! " << std::endl;
+	}
+	find = tmpPlayer.attackOptions.find(Coordinate(2, 2, 2));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt delete 2,2,2 to options ! " << std::endl;
+	}
+	else {
+		std::cout << " good!2,2,2 deleted from options:)! " << std::endl;
+	}
+
+	
+
+
+
+
+	//hit (merge one coor with one ship)
+	find = tmpPlayer.attackOptions.find(Coordinate(4, 2, 1));
+	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+	find = tmpPlayer.attackOptions.find(Coordinate(4, 2, 1));
+	if (find != tmpPlayer.attackOptions.end())
+	{
+		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+	}
+
+
+
+
 
 	return 0;
 }
