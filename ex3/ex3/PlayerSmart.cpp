@@ -1,9 +1,8 @@
 #pragma once
 #include "PlayerSmart.h"
 #include <algorithm>
-#include "BattleshipGameUtils.h"
 #include "BattleshipBoard.h"
-#include <vector>
+
 
 void PlayerSmart::setBoard(const BoardData& board)
 {
@@ -29,7 +28,6 @@ void PlayerSmart::setBoard(const BoardData& board)
 	//creat the ship count vector
 	boardTemp.countShipsTypes(setOfShipsDetails, shipsCount);
 
-	//std::set<std::pair<int, int>> coordOfCurrentShip;
 	auto it = setOfShipsDetails.begin();
 
 	// foreach shipDetail add all its surroundings to the not allowed coors to attack 
@@ -65,19 +63,19 @@ void PlayerSmart::setBoard(const BoardData& board)
 		++it;
 	}
 
-		for (int i = 0; i < boardRows; i++) {
-			for (int j = 0; j < boardCols; j++) {
-				for (int p = 0; j < boardDepth; p++) {
-					updateCoordinates(coorToInsert, i, j ,p);
-					if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
-						updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
-						attackOptions.insert(coorToInsert);//adding to the set of option for attack						
-					}
+	for (int i = 0; i < boardRows; i++) {
+		for (int j = 0; j < boardCols; j++) {
+			for (int p = 0; j < boardDepth; p++) {
+				updateCoordinates(coorToInsert, i, j ,p);
+				if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
+					updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
+					attackOptions.insert(coorToInsert);//adding to the set of option for attack						
 				}
-
 			}
+
 		}
 	}
+}
 
 void PlayerSmart::setPlayer(int player)
 {
@@ -509,7 +507,7 @@ void PlayerSmart::mergeShipDetails(Coordinate* coor, int startIndex)
 
 	// make sure that the nextPair to search is in board limits
 
-	if (isInBoard(coor->col, coor->row, coor->depth))
+	if (isInBoard(coor->row, coor->col, coor->depth))
 	{
 		index = findCoorInAttackedShips(*coor, startIndex + 1);
 	}
@@ -559,16 +557,16 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 	if (isVertical)
 	{
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row - 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col - 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row + 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col + 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth -1);
+		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth -1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row , coor.depth +1);
+		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth +1);
 		removeOneCoordinate(removeCandidate);
 
 	}
@@ -576,32 +574,32 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 	if (isHorizontal)
 	{
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col - 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row - 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col + 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row + 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row, coor.depth - 1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth - 1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row, coor.depth + 1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth + 1);
 		removeOneCoordinate(removeCandidate);
 
 	}
 	if (isDimentional)
 	{
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col - 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row - 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove x coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col + 1, coor.row, coor.depth);
+		updateCoordinates(removeCandidate, coor.row + 1, coor.col, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row - 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col - 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove y coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.col, coor.row + 1, coor.depth);
+		updateCoordinates(removeCandidate, coor.row, coor.col + 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 	}
 }
@@ -632,6 +630,7 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 	if (result == AttackResult::Miss)
 	{
 		removeOneCoordinate(attackedCoor);
+		checkSixDirections(attackedCoor);
 		return;
 	}
 
@@ -723,6 +722,7 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 		removeOneCoordinate(coorsToDelete);
 	
 	}
+
 	if (currSunkShipSize == -1) {
 		currSunkShipSize = attackedShips[0].shipSize;
 	}
@@ -732,8 +732,8 @@ void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
 
 }
 
-ALGO_API IBattleshipGameAlgo* GetAlgorithm()
-{
-	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
-	return algoPtr;
-}
+//ALGO_API IBattleshipGameAlgo* GetAlgorithm()
+//{
+//	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
+//	return algoPtr;
+//}
