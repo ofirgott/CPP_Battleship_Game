@@ -10,8 +10,8 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 		[currRound](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
 		double prec_lhs = static_cast<double>(lhs.WinsNumber()) / currRound * 100.0;
 		double prec_rhs = static_cast<double>(rhs.WinsNumber()) / currRound * 100.0;
-		if (prec_lhs == prec_rhs) return lhs.WinsNumber() > rhs.WinsNumber();
-		else return lhs.PointsFor() > rhs.PointsFor();
+		if (prec_lhs == prec_rhs) return lhs.PointsFor() > rhs.PointsFor();
+		else return prec_lhs > prec_rhs;
 	});
 
 	int placeNum = 1;
