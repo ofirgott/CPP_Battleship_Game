@@ -423,6 +423,7 @@ int testPlayerSmart::testremoveSankFromReleventCoors()
 }
 
 //now printing updated and more clear / diana did it clear allready
+
 int testPlayerSmart::testmergeShipDetails()
 {
 	PlayerSmart tmpPlayer;
