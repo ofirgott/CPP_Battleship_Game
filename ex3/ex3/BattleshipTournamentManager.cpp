@@ -41,12 +41,20 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		allGamesResults[i].resize(numOfRounds);
 	}
 
-	allRounds.resize(numOfRounds); // 
+	//allRounds.resize(numOfRounds); // 
+	//for (auto i = 0; i < numOfRounds; i++) {
+	//	allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now. EDIT: maybe it is not true
+	//	//allRounds[i].roundNumber = i; unneccessary..
+	//	allRounds[i].status = false;
+	//}
+	allRounds.reserve(numOfRounds);
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now
-		allRounds[i].roundNumber = i;
-		allRounds[i].status = false;
+		allRounds.emplace_back(numOfplayers, false);		//change it to num of players
+		//allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now. EDIT: maybe it is not true
+		//allRounds[i].roundNumber = i; unneccessary..
+		//allRounds[i].status = false;
 	}
+
 
 	playersProgress = std::vector<std::atomic<int>>(numOfplayers);
 	//playersProgress.resize(numOfplayers);
@@ -469,8 +477,8 @@ void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntr
 	allGamesResults[playerBIndex][propertyIndexB-1] = otherPlayerData;
 
 
-	--allRounds[propertyIndexA-1].numOfGamesLeft;
-	if (allRounds[propertyIndexA-1].numOfGamesLeft == 0) {
+	--allRounds[propertyIndexA-1].numOfPlayersLeft;
+	if (allRounds[propertyIndexA-1].numOfPlayersLeft == 0) {
 		//need to take care of locks and mutexes and condition variables here, need to set cv in .h	
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRounds[propertyIndexA-1].status = true;
@@ -478,8 +486,8 @@ void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntr
 		isRoundDoneCondition.notify_one();
 
 	}
-	--allRounds[propertyIndexB-1].numOfGamesLeft;
-	if (allRounds[propertyIndexB-1].numOfGamesLeft == 0) {
+	--allRounds[propertyIndexB-1].numOfPlayersLeft;
+	if (allRounds[propertyIndexB-1].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRounds[propertyIndexB-1].status = true;
 		lock.unlock();
