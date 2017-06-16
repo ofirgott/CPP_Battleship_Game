@@ -7,9 +7,10 @@
 class StandingsTableEntryData
 {
 public:
+	friend class BattleshipTournamentManager;
 
 	StandingsTableEntryData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
-	StandingsTableEntryData(std::string name, int wins, int losses, int pFor, int pAgainst) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
+	explicit StandingsTableEntryData(std::string name, int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
 
 	~StandingsTableEntryData() = default;
 
@@ -28,11 +29,11 @@ public:
 
 
 	/* setters*/
-	void setPlayerName(std::string newName) { playerName = newName; }
-	void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }
-	void setLossesNumber(int newLossesNum) { lossesCnt = newLossesNum; }
-	void setPointsFor(int newPointsForNum) { pointsFor = newPointsForNum; }
-	void setPointsAgainst(int newPointsAgainstNum) { pointsAgainst = newPointsAgainstNum; }
+	//void setPlayerName(std::string newName) { playerName = newName; }
+	//void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }
+	//void setLossesNumber(int newLossesNum) { lossesCnt = newLossesNum; }
+	//void setPointsFor(int newPointsForNum) { pointsFor = newPointsForNum; }
+	//void setPointsAgainst(int newPointsAgainstNum) { pointsAgainst = newPointsAgainstNum; }
 
 	//StandingsTableEntryData& operator=(StandingsTableEntryData&& arg)noexcept = default;  			//move assignment
 	//StandingsTableEntryData& operator=(const StandingsTableEntryData& arg) = default;

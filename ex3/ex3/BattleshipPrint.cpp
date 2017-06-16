@@ -6,6 +6,10 @@
 //get the vector by value because we need a copy of the vector in order to sort it
 void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, size_t roundsNum)
 {
+
+
+	//todo: end of delete
+	
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
 		[currRound](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
 		double prec_lhs = static_cast<double>(lhs.WinsNumber()) / currRound * 100.0;

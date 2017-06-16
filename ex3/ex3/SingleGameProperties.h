@@ -13,6 +13,8 @@ public:
 	int getPlayerIndexA()const { return playerAIndex; }
 	int getPlayerIndexB()const { return playerBIndex; }
 	int getBoardIndex()const { return mainBoardIndex; }
+
+	//bool operator<(const SingleGameProperties &rhs) const {	return mainBoardIndex < rhs.mainBoardIndex; }
 	
 private:
 	int mainBoardIndex;

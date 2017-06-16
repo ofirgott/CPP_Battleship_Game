@@ -10,26 +10,9 @@
 #include "StandingsTableEntryData.h"
 #include "SingleGameProperties.h"
 #include "BattleshipPrint.h"
-
+#include "RoundData.h"
 //todo: move it to seperate file
-struct Round
-{
 
-	//int roundNumber;
-	std::atomic<size_t> numOfPlayersLeft;
-	bool status;
-	//std::mutex 
-	//Round() : roundNumber(0), status(false){ numOfGamesLeft.store(0); }
-	//Round() : status(false) { numOfGamesLeft.store(0); }
-	Round() : status(false) { }
-	//Round(int rNum, int atom, bool s) : roundNumber(rNum), status(s){ numOfGamesLeft.store(0); }
-	Round(size_t numOfPlayers, bool s) : status(s) { numOfPlayersLeft.store(numOfPlayers); }
-
-	//explicit Round(const Round& round) : roundNumber(round.roundNumber), status(round.status) { numOfGamesLeft.store(round.numOfGamesLeft.load()); }			/* copy constructor */
-	explicit Round(const Round& round) = delete;
-	 Round(Round&& round) noexcept : status(round.status) { numOfPlayersLeft.store(round.numOfPlayersLeft.load()); }
-	//Round& operator=(Round& round) { roundNumber = round.roundNumber; numOfGamesLeft.store(round.numOfGamesLeft.load());  status = round.status; return *this; }								/* delete copy assignment */
-};
 
 class BattleshipTournamentManager
 {
@@ -42,7 +25,7 @@ public:
 
 	
 private:
-
+	
 	static const int TOURNAMENT_MIN_PLAYERS = 2;
 	static const size_t DEFAULT_THREADS_NUM = 4;			/* TODO: we want to load it from the config file for the bonus! need to think about nore parameters that we want to load from there*/
 	static const char A = 'A';																/* player char for player A - for printing */
@@ -59,16 +42,19 @@ private:
 	//diana and sharon adds
 	//std::vector<std::thread> threadsPool;	//Ofir: maybe delete from here because of - https://stackoverflow.com/questions/40770913/c-threading-no-instance-of-constructor-stdthreadthread-matches-the-a
 	std::queue<SingleGameProperties> gamesPropertiesQueue;
-	std::mutex gamesQueueMutex;
-	std::condition_variable queueEmptyCondition;
+	
+	//std::condition_variable queueEmptyCondition;
 	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
-	std::vector<Round> allRounds;
-	std::vector<StandingsTableEntryData> RoundDataToPrint;
+	std::vector<RoundData> allRounds;
+	
+	std::vector<StandingsTableEntryData> cumulativeResultsData;
 	int algosIndex;
-
+	
+	std::mutex gamesQueueMutex, isRoundDoneMutex;
 	std::condition_variable isRoundDoneCondition;
-	std::mutex isRoundDoneMutex;
+	
+
 
 	void createGamesPropertiesQueue();
 	void singleThreadJob();

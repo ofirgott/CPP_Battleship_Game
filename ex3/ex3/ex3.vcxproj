@@ -134,7 +134,7 @@
     <ClInclude Include="GamePlayerData.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="PlayerAlgoDetails.h" />
-    <ClInclude Include="PlayerGameResultData.h" />
+    <ClInclude Include="RoundData.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="ShipsBoard.h" />
     <ClInclude Include="SingleGameProperties.h" />
