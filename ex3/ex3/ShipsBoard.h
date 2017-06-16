@@ -22,7 +22,7 @@ public:
 	int Cols() const { return cols; }
 	int Depth() const { return depth; }
 	
-	bool isSet()const { return rows > 0 && cols > 0 && depth > 0 && !shipsBoardVec.empty(); }
+	//bool isSet()const { return rows > 0 && cols > 0 && depth > 0 && !shipsBoardVec.empty(); }
 	
 	Ship* operator() (int r, int c, int d)const;
 	/* checks if given coordinate is a valid location in board*/

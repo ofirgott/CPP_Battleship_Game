@@ -49,18 +49,13 @@ private:
 	std::condition_variable isRoundDoneCondition;
 	
 	bool printSingleTable;
-	
 
 	std::vector<PlayerGameResultData> allRoundsCumulativeData;
-	//int algosIndex;
-	
-	
-	
 
-
+	
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
-	void updateGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty);
+	void updateGamesResults(const PlayerGameResultData& currGameRes, int playerIndexA, int playerIndexB);
 	bool checkTournamentArguments(int argc, char* argv[]);
 	bool checkTournamentBoards();
 	

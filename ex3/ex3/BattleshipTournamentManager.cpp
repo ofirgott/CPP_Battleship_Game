@@ -343,13 +343,13 @@ bool BattleshipTournamentManager::loadPlayerDll(const std::string& currDllFilena
 }
 
 
-void BattleshipTournamentManager::RunTournament()
+void BattleshipTournamentManager::RunTournament()	
 {
 	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
 
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
-
+	
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
 		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	 /* creating a pool of threads */
@@ -421,30 +421,33 @@ void BattleshipTournamentManager::singleThreadJob()
 		/* we take the relevant 2 pointers from the players vetrors, and insert them to unique ptrs -> then we will move the move the responsibility for those ptrs to the (single) game manager */
 
 		BattleshipGameManager currGame(boardsVec[currGameProperties.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
+	
 		auto currGameResult = currGame.Run();						/* the game result returned is from the perspective of playerA */
 		
-		updateGamesResults(currGameResult, currGameProperties);
+		updateGamesResults(currGameResult, currGameProperties.getPlayerIndexA(), currGameProperties.getPlayerIndexB());
+		
 	}
 }
 
 
-void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResult, const SingleGameProperties& currGamesProperties)
+void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResult, int playerIndexA, int playerIndexB)
 {
 
-	// players indexes 
-	auto playerAIndex = currGamesProperties.getPlayerIndexA();
-	auto playerBIndex = currGamesProperties.getPlayerIndexB();
 
 	//create gameResults for the second player 
-	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameResult, algosDetailsVec[playerBIndex].playerName);
+	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameResult, algosDetailsVec[playerIndexB].playerName);
+
+
+	//todo: WE NEED TO SEE IF LOCK HERE SOMETHING~!!!!!!!
+
 
 	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = ++playersProgress[playerAIndex];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
-	int propertyIndexB = ++playersProgress[playerBIndex];
+	int propertyIndexA = ++playersProgress[playerIndexA];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
+	int propertyIndexB = ++playersProgress[playerIndexB];
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA-1] = currGameResult;
-	allGamesResults[playerBIndex][propertyIndexB-1] = otherPlayerData;
+	allGamesResults[playerIndexA][propertyIndexA-1] = currGameResult;
+	allGamesResults[playerIndexB][propertyIndexB-1] = otherPlayerData;
 
 
 	--allRoundsData[propertyIndexA-1].numOfPlayersLeft;
