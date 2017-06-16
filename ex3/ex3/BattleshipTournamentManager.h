@@ -1,17 +1,14 @@
 #pragma once
-#include <string>
+
 #include "BattleshipBoard.h"
 #include "PlayerAlgoDetails.h"
 #include <queue> 
 #include "BattleshipGameManager.h"
-#include <thread>
 #include <mutex>
 #include <atomic>
 #include "PlayerGameResultData.h"
 #include "SingleGameProperties.h"
-#include "BattleshipPrint.h"
 #include "RoundData.h"
-//todo: move it to seperate file
 
 
 class BattleshipTournamentManager
@@ -19,6 +16,7 @@ class BattleshipTournamentManager
 public:
 	BattleshipTournamentManager(int argc, char* argv[]);
 	~BattleshipTournamentManager();
+	BattleshipTournamentManager(const BattleshipTournamentManager& otherTournament) = delete;					/* deletes copy constructor */
 
 	bool isTournamentSuccessfullyCreated()const { return successfullyCreated; }
 	void RunTournament();
@@ -27,43 +25,42 @@ public:
 private:
 	
 	static const int TOURNAMENT_MIN_PLAYERS = 2;
-	static const size_t DEFAULT_THREADS_NUM = 4;			/* TODO: we want to load it from the config file for the bonus! need to think about nore parameters that we want to load from there*/
+	static const size_t DEFAULT_THREADS_NUM = 4;
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
 	static const int PLAYERID_A = 0;
 	static const int PLAYERID_B = 1;
-
-	std::string inputDirPath;
-	std::vector<BattleshipBoard> boardsVec;
-	std::vector<PlayerAlgoDetails> algosDetailsVec;
+	static const bool DEFAULT_PRINT_SINGLE_TABLE = false;
 	size_t maxGamesThreads;
 	bool successfullyCreated;
+	std::string inputDirPath;
 
-	//diana and sharon adds
-	//std::vector<std::thread> threadsPool;	//Ofir: maybe delete from here because of - https://stackoverflow.com/questions/40770913/c-threading-no-instance-of-constructor-stdthreadthread-matches-the-a
-	std::queue<SingleGameProperties> gamesPropertiesQueue;
+	std::vector<BattleshipBoard> boardsVec;
+	std::vector<PlayerAlgoDetails> algosDetailsVec;
 	
-	//std::condition_variable queueEmptyCondition;
+	
+
+	std::queue<SingleGameProperties> gamesPropertiesQueue;
 	std::vector<std::vector<PlayerGameResultData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
-	std::vector<RoundData> allRounds;
-	
-	std::vector<PlayerGameResultData> cumulativeResultsData;
-	int algosIndex;
+	std::vector<RoundData> allRoundsData;
 	
 	std::mutex gamesQueueMutex, isRoundDoneMutex;
 	std::condition_variable isRoundDoneCondition;
+	
+	bool printSingleTable;
+	
+
+	std::vector<PlayerGameResultData> allRoundsCumulativeData;
+	//int algosIndex;
+	
+	
 	
 
 
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
-	void updateAllGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty);
-		
-	//diana and sharon adds
-
-
-
+	void updateGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty);
 	bool checkTournamentArguments(int argc, char* argv[]);
 	bool checkTournamentBoards();
 	
@@ -87,5 +84,5 @@ private:
 	
 	bool loadTournamentAlgos();
 
-	void loadPlayerDll(const std::string& currDllFilename);
+	bool loadPlayerDll(const std::string& currDllFilename);
 };

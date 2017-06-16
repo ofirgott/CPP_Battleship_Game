@@ -13,7 +13,7 @@ public:
 	static const int YELLOW_COLOR = 14;
 	static const int WHITE_COLOR = 15;
 	static const char BLANK_CHAR = ' ';
-	const static int printDefatultDealy = 300;
+	const static int printDefaultDealy = 300;
 	
 
 	const static int pointsWidth = 10;

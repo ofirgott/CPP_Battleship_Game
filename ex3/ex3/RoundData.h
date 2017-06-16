@@ -9,7 +9,7 @@ public:
 
 	RoundData() : isRoundDone(false) { }
 	//Round(int rNum, int atom, bool s) : roundNumber(rNum), status(s){ numOfGamesLeft.store(0); }
-	RoundData(size_t numOfPlayers, bool s) : isRoundDone(s) { numOfPlayersLeft.store(numOfPlayers); }
+	explicit RoundData(size_t numOfPlayers, bool s = false) : isRoundDone(s) { numOfPlayersLeft.store(numOfPlayers); }
 	RoundData(const RoundData& round) = delete;
 	RoundData(RoundData&& round) noexcept : isRoundDone(round.isRoundDone) { numOfPlayersLeft.store(round.numOfPlayersLeft.load()); }
 

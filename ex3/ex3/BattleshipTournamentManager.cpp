@@ -3,72 +3,50 @@
 #include <iostream>
 #include <condition_variable>
 #include <atomic>
-//	#include <thread>
-//#include "Ship.h"
+#include "BattleshipPrint.h"
+#include <thread>
 
-
-BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(true)
+BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(true), printSingleTable(DEFAULT_PRINT_SINGLE_TABLE)
 {
 
-	if (!checkTournamentArguments(argc, argv)) {
+	if (!checkTournamentArguments(argc, argv)) {					/* checks arguments validity, and parse all arguments from program input and config file */
 		successfullyCreated = false;
 		return;
 	}
 
-	if (!checkTournamentBoards())
+	if (!checkTournamentBoards())									/* checks all board in the input data, and update the board vectors with all valid boards */
 		successfullyCreated = false;
 
-	if (!loadTournamentAlgos())
+	if (!loadTournamentAlgos())										/* checks all players algorithms in the input data, and update the algos vectors with all valid algos */
 		successfullyCreated = false;
 
-	if (!successfullyCreated) return;
+	if (!successfullyCreated) return;								/* if we don't have enough algos or boards, we can not create new tournament */
 
 	std::cout << "Number of legal players: " << algosDetailsVec.size() << std::endl;
 	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl;
 
 	//Ofir -we need to put next rows in seperate function - init tournament data structures or something..
 
-	algosIndex = 0;
-	createGamesPropertiesQueue();
+	//algosIndex = 0;
+	createGamesPropertiesQueue();								/* create all games propertioes for all possible games - each 2 players will play twice on each board - home and away*/
 
 	auto numOfplayers = algosDetailsVec.size();
-	auto numOfBoards = boardsVec.size();
 	int numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
-	std::cout <<"num of round: "<< numOfRounds << " num of games: "<< gamesPropertiesQueue.size()  << std::endl;
-	/*todo: init vector of vectors*/
-	allGamesResults.resize(numOfplayers); //vector of size number of players
-	for (auto i = 0; i < numOfplayers; i++) { // for each player vector of size num of rounds
-		allGamesResults[i].resize(numOfRounds);
+
+	std::cout <<"num of round: "<< numOfRounds << " num of games: "<< gamesPropertiesQueue.size()  << std::endl; //todo: print to the log
+	
+	allGamesResults.resize(numOfplayers);															/* allGamesResults dimensions are numOfPlayer X numOfRounds */
+	for (auto i = 0; i < numOfplayers; i++) { 
+		allGamesResults[i].resize(numOfRounds);														/* use resize to init with initial values for every game */
+		allRoundsCumulativeData.emplace_back(PlayerGameResultData(algosDetailsVec[i].playerName));
 	}
 
-	//allRounds.resize(numOfRounds); // 
-	//for (auto i = 0; i < numOfRounds; i++) {
-	//	allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now. EDIT: maybe it is not true
-	//	//allRounds[i].roundNumber = i; unneccessary..
-	//	allRounds[i].status = false;
-	//}
-	allRounds.reserve(numOfRounds);
+	allRoundsData.reserve(numOfRounds);								/* use reserve beacuse of the atomic member of RoundData, we will init every value in the next loop */
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRounds.emplace_back(numOfplayers, false);		//change it to num of players
-		//allRounds[i].numOfGamesLeft.store(gamesPropertiesQueue.size() / numOfRounds);		//Ofir - I fixed it from store(numOfRounds);. I think it works now. EDIT: maybe it is not true
-		//allRounds[i].roundNumber = i; unneccessary..
-		//allRounds[i].status = false;
+		allRoundsData.emplace_back(numOfplayers, false);		//change it to num of players
 	}
-
 
 	playersProgress = std::vector<std::atomic<int>>(numOfplayers);
-	//playersProgress.resize(numOfplayers);
-	//for (auto i = 0; i < numOfplayers; i++)
-	//{
-		//playersProgress[i].store(-1);
-		//std::atomic<int>		 a{ 0 };
-		//playersProgress.emplace_back(a);
-		//std::atomic_init(a, 0);
-	//}
-
-	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
-		cumulativeResultsData.emplace_back(PlayerGameResultData(algosDetailsVec[i].playerName));
-	}
 
 }
 
@@ -76,12 +54,10 @@ BattleshipTournamentManager::~BattleshipTournamentManager()
 {
 	std::vector<PlayerAlgoDetails>::iterator vitr;
 
-	// close all the dynamic libs we opened 
-
 	for (vitr = algosDetailsVec.begin(); vitr != algosDetailsVec.end(); ++vitr)
 	{
 		if (vitr->dllFileHandle)
-			FreeLibrary(vitr->dllFileHandle);
+			FreeLibrary(vitr->dllFileHandle);										 /*  close all the dynamic libs we opened  */
 	}
 }
 
@@ -96,7 +72,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 		return false;
 	}
 
-	for (int i = 1; i < argc; i++)
+	for (auto i = 1; i < argc; i++)
 	{
 		if (strcmp(argv[i], "-threads") == 0)
 		{
@@ -333,7 +309,7 @@ bool BattleshipTournamentManager::loadTournamentAlgos()
 
 }
 
-void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilename)
+bool BattleshipTournamentManager::loadPlayerDll(const std::string& currDllFilename)
 {
 	PlayerAlgoDetails currAlgo;
 	currAlgo.dllPath = inputDirPath + "/" + currDllFilename;
@@ -346,7 +322,7 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 	if (!currAlgo.dllFileHandle)
 	{
 		std::cout << "Cannot load dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
-		return;
+		return false;
 	}
 	else
 	{
@@ -356,59 +332,47 @@ void BattleshipTournamentManager::loadPlayerDll(const std::string & currDllFilen
 		{
 			std::cout << "Error getting GetAlgorithm function from the dll file in: " << currAlgo.dllPath; //todo: print to the log
 			FreeLibrary(currAlgo.dllFileHandle);
-			return;
+			return false;
 		}
 		std::cout << "Success loading player algorithm from dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
 	}
 
-	currAlgo.algosIndexInVec = algosIndex;
-	algosIndex++;
+	//currAlgo.algosIndexInVec = algosIndex++;
 	algosDetailsVec.push_back(std::move(currAlgo));
+	return true;
 }
 
 
 void BattleshipTournamentManager::RunTournament()
 {
-	auto numberOfRounds = allRounds.size();
-	auto numberOfGames = allGamesResults.size();
-	auto numOfPlayers = algosDetailsVec.size();
-	int currRound = 0;
-
-	//in case there are more threads then games
-	if (maxGamesThreads > numberOfGames) {
-		maxGamesThreads = numberOfGames;
-	}
+	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
 
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
 
-	//creating a pool of threads
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	
+		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	 /* creating a pool of threads */
 	}
-	//for the thread issue:
-	//https://stackoverflow.com/questions/26516683/reusing-thread-in-loop-c/29742586#29742586
-	//https://stackoverflow.com/questions/23717151/why-emplace-back-is-faster-than-push-back
 
-
-	//while there are more rounds to print keep waiting for next round
-	while (currRound < numberOfRounds) {
+	int currRound = 0;
+	
+	while (currRound < allRoundsData.size()) {														/* while there are more rounds to print keep waiting for next round */
 
 		std::unique_lock<std::mutex> lk(isRoundDoneMutex);
-		//waiting for current round to end by order (first till last)
-		isRoundDoneCondition.wait(lk, [&]() {return allRounds[currRound].isRoundDone; }); //Ofir - maybe prefer to do [&] ?
+		
+		isRoundDoneCondition.wait(lk, [&]() {return allRoundsData[currRound].isRoundDone; });		/* waiting for current round to end by order (first till last) */
 		lk.unlock();
 
-		if (allRounds[currRound].isRoundDone) {//update sum fileds for current round 
-			for (auto i = 0; i < numOfPlayers; i++) {
-				cumulativeResultsData[i].winsCnt += allGamesResults[i][currRound].winsCnt;
-				cumulativeResultsData[i].lossesCnt += allGamesResults[i][currRound].lossesCnt;
-				cumulativeResultsData[i].pointsFor += allGamesResults[i][currRound].pointsFor;
-				cumulativeResultsData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
+		if (allRoundsData[currRound].isRoundDone) {															/* sanity check in case of spurious wake up */
+			for (auto i = 0; i < algosDetailsVec.size(); i++) {												/* update sum fileds for current round  */
+				allRoundsCumulativeData[i].winsCnt += allGamesResults[i][currRound].winsCnt;
+				allRoundsCumulativeData[i].lossesCnt += allGamesResults[i][currRound].lossesCnt;
+				allRoundsCumulativeData[i].pointsFor += allGamesResults[i][currRound].pointsFor;
+				allRoundsCumulativeData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
 			}
 			
-			std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
+	/*		std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
 			for (size_t i = 0; i < numOfPlayers; i++)
 			{
 				size_t r = numberOfRounds;
@@ -424,14 +388,14 @@ void BattleshipTournamentManager::RunTournament()
 				}
 				std::cout << r;
 				std::cout << std::endl;
-			}
-			BattleshipPrint::printStandingsTable(cumulativeResultsData, currRound + 1, allRounds.size());//printing the round
+			}*/
+			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());//printing the round
 		
 			currRound++;//next round to wait for
 		}
 
 	}
-	std::cout << "games completed" << std::endl;
+	//std::cout << "games completed" << std::endl;
 	for (auto & t : threadsPool) {
 		t.join();
 	}
@@ -440,8 +404,6 @@ void BattleshipTournamentManager::RunTournament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	PlayerGameResultData currGameResult;
-
 	while (!gamesPropertiesQueue.empty())
 	{
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);				/* we lock here to deal with the games queue */
@@ -456,52 +418,48 @@ void BattleshipTournamentManager::singleThreadJob()
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoA(algosDetailsVec[currGameProperties.getPlayerIndexA()].getAlgoFunc());
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoB(algosDetailsVec[currGameProperties.getPlayerIndexB()].getAlgoFunc());
 
-		/* we take the relevant 2 pointersfrom the players vetrors, and insert them to unique ptrs -> then we will move the move the responsibility for those ptrs to the (single) game manager */
+		/* we take the relevant 2 pointers from the players vetrors, and insert them to unique ptrs -> then we will move the move the responsibility for those ptrs to the (single) game manager */
 
 		BattleshipGameManager currGame(boardsVec[currGameProperties.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
-		currGameResult = currGame.Run();
-
-								// the game result returned is from the perspective of playerA
-		//currGameResult.playerName = algosDetailsVec[currGameProperties.getPlayerIndexA()].playerName;		//Ofir - why we need the name? can we leave it empty?
-		//std::cout << "game: " << currGameProperties.getPlayerIndexA() << "VS " << currGameProperties.getPlayerIndexB() << " in Board: " << currGameProperties.getBoardIndex() << std::endl;
-		updateAllGamesResults(currGameResult, currGameProperties);
-		//std::cout << "Game Done" << std::endl;
+		auto currGameResult = currGame.Run();						/* the game result returned is from the perspective of playerA */
+		
+		updateGamesResults(currGameResult, currGameProperties);
 	}
 }
 
 
-void BattleshipTournamentManager::updateAllGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty)
+void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResult, const SingleGameProperties& currGamesProperties)
 {
 
 	// players indexes 
-	auto playerAIndex = algosDetailsVec[gamsProperty.getPlayerIndexA()].algosIndexInVec;
-	auto playerBIndex = algosDetailsVec[gamsProperty.getPlayerIndexB()].algosIndexInVec;
+	auto playerAIndex = currGamesProperties.getPlayerIndexA();
+	auto playerBIndex = currGamesProperties.getPlayerIndexB();
 
 	//create gameResults for the second player 
-	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
+	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameResult, algosDetailsVec[playerBIndex].playerName);
 
 	// indexes of the properties in the specific player's vector 
 	int propertyIndexA = ++playersProgress[playerAIndex];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
 	int propertyIndexB = ++playersProgress[playerBIndex];
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA-1] = currGameRes;
+	allGamesResults[playerAIndex][propertyIndexA-1] = currGameResult;
 	allGamesResults[playerBIndex][propertyIndexB-1] = otherPlayerData;
 
 
-	--allRounds[propertyIndexA-1].numOfPlayersLeft;
-	if (allRounds[propertyIndexA-1].numOfPlayersLeft == 0) {
+	--allRoundsData[propertyIndexA-1].numOfPlayersLeft;
+	if (allRoundsData[propertyIndexA-1].numOfPlayersLeft == 0) {
 		//need to take care of locks and mutexes and condition variables here, need to set cv in .h	
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRounds[propertyIndexA-1].isRoundDone = true;
+		allRoundsData[propertyIndexA-1].isRoundDone = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 
 	}
-	--allRounds[propertyIndexB-1].numOfPlayersLeft;
-	if (allRounds[propertyIndexB-1].numOfPlayersLeft == 0) {
+	--allRoundsData[propertyIndexB-1].numOfPlayersLeft;
+	if (allRoundsData[propertyIndexB-1].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRounds[propertyIndexB-1].isRoundDone = true;
+		allRoundsData[propertyIndexB-1].isRoundDone = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 	}
@@ -511,27 +469,17 @@ void BattleshipTournamentManager::updateAllGamesResults(const PlayerGameResultDa
 
 void BattleshipTournamentManager::createGamesPropertiesQueue()
 {
-	std::vector<SingleGameProperties> tmpPropertiesVector;
-	
-	for (auto i = 0; i < algosDetailsVec.size(); i++)
+	for (auto k = 0; k < boardsVec.size(); k++)
 	{
-		for (auto j = 0; j < algosDetailsVec.size(); j++)
+		for (auto i = 0; i < algosDetailsVec.size(); i++)
 		{
-			for (auto k = 0; k < boardsVec.size(); k++)
+			for (auto j = 0; j < algosDetailsVec.size(); j++)
 			{
 				if (i != j) {
-					//SingleGameProperties gameDetails(k, i, j);
-					tmpPropertiesVector.push_back(SingleGameProperties(k, i, j));
+					gamesPropertiesQueue.emplace(SingleGameProperties(k, i, j));
 				}
 			}
 		}
 	}
-	std::sort(tmpPropertiesVector.begin(), tmpPropertiesVector.end(),
-		[](const SingleGameProperties & a, const SingleGameProperties & b) { return a.getBoardIndex() < b.getBoardIndex(); });
 
-	for (auto element : tmpPropertiesVector) {  
-
-		gamesPropertiesQueue.emplace(element);
-	}
-	
 }
