@@ -7,7 +7,7 @@
 #include <thread>
 #include <mutex>
 #include <atomic>
-#include "StandingsTableEntryData.h"
+#include "PlayerGameResultData.h"
 #include "SingleGameProperties.h"
 #include "BattleshipPrint.h"
 #include "RoundData.h"
@@ -44,11 +44,11 @@ private:
 	std::queue<SingleGameProperties> gamesPropertiesQueue;
 	
 	//std::condition_variable queueEmptyCondition;
-	std::vector<std::vector<StandingsTableEntryData>> allGamesResults; // table: for each algo vector of his results
+	std::vector<std::vector<PlayerGameResultData>> allGamesResults; // table: for each algo vector of his results
 	std::vector<std::atomic<int>>playersProgress;
 	std::vector<RoundData> allRounds;
 	
-	std::vector<StandingsTableEntryData> cumulativeResultsData;
+	std::vector<PlayerGameResultData> cumulativeResultsData;
 	int algosIndex;
 	
 	std::mutex gamesQueueMutex, isRoundDoneMutex;
@@ -58,7 +58,7 @@ private:
 
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
-	void updateAllGamesResults(const StandingsTableEntryData& currGameRes, const SingleGameProperties& gamsProperty);
+	void updateAllGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty);
 		
 	//diana and sharon adds
 

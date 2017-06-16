@@ -4,18 +4,18 @@
 #include <vector>
 
 /* we use class and not struct because we want to hide this information*/
-class StandingsTableEntryData
+class PlayerGameResultData
 {
 public:
 	friend class BattleshipTournamentManager;
 
-	StandingsTableEntryData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
-	explicit StandingsTableEntryData(std::string name, int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
+	PlayerGameResultData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
+	explicit PlayerGameResultData(std::string name, int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
 
-	~StandingsTableEntryData() = default;
+	~PlayerGameResultData() = default;
 
 	/* given one players data create the opponents data by switchin the loss-wins and pointsfor-agqainst fields*/
-	static StandingsTableEntryData createOpponentData(const StandingsTableEntryData& thisData, std::string otherName);
+	static PlayerGameResultData createOpponentData(const PlayerGameResultData& thisData, std::string otherName);
 
 	/* getters */
 	std::string PlayerName()const { return playerName; }
@@ -24,7 +24,7 @@ public:
 	int PointsFor()const { return pointsFor; }
 	int PointsAgainst()const { return pointsAgainst; }
 
-	static size_t getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec);
+	static size_t getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec);
 
 
 
@@ -41,7 +41,7 @@ public:
 	//bool operator<(const StandingsTableEntryData &rhs) const { return playerName < rhs.playerName; }
 
 	//void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin);
-	StandingsTableEntryData& operator=(const StandingsTableEntryData & arg);
+	PlayerGameResultData& operator=(const PlayerGameResultData & arg);
 private:
 
 	std::string playerName;

@@ -4,14 +4,14 @@
 
 
 //get the vector by value because we need a copy of the vector in order to sort it
-void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> playersStandingsVec, int currRound, size_t roundsNum)
+void BattleshipPrint::printStandingsTable(std::vector<PlayerGameResultData> playersStandingsVec, int currRound, size_t roundsNum)
 {
 
 
 	//todo: end of delete
 	
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
-		[currRound](const StandingsTableEntryData& lhs, const StandingsTableEntryData& rhs) {
+		[currRound](const PlayerGameResultData& lhs, const PlayerGameResultData& rhs) {
 		double prec_lhs = static_cast<double>(lhs.WinsNumber()) / currRound * 100.0;
 		double prec_rhs = static_cast<double>(rhs.WinsNumber()) / currRound * 100.0;
 		if (prec_lhs == prec_rhs) return lhs.PointsFor() > rhs.PointsFor();
@@ -19,7 +19,7 @@ void BattleshipPrint::printStandingsTable(std::vector<StandingsTableEntryData> p
 	});
 
 	int placeNum = 1;
-	auto nameWidth = max(StandingsTableEntryData::getMaxPlayerNameWidth(playersStandingsVec) + 4, strlen("Team Name") + 4);
+	auto nameWidth = max(PlayerGameResultData::getMaxPlayerNameWidth(playersStandingsVec) + 4, strlen("Team Name") + 4);
 	
 				   /* Table headers */
 	setColor(BLUE_COLOR);

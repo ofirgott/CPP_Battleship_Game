@@ -1,6 +1,6 @@
 #include "BattleshipTournamentManager.h"
 #include <exception>
-#include "StandingsTableEntryData.h" //todo: delete this
+#include "PlayerGameResultData.h" //todo: delete this
 #include "BattleshipPrint.h" //todo: delete this
 #include <iostream>
 #include <windows.h>

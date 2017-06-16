@@ -67,7 +67,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	//}
 
 	for (auto i = 0; i < numOfplayers; i++) {	//Ofir - dup	
-		cumulativeResultsData.emplace_back(StandingsTableEntryData(algosDetailsVec[i].playerName));
+		cumulativeResultsData.emplace_back(PlayerGameResultData(algosDetailsVec[i].playerName));
 	}
 
 }
@@ -440,7 +440,7 @@ void BattleshipTournamentManager::RunTournament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	StandingsTableEntryData currGameResult;
+	PlayerGameResultData currGameResult;
 
 	while (!gamesPropertiesQueue.empty())
 	{
@@ -470,7 +470,7 @@ void BattleshipTournamentManager::singleThreadJob()
 }
 
 
-void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntryData& currGameRes, const SingleGameProperties& gamsProperty)
+void BattleshipTournamentManager::updateAllGamesResults(const PlayerGameResultData& currGameRes, const SingleGameProperties& gamsProperty)
 {
 
 	// players indexes 
@@ -478,7 +478,7 @@ void BattleshipTournamentManager::updateAllGamesResults(const StandingsTableEntr
 	auto playerBIndex = algosDetailsVec[gamsProperty.getPlayerIndexB()].algosIndexInVec;
 
 	//create gameResults for the second player 
-	auto otherPlayerData = StandingsTableEntryData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
+	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameRes, algosDetailsVec[gamsProperty.getPlayerIndexB()].playerName);
 
 	// indexes of the properties in the specific player's vector 
 	int propertyIndexA = ++playersProgress[playerAIndex];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860

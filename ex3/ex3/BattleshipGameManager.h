@@ -5,7 +5,7 @@
 #include "BattleshipBoard.h"
 //#include <windows.h>
 #include "GamePlayerData.h"
-#include "StandingsTableEntryData.h"
+#include "PlayerGameResultData.h"
 #include <memory>
 #include "BoardDataImpl.h"
 
@@ -34,7 +34,7 @@ public:
 
 	bool isGameSuccessfullyCreated()const { return successfullyCreated; }
 	
-	StandingsTableEntryData Run();																				/* given a game object, run's the game and outputs the results */
+	PlayerGameResultData Run();																				/* given a game object, run's the game and outputs the results */
 
 private:
 
@@ -55,7 +55,7 @@ private:
 	in the scope of this function ie the player's name in the return value will be the empty string
 	the function wich invokes Run, will update the player's name to be PlayersA name
 	*/
-	static StandingsTableEntryData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
+	static PlayerGameResultData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
 	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo,  std::set<std::pair<char,  std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const;
 };
