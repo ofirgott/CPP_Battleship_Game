@@ -408,7 +408,7 @@ void BattleshipTournamentManager::RunTournament()
 				cumulativeResultsData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
 			}
 			
-		/*	std::cout << "Players status after round: " << cnt +1  << ": " << std::endl;
+			std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
 			for (size_t i = 0; i < numOfPlayers; i++)
 			{
 				size_t r = numberOfRounds;
@@ -424,7 +424,7 @@ void BattleshipTournamentManager::RunTournament()
 				}
 				std::cout << r;
 				std::cout << std::endl;
-			}*/
+			}
 			BattleshipPrint::printStandingsTable(cumulativeResultsData, currRound + 1, allRounds.size());//printing the round
 		
 			currRound++;//next round to wait for
@@ -444,22 +444,22 @@ void BattleshipTournamentManager::singleThreadJob()
 
 	while (!gamesPropertiesQueue.empty())
 	{
-		std::unique_lock<std::mutex> lock(gamesQueueMutex);
-		//waiting for current thread to end his game
-		if (gamesPropertiesQueue.empty()) {
-			return;	//lock is unlocked here
+		std::unique_lock<std::mutex> lock(gamesQueueMutex);				/* we lock here to deal with the games queue */
+		
+		if (gamesPropertiesQueue.empty()) {								/* if the queue is empty, we are done -> no new games will be inserted to the queue */
+			return;														/* lock is unlocked here */
 		}
-		auto currGameProperties = gamesPropertiesQueue.front();									// check if we need frond and also pop
+		auto currGameProperties = gamesPropertiesQueue.front();			/* takes the next game form the queue */
 		gamesPropertiesQueue.pop();
 		lock.unlock();
 
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoA(algosDetailsVec[currGameProperties.getPlayerIndexA()].getAlgoFunc());
 		std::unique_ptr<IBattleshipGameAlgo> playerAlgoB(algosDetailsVec[currGameProperties.getPlayerIndexB()].getAlgoFunc());
 
-
+		/* we take the relevant 2 pointersfrom the players vetrors, and insert them to unique ptrs -> then we will move the move the responsibility for those ptrs to the (single) game manager */
 
 		BattleshipGameManager currGame(boardsVec[currGameProperties.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
-		currGameResult = currGame.Run();// function<void()> type
+		currGameResult = currGame.Run();
 
 								// the game result returned is from the perspective of playerA
 		//currGameResult.playerName = algosDetailsVec[currGameProperties.getPlayerIndexA()].playerName;		//Ofir - why we need the name? can we leave it empty?

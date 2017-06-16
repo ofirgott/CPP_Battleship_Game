@@ -26,8 +26,6 @@ public:
 
 	static size_t getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec);
 
-
-
 	/* setters*/
 	//void setPlayerName(std::string newName) { playerName = newName; }
 	//void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }

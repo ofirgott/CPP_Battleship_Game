@@ -2,23 +2,53 @@
 ### YOU SHOULD EDIT THE BELOW WITH YOUR DETAILS AND FILES ###
 #############################################################
 
-set(user1 itzikkobra)
-set(user2 heizenberg)
-set(user3 nevuhadnetzer)
-set(id1 "123456789")
-set(id2 "123456789")
-set(id3 "123456789")
+set(user1 dianakolton)
+set(user2 Shahrabany1)
+set(user3 ofirg1)
+set(id1 "204196729")
+set(id2 "204537997")
+set(id3 "305645806")
 
 # All source files needed to compile your exe
 set (EXE_SOURCE_FILES
-	shape.h
+	BattleshipGameManager.h
+	BattleshipPrint.h
+	BattleshipTournamentManager.h
+	GamePlayerData.h
+	Logger.h
+	PlayerAlgoDetails.h
+	RoundData.h
+	Ship.h
+	ShipsBoard.h
+	SingleGameProperties.h
+	PlayerGameResultData.h
+	BattleshipGameManager.cpp
+	BattleshipPrint.cpp
+	BattleshipTournamentManager.cpp
+	GamePlayerData.cpp
+	Logger.cpp
 	main.cpp
+	Ship.cpp
+	ShipsBoard.cpp
+	PlayerGameResultData.cpp
+	BattleshipBoard.h
+	BattleshipGameUtils.h
+	BoardDataImpl.h
+	IBattleshipGameAlgo.h
+	BattleshipBoard.cpp
+	BattleshipGameUtils.cpp
 )
 # All source files needed to compile your smart algorithm's .dll
 set (SMART_ALGO_SOURCE_FILES
-	shape.h
-	square.h
-	square.cpp
+	PlayerSmart.h
+	ShipInProcess.h
+	PlayerSmart.cpp
+	ShipInProcess.cpp
+	IBattleshipGameAlgo.h
+	BattleshipGameUtils.cpp
+	BattleshipGameUtils.h
+	BattleshipBoard.h
+	BattleshipBoard.cpp
 )
 
 ##################################
