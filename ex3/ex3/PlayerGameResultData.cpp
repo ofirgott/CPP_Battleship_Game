@@ -1,13 +1,13 @@
-#include "StandingsTableEntryData.h"
+#include "PlayerGameResultData.h"
 
 
 
-StandingsTableEntryData StandingsTableEntryData::createOpponentData(const StandingsTableEntryData & thisData, std::string otherName)
+PlayerGameResultData PlayerGameResultData::createOpponentData(const PlayerGameResultData & thisData, std::string otherName)
 {
-	return StandingsTableEntryData(otherName, thisData.LossesNumber(), thisData.WinsNumber(), thisData.PointsAgainst(), thisData.PointsFor());
+	return PlayerGameResultData(otherName, thisData.LossesNumber(), thisData.WinsNumber(), thisData.PointsAgainst(), thisData.PointsFor());
 }
 
-size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<StandingsTableEntryData>& standingsVec)
+size_t PlayerGameResultData::getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec)
 {
 	size_t maxLen = 0;
 	for (auto& playerData : standingsVec)
@@ -38,7 +38,7 @@ size_t StandingsTableEntryData::getMaxPlayerNameWidth(const std::vector<Standing
 //
 //}
 //
-StandingsTableEntryData & StandingsTableEntryData::operator=(const StandingsTableEntryData & arg)
+PlayerGameResultData & PlayerGameResultData::operator=(const PlayerGameResultData & arg)
 {
 	playerName = arg.playerName;
 	winsCnt = arg.winsCnt;

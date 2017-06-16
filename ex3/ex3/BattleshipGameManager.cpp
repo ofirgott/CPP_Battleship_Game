@@ -2,7 +2,7 @@
 #include "BattleshipGameUtils.h"
 #include "GamePlayerData.h"
 #include <iostream>
-#include "StandingsTableEntryData.h"
+#include "PlayerGameResultData.h"
 #include "BoardDataImpl.h"
 
 // pass unique_ptr by value as described here - https://stackoverflow.com/a/8114913
@@ -38,7 +38,7 @@ void BattleshipGameManager::initPlayerData(int playerId, IBattleshipGameAlgo* pl
 	//playerA = GamePlayerData(playerId, playerAlgo, std::move(playerShipBoard), shipsDetails.size());
 }
 
-StandingsTableEntryData BattleshipGameManager::Run()
+PlayerGameResultData BattleshipGameManager::Run()
 {
 	Coordinate nextAttack(-1,-1,-1);
 	std::pair<AttackResult, int> attackRes;
@@ -116,7 +116,7 @@ StandingsTableEntryData BattleshipGameManager::Run()
 }
 
 
-StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
+PlayerGameResultData BattleshipGameManager::outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer)
 {
 
 	int currScore = currPlayer->score;
@@ -127,12 +127,12 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 		if (currPlayer->id == PLAYERID_A) { // currPlayer is playerA
 		//	 "Player B won" 
 			//std::cout << " B WON! " << std::endl;
-			return StandingsTableEntryData("", LOST, WON, currScore, otherScore);
+			return PlayerGameResultData("", LOST, WON, currScore, otherScore);
 		}
 		else { // otherPlayer is playerA
 		//	 "Player A won" 
 			//std::cout << " A WON! " << std::endl;
-			return StandingsTableEntryData("", WON, LOST, otherScore, currScore);
+			return PlayerGameResultData("", WON, LOST, otherScore, currScore);
 		}
 	}
 
@@ -140,23 +140,23 @@ StandingsTableEntryData BattleshipGameManager::outputGameResult(GamePlayerData* 
 		if (otherPlayer->id == PLAYERID_A) { // otherPlayer is playerA
 			//	 "Player B won" 
 			//std::cout << " B WON! " << std::endl;
-			return StandingsTableEntryData("", LOST, WON, otherScore, currScore);
+			return PlayerGameResultData("", LOST, WON, otherScore, currScore);
 		}
 		else {// currPlayer is playerA
 			//	 "Player A won" 
 			//std::cout << " A WON! " << std::endl;
-			return StandingsTableEntryData("", WON, LOST, currScore, otherScore);
+			return PlayerGameResultData("", WON, LOST, currScore, otherScore);
 		}
 	}
 
 	//its a tie
 	if (currPlayer->id == PLAYERID_A) {
 		//std::cout << " TIE! " << std::endl;
-		return StandingsTableEntryData("", LOST, LOST, currScore, otherScore);
+		return PlayerGameResultData("", LOST, LOST, currScore, otherScore);
 	}
 	else {
 		//std::cout << " TIE! " << std::endl;
-		return StandingsTableEntryData("", LOST, LOST, otherScore, currScore);
+		return PlayerGameResultData("", LOST, LOST, otherScore, currScore);
 	}
 	
 }

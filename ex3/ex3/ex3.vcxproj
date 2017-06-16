@@ -125,7 +125,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="ShipsBoard.cpp" />
-    <ClCompile Include="StandingsTableEntryData.cpp" />
+    <ClCompile Include="PlayerGameResultData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleshipGameManager.h" />
@@ -134,11 +134,11 @@
     <ClInclude Include="GamePlayerData.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="PlayerAlgoDetails.h" />
-    <ClInclude Include="PlayerGameResultData.h" />
+    <ClInclude Include="RoundData.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="ShipsBoard.h" />
     <ClInclude Include="SingleGameProperties.h" />
-    <ClInclude Include="StandingsTableEntryData.h" />
+    <ClInclude Include="PlayerGameResultData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
