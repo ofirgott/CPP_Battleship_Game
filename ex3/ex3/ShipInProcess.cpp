@@ -275,63 +275,63 @@ void ShipInProcess::megreShipsInProcess(ShipInProcess& otherShip)
 }
 
 // todo: delete 
-//void ShipInProcess::printVector(std::vector<int> vec)
-//{
-//	std::cout << "vector size" << vec.size() << std::endl;
-//	std::cout << "vector coors are ";
-//
-//	for (int i = 0; i < vec.size(); i++) {
-//		std::cout << vec[i] << " ";
-//	}
-//	std::cout << std::endl;
-//}
-//
-//void ShipInProcess::printCoordinate(Coordinate coord)
-//{
-//	std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
-//}
-//
-//bool ShipInProcess::compareCoordinates(Coordinate coor1, Coordinate coor2)
-//{
-//	return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
-//}
-//
-//bool ShipInProcess::compareVector(std::vector<int> firstVec, std::vector<int> secVec)
-//{
-//
-//	if (firstVec.size() != secVec.size()) {
-//		return false;
-//	}
-//
-//	for (int i = 0; i < firstVec.size(); i++) {
-//		if (firstVec[i] != secVec[i]) {
-//			return false;
-//		}
-//	}
-//	return true;
-//
-//}
-//
-//bool ShipInProcess::compareShipsFields(bool Vertical, bool Horizontal, bool Dimentional, Coordinate consCoors, Coordinate firstCoor, std::vector<int> incremtCoors, int Size)
-//{
-//	return (isVertical == Vertical && isHorizontal == Horizontal &&
-//		isDimentional == Dimentional && compareCoordinates(constantCoors, consCoors) &&
-//		compareCoordinates(firstCoordinate, firstCoor) && compareVector(incrementalCoors, incremtCoors)
-//		&& shipSize == Size);
-//}
-//
-//bool ShipInProcess::testMinMaxCoors(const ShipInProcess & shiptoTest, int expectedMax, int expectedMin)
-//{
-//	return shiptoTest.getMaxCoor() == expectedMax &&  shiptoTest.getMinCoor() == expectedMin;
-//}
-//
-//void ShipInProcess::setShipsFields(bool vertical, bool horizontal, bool dim, Coordinate firstCoor, Coordinate cons, std::vector<int> incCoors, int Size)
-//{
-//	isVertical = vertical;
-//	isHorizontal = horizontal;
-//	isDimentional = dim;
-//	constantCoors = cons;
-//	firstCoordinate = firstCoor;
-//	incrementalCoors = incCoors;
-//	shipSize = Size;
-//}
+void ShipInProcess::printVector(std::vector<int> vec)
+{
+	std::cout << "vector size" << vec.size() << std::endl;
+	std::cout << "vector coors are ";
+
+	for (int i = 0; i < vec.size(); i++) {
+		std::cout << vec[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+void ShipInProcess::printCoordinate(Coordinate coord)
+{
+	std::cout << "coordinate: " << "row: " << coord.row << "col: " << coord.col << "depth: " << coord.depth << std::endl;
+}
+
+bool ShipInProcess::compareCoordinates(Coordinate coor1, Coordinate coor2)
+{
+	return (coor1.col == coor2.col && coor1.row == coor2.row && coor1.depth == coor2.depth);
+}
+
+bool ShipInProcess::compareVector(std::vector<int> firstVec, std::vector<int> secVec)
+{
+
+	if (firstVec.size() != secVec.size()) {
+		return false;
+	}
+
+	for (int i = 0; i < firstVec.size(); i++) {
+		if (firstVec[i] != secVec[i]) {
+			return false;
+		}
+	}
+	return true;
+
+}
+
+bool ShipInProcess::compareShipsFields(bool Vertical, bool Horizontal, bool Dimentional, Coordinate consCoors, Coordinate firstCoor, std::vector<int> incremtCoors, int Size)
+{
+	return (isVertical == Vertical && isHorizontal == Horizontal &&
+		isDimentional == Dimentional && compareCoordinates(constantCoors, consCoors) &&
+		compareCoordinates(firstCoordinate, firstCoor) && compareVector(incrementalCoors, incremtCoors)
+		&& shipSize == Size);
+}
+
+bool ShipInProcess::testMinMaxCoors(const ShipInProcess & shiptoTest, int expectedMax, int expectedMin)
+{
+	return shiptoTest.getMaxCoor() == expectedMax &&  shiptoTest.getMinCoor() == expectedMin;
+}
+
+void ShipInProcess::setShipsFields(bool vertical, bool horizontal, bool dim, Coordinate firstCoor, Coordinate cons, std::vector<int> incCoors, int Size)
+{
+	isVertical = vertical;
+	isHorizontal = horizontal;
+	isDimentional = dim;
+	constantCoors = cons;
+	firstCoordinate = firstCoor;
+	incrementalCoors = incCoors;
+	shipSize = Size;
+}

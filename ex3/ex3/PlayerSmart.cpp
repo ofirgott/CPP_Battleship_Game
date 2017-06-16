@@ -21,8 +21,8 @@ void PlayerSmart::setBoard(const BoardData& board)
 	boardCols = board.cols();
 	boardDepth = board.depth();
 	BattleshipBoard boardTemp(board); // create  
-	
-	// board created successfuly
+
+									  // board created successfuly
 	setOfShipsDetails = boardTemp.ExtractShipsDetails();
 
 	//creat the ship count vector
@@ -36,7 +36,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 		for (auto coord : it->second) {//for every ship we add each of her coord and around it
 			result.insert(coord);
 			if (coord.row + 1 <= boardRows) {//x
-				updateCoordinates(coorToInsert, coord.row + 1, coord.col,coord.depth);
+				updateCoordinates(coorToInsert, coord.row + 1, coord.col, coord.depth);
 				result.insert(coorToInsert);
 			}
 			if (coord.row - 1 > 0) {//x
@@ -52,11 +52,11 @@ void PlayerSmart::setBoard(const BoardData& board)
 				result.insert(coorToInsert);
 			}
 			if (coord.depth + 1 <= boardDepth) {//z
-				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth +1);
+				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth + 1);
 				result.insert(coorToInsert);
 			}
 			if (coord.depth - 1 > 0) {//z
-				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth-1);
+				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth - 1);
 				result.insert(coorToInsert);
 			}
 		}
@@ -66,7 +66,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 	for (int i = 0; i < boardRows; i++) {
 		for (int j = 0; j < boardCols; j++) {
 			for (int p = 0; j < boardDepth; p++) {
-				updateCoordinates(coorToInsert, i, j ,p);
+				updateCoordinates(coorToInsert, i, j, p);
 				if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
 					updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
 					attackOptions.insert(coorToInsert);//adding to the set of option for attack						
@@ -210,7 +210,7 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate
 
 	int ret = -1;
 	int i = 0;
-	ShipInProcess tempShip(row, col,depth);
+	ShipInProcess tempShip(row, col, depth);
 
 	for (auto& details : attackedShips)
 	{
@@ -232,7 +232,7 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate
 					nextCoorTosearch->depth = depth;
 				}
 			}
-			else if(details.isHorizontal) // the ship is horizontal the rows are constant
+			else if (details.isHorizontal) // the ship is horizontal the rows are constant
 			{
 				if (details.getMaxCoor() == col) // the new coordinate was added on the right
 				{
@@ -252,13 +252,13 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate
 				{
 					nextCoorTosearch->row = row;
 					nextCoorTosearch->col = col;
-					nextCoorTosearch->depth = depth+1;
+					nextCoorTosearch->depth = depth + 1;
 				}
 				else // the new coordinate was added ont the out
 				{
 					nextCoorTosearch->row = row;
 					nextCoorTosearch->col = col;
-					nextCoorTosearch->depth = depth -1;
+					nextCoorTosearch->depth = depth - 1;
 				}
 
 			}
@@ -266,38 +266,48 @@ int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate
 		}
 		i++;
 	}
-	// if the coordinate doesnt belong to any of the ships in process add a new ship only if didnt sink
-	if (result != AttackResult::Sink && ret == -1)
-	{
-		attackedShips.push_back(tempShip);
+	// the coordinate was alreay part of the one of the ship's/ didnt belong to none of them
+	if (ret == -1) { // start a new ship
+		if (result != AttackResult::Sink) { // didnt sink
+			attackedShips.push_back(tempShip);
+		}
+		else { // sunk, i.e the ship is of size 1, doesnt need to add it  
+			currSunkShipSize = 1;
+		}
 	}
-	if (result == AttackResult::Sink && ret == -1)
-	{
-		currSunkShipSize = 1;
-	}
+
+	//todo: remove this part
+	//if (result != AttackResult::Sink && ret == -1)
+	//{
+	//	attackedShips.push_back(tempShip);
+	//}
+	//if (result == AttackResult::Sink && ret == -1)
+	//{
+	//	currSunkShipSize = 1;
+	//}
 
 	return -1;
 }
 
-void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res,int minIncCoor, int maxIncCoor, bool isVertical, bool isHorizontal)
+void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res, int minIncCoor, int maxIncCoor, bool isVertical, bool isHorizontal, bool isDimentional)
 {
 	if (isBoardBalanced == false) {
 		return;
 	}
-	Coordinate tempCoordinate(-1,-1,-1);
+	Coordinate tempCoordinate(-1, -1, -1);
 
 	if (isVertical)
 	{
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth -1);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth - 1);
 		checkSixDirections(tempCoordinate);
 
 		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth + 1);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col -1, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col - 1, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
 		if (res == AttackResult::Sink)
@@ -314,18 +324,18 @@ void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackRe
 
 	if (isHorizontal)
 	{
-		updateCoordinates(tempCoordinate, attackedCoordinate.row -1, attackedCoordinate.col, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row - 1, attackedCoordinate.col, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row +1, attackedCoordinate.col, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row + 1, attackedCoordinate.col, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col , attackedCoordinate.depth -1 );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth - 1);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col , attackedCoordinate.depth +1);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedCoordinate.depth + 1);
 		checkSixDirections(tempCoordinate);
-	
+
 		if (res == AttackResult::Sink)
 		{
 			updateCoordinates(tempCoordinate, attackedCoordinate.row, minIncCoor - 1, attackedCoordinate.depth);
@@ -337,23 +347,24 @@ void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackRe
 			return;
 		}
 	}
-	else
+
+	if (isDimentional)
 	{
-		updateCoordinates(tempCoordinate, attackedCoordinate.row -1, attackedCoordinate.col, attackedCoordinate.depth);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row - 1, attackedCoordinate.col, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
 		updateCoordinates(tempCoordinate, attackedCoordinate.row + 1, attackedCoordinate.col, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col -1, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col - 1, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
-		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth );
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col + 1, attackedCoordinate.depth);
 		checkSixDirections(tempCoordinate);
 
 		if (res == AttackResult::Sink)
 		{
-			updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col,  minIncCoor - 1);
+			updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, minIncCoor - 1);
 			checkSixDirections(tempCoordinate);
 
 			updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, maxIncCoor + 1);
@@ -367,91 +378,96 @@ void PlayerSmart::checkSixDirections(Coordinate deadCoordinate) {
 	int distance = 0;
 	int minShipSize = getMinShipSize();
 	distance = countDistance(deadCoordinate, minShipSize, true, false, 1);//vectical right
-	if (distance != -1) {
+	if (distance > 0) {
 		transferCoordinatesToSecondPoll(deadCoordinate, distance, true, false, 1);
 	}
 	distance = countDistance(deadCoordinate, minShipSize, true, false, -1);//vectical left
-	if (distance != -1) {
+	if (distance > 0) {
 		transferCoordinatesToSecondPoll(deadCoordinate, distance, true, false, -1);
 	}
+
 	distance = countDistance(deadCoordinate, minShipSize, false, true, 1);//horizontal right
-	if (distance != -1) {
+	if (distance > 0) {
 		transferCoordinatesToSecondPoll(deadCoordinate, distance, false, true, 1);
 	}
-	distance = countDistance(deadCoordinate, minShipSize, false, true, 1);//horizontal left
-	if (distance != -1) {
-		transferCoordinatesToSecondPoll(deadCoordinate, distance, false, true, 1);
+	distance = countDistance(deadCoordinate, minShipSize, false, true, -1);//horizontal left
+	if (distance > 0) {
+		transferCoordinatesToSecondPoll(deadCoordinate, distance, false, true, -1);
 	}
 	distance = countDistance(deadCoordinate, minShipSize, false, false, 1);//dimentional right
-	if (distance != -1) {
+	if (distance > 0) {
 		transferCoordinatesToSecondPoll(deadCoordinate, distance, false, false, 1);
 	}
 	distance = countDistance(deadCoordinate, minShipSize, false, false, -1);//dimentional left
-	if (distance != -1) {
+	if (distance > 0) {
 		transferCoordinatesToSecondPoll(deadCoordinate, distance, false, false, -1);
 	}
-
 }
 
-void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool isVertical, bool isHorizontal, int direction) {
+void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool vertical, bool horizontal, int direction) {
 	int i = 0;
 	int count = 0;
 	Coordinate tempCoor(-1, -1, -1);
-	if (isVertical) {
-		i = startCoordinate.row ;
+	if (vertical) {
+		i = startCoordinate.row;
 		for (int j = 1; j <= numOfCoors; j++) {
-			updateCoordinates(tempCoor, i+ direction*j, startCoordinate.col, startCoordinate.depth);
-			removeOneCoordinate(tempCoor);
-			imbalancedAttackOptions.insert(tempCoor);
+			updateCoordinates(tempCoor, i + direction*j, startCoordinate.col, startCoordinate.depth);
+			if (isInAttackOptions(tempCoor)) {
+				removeOneCoordinate(tempCoor);
+				imbalancedAttackOptions.insert(tempCoor);
+			}
 		}
-
 	}
-	else if (isHorizontal) {
+	else if (horizontal) {
 		i = startCoordinate.col;
 		for (int j = 1; j <= numOfCoors; j++) {
 			updateCoordinates(tempCoor, startCoordinate.row, i + direction*j, startCoordinate.depth);
-			removeOneCoordinate(tempCoor);
-			imbalancedAttackOptions.insert(tempCoor);
+			if (isInAttackOptions(tempCoor)) {
+				removeOneCoordinate(tempCoor);
+				imbalancedAttackOptions.insert(tempCoor);
+			}
 		}
 	}
 	else {//dimentional
 		i = startCoordinate.depth;
 		for (int j = 1; j <= numOfCoors; j++) {
 			updateCoordinates(tempCoor, startCoordinate.row, startCoordinate.col, i + direction*j);
-			removeOneCoordinate(tempCoor);
-			imbalancedAttackOptions.insert(tempCoor);
+			if (isInAttackOptions(tempCoor)) {
+				removeOneCoordinate(tempCoor);
+				imbalancedAttackOptions.insert(tempCoor);
+			}
 		}
 	}
 }
 
-int PlayerSmart::countDistance(Coordinate startCoordinate, int minShipSize, bool isVertical, bool isHorizontal,int direction ) {
-	int i = 0; 
+int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, bool vertical, bool horizontal, int direction) {
+	int i = 0;
 	int count = 0;
 	Coordinate tempCoor(-1, -1, -1);
-	
+
 	// go along the vertical direction up/down according to the direction input parameter
-	if (isVertical) {
-		i= startCoordinate.row+ direction;
-		updateCoordinates(tempCoor, i, startCoordinate.col, startCoordinate.depth);
-		while (isInAttackOptions(tempCoor) && count < minShipSize) {		
+	if (vertical) {
+		i = deadCoordinate.row + direction;
+		updateCoordinates(tempCoor, i, deadCoordinate.col, deadCoordinate.depth);
+		while (isInAttackOptions(tempCoor) && count < minShipSize) {
 			i += direction;
 			count += 1;
-			updateCoordinates(tempCoor, i, startCoordinate.col, startCoordinate.depth);
+			updateCoordinates(tempCoor, i, deadCoordinate.col, deadCoordinate.depth);
 		}
 		if (count >= minShipSize) {//no need to update AttackOptions
 			return -1;
 		}
 		return count;
 	}
-	else if (isHorizontal) {
-		i = startCoordinate.col + direction;
-		updateCoordinates(tempCoor, startCoordinate.row, i, startCoordinate.depth);
+	else if (horizontal) {
+		i = deadCoordinate.col + direction;
+		updateCoordinates(tempCoor, deadCoordinate.row, i, deadCoordinate.depth);
 
 		while (isInAttackOptions(tempCoor) && count < minShipSize) {
 
 			i += direction;
 			count += 1;
-			updateCoordinates(tempCoor, startCoordinate.row, i, startCoordinate.depth);
+			updateCoordinates(tempCoor, deadCoordinate.row, i, deadCoordinate.depth);
 		}
 		if (count >= minShipSize) {//no need to update AttackOptions
 			return -1;
@@ -459,32 +475,31 @@ int PlayerSmart::countDistance(Coordinate startCoordinate, int minShipSize, bool
 		return count;
 	}
 	else {//dimentional
-		i = startCoordinate.depth + direction;
-		updateCoordinates(tempCoor, startCoordinate.row, startCoordinate.col, i);
+		i = deadCoordinate.depth + direction;
+		updateCoordinates(tempCoor, deadCoordinate.row, deadCoordinate.col, i);
 
 		while (isInAttackOptions(tempCoor) && count < minShipSize) {
 
 			i += direction;
 			count += 1;
-			updateCoordinates(tempCoor, startCoordinate.row, startCoordinate.col, i);
+			updateCoordinates(tempCoor, deadCoordinate.row, deadCoordinate.col, i);
 		}
 		if (count >= minShipSize) {//no need to update AttackOptions
 			return -1;
 		}
 		return count;
 	}
-
 }
 
 bool  PlayerSmart::isInBoard(int row, int col, int depth) const
 {
-	return (row > boardRows || row< 1 || col>boardCols || col < 1 || depth>boardDepth || depth < 1);
+	return (row <= boardRows && row >= 1 && col <= boardCols && col >= 1 && depth <= boardDepth && depth >= 1);
 }
 
 void PlayerSmart::updateShipsCount(int sunkShipSize) {
-	auto it = shipsCount.begin()+ sunkShipSize-1;
+	auto it = shipsCount.begin() + sunkShipSize - 1;
 	it->second -= 1;
-	if (it->second == -1) { // the boeard is imbalanced - number of ships in this size doesnt exist anymore in balanced board
+	if (it->second == -1) { // the board is imbalanced - number of ships in this size doesnt exist anymore in balanced board
 		isBoardBalanced = false;
 		pourImbalancedToAttackOptions();
 	}
@@ -551,7 +566,7 @@ bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const
 	return false;
 }
 
-void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool isVertical, bool isHorizontal , bool isDimentional)
+void PlayerSmart::removeFourIrreleventCoordinates(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional)
 {
 	Coordinate removeCandidate(-1, -1, -1);
 	if (isVertical)
@@ -563,10 +578,10 @@ void PlayerSmart::removeAllIrreleventCoordinates(const Coordinate& coor, bool is
 		updateCoordinates(removeCandidate, coor.row, coor.col + 1, coor.depth);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth -1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth - 1);
 		removeOneCoordinate(removeCandidate);
 		// remove z coordinate from attackOptions
-		updateCoordinates(removeCandidate, coor.row, coor.col , coor.depth +1);
+		updateCoordinates(removeCandidate, coor.row, coor.col, coor.depth + 1);
 		removeOneCoordinate(removeCandidate);
 
 	}
@@ -613,16 +628,67 @@ void PlayerSmart::removeOneCoordinate(Coordinate& coorToDelete)
 	}
 }
 
+void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked, AttackResult& result) {
+	int shipsSize = shipToClean.shipSize;
+	int minCoor = shipToClean.getMinCoor();
+	int maxCoor = shipToClean.getMaxCoor();
+	Coordinate tmpCoor(-1, -1, -1);
+
+	// for each coordinate of the shipToClean
+	for (int i = 0; i <shipsSize; i++) {
+
+		if (shipToClean.isVertical)
+		{ // remove left, right
+			updateCoordinates(tmpCoor, shipToClean.incrementalCoors[i], attacked.col, attacked.depth);
+			removeFourIrreleventCoordinates(tmpCoor, true, false, false);
+			clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, true, false, false);
+		}
+
+		if (shipToClean.isHorizontal)
+		{// remove up,down
+			updateCoordinates(tmpCoor, attacked.row, shipToClean.incrementalCoors[i], attacked.depth);
+			removeFourIrreleventCoordinates(tmpCoor, false, true, false);
+			clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, true, false);
+		}
+
+		if (shipToClean.isDimentional) {
+			updateCoordinates(tmpCoor, attacked.row, attacked.col, shipToClean.incrementalCoors[i]);
+			removeFourIrreleventCoordinates(tmpCoor, false, false, true);
+			clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, false, true);
+
+		}
+	}
+}
+
+std::vector<Coordinate> PlayerSmart::setOptionsVector() {
+	std::vector<Coordinate> allOptions;
+	allOptions.push_back(Coordinate(1, 0, 0));
+	allOptions.push_back(Coordinate(0, 1, 0));
+	allOptions.push_back(Coordinate(0, 0, 1));
+	allOptions.push_back(Coordinate(-1, 0, 0));
+	allOptions.push_back(Coordinate(0, -1, 0));
+	allOptions.push_back(Coordinate(0, 0, -1));
+	return allOptions;
+}
+
+void PlayerSmart::cleanAttackOptions(const Coordinate& targetCoor) {
+
+	Coordinate tmpCoor(-1, -1, -1);
+	std::vector<Coordinate> allOptions = setOptionsVector();
+
+	for (auto& vic : allOptions) {
+		updateCoordinates(tmpCoor, targetCoor.row + vic.row, targetCoor.col + vic.col, targetCoor.depth + vic.depth);
+		checkSixDirections(tmpCoor);
+	}
+}
 
 void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult result)
 {
 	int mergeResult;
-	Coordinate nextCoorTosearch(-1,-1,-1); // the candidate coor to merge with.( merging ships that already in the attackedShips after adding <row,col>)
+	Coordinate nextCoorTosearch(-1, -1, -1); // the candidate coor to merge with.( merging ships that already in the attackedShips after adding <row,col>)
 	Coordinate attackedCoor(move.row, move.col, move.depth);
-	Coordinate tmpCoor(-1, -1 ,-1);
 	currSunkShipSize = -1;
 
-	
 	if (!isInAttackOptions(attackedCoor)) { // the coordinate is mine/ already was handeld
 		return;
 	}
@@ -639,47 +705,51 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 
 	mergeResult = addCoorToShipsInProcess(move.row, move.col, move.depth, &nextCoorTosearch, result);
 	//check if there is another ship in shipinprocess that belong's to the same ship we just updated
-	if (mergeResult != -1)// the coordinate is added to one of the ships that are already in process 
+	if (mergeResult > -1)// the coordinate is added to one of the ships that are already in process 
 	{
 		mergeShipDetails(&nextCoorTosearch, mergeResult);
 		//remove all irrelevnt coordinates for future attack 
-		for (int i = 0; i <attackedShips[mergeResult].shipSize; i++) {
-			int minCoor = attackedShips[mergeResult].getMinCoor();
-			int maxCoor = attackedShips[mergeResult].getMaxCoor();
-			// remove environment of attack ship
-			if (attackedShips[mergeResult].isVertical)
-			{ // remove left, right
-				updateCoordinates(tmpCoor, attackedShips[mergeResult].incrementalCoors[i], move.col, move.depth);
-				removeAllIrreleventCoordinates(tmpCoor, true, false,false);
-				clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, true, false);
-			}
-			else if(attackedShips[mergeResult].isHorizontal)
-			{// remove up,down
-				updateCoordinates(tmpCoor, move.row, attackedShips[mergeResult].incrementalCoors[i], move.depth);
-				removeAllIrreleventCoordinates(tmpCoor, false, true,false);
-				clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, true);
-			}
-			else {
-				updateCoordinates(tmpCoor, move.row, move.col, attackedShips[mergeResult].incrementalCoors[i]);
-				removeAllIrreleventCoordinates(tmpCoor, false, false, true);
-				clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, false);
+		cleanAttackOptions(attackedShips[mergeResult], move, result);
+		//for (int i = 0; i <attackedShips[mergeResult].shipSize; i++) {
+		//	int minCoor = attackedShips[mergeResult].getMinCoor();
+		//	int maxCoor = attackedShips[mergeResult].getMaxCoor();
+		//	// remove environment of attack ship
+		//	if (attackedShips[mergeResult].isVertical)
+		//	{ // remove left, right
+		//		updateCoordinates(tmpCoor, attackedShips[mergeResult].incrementalCoors[i], move.col, move.depth);
+		//		removeFourIrreleventCoordinates(tmpCoor, true, false,false);
+		//		clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, true, false,false);
+		//	}
+		//	else if(attackedShips[mergeResult].isHorizontal)
+		//	{// remove up,down
+		//		updateCoordinates(tmpCoor, move.row, attackedShips[mergeResult].incrementalCoors[i], move.depth);
+		//		removeFourIrreleventCoordinates(tmpCoor, false, true,false);
+		//		clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, true,false);
+		//	}
+		//	else {
+		//		updateCoordinates(tmpCoor, move.row, move.col, attackedShips[mergeResult].incrementalCoors[i]);
+		//		removeFourIrreleventCoordinates(tmpCoor, false, false, true);
+		//		clearFourAdjecentCoors(tmpCoor, result, minCoor, maxCoor, false, false,true);
 
-			}
-		}
+		//	}
+		//}
 	}
 
 	if (result == AttackResult::Sink)
 	{
-		updateShipsCount(currSunkShipSize);
-		if (mergeResult == -1) // the ship wasnt in process >> ship of size 1  
+		// if ship was of size 1 addCoor updates the field
+		if (currSunkShipSize == 1) // the ship wasnt in process >> ship of size 1  
 		{
-			removeAllIrreleventCoordinates(attackedCoor, true, true,true);
-			checkSixDirections(attackedCoor);
+			removeFourIrreleventCoordinates(attackedCoor, true, true, true);
+			// for each of the coors in the surronding check all 6 directions 
+			cleanAttackOptions(attackedCoor);
 		}
-
 		else {//ship of size>1 we remove unreleventCoors
 			removeSankFromReleventCoors(mergeResult);
 		}
+		// if ship was of size 1 addCoorToShipsInProcess updated currSunkshipsize to 1
+		// if ship's size > 1 removeSankFromReleventCoors updates currSunkShipSize to the actual size
+		updateShipsCount(currSunkShipSize);
 	}
 	removeOneCoordinate(attackedCoor);
 
@@ -690,44 +760,44 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 }
 
 
-void PlayerSmart::removeSankFromReleventCoors(int indexOfCoor)
+void PlayerSmart::removeSankFromReleventCoors(int shipToDelIndex)
 {
 	Coordinate coorsToDelete(0, 0, 0);
 	std::vector<ShipInProcess>::iterator ShipIndex;
 
 	// for the second ship detail 
-	if (attackedShips.at(indexOfCoor).isVertical) {
+	if (attackedShips.at(shipToDelIndex).isVertical) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getConstCoors().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getMinCoor() - 1, attackedShips.at(shipToDelIndex).getConstCoors().col, attackedShips.at(shipToDelIndex).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getConstCoors().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getMaxCoor() + 1, attackedShips.at(shipToDelIndex).getConstCoors().col, attackedShips.at(shipToDelIndex).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 	}
 
-	if (attackedShips.at(indexOfCoor).isHorizontal) {
+	if (attackedShips.at(shipToDelIndex).isHorizontal) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getMinCoor() - 1, attackedShips.at(indexOfCoor).getConstCoors().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getConstCoors().row, attackedShips.at(shipToDelIndex).getMinCoor() - 1, attackedShips.at(shipToDelIndex).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getMaxCoor() + 1, attackedShips.at(indexOfCoor).getConstCoors().depth);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getConstCoors().row, attackedShips.at(shipToDelIndex).getMaxCoor() + 1, attackedShips.at(shipToDelIndex).getConstCoors().depth);
 		removeOneCoordinate(coorsToDelete);
 	}
-	if (attackedShips.at(indexOfCoor).isDimentional) {
+	if (attackedShips.at(shipToDelIndex).isDimentional) {
 		//remove edges of ship
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getMinCoor() - 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getConstCoors().row, attackedShips.at(shipToDelIndex).getConstCoors().col, attackedShips.at(shipToDelIndex).getMinCoor() - 1);
 		removeOneCoordinate(coorsToDelete);
 
-		updateCoordinates(coorsToDelete, attackedShips.at(indexOfCoor).getConstCoors().row, attackedShips.at(indexOfCoor).getConstCoors().col, attackedShips.at(indexOfCoor).getMaxCoor() + 1);
+		updateCoordinates(coorsToDelete, attackedShips.at(shipToDelIndex).getConstCoors().row, attackedShips.at(shipToDelIndex).getConstCoors().col, attackedShips.at(shipToDelIndex).getMaxCoor() + 1);
 		removeOneCoordinate(coorsToDelete);
-	
+
 	}
 
-	if (currSunkShipSize == -1) {
-		currSunkShipSize = attackedShips[0].shipSize;
+	if (currSunkShipSize == -1) { // to update the shipsCount vector 
+		currSunkShipSize = attackedShips[shipToDelIndex].shipSize; // the sunk ship size
 	}
 	// remove ships from vector
-	ShipIndex = attackedShips.begin() + indexOfCoor;
+	ShipIndex = attackedShips.begin() + shipToDelIndex;
 	attackedShips.erase(ShipIndex);
 
 }
