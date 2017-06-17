@@ -54,7 +54,7 @@ BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.r
 	for (int d = 1; d <= depth; d++)
 		for (int r = 1; r <= rows; r++)
 			for (int c = 1; c <= cols; c++)
-				boardVec.push_back(boardData.charAt({ r, c, d }));
+				setCoord(r-1, c-1, d-1, boardData.charAt({ r, c, d }));
 }
 
 

@@ -36,7 +36,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	int numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
 
 	std::cout <<"num of round: "<< numOfRounds << " num of games: "<< gamesPropertiesQueue.size()  << std::endl; //todo: print to the log
-	
+	std::cout << "num of threads: " << maxGamesThreads << std::endl;
 	allGamesResults.resize(numOfplayers);															/* allGamesResults dimensions are numOfPlayer X numOfRounds */
 	for (auto i = 0; i < numOfplayers; i++) { 
 		allGamesResults[i].resize(numOfRounds);														/* use resize to init with initial values for every game */
@@ -451,23 +451,23 @@ void BattleshipTournamentManager::RunTournament()
 				allRoundsCumulativeData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
 			}
 			
-	/*		std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
-			for (size_t i = 0; i < numOfPlayers; i++)
+			std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
+			for (size_t i = 0; i < algosDetailsVec.size(); i++)
 			{
-				size_t r = numberOfRounds;
+				size_t r = allRoundsData.size();
 				std::cout << "Player: " << i << " - \t";
-				for (size_t j = 0; j < numberOfRounds; j++)
+				for (size_t j = 0; j < allRoundsData.size(); j++)
 				{
 					
 					if (allGamesResults[i][j].WinsNumber() == 0 && allGamesResults[i][j].LossesNumber() == 0 && allGamesResults[i][j].pointsFor == 0 && allGamesResults[i][j].pointsAgainst == 0) {
 						r = j;
-						j = numberOfRounds;
+						j = allRoundsData.size();
 					}
 					
 				}
 				std::cout << r;
 				std::cout << std::endl;
-			}*/
+			}
 			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());//printing the round
 		
 			currRound++;//next round to wait for
