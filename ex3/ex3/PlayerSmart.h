@@ -173,4 +173,5 @@ private:
 	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
 
 	Coordinate PlayerSmart::getAttackSerialy() { for (auto coor : attackOptions) { return coor; } };
+	void PlayerSmart::cleanMembers();
 };

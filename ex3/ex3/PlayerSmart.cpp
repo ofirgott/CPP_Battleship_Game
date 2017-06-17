@@ -6,76 +6,52 @@
 
 void PlayerSmart::setBoard(const BoardData& board)
 {
-	/*todo: maybe need to check id id != -1 ???? */
-	currSunkShipSize = -1;
-	isBoardBalanced = true;
-	attackedShips.clear();
-	attackOptions.clear();
-	shipsCount.clear();
-	imbalancedAttackOptions.clear();
 
+	cleanMembers();
 	boardRows = board.rows();
 	boardCols = board.cols();
 	boardDepth = board.depth();
+	std::set<std::pair<char, std::set<Coordinate>>> allShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
+	Coordinate tmpCoor(0,0,0);
+	BattleshipBoard boardTemp(board); // create 
+	std::vector<Coordinate> standardBase = setSixOptionsVector();
+	standardBase.push_back(tmpCoor);
+	
+	//extract all shipsDetails from board
+	allShipsDetails = boardTemp.ExtractShipsDetails();
 
-	std::set<Coordinate> result; // insert all pairs that we arnt allow to attack
-	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails; //wiil contain pairs <char , {coordinates os ship}>
-	Coordinate coorToInsert(0, 0, 0);
-	BattleshipBoard boardTemp(board); // create  
+	//create the ship's count vector
+	boardTemp.countShipsTypes(allShipsDetails, shipsCount);
 
-									  // board created successfuly
-	setOfShipsDetails = boardTemp.ExtractShipsDetails();
-
-	//creat the ship count vector
-	boardTemp.countShipsTypes(setOfShipsDetails, shipsCount);
-
-	auto it = setOfShipsDetails.begin();
-
-	// foreach shipDetail add all its surroundings to the not allowed coors to attack 
-	while (it != setOfShipsDetails.end())
-	{
-		for (auto coord : it->second) {//for every ship we add each of her coord and around it
-			result.insert(coord);
-			if (coord.row + 1 <= boardRows) {//x
-				updateCoordinates(coorToInsert, coord.row + 1, coord.col, coord.depth);
-				result.insert(coorToInsert);
-			}
-			if (coord.row - 1 > 0) {//x
-				updateCoordinates(coorToInsert, coord.row - 1, coord.col, coord.depth);
-				result.insert(coorToInsert);
-			}
-			if (coord.col + 1 <= boardCols) {//y
-				updateCoordinates(coorToInsert, coord.row, coord.col + 1, coord.depth);
-				result.insert(coorToInsert);
-			}
-			if (coord.col - 1 > 0) {//y
-				updateCoordinates(coorToInsert, coord.row, coord.col - 1, coord.depth);
-				result.insert(coorToInsert);
-			}
-			if (coord.depth + 1 <= boardDepth) {//z
-				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth + 1);
-				result.insert(coorToInsert);
-			}
-			if (coord.depth - 1 > 0) {//z
-				updateCoordinates(coorToInsert, coord.row, coord.col, coord.depth - 1);
-				result.insert(coorToInsert);
-			}
-		}
-		++it;
-	}
-
-	for (int i = 0; i <boardRows; i++) {
-		for (int j = 0; j <boardCols; j++) {
-			for (int p = 0; p < boardDepth; p++) {
-				updateCoordinates(coorToInsert, i, j, p);
-				if (result.find(coorToInsert) == result.end()) {//checking it's not my ship/around it = it's not in result
-					updateCoordinates(coorToInsert, i + 1, j + 1, p + 1);
-					attackOptions.insert(coorToInsert);//adding to the set of option for attack						
+	// create Permenantly dead coordinates, shouldnt attak this coordinates
+	for (auto& shipDetail : allShipsDetails) { // for each ship
+		for (auto& coor : shipDetail.second) { // for each coordinate
+			for (auto& vic : standardBase) { 
+				updateCoordinates(tmpCoor, coor.row + 1 + vic.row, coor.col + 1 + vic.col, coor.depth + 1 + vic.depth);
+				if (isInBoard(tmpCoor.row,tmpCoor.col,tmpCoor.depth)) {
+					permanentlyDeadCoordinates.insert(tmpCoor);
 				}
 			}
-
 		}
 	}
+
+	// create attackOptions
+	for (int i = 1; i <= boardRows; i++) {
+		for (int j = 1; j <= boardCols; j++) {
+			for (int k = 1; k <= boardDepth; k++) {
+				updateCoordinates(tmpCoor, i, j, k);
+				if (isInBoard(tmpCoor.row, tmpCoor.col, tmpCoor.depth)) {
+					if (permanentlyDeadCoordinates.find(tmpCoor) == permanentlyDeadCoordinates.end()) {
+						attackOptions.insert(tmpCoor);
+					}
+				}
+
+			}
+		}
+	}
+
+	transferAllWallsToImbalanced();
+
 }
 
 void PlayerSmart::setPlayer(int player)
@@ -815,6 +791,17 @@ bool PlayerSmart::isInImbalancedOptions(const Coordinate & coors) const
 	}
 
 	return false;
+}
+
+void PlayerSmart::cleanMembers()
+{
+	currSunkShipSize = -1;
+	isBoardBalanced = true;
+	attackedShips.clear();
+	attackOptions.clear();
+	shipsCount.clear();
+	imbalancedAttackOptions.clear();
+	permanentlyDeadCoordinates.clear();
 }
 
 ALGO_API IBattleshipGameAlgo* GetAlgorithm()
