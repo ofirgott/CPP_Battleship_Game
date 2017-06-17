@@ -13,7 +13,9 @@ public:
 	static const int YELLOW_COLOR = 14;
 	static const int WHITE_COLOR = 15;
 	static const char BLANK_CHAR = ' ';
-	const static int printDefaultDealy = 300;
+	static const int printDefaultDealy = 400;
+	static const bool deafultOneTable = false;
+	static const int FIRST_SCREEN_DELAY = 1200;
 	
 
 	const static int pointsWidth = 10;
@@ -23,18 +25,16 @@ public:
 
 	static void setDelay(int newDelay) { delay = newDelay; }
 	static int getDelay() { return delay; }
-
+	static void setPrintOneTable(bool newMethod) { printOneTable = newMethod; }
+	static int getPrintOneTable() { return printOneTable; }
 	static void printStandingsTable(std::vector<PlayerGameResultData> sortedPlayersStandings, int currRound, size_t roundsNum);
 	
 private:
 	BattleshipPrint() = delete;
-	static void hideCursor(); //todo: maybe we cant delete it
-	static void showCursor(); //todo: maybe we cant delete it
 	static void setColor(WORD color);
-
-	static int delay;
-
+	static void clearScreen() { system("cls"); }
 	
-
+	static int delay;
+	static bool printOneTable;
 };
 

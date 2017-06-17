@@ -42,7 +42,7 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 	}
 
 	else {														/* we can't open the board file */
-																//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
+		//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
 		return;
 	}
 

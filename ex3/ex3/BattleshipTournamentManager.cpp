@@ -5,8 +5,10 @@
 #include <atomic>
 #include "BattleshipPrint.h"
 #include <thread>
+#include <fstream>
+#include <string>
 
-BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(DEFAULT_THREADS_NUM), successfullyCreated(true), printSingleTable(DEFAULT_PRINT_SINGLE_TABLE)
+BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(UNINITIALIZED_ARG), successfullyCreated(true), TOURNAMENT_MIN_PLAYERS(UNINITIALIZED_ARG)
 {
 
 	if (!checkTournamentArguments(argc, argv)) {					/* checks arguments validity, and parse all arguments from program input and config file */
@@ -71,6 +73,7 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 		std::cout << "Error: Too many arguments!" << std::endl;
 		return false;
 	}
+	
 
 	for (auto i = 1; i < argc; i++)
 	{
@@ -91,20 +94,19 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 				}
 			}
 		}
-		else  /* this is the dir path */
-		{
-			path = argv[i];
-		}
+		else path = argv[i]; /* this is the dir path */
 	}
 
 	if (!BattleshipGameUtils::getFullPath(path)) return false;
 
-	inputDirPath = path;
-
-	if (!BattleshipGameUtils::isValidDir(inputDirPath)) {									/* checks if directory in dir_path exists */
-		std::cout << "Wrong path: " << inputDirPath << std::endl;
+	if (!BattleshipGameUtils::isValidDir(path)) {									/* checks if directory in dir_path exists */
+		std::cout << "Wrong path: " << path << std::endl;
 		return false;
 	}
+	inputDirPath = path;
+
+	parseDefaultsFromConfigFile();
+	maxGamesThreads = (maxGamesThreads == UNINITIALIZED_ARG ? DEFAULT_THREADS_NUM : maxGamesThreads);
 
 	return true;
 }
@@ -301,7 +303,7 @@ bool BattleshipTournamentManager::loadTournamentAlgos()
 	std::cout << "Number of valid algos: " << algosDetailsVec.size() << std::endl; //todo: print to the log
 	if (algosDetailsVec.size() < TOURNAMENT_MIN_PLAYERS)
 	{
-		std::cout << "Error: Missing minimum number of required Valid algorithm (dll) files looking in path: " << inputDirPath << " (needs at least two)" << std::endl;
+		std::cout << "Error: Missing minimum number of required Valid algorithm (dll) files looking in path: " << inputDirPath << " (needs at least " << TOURNAMENT_MIN_PLAYERS << ")" << std::endl;
 		return false;
 	}
 
@@ -342,14 +344,91 @@ bool BattleshipTournamentManager::loadPlayerDll(const std::string& currDllFilena
 	return true;
 }
 
+void BattleshipTournamentManager::parseDefaultsFromConfigFile() 
+{
 
-void BattleshipTournamentManager::RunTournament()
+	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".config");
+
+	BattleshipPrint::setPrintOneTable(PRINT_SINGLE_TABLE);
+	BattleshipPrint::setDelay(BattleshipPrint::printDefaultDealy);
+	TOURNAMENT_MIN_PLAYERS = TOURNAMENT_MIN_PLAYERS_DEFAULT;
+
+	if (tmpFilenamesVector.empty())
+	{
+		std::cout << "No Config files (*.config) looking in path: " << inputDirPath.c_str() << std::endl;		//todo: print to the log
+		return;
+	}
+
+	auto configFileFullPath = inputDirPath + "/" + tmpFilenamesVector[0];		//takes the first config file
+	std::cout << "Config file found in path: " << configFileFullPath << std::endl;
+
+	std::string line;
+
+	std::ifstream configFile(configFileFullPath.c_str());
+	if(configFile.is_open())
+	{
+		while(std::getline(configFile, line)){							/* we assume that the design and values in config file are valid */
+			std::istringstream configLine(line);
+			std::string key;
+			if (std::getline(configLine, key, '='))
+			{
+				std::string value;
+				if (std::getline(configLine, value))
+					storeConfigline(key, value);
+			}
+		}
+		
+		configFile.close();
+	}
+
+	else {														/* we can't open the board file */
+		std::cout << "Error opening Config file in " << configFileFullPath << "we will take our defaults" << std::endl; //TODO: print to the logger - 	
+	}
+
+}
+
+void BattleshipTournamentManager::storeConfigline(const std::string& key, const std::string& value)
+{
+	char* stringEnd = nullptr;
+	bool validConfigAssign = false;
+	int intValue = static_cast<size_t>(strtol(value.c_str(), &stringEnd, 10));
+	if (*stringEnd || intValue < 0)
+	{
+		std::cout << "WARNING: config entry value is not valid. we will not take this value." << std::endl;
+		return;
+	}
+
+	if (strcmp(key.c_str(), "MAX_THREADS_NUM") == 0)
+	{
+		validConfigAssign = true;
+		maxGamesThreads = (maxGamesThreads == UNINITIALIZED_ARG ? intValue : maxGamesThreads);
+	}
+	else if (strcmp(key.c_str(), "PRINT_SINGLE_TABLE") == 0)
+	{
+		validConfigAssign = true;
+		BattleshipPrint::setPrintOneTable(intValue ? true : false);
+	}
+	else if (strcmp(key.c_str(), "SINGLE_TABLE_DELAY") == 0)
+	{
+		validConfigAssign = true;
+		BattleshipPrint::setDelay(intValue);
+	}
+	else if (strcmp(key.c_str(), "TOURNAMENT_MIN_PLAYERS") == 0)
+	{
+		validConfigAssign = true;
+		TOURNAMENT_MIN_PLAYERS = intValue;
+	}
+	if(validConfigAssign) std::cout << "DEBUG, assign default value from config file, KEY = " << key << "\t VALUE = " << intValue << std::endl;	//todo: print to the log
+		
+}
+
+void BattleshipTournamentManager::RunTournament()	
 {
 	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
-
+	//std::cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << BattleshipPrint::getDelay() << std::endl;
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
-
+	
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
 		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	 /* creating a pool of threads */
@@ -421,45 +500,41 @@ void BattleshipTournamentManager::singleThreadJob()
 		/* we take the relevant 2 pointers from the players vetrors, and insert them to unique ptrs -> then we will move the move the responsibility for those ptrs to the (single) game manager */
 
 		BattleshipGameManager currGame(boardsVec[currGameProperties.getBoardIndex()], std::move(playerAlgoA), std::move(playerAlgoB));
+	
 		auto currGameResult = currGame.Run();						/* the game result returned is from the perspective of playerA */
 		
-		updateGamesResults(currGameResult, currGameProperties);
+		updateGamesResults(currGameResult, currGameProperties.getPlayerIndexA(), currGameProperties.getPlayerIndexB());
+		
 	}
 }
 
 
-void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResult, const SingleGameProperties& currGamesProperties)
+void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResultA, int playerIndexA, int playerIndexB)
 {
 
-	// players indexes 
-	auto playerAIndex = currGamesProperties.getPlayerIndexA();
-	auto playerBIndex = currGamesProperties.getPlayerIndexB();
+	auto currGameResultB = PlayerGameResultData::createOpponentData(currGameResultA);					 /* creates gameResults in view of the second player */
 
-	//create gameResults for the second player 
-	auto otherPlayerData = PlayerGameResultData::createOpponentData(currGameResult, algosDetailsVec[playerBIndex].playerName);
-
-	// indexes of the properties in the specific player's vector 
-	int propertyIndexA = ++playersProgress[playerAIndex];		//Ofir - maybe we need to use volatile or lock here, as described here: https://stackoverflow.com/a/27768860
-	int propertyIndexB = ++playersProgress[playerBIndex];
+	int currRoundA = playersProgress[playerIndexA]++;		/* Performs atomic post-increment, equivalent to fetch_add(1), and returns the value (int) before the modification */
+	int currRoundB = playersProgress[playerIndexB]++;
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerAIndex][propertyIndexA-1] = currGameResult;
-	allGamesResults[playerBIndex][propertyIndexB-1] = otherPlayerData;
+	allGamesResults[playerIndexA][currRoundA] = currGameResultA;
+	allGamesResults[playerIndexB][currRoundB] = currGameResultB;
 
 
-	--allRoundsData[propertyIndexA-1].numOfPlayersLeft;
-	if (allRoundsData[propertyIndexA-1].numOfPlayersLeft == 0) {
-		//need to take care of locks and mutexes and condition variables here, need to set cv in .h	
+	--allRoundsData[currRoundA].numOfPlayersLeft;
+	if (allRoundsData[currRoundA].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRoundsData[propertyIndexA-1].isRoundDone = true;
+		allRoundsData[currRoundA].isRoundDone = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 
 	}
-	--allRoundsData[propertyIndexB-1].numOfPlayersLeft;
-	if (allRoundsData[propertyIndexB-1].numOfPlayersLeft == 0) {
+
+	--allRoundsData[currRoundB].numOfPlayersLeft;
+	if (allRoundsData[currRoundB].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
-		allRoundsData[propertyIndexB-1].isRoundDone = true;
+		allRoundsData[currRoundB].isRoundDone = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
 	}

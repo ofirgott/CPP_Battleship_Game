@@ -32,7 +32,7 @@ public:
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 	
 
-	bool isGameSuccessfullyCreated()const { return successfullyCreated; }
+	//bool isGameSuccessfullyCreated()const { return successfullyCreated; }
 	
 	PlayerGameResultData Run();																				/* given a game object, run's the game and outputs the results */
 
@@ -49,7 +49,7 @@ private:
 	static const int WON = 1;
 	static const int LOST = 0;
 
-	bool successfullyCreated;
+	//bool successfullyCreated;
 	
 	/* the output result will always be from the perspective of playerA, the name of the player is unknown
 	in the scope of this function ie the player's name in the return value will be the empty string

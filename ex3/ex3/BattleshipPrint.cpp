@@ -2,11 +2,19 @@
 #include <iostream>
 #include <iomanip>
 
+int BattleshipPrint::delay = printDefaultDealy;
+bool BattleshipPrint::printOneTable = deafultOneTable;
 
 //get the vector by value because we need a copy of the vector in order to sort it
 void BattleshipPrint::printStandingsTable(std::vector<PlayerGameResultData> playersStandingsVec, int currRound, size_t roundsNum)
 {
 	if (playersStandingsVec.empty() || currRound <= 0 || roundsNum <= 0) return;
+
+	if(printOneTable)
+	{
+		currRound == 1 ? Sleep(FIRST_SCREEN_DELAY) : Sleep(delay);
+		clearScreen();
+	}
 
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
 		[currRound](const PlayerGameResultData& lhs, const PlayerGameResultData& rhs) {

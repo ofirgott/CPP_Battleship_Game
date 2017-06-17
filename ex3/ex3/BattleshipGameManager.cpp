@@ -6,7 +6,7 @@
 #include "BoardDataImpl.h"
 
 // pass unique_ptr by value as described here - https://stackoverflow.com/a/8114913
-BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), algorithmA(std::move(algoA)), algorithmB(std::move(algoB)), successfullyCreated(true)
+BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std::unique_ptr<IBattleshipGameAlgo> algoA, std::unique_ptr<IBattleshipGameAlgo> algoB) : mainBoard(board), algorithmA(std::move(algoA)), algorithmB(std::move(algoB))
 {
 	
 	std::set<std::pair<char, std::set<Coordinate>>> shipDetailsA, shipDetailsB;
@@ -24,8 +24,6 @@ BattleshipGameManager::BattleshipGameManager(const BattleshipBoard & board, std:
 	
 	playerB = std::move(GamePlayerData(PLAYERID_B, algorithmB.get(), std::move(shipsBoardB), shipDetailsB.size()));
 
-	if (!playerA.isSet() || !playerB.isSet())
-		successfullyCreated = false;
 }
 
 void BattleshipGameManager::initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo,  std::set<std::pair<char, std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const

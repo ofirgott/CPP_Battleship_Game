@@ -49,6 +49,6 @@ private:
 	*/
 	void incrementScore(int value) { if (value > 0) score += value; }
 
-	bool isSet()const { return id != UNDEFINED_PLAYERID && playerAlgo && shipsBoard.isSet() && currShipsCount > 0; }
+	//bool isSet()const { return id != UNDEFINED_PLAYERID && playerAlgo && shipsBoard.isSet() && currShipsCount > 0; }
 
 };

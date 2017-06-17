@@ -2,9 +2,9 @@
 
 
 
-PlayerGameResultData PlayerGameResultData::createOpponentData(const PlayerGameResultData & thisData, std::string otherName)
+PlayerGameResultData PlayerGameResultData::createOpponentData(const PlayerGameResultData & otherPlayerData)
 {
-	return PlayerGameResultData(otherName, thisData.LossesNumber(), thisData.WinsNumber(), thisData.PointsAgainst(), thisData.PointsFor());
+	return PlayerGameResultData(otherPlayerData.LossesNumber(), otherPlayerData.WinsNumber(), otherPlayerData.PointsAgainst(), otherPlayerData.PointsFor());
 }
 
 size_t PlayerGameResultData::getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec)
