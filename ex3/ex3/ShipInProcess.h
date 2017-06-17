@@ -12,6 +12,7 @@
 */
 class ShipInProcess
 {
+	friend class PlayerSmart;
 	bool isVertical;
 	bool isHorizontal;
 	bool isDimentional;
@@ -20,7 +21,7 @@ class ShipInProcess
 	std::vector<int> incrementalCoors;//ship coordinates (only the non const part of every Coordinate)
 	int shipSize;//current ship size
 
-				 /* update the state of the inner Fields of the shipinproccess.assumes ship has 1 coordinate and firstcoor<secondCoor*/
+	/* update the state of the inner Fields of the shipinproccess.assumes ship has 1 coordinate and firstcoor<secondCoor*/
 	void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimensional, int firstCoor, int secondCoor);
 
 	/* assumes the ship is of size 1, if coordinate belongs to the ship add and return 1, else return -1*/
@@ -44,31 +45,8 @@ class ShipInProcess
 	int getMinCoor() const { return incrementalCoors[0]; };
 	Coordinate getConstCoors() const { return constantCoors; };
 
-
-	friend class PlayerSmart;
-	friend class testPlayerSmart; // todo: for tester - delete////////////////////////////////////////////////////////////////////
-								  //	friend class testShipInProcess; // todo: for tester - delete////////////////////////////////////////////////////////////////////
 public:
-
 	ShipInProcess() = delete; // dont allow ships with no coordinates
 	ShipInProcess(int row, int col, int depth) : isVertical(true), isHorizontal(true), isDimentional(true), constantCoors(-1, -1, -1), firstCoordinate(row, col, depth), shipSize(1) {}
-	~ShipInProcess() {} //todo: maybe need to free Coordinate? 
-
-
-						////todo: for tester - delete //////////////////////////////////////////////////////////////
-
-						//static void ShipInProcess::printVector(std::vector<int> vec);
-
-						//static void ShipInProcess::printCoordinate(Coordinate coord);
-
-						//static bool ShipInProcess::compareCoordinates(Coordinate coor1, Coordinate coor2);
-
-						//static bool ShipInProcess::compareVector(std::vector<int> firstVec, std::vector<int> secVec);
-
-						//bool ShipInProcess::compareShipsFields(bool Vertical, bool Horizontal, bool Dimentional, Coordinate consCoors, Coordinate firstCoor, std::vector<int> incremtCoors, int Size);
-
-						//static bool ShipInProcess::testMinMaxCoors(const ShipInProcess & shiptoTest, int expectedMax, int expectedMin);
-
-						//void ShipInProcess::setShipsFields(bool vertical, bool horizontal, bool dim, Coordinate firstCoor, Coordinate cons, std::vector<int> incCoors, int Size);
-
+	~ShipInProcess() {}
 };

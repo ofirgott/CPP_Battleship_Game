@@ -32,10 +32,8 @@
 
 class PlayerSmart : public IBattleshipGameAlgo
 {
-
 public:
 
-	friend class testPlayerSmart; //// delete--------------------------------------------------------------------------------------
 	PlayerSmart() :id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1), boardDepth(-1), currSunkShipSize(-1), isBoardBalanced(true) {};
 	~PlayerSmart() = default;
 	PlayerSmart& operator=(const PlayerSmart& otherSmartPlayer) = delete;
@@ -54,13 +52,6 @@ public:
 	/* notify on last move result,update player smart by the information given*/
 	void notifyOnAttackResult(int player, Coordinate move, AttackResult result) override;
 
-
-	//Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
-	//Player(const Player& otherPlayer) = delete;				/* deletes copy constructor */
-	//virtual ~Player() = default;
-	//Player& operator=(const Player& otherPlayer) = delete;	/* deletes the assignment operator - we want a player to be a Non Copyable object  */
-	/* checking the initialization of the board was successful */
-	//	bool init(const std::string& path) override { return (id != -1); }
 private:
 	static const int UNDEFINED_PLAYERID = -1; // should be private?? 
 	int id;		// players id , if id == -1 player is invalid or undefined
@@ -71,13 +62,12 @@ private:
 	bool isBoardBalanced;
 	std::vector<ShipInProcess> attackedShips; 	/*a vector of all current ship being attacked*/
 	std::set<Coordinate> attackOptions; 	/*a set of all the coordinates that are optional for attack*/
-											/*improvments according to the new assumptions - balance of ships in board*/
-	std::vector<std::pair<int, int>> shipsCount; /*Count of assumed opponents ships count <shipSize,count> kept in increasing order of ship's size */
+	std::vector<std::pair<int, int>> shipsCount; /*Count of assumed opponents ships count <shipSize,count> increasing order of ship's size */
 	std::set<Coordinate> imbalancedAttackOptions;// second pool of attack option if Board is Imbalanced
-	std::set<Coordinate> permanentlyDeadCoordinates;// second pool of attack option if Board is Imbalanced
+	std::set<Coordinate> permanentlyDeadCoordinates;// sunk coordinates
 
-													/* for each dead coordinate check all six directions to the next dead coordinate
-													if there isnt room for smallest ship transfer the gap to imbalanced options*/
+	/* for each dead coordinate check all six directions to the next dead coordinate
+	if there isnt room for smallest ship transfer the gap to imbalanced options*/
 	void PlayerSmart::transferAllWallsToImbalanced();
 
 	/*for a given coordinate check if its edges are walls*/
