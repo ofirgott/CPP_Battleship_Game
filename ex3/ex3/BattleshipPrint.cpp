@@ -12,7 +12,7 @@ void BattleshipPrint::printStandingsTable(std::vector<PlayerGameResultData> play
 
 	if(printOneTable)
 	{
-		Sleep(delay);
+		currRound == 1 ? Sleep(FIRST_SCREEN_DELAY) : Sleep(delay);
 		clearScreen();
 	}
 

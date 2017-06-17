@@ -15,6 +15,7 @@ public:
 	static const char BLANK_CHAR = ' ';
 	static const int printDefaultDealy = 400;
 	static const bool deafultOneTable = false;
+	static const int FIRST_SCREEN_DELAY = 1200;
 	
 
 	const static int pointsWidth = 10;
