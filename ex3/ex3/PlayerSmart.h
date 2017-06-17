@@ -76,29 +76,14 @@ private:
 	std::set<Coordinate> imbalancedAttackOptions;// second pool of attack option if Board is Imbalanced
 	std::set<Coordinate> permanentlyDeadCoordinates;// second pool of attack option if Board is Imbalanced
 
-
-													/*utility functions*/
-													/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
-	static std::vector<Coordinate> setSixOptionsVector();
-
-	/*(0, 1, 0)(0, -1, 0)*/
-	static std::vector<Coordinate> setHorizontalOptionsVector();
-	/*(1, 0, 0)(-1, 0, 0)*/
-	static std::vector<Coordinate> setVerticalOptionsVector();
-	/*(0, 0, 1)(0, 0, -1)*/
-	static std::vector<Coordinate> setDimentionalOptionsVector();
-
-	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
-
-	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
-	static std::vector<Coordinate> setVectorForCheckSixDirections();
-
-	/* given origin update its coordinates to <row,col,depth>*/
-	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
-	/*utility functions */
-
+													/* for each dead coordinate check all six directions to the next dead coordinate
+													if there isnt room for smallest ship transfer the gap to imbalanced options*/
 	void PlayerSmart::transferAllWallsToImbalanced();
+
+	/*for a given coordinate check if its edges are walls*/
 	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
+
+	/*for each coordinate in the surrounding of the ship if not in the incremental direction check if a wall*/
 	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
 
 	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
@@ -124,10 +109,13 @@ private:
 	/* given a coordinate check 4 adjecent coor's that arnt in the incremental direction
 	of the ship if they are new walls*/
 	void PlayerSmart::checkConstantDirectionsForWalls(Coordinate attackedCoordinate, bool isVertical, bool isHorizontal, bool isDimentional);
+
+	/* given a coordinate check 2 incremental edges of the ship if they are new walls*/
 	void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordinate, ShipInProcess& attackedShip);
 
-	/* given a coordinate removefrom attackOptions is exists*/
+	/* given a coordinate transfer from attack options to permanentlydead if exists*/
 	void PlayerSmart::delOneCoorPermanentlyAttackOptions(Coordinate& coorToDelete);
+	/* given a coordinate remove from imbalanced if exists*/
 	void PlayerSmart::delOneCoorPermanentlyImbalancedOptions(Coordinate& coorToDelete);
 
 	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
@@ -172,6 +160,24 @@ private:
 	/*return true iff the input coordinate is in imbalancedAttackOptions	*/
 	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
 
-	Coordinate PlayerSmart::getAttackSerialy();
+	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
+
+	/*utility functions****************************************************************************************/
+	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
+	static std::vector<Coordinate> setSixOptionsVector();
+	/*(0, 1, 0)(0, -1, 0)*/
+	static std::vector<Coordinate> setHorizontalOptionsVector();
+	/*(1, 0, 0)(-1, 0, 0)*/
+	static std::vector<Coordinate> setVerticalOptionsVector();
+	/*(0, 0, 1)(0, 0, -1)*/
+	static std::vector<Coordinate> setDimentionalOptionsVector();
+	/* move all coors in tempOptions to allOptions*/
+	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
+	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
+	static std::vector<Coordinate> setVectorForCheckSixDirections();
+	/* given origin update its coordinates to <row,col,depth>*/
+	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
+	/*utility functions ****************************************************************************************/
+
 };
