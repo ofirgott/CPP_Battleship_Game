@@ -89,7 +89,7 @@ Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const
 	Coordinate attackCandidate(-1, -1, -1);
 	std::vector<Coordinate> allOptions = setSixOptionsVector(); //contains (1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)
 
-																// for each neighbor of the attacked coordinate check if is candidate
+	// for each neighbor of the attacked coordinate check if is candidate
 	for (auto& vic : allOptions) {
 		// iterate over all possibilities to add 1/ -1 to each coordinate
 		updateCoordinates(attackCandidate, candidate.row + vic.row, candidate.col + vic.col, candidate.depth + vic.depth);
@@ -403,18 +403,18 @@ void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordina
 
 	if (attackedShip.isHorizontal)
 	{
-		updateCoordinates(tempCoordinate, attackedShip.getMinCoor() - 1, attackedCoordinate.col, attackedCoordinate.depth);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedShip.getMinCoor() - 1, attackedCoordinate.depth);
 		checkSixDirectionsForWalls(tempCoordinate);
-		updateCoordinates(tempCoordinate, attackedShip.getMaxCoor() + 1, attackedCoordinate.col, attackedCoordinate.depth);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedShip.getMaxCoor() + 1, attackedCoordinate.depth);
 		checkSixDirectionsForWalls(tempCoordinate);
 		return;
 	}
 
 	if (attackedShip.isDimentional)
 	{
-		updateCoordinates(tempCoordinate, attackedShip.getMinCoor() - 1, attackedCoordinate.col, attackedCoordinate.depth);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedShip.getMinCoor() - 1);
 		checkSixDirectionsForWalls(tempCoordinate);
-		updateCoordinates(tempCoordinate, attackedShip.getMaxCoor() + 1, attackedCoordinate.col, attackedCoordinate.depth);
+		updateCoordinates(tempCoordinate, attackedCoordinate.row, attackedCoordinate.col, attackedShip.getMaxCoor() + 1);
 		checkSixDirectionsForWalls(tempCoordinate);
 		return;
 
