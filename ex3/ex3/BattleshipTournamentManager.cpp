@@ -455,7 +455,7 @@ void BattleshipTournamentManager::RunTournament()
 			for (size_t i = 0; i < algosDetailsVec.size(); i++)
 			{
 				size_t r = allRoundsData.size();
-				std::cout << "Player: " << i << " - \t";
+				std::cout << ", Player" << i << algosDetailsVec[i].playerName <<  ": ";
 				for (size_t j = 0; j < allRoundsData.size(); j++)
 				{
 					
@@ -466,7 +466,12 @@ void BattleshipTournamentManager::RunTournament()
 					
 				}
 				std::cout << r;
-				std::cout << std::endl;
+
+			}
+			std::cout << std::endl<<std::endl;
+			std::cout << gamesPropertiesQueue.size() << " Games remaining..." << std::endl;
+			if (gamesPropertiesQueue.size() == 1) {
+				std::cout << "ITS " << gamesPropertiesQueue.front().getPlayerIndexA() << " against " << gamesPropertiesQueue.front().getPlayerIndexB() << " on board " << gamesPropertiesQueue.front().getBoardIndex() << std::endl;
 			}
 			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());//printing the round
 		
@@ -483,6 +488,7 @@ void BattleshipTournamentManager::RunTournament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
+	std::cout << "---------------I AM THREAD" << std::endl;
 	while (!gamesPropertiesQueue.empty())
 	{
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);				/* we lock here to deal with the games queue */
