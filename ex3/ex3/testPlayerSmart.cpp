@@ -189,7 +189,7 @@ int testPlayerSmart::testfindPairInAttackedShips()
 		return -1;
 	}
 
-	std::cout << "find coor in attscked ships is good!!!!" << std::endl;
+	std::cout << "Done findPairInattacked" << std::endl;
 	return 0;
 }
 
@@ -208,7 +208,7 @@ int testPlayerSmart::testremoveOneCoordinate()
 	}
 	Coordinate tmpPair = Coordinate(1, 1, 1);
 
-	tempPlayer.removeOneCoordinate(tmpPair);
+	tempPlayer.delOneCoorPermanentlyAttackOptions(tmpPair);
 	auto find = tempPlayer.attackOptions.find(Coordinate(1, 1, 1));
 	if (find != tempPlayer.attackOptions.end())
 	{
@@ -299,7 +299,7 @@ int testPlayerSmart::testremoveOneCoordinate()
 		}
 	}
 
-	std::cout << "testremoveOneCoordinate is done! " << std::endl;
+	std::cout << "Done testremoveOneCoordinate" << std::endl;
 
 	return 0;
 }
@@ -355,74 +355,74 @@ void testPlayerSmart::setTempPlayer3(PlayerSmart& tmpPlayer) {
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
 
 }
 
@@ -476,74 +476,74 @@ void testPlayerSmart::player3testMerge1(PlayerSmart& tmpPlayer) {
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
 
 }
 
@@ -592,74 +592,74 @@ void testPlayerSmart::player3testMerge2(PlayerSmart& tmpPlayer) {
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 6));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 3, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 5, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 4, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
 }
 
 
@@ -772,7 +772,7 @@ int testPlayerSmart::testmergeShipDetails()
 		}
 	}
 
-	std::cout << "finished checking testmergeShipDetails " << std::endl;
+	std::cout << "Done testmergeShipDetails " << std::endl;
 	return 0;
 }
 
@@ -812,7 +812,7 @@ int testPlayerSmart::testisInAttackOptions()
 		std::cout << "shouldnt be in attack options 6,6,6 " << std::endl;
 	}
 
-	std::cout << "testisInAttackOptions is good !" << std::endl;
+	std::cout << "Done testisInAttackOptions" << std::endl;
 	return 0;
 }
 
@@ -895,11 +895,11 @@ int testPlayerSmart::testnextAttackFromCoors()
 
 		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(nextCoor));
 		nextCoor = Coordinate(4, 1, 1);
-		tmpPlayer.removeOneCoordinate(nextCoor);
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
 		nextCoor = Coordinate(3, 2, 1);
-		tmpPlayer.removeOneCoordinate(nextCoor);
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
 		nextCoor = Coordinate(5, 2, 1);
-		tmpPlayer.removeOneCoordinate(nextCoor);
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
 
 		nextCoor = tmpPlayer.nextAttackFromCoors(sizeThree_1, 4);
 		if ((nextCoor.row != 4) || (nextCoor.col != 6) || (nextCoor.depth != 1))
@@ -935,27 +935,27 @@ int testPlayerSmart::testnextAttackFromCoors()
 			}
 		}
 
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 1));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
 
 
 		// clear envirnment
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 6));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 6));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-		tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 6));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 6));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
 
 		// create ships
@@ -993,13 +993,13 @@ int testPlayerSmart::testnextAttackFromCoors()
 			return -1;
 		}
 
-		tmpPlayer2.removeOneCoordinate(nextCoor);
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
 		nextCoor = Coordinate(2, 4, 1);
-		tmpPlayer2.removeOneCoordinate(nextCoor);
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
 		nextCoor = Coordinate(2, 3, 2);
-		tmpPlayer2.removeOneCoordinate(nextCoor);
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
 		nextCoor = Coordinate(2, 5, 2);
-		tmpPlayer2.removeOneCoordinate(nextCoor);
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
 
 		nextCoor = tmpPlayer2.nextAttackFromCoors(sizeThree_1, 4);
 		if ((nextCoor.row != 2) || (nextCoor.col != 4) || (nextCoor.depth != 6))
@@ -1007,7 +1007,7 @@ int testPlayerSmart::testnextAttackFromCoors()
 			std::cout << "error <2,4,6>" << std::endl;
 			return -1;
 		}
-		tmpPlayer2.removeOneCoordinate(nextCoor);
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
 
 
 		nextCoor = tmpPlayer2.nextAttackFromCoors(sizeTwo_1, 2);
@@ -1018,7 +1018,7 @@ int testPlayerSmart::testnextAttackFromCoors()
 		}
 	}
 
-	std::cout << "testnextAttackFromCoors is done!!!" << std::endl;
+	std::cout << "Done testnextAttackFromCoors" << std::endl;
 	return 0;
 
 }
@@ -1047,7 +1047,7 @@ void testPlayerSmart::testgetMinShipSize()
 		std::cout << "ho no min ship size should be 4 but we got " << res << " :(" << std::endl;
 	}
 
-	std::cout << "testgetMinShipSize is a Good boy! " << std::endl;
+	std::cout << "Done testgetMinShipSize" << std::endl;
 }
 
 int testPlayerSmart::testremoveSankFromReleventCoors()
@@ -1055,7 +1055,7 @@ int testPlayerSmart::testremoveSankFromReleventCoors()
 	PlayerSmart tmpPlayer;
 	setTempPlayer1(tmpPlayer);
 
-	tmpPlayer.removeSankFromReleventCoors(0);
+	tmpPlayer.removePermementlyIncrementalDirection(0);
 	if (tmpPlayer.isInAttackOptions(Coordinate(4, 6, 1))) {
 		std::cout << " didnt remove 4,6,1 from attack options " << std::endl;
 	}
@@ -1089,7 +1089,7 @@ int testPlayerSmart::testremoveSankFromReleventCoors()
 	newShip.addCoordinate(7, 3, 3);
 
 	tmpPlayer.attackedShips.insert(tmpPlayer.attackedShips.begin(), newShip);
-	tmpPlayer.removeSankFromReleventCoors(0);
+	tmpPlayer.removePermementlyIncrementalDirection(0);
 
 	if (tmpPlayer.isInAttackOptions(Coordinate(7, 3, 4)))
 	{
@@ -1103,7 +1103,7 @@ int testPlayerSmart::testremoveSankFromReleventCoors()
 	}
 
 	expected_vector.erase(expected_vector.begin() + 1);
-	tmpPlayer.removeSankFromReleventCoors(1);
+	tmpPlayer.removePermementlyIncrementalDirection(1);
 
 	if (tmpPlayer.isInAttackOptions(Coordinate(5, 8, 3)))
 	{
@@ -1116,7 +1116,7 @@ int testPlayerSmart::testremoveSankFromReleventCoors()
 		}
 	}
 
-	std::cout << "testremoveSankFromReleventCoors done!!! " << std::endl;
+	std::cout << "Done testremoveSankFromReleventCoors" << std::endl;
 	return 0;
 }
 
@@ -1146,7 +1146,7 @@ void testPlayerSmart::testpourImbalancedToAttackOptions()
 		}
 	}
 
-	std::cout << "only good things can be said about pourImbalancedToAttackOptions !!!!!! " << std::endl;
+	std::cout << "Done pourImbalancedToAttackOptions" << std::endl;
 }
 
 
@@ -1194,7 +1194,7 @@ void testPlayerSmart::testupdateShipsCount()
 		}
 	}
 
-	std::cout << "updateShipsCount is very very Good :)" << std::endl;
+	std::cout << "Done updateShipsCount" << std::endl;
 }
 
 
@@ -1215,17 +1215,17 @@ void testPlayerSmart::testupdateShipsCount()
 //	count.push_back(std::make_pair(10, 5));
 //
 //	// target coor will be 5,5,5
-//	tempPlayer.removeOneCoordinate(Coordinate(4,5,5));
-//	tempPlayer.removeOneCoordinate(Coordinate(3,5,5));
-//	tempPlayer.removeOneCoordinate(Coordinate(5,4,5));
-//	tempPlayer.removeOneCoordinate(Coordinate(5,3,5));
-//	tempPlayer.removeOneCoordinate(Coordinate(5,5,5));
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4,5,5));
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3,5,5));
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,4,5));
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,3,5));
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,5,5));
 //	// set attack options 
 //	tempPlayer.shipsCount = count;
 //
 //	// target coor 5,5,5
-//	tempPlayer.removeOneCoordinate(Coordinate(5,5,5));
-//	tempPlayer.clearFourAdjecentCoors(Coordinate(5,5,5),AttackResult::Hit,5,5,false,false);
+//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,5,5));
+//	tempPlayer.checkConstantDirectionsForWalls(Coordinate(5,5,5),AttackResult::Hit,5,5,false,false);
 //
 //	std::set<Coordinate> imbalancedTest;
 //	//4,5,5
@@ -1267,17 +1267,17 @@ void testPlayerSmart::testCheck6Util1()
 	std::vector<std::pair<int, int>> count;
 	count.push_back(std::make_pair(10, 5));
 	// target coor will be 2, 5, 4
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 	// create 'walls' around it
 	//horizontal
-	tempPlayer.removeOneCoordinate(Coordinate(2, 1, 4));
-	tempPlayer.removeOneCoordinate(Coordinate(2, 8, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
 	//vertical
-	tempPlayer.removeOneCoordinate(Coordinate(6, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
 	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 	//deptical
 	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
 
 	std::set<Coordinate> imbalancedTest;
 	// horizontal
@@ -1304,7 +1304,7 @@ void testPlayerSmart::testCheck6Util1()
 	tempPlayer.shipsCount = count;
 
 	// test function
-	tempPlayer.checkSixDirections(Coordinate(2, 5, 4));
+	tempPlayer.checkSixDirectionsForWalls(Coordinate(2, 5, 4));
 
 	for (auto coor : imbalancedTest) {
 		if (!tempPlayer.isInImbalancedOptions(coor)) {
@@ -1317,6 +1317,7 @@ void testPlayerSmart::testCheck6Util1()
 			printCoordinate(coor);
 		}
 	}
+
 }
 
 void testPlayerSmart::testcheck6Util2()
@@ -1337,26 +1338,26 @@ void testPlayerSmart::testcheck6Util2()
 	count.push_back(std::make_pair(1, 5));
 
 	// target coor will be 2, 5, 4
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
 	// create 'walls' around it
 	//horizontal
-	tempPlayer.removeOneCoordinate(Coordinate(2, 1, 4));
-	tempPlayer.removeOneCoordinate(Coordinate(2, 8, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
 
 	//vertical
-	tempPlayer.removeOneCoordinate(Coordinate(6, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
 	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 
 	//deptical
 	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
 
 	// set attack options 
 	tempPlayer.shipsCount = count;
 
 	// test function
-	tempPlayer.checkSixDirections(Coordinate(2, 5, 4));
+	tempPlayer.checkSixDirectionsForWalls(Coordinate(2, 5, 4));
 
 	if (tempPlayer.imbalancedAttackOptions.size() != 0) {
 		std::cout << "imbalanced should be of size 0";
@@ -1403,20 +1404,20 @@ void testPlayerSmart::testCheck6Util3()
 	count.push_back(std::make_pair(2, 2));
 
 	// target coor will be 2, 5, 4
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
 	// create 'walls' around it
 	//horizontal
-	tempPlayer.removeOneCoordinate(Coordinate(2, 3, 4));
-	tempPlayer.removeOneCoordinate(Coordinate(2, 8, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
 
 	//vertical
-	tempPlayer.removeOneCoordinate(Coordinate(6, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
 	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 
 	//deptical
 	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 8));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
 
 	std::set<Coordinate> imbalancedTest;
 	// horizontal
@@ -1430,7 +1431,7 @@ void testPlayerSmart::testCheck6Util3()
 	tempPlayer.shipsCount = count;
 
 	// test function
-	tempPlayer.checkSixDirections(Coordinate(2, 5, 4));
+	tempPlayer.checkSixDirectionsForWalls(Coordinate(2, 5, 4));
 
 	for (auto coor : imbalancedTest) {
 		if (!tempPlayer.isInImbalancedOptions(coor)) {
@@ -1458,7 +1459,7 @@ void testPlayerSmart::testcheckSixDirections()
 	//std::cout << "remove only from some directions " << std::endl;
 	testCheck6Util3();
 
-	std::cout << "check 6 directions is fine" << std::endl;
+	std::cout << "Done checkSixDirectionsForWalls" << std::endl;
 }
 
 void testPlayerSmart::testtransferCoordinatesToSecondPoll()
@@ -1473,10 +1474,10 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 		}
 	}
 
-	tempPlayer.removeOneCoordinate(Coordinate(2, 5, 4));
-	tempPlayer.removeOneCoordinate(Coordinate(2, 1, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
 
-	tempPlayer.transferCoordinatesToSecondPoll(Coordinate(2, 5, 4), 3, false, true, -1);
+	tempPlayer.transferCoordinatesToSecondPoll(Coordinate(2, 5, 4), 3, 0, 1, -1);
 
 	std::set<Coordinate> imbalancedTest;
 	imbalancedTest.insert(Coordinate(2, 2, 4));
@@ -1507,10 +1508,10 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 		}
 	}
 
-	tempPlayer2.removeOneCoordinate(Coordinate(5, 3, 4));
-	tempPlayer2.removeOneCoordinate(Coordinate(1, 3, 4));
+	tempPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 4));
+	tempPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 3, 4));
 
-	tempPlayer2.transferCoordinatesToSecondPoll(Coordinate(1, 3, 4), 3, true, false, +1);
+	tempPlayer2.transferCoordinatesToSecondPoll(Coordinate(1, 3, 4), 3, 1, 0, +1);
 
 	std::set<Coordinate> imbalancedTest2;
 	imbalancedTest2.insert(Coordinate(2, 3, 4));
@@ -1540,9 +1541,9 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 	}
 
 
-	tempPlayer3.removeOneCoordinate(Coordinate(7, 3, 1));
-	tempPlayer3.removeOneCoordinate(Coordinate(7, 3, 8));
-	tempPlayer3.transferCoordinatesToSecondPoll(Coordinate(7, 3, 8), 6, false, false, -1);
+	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(7, 3, 1));
+	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(7, 3, 8));
+	tempPlayer3.transferCoordinatesToSecondPoll(Coordinate(7, 3, 8), 6, 0, 0, -1);
 
 	std::set<Coordinate> imbalancedTest3;
 	imbalancedTest3.insert(Coordinate(7, 3, 2));
@@ -1563,14 +1564,14 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 		}
 	}
 
-	tempPlayer3.removeOneCoordinate(Coordinate(10, 5, 1));
-	tempPlayer3.removeOneCoordinate(Coordinate(10, 9, 1));
+	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(10, 5, 1));
+	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(10, 9, 1));
 	std::set<Coordinate> imbalancedTest4;
 	imbalancedTest3.insert(Coordinate(10, 6, 1));
 	imbalancedTest3.insert(Coordinate(10, 7, 1));
 	imbalancedTest3.insert(Coordinate(10, 8, 1));
 
-	tempPlayer3.transferCoordinatesToSecondPoll(Coordinate(10, 5, 1), 0, false, true, +1);
+	tempPlayer3.transferCoordinatesToSecondPoll(Coordinate(10, 5, 1), 0, 0, 1, +1);
 	for (auto coor : imbalancedTest4) {
 		if (tempPlayer3.isInImbalancedOptions(coor)) {
 			std::cout << "shouldnt be in imbalanced  ";
@@ -1583,7 +1584,7 @@ void testPlayerSmart::testtransferCoordinatesToSecondPoll()
 	}
 
 
-	std::cout << "Hopefully we got here and the transfer function works fine !!! praise the lord!!!!!" << std::endl;
+	std::cout << "Done testtransferCoordinatesToSecondPoll" << std::endl;
 }
 
 void testPlayerSmart::testcountDistance()
@@ -1601,8 +1602,8 @@ void testPlayerSmart::testcountDistance()
 		int res;
 
 		//// Horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
-		tempPlayer.removeOneCoordinate(Coordinate(2, 5, 4));
-		tempPlayer.removeOneCoordinate(Coordinate(2, 1, 4));
+		tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+		tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
 
 		res = tempPlayer.countDistance(Coordinate(2, 5, 4), 0, false, true, -1);
 		if (res != -1) {
@@ -1699,452 +1700,452 @@ void testPlayerSmart::testcountDistance()
 			std::cout << "3 the distance was supposed to be  (7, 3, 1) wall !!!!  got " << res << " :(" << std::endl;
 		}
 	}
-	std::cout << "Hopefully we got here and the count function works fine !!! praise the lord!!!!!" << std::endl;
+	std::cout << "Done testcountDistance " << std::endl;
 
 }
 
 
 int testPlayerSmart::testnotifyOnAttackResult()
 {
-	//{
-	//	PlayerSmart tmpPlayer;
-	//	setTempPlayer1(tmpPlayer);
-	//	tmpPlayer.shipsCount.clear();
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 8));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 8));
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(8, 2, 1), AttackResult::Miss);//miss 8,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(8, 2, 1))) {
-	//		std::cout << "not good!didnt delete 8,2,1 to options ! " << std::endl;
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4,2,1)) )
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-
-	//	std::vector<ShipInProcess> allShips;
-	//	// create ships
-	//	ShipInProcess sizeOne_1(1, 1, 1);
-	//	ShipInProcess sizeOne_2(3, 8, 1);
-	//	ShipInProcess sizeOne_3(9, 2, 1);
-
-	//	ShipInProcess sizeTwo_1(7, 8, 1);
-	//	sizeTwo_1.addCoordinate(8, 8, 1);
-
-	//	ShipInProcess sizeThree_1(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	sizeThree_1.addCoordinate(4, 5, 1);
-	//	sizeThree_1.addCoordinate(4, 2, 1);
-
-	//	ShipInProcess sizeTwo_2(5, 8, 1);
-	//	sizeTwo_2.addCoordinate(5, 8, 2);
-
-	//	allShips.push_back(sizeThree_1);
-	//	allShips.push_back(sizeTwo_1);
-	//	allShips.push_back(sizeTwo_2);
-	//	allShips.push_back(sizeOne_3);
-	//	allShips.push_back(sizeOne_1);
-	//	allShips.push_back(sizeOne_2);
-
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size();i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 4,2,1" << std::endl;
-	//		}
-	//	}
-
-	//	//sink
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 8, 1), AttackResult::Sink);
-
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2, 8, 1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,8,1 to options ! " << std::endl;
-	//	}
-
-	//	allShips.erase(allShips.begin() + 5);
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 4,2,1" << std::endl;
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(10, 2, 1), AttackResult::Hit);//Hit 2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(10,2,1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 10,2,1 to options ! " << std::endl;
-	//	}
-
-	//	allShips.at(3).addCoordinate(10,2,1);
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 10,2,1" << std::endl;
-	//		}
-	//	}
-
-
-	//}
-
-
-	//////for dimentuonal //////////////////////////////////////////////////////////////////////////////////////////
-	//{
-	//	PlayerSmart tmpPlayer2;
-	//	std::vector<ShipInProcess> allShips2;
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(1, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(2, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(3, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(4, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(5, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(6, 0));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(7, 0));
-
-	//	tmpPlayer2.boardCols = 10;
-	//	tmpPlayer2.boardDepth = 10;
-	//	tmpPlayer2.boardRows= 10;
-
-
-	//	//create Set of options
-	//	for (int i = 1; i < 11; i++)
-	//	{
-	//		for (int j = 1; j < 11; j++)
-	//		{
-	//			for (int k = 1; k < 11; k++) {
-	//				tmpPlayer2.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 1));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
-
-
-	//	// clear envirnment
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 7));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 7));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 7, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 8, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 7, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 8, 8));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 3));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 5));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 4));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 3));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 5));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 4));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5,8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 8));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 7));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 7));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 9));
-	//	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 9));
-
-	//	ShipInProcess sizeTwo_2(2, 5, 8);
-	//	sizeTwo_2.addCoordinate(2, 4, 8);
-	//	// create ships
-	//	ShipInProcess sizeOne_1(2, 1, 1);
-	//	ShipInProcess sizeOne_2(2, 4, 1);
-	//	ShipInProcess sizeOne_3(2, 10, 8);
-
-	//	ShipInProcess sizeTwo_1(2, 7, 8);
-	//	sizeTwo_1.addCoordinate(2, 8, 8);
-
-	//	ShipInProcess sizeThree_1(2, 4, 3);
-	//	sizeThree_1.addCoordinate(2, 4, 4);
-	//	sizeThree_1.addCoordinate(2, 4, 5);
-
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeTwo_2);
-	//	allShips2.push_back(sizeOne_3);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_2);
-
-	//	tmpPlayer2.attackedShips = allShips2;
-	//	//miss
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 8, 2), AttackResult::Miss);//miss 2,8,2
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 8, 2)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,8,2 to options ! " << std::endl;
-	//	}
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,8,2 depticl" << std::endl;
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 4, 2), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 4, 2)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,4,2, to options ! " << std::endl;
-	//	}
-
-	//	allShips2.at(0).addCoordinate(2, 4, 2);
-	//	allShips2.at(0).addCoordinate(2, 4, 1);
-	//	allShips2.erase(allShips2.begin()+5);
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,4,2 depticl" << std::endl;
-	//		}
-	//	}
-
-
-
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Hit);//Hit 2,1
-	//	if ((tmpPlayer2.isInAttackOptions(Coordinate(2, 2, 1))))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,2,1 to options ! " << std::endl;
-	//	}
-	//	allShips2.clear();
-
-	//	sizeThree_1.addCoordinate(2, 4, 2);
-	//	sizeThree_1.addCoordinate(2, 4, 1);
-	//	sizeOne_1.addCoordinate(2, 2, 1);
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeTwo_2);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_3);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,2,1 depticl" << std::endl;
-	//		}
-	//	}
-
-
-	//	//hit merge two vectors 
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 6, 8), AttackResult::Hit);//Hit 6,8
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 6,8)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,6,8 to options ! " << std::endl;
-	//	}
-
-	//	allShips2.clear();
-	//	sizeTwo_1.addCoordinate(2, 6, 8);
-	//	sizeTwo_1.addCoordinate(2, 5, 8);
-	//	sizeTwo_1.addCoordinate(2, 4, 8);
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_3);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,6,8" << std::endl;
-	//		}
-	//	}
-
-	//	//sink
-	//	tmpPlayer2.imbalancedAttackOptions.insert(Coordinate(9, 9, 9));
-
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 9, 8), AttackResult::Sink);
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 9, 8)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,9,8 to options ! " << std::endl;
-	//	}
-
-	//	allShips2.clear();
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeOne_1);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,9,8" << std::endl;
-	//		}
-	//	}
-	//	if (tmpPlayer2.isBoardBalanced != false) {
-	//		std::cout << "board should be imbalanced" << std::endl;
-	//	}
-
-
-	//	if (!tmpPlayer2.isInAttackOptions(Coordinate(9, 9, 9))) {
-	//		std::cout << "imbalanced options should be in attack options" << std::endl;
-	//	}
-
-	//}
-
-	//{
-	//	////check for new terms
-	//	//////////////////////////////////////////////////////////////////////
-	//	PlayerSmart tmpPlayer;
-	//	std::vector<ShipInProcess> allShips;
-
-	//	//create Set of options
-	//	for (int i = 1; i < 5; i++)
-	//	{
-	//		for (int j = 1; j < 5; j++)
-	//		{
-	//			for (int k = 1; k < 5; k++) {
-	//				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	// create ships
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
-
-	//	ShipInProcess sizeThree_1(4, 2, 1);
-	//	sizeThree_1.addCoordinate(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	allShips.push_back(sizeThree_1);
-	//	tmpPlayer.attackedShips = allShips;
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
-
-
-	//	std::set<Coordinate> expected_imbalanced;
-	//	expected_imbalanced.insert(Coordinate(1, 2, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 1, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 3, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 4, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 2));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 3));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 4));
-
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2,2,1)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
-	//	}
-
-	//	for (auto& coor : expected_imbalanced) {
-	//		if (tmpPlayer.isInAttackOptions(coor)) {
-	//			std::cout << "didnt remove coor from attack options";
-	//			printCoordinate(coor);
-	//		}
-	//		if (!tmpPlayer.isInImbalancedOptions(coor)) {
-	//			std::cout << "missing coordinate in imbalanced options";
-	//			printCoordinate(coor);
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4,2,1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-	//}
-
-	//{
-	//	////check for new terms
-	//	//////////////////////////////////////////////////////////////////////
-	//	PlayerSmart tmpPlayer;
-	//	std::vector<ShipInProcess> allShips;
-
-	//	//create Set of options
-	//	for (int i = 1; i < 5; i++)
-	//	{
-	//		for (int j = 1; j < 5; j++)
-	//		{
-	//			for (int k = 1; k < 5; k++) {
-	//				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	// create ships
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	//	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
-
-	//	ShipInProcess sizeThree_1(4, 2, 1);
-	//	sizeThree_1.addCoordinate(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	allShips.push_back(sizeThree_1);
-	//	tmpPlayer.attackedShips = allShips;
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
-
-
-	//	std::set<Coordinate> expected_imbalanced;
-	//	expected_imbalanced.insert(Coordinate(1, 2, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 1, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 3, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 4, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 2));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 3));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 4));
-
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
-	//	}
-
-	//	for (auto& coor : expected_imbalanced) {
-	//		if (tmpPlayer.isInAttackOptions(coor)) {
-	//			std::cout << "didnt remove coor from attack options";
-	//			printCoordinate(coor);
-	//		}
-	//		if (!tmpPlayer.isInImbalancedOptions(coor)) {
-	//			std::cout << "missing coordinate in imbalanced options";
-	//			printCoordinate(coor);
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-	//}
+	{
+		PlayerSmart tmpPlayer;
+		setTempPlayer1(tmpPlayer);
+		tmpPlayer.shipsCount.clear();
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 8));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 8));
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(8, 2, 1), AttackResult::Miss);//miss 8,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(8, 2, 1))) {
+			std::cout << "not good!didnt delete 8,2,1 to options ! " << std::endl;
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+
+		std::vector<ShipInProcess> allShips;
+		// create ships
+		ShipInProcess sizeOne_1(1, 1, 1);
+		ShipInProcess sizeOne_2(3, 8, 1);
+		ShipInProcess sizeOne_3(9, 2, 1);
+
+		ShipInProcess sizeTwo_1(7, 8, 1);
+		sizeTwo_1.addCoordinate(8, 8, 1);
+
+		ShipInProcess sizeThree_1(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		sizeThree_1.addCoordinate(4, 5, 1);
+		sizeThree_1.addCoordinate(4, 2, 1);
+
+		ShipInProcess sizeTwo_2(5, 8, 1);
+		sizeTwo_2.addCoordinate(5, 8, 2);
+
+		allShips.push_back(sizeThree_1);
+		allShips.push_back(sizeTwo_1);
+		allShips.push_back(sizeTwo_2);
+		allShips.push_back(sizeOne_3);
+		allShips.push_back(sizeOne_1);
+		allShips.push_back(sizeOne_2);
+
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 4,2,1" << std::endl;
+			}
+		}
+
+		//sink
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 8, 1), AttackResult::Sink);
+
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 8, 1)))
+		{
+			std::cout << "not good!didnt deleted 2,8,1 to options ! " << std::endl;
+		}
+
+		allShips.erase(allShips.begin() + 5);
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 4,2,1" << std::endl;
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(10, 2, 1), AttackResult::Hit);//Hit 2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(10, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 10,2,1 to options ! " << std::endl;
+		}
+
+		allShips.at(3).addCoordinate(10, 2, 1);
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 10,2,1" << std::endl;
+			}
+		}
+
+
+	}
+
+
+	////for dimentuonal //////////////////////////////////////////////////////////////////////////////////////////
+	{
+		PlayerSmart tmpPlayer2;
+		std::vector<ShipInProcess> allShips2;
+		tmpPlayer2.shipsCount.push_back(std::make_pair(1, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(2, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(3, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(4, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(5, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(6, 0));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(7, 0));
+
+		tmpPlayer2.boardCols = 10;
+		tmpPlayer2.boardDepth = 10;
+		tmpPlayer2.boardRows = 10;
+
+
+		//create Set of options
+		for (int i = 1; i < 11; i++)
+		{
+			for (int j = 1; j < 11; j++)
+			{
+				for (int k = 1; k < 11; k++) {
+					tmpPlayer2.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+
+
+		// clear envirnment
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+
+		ShipInProcess sizeTwo_2(2, 5, 8);
+		sizeTwo_2.addCoordinate(2, 4, 8);
+		// create ships
+		ShipInProcess sizeOne_1(2, 1, 1);
+		ShipInProcess sizeOne_2(2, 4, 1);
+		ShipInProcess sizeOne_3(2, 10, 8);
+
+		ShipInProcess sizeTwo_1(2, 7, 8);
+		sizeTwo_1.addCoordinate(2, 8, 8);
+
+		ShipInProcess sizeThree_1(2, 4, 3);
+		sizeThree_1.addCoordinate(2, 4, 4);
+		sizeThree_1.addCoordinate(2, 4, 5);
+
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeTwo_2);
+		allShips2.push_back(sizeOne_3);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_2);
+
+		tmpPlayer2.attackedShips = allShips2;
+		//miss
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 8, 2), AttackResult::Miss);//miss 2,8,2
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 8, 2)))
+		{
+			std::cout << "not good!didnt delete 2,8,2 to options ! " << std::endl;
+		}
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,8,2 depticl" << std::endl;
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 4, 2), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 4, 2)))
+		{
+			std::cout << "not good!didnt deleted 2,4,2, to options ! " << std::endl;
+		}
+
+		allShips2.at(0).addCoordinate(2, 4, 2);
+		allShips2.at(0).addCoordinate(2, 4, 1);
+		allShips2.erase(allShips2.begin() + 5);
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,4,2 depticl" << std::endl;
+			}
+		}
+
+
+
+
+		//hit (merge one coor with one ship)
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Hit);//Hit 2,1
+		if ((tmpPlayer2.isInAttackOptions(Coordinate(2, 2, 1))))
+		{
+			std::cout << "not good!didnt deleted 2,2,1 to options ! " << std::endl;
+		}
+		allShips2.clear();
+
+		sizeThree_1.addCoordinate(2, 4, 2);
+		sizeThree_1.addCoordinate(2, 4, 1);
+		sizeOne_1.addCoordinate(2, 2, 1);
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeTwo_2);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_3);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,2,1 depticl" << std::endl;
+			}
+		}
+
+
+		//hit merge two vectors 
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 6, 8), AttackResult::Hit);//Hit 6,8
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 6, 8)))
+		{
+			std::cout << "not good!didnt deleted 2,6,8 to options ! " << std::endl;
+		}
+
+		allShips2.clear();
+		sizeTwo_1.addCoordinate(2, 6, 8);
+		sizeTwo_1.addCoordinate(2, 5, 8);
+		sizeTwo_1.addCoordinate(2, 4, 8);
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_3);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,6,8" << std::endl;
+			}
+		}
+
+		//sink
+		tmpPlayer2.imbalancedAttackOptions.insert(Coordinate(9, 9, 9));
+
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 9, 8), AttackResult::Sink);
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 9, 8)))
+		{
+			std::cout << "not good!didnt deleted 2,9,8 to options ! " << std::endl;
+		}
+
+		allShips2.clear();
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeOne_1);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,9,8" << std::endl;
+			}
+		}
+		if (tmpPlayer2.isBoardBalanced != false) {
+			std::cout << "board should be imbalanced" << std::endl;
+		}
+
+
+		if (!tmpPlayer2.isInAttackOptions(Coordinate(9, 9, 9))) {
+			std::cout << "imbalanced options should be in attack options" << std::endl;
+		}
+
+	}
+
+	{
+		////check for new terms
+		//////////////////////////////////////////////////////////////////////
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+
+
+		std::set<Coordinate> expected_imbalanced;
+		expected_imbalanced.insert(Coordinate(1, 2, 1));
+		expected_imbalanced.insert(Coordinate(2, 1, 1));
+		expected_imbalanced.insert(Coordinate(2, 3, 1));
+		expected_imbalanced.insert(Coordinate(2, 4, 1));
+		expected_imbalanced.insert(Coordinate(2, 2, 2));
+		expected_imbalanced.insert(Coordinate(2, 2, 3));
+		expected_imbalanced.insert(Coordinate(2, 2, 4));
+
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
+		{
+			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		}
+
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+	}
+
+	{
+		////check for new terms
+		//////////////////////////////////////////////////////////////////////
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+
+
+		std::set<Coordinate> expected_imbalanced;
+		expected_imbalanced.insert(Coordinate(1, 2, 1));
+		expected_imbalanced.insert(Coordinate(2, 1, 1));
+		expected_imbalanced.insert(Coordinate(2, 3, 1));
+		expected_imbalanced.insert(Coordinate(2, 4, 1));
+		expected_imbalanced.insert(Coordinate(2, 2, 2));
+		expected_imbalanced.insert(Coordinate(2, 2, 3));
+		expected_imbalanced.insert(Coordinate(2, 2, 4));
+
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
+		{
+			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		}
+
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+	}
 
 
 	{
@@ -2164,15 +2165,15 @@ int testPlayerSmart::testnotifyOnAttackResult()
 		}
 
 		// create ships
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-		tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 
 		ShipInProcess sizeThree_1(4, 2, 1);
 		sizeThree_1.addCoordinate(4, 3, 1);
@@ -2182,62 +2183,44 @@ int testPlayerSmart::testnotifyOnAttackResult()
 		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
 		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
 		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(5, 1));
 
+		std::set<Coordinate> attackedShip;
 		std::set<Coordinate> expected_imbalanced;
-		//3,2,1
-		expected_imbalanced.insert(Coordinate(2, 2, 1));
-		expected_imbalanced.insert(Coordinate(3, 1, 1));
-		expected_imbalanced.insert(Coordinate(3, 2, 3));
-		expected_imbalanced.insert(Coordinate(3, 2, 4));
-		expected_imbalanced.insert(Coordinate(3, 2, 2));
+		std::set<Coordinate> expected_dead;
 
+		attackedShip.insert(Coordinate(4, 1, 1));
+		attackedShip.insert(Coordinate(4, 2, 1));
+		attackedShip.insert(Coordinate(4, 3, 1));
+		attackedShip.insert(Coordinate(4, 4, 1));
 
-		// 2,2,2
-		expected_imbalanced.insert(Coordinate(2, 1, 2));
-		expected_imbalanced.insert(Coordinate(1, 2, 2));
-		expected_imbalanced.insert(Coordinate(2, 2, 3));
-		expected_imbalanced.insert(Coordinate(2, 2, 4));
+		for (Coordinate coor : attackedShip) {
+			std::vector<Coordinate> serVec = findSurronding(coor);
+			for (auto ser : serVec) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_dead.insert(ser);
+				}
+			}
+		}
 
-		expected_imbalanced.insert(Coordinate(3, 2, 2));//
-		expected_imbalanced.insert(Coordinate(2, 4, 2));//?
-		expected_imbalanced.insert(Coordinate(2, 3, 2));//
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
+		for (auto dead : expected_dead) {
+			std::vector<Coordinate> cut = shouldBeRemoved(dead, 4, expected_dead);
+			for (auto& ser : cut) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_imbalanced.insert(ser);
+				}
 
+			}
+		}
 
-														//2, 1, 1
-		expected_imbalanced.insert(Coordinate(2, 1, 2));//
-		expected_imbalanced.insert(Coordinate(2, 1, 3));//?
-		expected_imbalanced.insert(Coordinate(2, 1, 4));//?
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
-		expected_imbalanced.insert(Coordinate(1, 1, 1));//
-		expected_imbalanced.insert(Coordinate(3, 1, 1));//
-		expected_imbalanced.insert(Coordinate(4, 1, 1));//?
-
-														//1,2,1
-		expected_imbalanced.insert(Coordinate(1, 1, 1));
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
-
-		expected_imbalanced.insert(Coordinate(1, 3, 1));//
-		expected_imbalanced.insert(Coordinate(1, 4, 1));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 2));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 3));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 4));//?
-
-														//2,3,1
-		expected_imbalanced.insert(Coordinate(1, 3, 1));
-		expected_imbalanced.insert(Coordinate(2, 4, 1));
-		expected_imbalanced.insert(Coordinate(2, 3, 2));
-		expected_imbalanced.insert(Coordinate(2, 3, 3));
-		expected_imbalanced.insert(Coordinate(2, 3, 4));
-
-		//sink
-		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Sink);//miss 2,2,1
-		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)) || tmpPlayer.isInAttackOptions(Coordinate(1, 2, 1))
-			|| tmpPlayer.isInAttackOptions(Coordinate(3, 2, 1)) || tmpPlayer.isInAttackOptions(Coordinate(2, 1, 1)) ||
-			tmpPlayer.isInAttackOptions(Coordinate(2, 3, 1)) || tmpPlayer.isInAttackOptions(Coordinate(2, 2, 2)))
-		{
-			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 1, 1), AttackResult::Sink);//miss 4,1,1
+		for (auto& coor : expected_dead) {
+			if (tmpPlayer.isInAttackOptions(coor) || tmpPlayer.isInImbalancedOptions(coor))
+			{
+				std::cout << "not good!didnt delete from attack options|| imbalanced";
+				printCoordinate(coor);
+			}
 		}
 
 		for (auto& coor : expected_imbalanced) {
@@ -2245,18 +2228,147 @@ int testPlayerSmart::testnotifyOnAttackResult()
 				std::cout << "didnt remove coor from attack options";
 				printCoordinate(coor);
 			}
-			//if (!tmpPlayer.isInImbalancedOptions(coor)) {
-			//	std::cout << "missing coordinate in imbalanced options";
-			//	printCoordinate(coor);
-			//}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
 		}
-
 	}
 
-	std::cout << "check notify is done" << std::endl;
+
+	{
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 1));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(5, 1));
+
+		std::set<Coordinate> attackedShip;
+		std::set<Coordinate> expected_imbalanced;
+		std::set<Coordinate> expected_dead;
+
+		attackedShip.insert(Coordinate(4, 1, 1));
+		attackedShip.insert(Coordinate(4, 2, 1));
+		attackedShip.insert(Coordinate(4, 3, 1));
+		attackedShip.insert(Coordinate(4, 4, 1));
+
+		for (Coordinate coor : attackedShip) {
+			std::vector<Coordinate> serVec = findSurronding(coor);
+			for (auto ser : serVec) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_dead.insert(ser);
+				}
+			}
+		}
+
+		//for (auto dead : expected_dead) {
+		//	std::vector<Coordinate> cut = shouldBeRemoved(dead, 4, expected_dead);
+		//	for (auto& ser : cut) {
+		//		if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+		//			expected_imbalanced.insert(ser);
+		//		}
+
+		//	}
+		//}
+
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 1, 1), AttackResult::Sink);//miss 4,1,1
+		for (auto& coor : expected_dead) {
+			if (tmpPlayer.isInAttackOptions(coor) || tmpPlayer.isInImbalancedOptions(coor))
+			{
+				std::cout << "not good!didnt delete from attack options|| imbalanced";
+				printCoordinate(coor);
+			}
+		}
+
+		if (tmpPlayer.imbalancedAttackOptions.size() != 0) {
+			std::cout << "error" << std::endl;
+		}
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+	}
+	std::cout << "Done notify" << std::endl;
 	return 0;
 }
 
+std::vector<Coordinate> testPlayerSmart::shouldBeRemoved(Coordinate & dead, int boardSize, std::set<Coordinate> allDead) {
+	std::vector<Coordinate> surr = findSurronding(dead);
+	Coordinate temp(-1, -1, -1);
+	std::vector<Coordinate> res;
+	for (auto& adjecent : surr) {
+		int row = adjecent.row;
+		int col = adjecent.col;
+		int depth = adjecent.depth;
+
+		for (int i = 1; i <= boardSize; i++) {
+			PlayerSmart::updateCoordinates(temp, i, col, depth);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+
+			PlayerSmart::updateCoordinates(temp, row, i, depth);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+			PlayerSmart::updateCoordinates(temp, row, col, i);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+		}
+
+	}
+	return res;
+}
+
+std::vector<Coordinate> testPlayerSmart::findSurronding(const Coordinate& target) {
+
+	Coordinate temp(-1, -1, -1);
+	std::vector<Coordinate> vic = PlayerSmart::setSixOptionsVector();
+	std::vector<Coordinate> res;
+	for (auto& coor : vic) {
+		PlayerSmart::updateCoordinates(temp, target.row + coor.row, target.col + coor.col, target.depth + coor.depth);
+		res.push_back(temp);
+	}
+	return res;
+}
 
 void testPlayerSmart::expectedTempPlayer1_afterAddCoor(PlayerSmart& tmpPlayer) {
 	std::vector<ShipInProcess> allShips;
@@ -2300,55 +2412,55 @@ void testPlayerSmart::expectedTempPlayer1_afterAddCoor(PlayerSmart& tmpPlayer) {
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(9, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
 
 	// clear envirnment
 	// ship of size 2 _1 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
 
 	// ship of size 2 _2 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
 
 	// ship of size 3 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 }
 
 
@@ -2396,55 +2508,55 @@ void testPlayerSmart::expectedTempPlayer1_afterAddCoor2(PlayerSmart& tmpPlayer) 
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(9, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
 
 	// clear envirnment
 	// ship of size 2 _1 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
 
 	// ship of size 2 _2 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
 
 	// ship of size 3 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 
 }
 
@@ -2489,58 +2601,58 @@ void testPlayerSmart::expectedTempPlayer1_afterAddCoor3(PlayerSmart& tmpPlayer) 
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(9, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
 
 	// clear envirnment
 	// ship of size 2 _1 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
 
 	// ship of size 2 _2 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
 
 	// ship of size 3 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 
 }
 
@@ -2588,59 +2700,59 @@ void testPlayerSmart::expectedTempPlayer1_afterAddCoor4(PlayerSmart& tmpPlayer) 
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(2, 1, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(9, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
 
 	// clear envirnment
 	// ship of size 2 _1 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
 
 	// ship of size 2 _2 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
 
 	// ship of size 3 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 
 }
 
@@ -2685,60 +2797,60 @@ void testPlayerSmart::expectedTempPlayer2_afterAddCoor(PlayerSmart& tmpPlayer2) 
 		}
 	}
 	//
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 9, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
 
 	// clear envirnment
 	//sizeTwo_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
 
 	//sizeThree_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
 
 	//sizeTwo_2 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
 
 }
 
@@ -2784,65 +2896,65 @@ void testPlayerSmart::expectedTempPlayer2_afterAddCoor2(PlayerSmart& tmpPlayer2)
 		}
 	}
 	//
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 9, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
 
 	// clear envirnment
 	//sizeTwo_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
 
 	//sizeThree_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
 
 	//sizeTwo_2 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
 
 }
 
@@ -2891,66 +3003,66 @@ void testPlayerSmart::expectedTempPlayer2_afterAddCoor3(PlayerSmart& tmpPlayer2)
 		}
 	}
 	//
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 2, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 2, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 9, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
 
 	// clear envirnment
 	//sizeTwo_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
 
 	//sizeThree_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 6));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
 
 	//sizeTwo_2 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
 
 }
 int testPlayerSmart::testaddCoorToShipsInProcess()
@@ -2964,7 +3076,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	int res;
 	Coordinate output(-1, -1, -1);
-	res = tmpPlayer.addCoorToShipsInProcess(2, 1, 1, &output, AttackResult::Hit);
+	res = tmpPlayer.addCoorToShipInProcess(Coordinate(2, 1, 1), &output, AttackResult::Hit);
 	if (res != 4)
 	{
 		std::cout << "error in addCoorToShipsInProcess <2,1,1> - wasnt placed in the third place in attacek ships ";
@@ -2978,7 +3090,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	PlayerSmart expectedTmp2;
 	expectedTempPlayer1_afterAddCoor2(expectedTmp2);
-	res = tmpPlayer.addCoorToShipsInProcess(3, 1, 1, &output, AttackResult::Sink);
+	res = tmpPlayer.addCoorToShipInProcess(Coordinate(3, 1, 1), &output, AttackResult::Sink);
 	if (res != 4)
 	{
 		std::cout << "error in addCoorToShipsInProcess (3,1,1) ";
@@ -2991,7 +3103,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	PlayerSmart expectedTmp3;
 	expectedTempPlayer1_afterAddCoor3(expectedTmp3);
-	res = tmpPlayer.addCoorToShipsInProcess(4, 6, 1, &output, AttackResult::Sink);
+	res = tmpPlayer.addCoorToShipInProcess(Coordinate(4, 6, 1), &output, AttackResult::Sink);
 	if (res != 0)
 	{
 		std::cout << "error in addCoorToShipsInProcess (4,6,1) ";
@@ -3006,10 +3118,10 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 	}
 
 	//	"should be the same as before" << std::endl;
-	res = tmpPlayer.addCoorToShipsInProcess(3, 8, 1, &output, AttackResult::Hit);
+	res = tmpPlayer.addCoorToShipInProcess(Coordinate(3, 8, 1), &output, AttackResult::Hit);
 	if (res != -1)
 	{
-		std::cout << "error in addCoorToShipsInProcess  <3,8,1> as new" << std::endl;
+		std::cout << "error in addCoorToShipInProcess(Coordinate(sInProcess  <3,8,1> as new" << std::endl;
 		return -1;
 	}
 	for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
@@ -3021,7 +3133,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	PlayerSmart expectedTmp4;
 	expectedTempPlayer1_afterAddCoor4(expectedTmp4);
-	res = tmpPlayer.addCoorToShipsInProcess(7, 2, 1, &output, AttackResult::Hit);
+	res = tmpPlayer.addCoorToShipInProcess(Coordinate(7, 2, 1), &output, AttackResult::Hit);
 	if (res != -1)
 	{
 		std::cout << "error in 7, 2, 1 addCoorToShipsInProcess ";
@@ -3040,7 +3152,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	Coordinate output2(-1, -1, -1);
 
-	res = tmpPlayer2.addCoorToShipsInProcess(2, 2, 1, &output2, AttackResult::Hit);
+	res = tmpPlayer2.addCoorToShipInProcess(Coordinate(2, 2, 1), &output2, AttackResult::Hit);
 	if (res != 4)
 	{
 		std::cout << "error in addCoorToShipsInProcess <2,2,1> ";
@@ -3061,7 +3173,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	PlayerSmart tmpPlayer2_expected2;
 	expectedTempPlayer2_afterAddCoor2(tmpPlayer2_expected2);
-	res = tmpPlayer2.addCoorToShipsInProcess(2, 4, 6, &output2, AttackResult::Sink);
+	res = tmpPlayer2.addCoorToShipInProcess(Coordinate(2, 4, 6), &output2, AttackResult::Sink);
 	if (res != 0)
 	{
 		std::cout << "error in addCoorToShipsInProcess (2,4,6) ";
@@ -3079,7 +3191,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 	}
 
 
-	res = tmpPlayer2.addCoorToShipsInProcess(2, 3, 8, &output2, AttackResult::Hit);
+	res = tmpPlayer2.addCoorToShipInProcess(Coordinate(2, 3, 8), &output2, AttackResult::Hit);
 	if (res != -1)
 	{
 		std::cout << "error in addCoorToShipsInProcess  <2,3,8>";
@@ -3097,7 +3209,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 
 	PlayerSmart tmpPlayer2_expected3;
 	expectedTempPlayer2_afterAddCoor3(tmpPlayer2_expected3);
-	res = tmpPlayer2.addCoorToShipsInProcess(2, 7, 2, &output2, AttackResult::Sink);
+	res = tmpPlayer2.addCoorToShipInProcess(Coordinate(2, 7, 2), &output2, AttackResult::Sink);
 	if (res != -1)
 	{
 		std::cout << "error in addCoorToShipsInProcess (2,7,2) ";
@@ -3112,7 +3224,7 @@ int testPlayerSmart::testaddCoorToShipsInProcess()
 	if (!compareCoordinates(output2, Coordinate(2, 4, 7))) {
 		std::cout << "bad next coordinate 2,4,7 !!! " << std::endl;
 	}
-	std::cout << "add one coordinate is Good !!! " << std::endl;
+	std::cout << "Done addOnecoordinate" << std::endl;
 	return 0;
 }
 
@@ -3160,49 +3272,49 @@ void testPlayerSmart::setTempPlayer1(PlayerSmart & tmpPlayer)
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 1, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(9, 2, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
 
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
 
 	// clear envirnment
 	// ship of size 2 _1 
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
 
 	// ship of size 2 _2 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(6, 8, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 7, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 9, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
 
 	// ship of size 3 
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 3, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 4, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 5, 2));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 4, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
 
 }
 
@@ -3247,52 +3359,52 @@ void testPlayerSmart::setTempPlayer2(PlayerSmart& tmpPlayer2) {
 		}
 	}
 	//
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 1, 1));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 9, 2));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
 
 	// clear envirnment
 	//sizeTwo_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 7));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 7, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 8, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 8, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 7, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
 
 	//sizeThree_1
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 3, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 5, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 4, 5));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 3));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 4));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
 
 	//sizeTwo_2 
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(1, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(3, 5, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 6, 9));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 8));
-	tmpPlayer2.removeOneCoordinate(Coordinate(2, 4, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
 
 }
 
@@ -3300,9 +3412,9 @@ int testPlayerSmart::testsizeOneAttack()
 {
 	PlayerSmart tmpPlayer;
 
-	for (int i = 1; i<11; i++)
+	for (int i = 1; i < 11; i++)
 	{
-		for (int j = 1; j<11; j++)
+		for (int j = 1; j < 11; j++)
 		{
 			for (int k = 1; k < 11; k++) {
 				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
@@ -3314,64 +3426,54 @@ int testPlayerSmart::testsizeOneAttack()
 	// check all sides
 	Coordinate res(-1, -1, -1);
 	Coordinate target(2, 3, 3);
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(target));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(target);
+	std::set<Coordinate> removedRes;
+	std::set<Coordinate> removedExp;
 
-	//should return <1,3,3> x-1
+
 	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(res, Coordinate(1, 3, 3)))
-	{
-		std::cout << "error 1,3,3" << std::endl;
-		return -1;
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(1, 3, 3));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(3, 3, 3));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(2, 2, 3));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(2, 4, 3));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(2, 3, 2));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(2, 3, 4));
+
+	for (auto& coor : removedExp) {
+		if (removedRes.find(coor) == removedRes.end()) {
+			std::cout << "missing from removed res" << std::endl;;
+			printCoordinate(coor);
+		}
 	}
 
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-
-	//should return <3,3,3> down x+1
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(res, Coordinate(3, 3, 3)))
-	{
-		std::cout << "error 3,3,3" << std::endl;
-		return -1;
+	for (auto& coor : removedRes) {
+		if (removedExp.find(coor) == removedExp.end()) {
+			std::cout << "missing from removed exp" << std::endl;;
+			printCoordinate(coor);
+		}
 	}
-
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-	//should return <2,2,3>  left y-1
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(2, 2, 3), res))
-	{
-		std::cout << "error 2,2,3" << std::endl;
-		printCoordinate(res);
-		return -1;
-	}
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-
-	//should return <2,4,3> right y+1
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(2, 4, 3), res))
-	{
-		std::cout << "error 2,4,3" << std::endl;
-		return -1;
-	}
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-
-
-	//should return <2,3,2> right z-1
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(2, 3, 2), res))
-	{
-		std::cout << "error 2,3,2" << std::endl;
-		return -1;
-	}
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
-
-	//should return <2,3,4> right z+1
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(2, 3, 4), res))
-	{
-		std::cout << "error 2,3,4" << std::endl;
-		return -1;
-	}
-	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
 
 	//should return <-1, -1> none
 	res = tmpPlayer.sizeOneAttack(target);
@@ -3380,30 +3482,40 @@ int testPlayerSmart::testsizeOneAttack()
 		std::cout << "error -1,-1,-1" << std::endl;
 		return -1;
 	}
-	tmpPlayer.removeOneCoordinate(res);
-	//		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(res));
+
+
 
 	///////////////////////////////////////////////////////////////////////////////check rightest edge 
 	target = Coordinate(9, 10, 10);
 	tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(target));
 	target = Coordinate(10, 10, 10);
-	// should return left (10,9,10)
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(10, 9, 10), res))
-	{
-		std::cout << "error 10,9,10" << std::endl;
-		return -1;
-	}
-	tmpPlayer.removeOneCoordinate(res);
 
-	//in depth
+	removedExp.clear();
+	removedRes.clear();
+
 	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(10, 10, 9), res))
-	{
-		std::cout << "error 10,10,9" << std::endl;
-		return -1;
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(10, 9, 10));
+
+	res = tmpPlayer.sizeOneAttack(target);
+	removedRes.insert(res);
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+	removedExp.insert(Coordinate(10, 10, 9));
+
+	for (auto& coor : removedExp) {
+		if (removedRes.find(coor) == removedRes.end()) {
+			std::cout << "missing from removed res" << std::endl;;
+			printCoordinate(coor);
+		}
 	}
-	tmpPlayer.removeOneCoordinate(res);
+
+	for (auto& coor : removedRes) {
+		if (removedExp.find(coor) == removedExp.end()) {
+			std::cout << "missing from removed exp" << std::endl;;
+			printCoordinate(coor);
+		}
+	}
 
 	//none left
 	res = tmpPlayer.sizeOneAttack(target);
@@ -3414,16 +3526,16 @@ int testPlayerSmart::testsizeOneAttack()
 	}
 
 
-	// check the leftest 
-	target = Coordinate(1, 1, 1);
-	res = tmpPlayer.sizeOneAttack(target);
-	if (!compareCoordinates(Coordinate(2, 1, 1), res))
-	{
-		std::cout << "error 2,1, 1" << std::endl;
-		return -1;
-	}
-	tmpPlayer.removeOneCoordinate(res);
-	std::cout << "testsizeOneAttack done!" << std::endl;
+	//// check the leftest 
+	//target = Coordinate(1, 1, 1);
+	//res = tmpPlayer.sizeOneAttack(target);
+	//if (!compareCoordinates(Coordinate(2, 1, 1), res))
+	//{
+	//	std::cout << "error 2,1, 1" << std::endl;
+	//	return -1;
+	//}
+	//tmpPlayer.delOneCoorPermanentlyAttackOptions(res);
+	std::cout << "Done testsizeOneAttack " << std::endl;
 	return 0;
 }
 
@@ -3458,13 +3570,13 @@ int testPlayerSmart::testattack()
 		}
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(1, 5, 1));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 6, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 6, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 1));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 4));
 
 	// create ships
 	ShipInProcess sizeOne_1(1, 5, 1);
@@ -3483,33 +3595,33 @@ int testPlayerSmart::testattack()
 	allShips.push_back(sizeOne_2);
 
 	// clear envirnment
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 6, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 6, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 6, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 6, 9));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 7, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 5, 8));
-	tmpPlayer.removeOneCoordinate(Coordinate(7, 6, 7));
-	tmpPlayer.removeOneCoordinate(Coordinate(8, 6, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 9));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 5, 8));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 7));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 7));
 
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 4));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 3));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 4));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 4));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 4));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 4));
-	tmpPlayer.removeOneCoordinate(Coordinate(3, 2, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(5, 2, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 1, 5));
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 3, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 4));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 5));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 5));
 
 	tmpPlayer.attackedShips = allShips;
 	nextCoordinate = tmpPlayer.attack();
@@ -3521,7 +3633,7 @@ int testPlayerSmart::testattack()
 		return -1;
 	}
 
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 2));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
 
 	nextCoordinate = tmpPlayer.attack();
 	if (!compareCoordinates(Coordinate(4, 2, 6), nextCoordinate))
@@ -3529,7 +3641,7 @@ int testPlayerSmart::testattack()
 		std::cout << "error <4,2,6> " << std::endl;
 		return -1;
 	}
-	tmpPlayer.removeOneCoordinate(Coordinate(4, 2, 6));
+	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 6));
 	tmpPlayer.attackedShips.erase(tmpPlayer.attackedShips.begin(), tmpPlayer.attackedShips.end());
 
 	// in case there are no ships in process return random element 
@@ -3540,7 +3652,7 @@ int testPlayerSmart::testattack()
 		return -1;
 	}
 
-	std::cout << "test Attack done!!!!!!!!!!!!! " << std::endl;
+	std::cout << "Done testAttack" << std::endl;
 	return 0;
 }
 
@@ -3574,9 +3686,9 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 
 
 	//case of in edge(shuold remove only one side) vertical
-	originPlayer.removeFourIrreleventCoordinates(Coordinate(1, 1, 1), true, false, false);
-	expectedPlayer.removeOneCoordinate(Coordinate(1, 2, 1));
-	expectedPlayer.removeOneCoordinate(Coordinate(1, 1, 2));
+	originPlayer.removePermanentlyConstDirections(Coordinate(1, 1, 1), true, false, false);
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
 
 	for (auto& coor : originPlayer.attackOptions) {
 		if (!expectedPlayer.isInAttackOptions(coor)) {
@@ -3593,9 +3705,9 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 
 
 	//case of in edge(shuold remove only one side) horizontal
-	originPlayer.removeFourIrreleventCoordinates(Coordinate(10, 10, 10), false, true, false);
-	expectedPlayer.removeOneCoordinate(Coordinate(9, 10, 10));
-	expectedPlayer.removeOneCoordinate(Coordinate(10, 10, 9));
+	originPlayer.removePermanentlyConstDirections(Coordinate(10, 10, 10), false, true, false);
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 10, 10));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(10, 10, 9));
 	for (auto& coor : originPlayer.attackOptions) {
 		if (!expectedPlayer.isInAttackOptions(coor)) {
 			std::cout << "redundent coor in attackoptions 10,10,10: ";
@@ -3610,11 +3722,11 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 	}
 
 	//case of in middle(shuold remove two side) vertical
-	originPlayer.removeFourIrreleventCoordinates(Coordinate(3, 3, 3), true, false, false);
-	expectedPlayer.removeOneCoordinate(Coordinate(3, 2, 3));
-	expectedPlayer.removeOneCoordinate(Coordinate(3, 4, 3));
-	expectedPlayer.removeOneCoordinate(Coordinate(3, 3, 2));
-	expectedPlayer.removeOneCoordinate(Coordinate(3, 3, 4));
+	originPlayer.removePermanentlyConstDirections(Coordinate(3, 3, 3), true, false, false);
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 3));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 4));
 	for (auto& coor : originPlayer.attackOptions) {
 		if (!expectedPlayer.isInAttackOptions(coor)) {
 			std::cout << "redundent coor in attackoptions 3,3,3: ";
@@ -3630,11 +3742,11 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 
 
 	//case of in middle(shuold remove two side) horizontal
-	originPlayer.removeFourIrreleventCoordinates(Coordinate(6, 6, 6), false, true, false);
-	expectedPlayer.removeOneCoordinate(Coordinate(5, 6, 6));
-	expectedPlayer.removeOneCoordinate(Coordinate(7, 6, 6));
-	expectedPlayer.removeOneCoordinate(Coordinate(6, 6, 5));
-	expectedPlayer.removeOneCoordinate(Coordinate(6, 6, 7));
+	originPlayer.removePermanentlyConstDirections(Coordinate(6, 6, 6), false, true, false);
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 6, 6));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 6));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 6, 5));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 6, 7));
 	for (auto& coor : originPlayer.attackOptions) {
 		if (!expectedPlayer.isInAttackOptions(coor)) {
 			std::cout << "redundent coor in attackoptions 6,6,6: ";
@@ -3649,11 +3761,11 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 	}
 
 	//case of in middle(shuold remove two side) dimentional
-	originPlayer.removeFourIrreleventCoordinates(Coordinate(6, 6, 6), false, false, true);
-	expectedPlayer.removeOneCoordinate(Coordinate(5, 6, 6));
-	expectedPlayer.removeOneCoordinate(Coordinate(7, 6, 6));
-	expectedPlayer.removeOneCoordinate(Coordinate(6, 5, 6));
-	expectedPlayer.removeOneCoordinate(Coordinate(6, 7, 6));
+	originPlayer.removePermanentlyConstDirections(Coordinate(6, 6, 6), false, false, true);
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 6, 6));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 6));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 6));
+	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 7, 6));
 
 	for (auto& coor : originPlayer.attackOptions) {
 		if (!expectedPlayer.isInAttackOptions(coor)) {
@@ -3668,7 +3780,7 @@ int testPlayerSmart::testremoveAllIrreleventCoordinates()
 		}
 	}
 
-	std::cout << "testremoveFourIrreleventCoordinates is Done !!!!!!!!!!!" << std::endl;
+	std::cout << "Done testremoveFourIrreleventCoordinates " << std::endl;
 	return 0;
 
 }

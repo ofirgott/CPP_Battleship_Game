@@ -35,9 +35,10 @@ int main(int argc, char* argv[])
 	standings.push_back(d);
 	standings.push_back(e);
 	BattleshipPrint::printStandingsTable(standings);*/
-	//std::string BoardPath = "C:\\Users\\Ofir\\Documents\\GitHub\\ex3\\TRY_RELEASE\\CHECK_FOR_YUVAL\\3d_board_10x10x6_0.sboard";
+
+	//std::string BoardPath = "C:\\project_3_runs\\good_board.sboard";
 	//BattleshipBoard board(BoardPath);
-	//std::string dllPathPlayerA = "C:\\Users\\Ofir\\Documents\\GitHub\\ex3\\TRY_RELEASE\\CHECK_FOR_YUVAL\\naive.dll", dllPathPlayerB = "C:\\Users\\Ofir\\Documents\\GitHub\\ex3\\TRY_RELEASE\\CHECK_FOR_YUVAL\\naive - Copy.dll";
+	//std::string dllPathPlayerA = "C:\\project_3_runs\\PlayerSmart.dll", dllPathPlayerB = "C:\\project_3_runs\\YuvalsSmartAlgo.dll";
 	//HINSTANCE dllA = LoadLibraryA(dllPathPlayerA.c_str());
 	//HINSTANCE dllB = LoadLibraryA(dllPathPlayerB.c_str());
 	//auto getAlgoFuncA = reinterpret_cast<GetAlgoFuncType>(GetProcAddress(dllA, "GetAlgorithm"));
@@ -52,7 +53,7 @@ int main(int argc, char* argv[])
 	//	std::cout << res.PlayerName() << " PlayerA:" << res.WinsNumber() <<"Player B: " << res.LossesNumber() << " " << res.PointsFor() << "::" << res.PointsAgainst();
 	//}
 	//else std::cout << "no working";
-	
+	//
 	system("pause");
 	return 0;
 }

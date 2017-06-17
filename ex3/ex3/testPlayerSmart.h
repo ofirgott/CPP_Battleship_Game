@@ -59,6 +59,8 @@ public:
 	static int testremoveSankFromReleventCoors();
 	//done
 	static int testnotifyOnAttackResult();
+	static std::vector<Coordinate> shouldBeRemoved(Coordinate & dead, int boardSize, std::set<Coordinate> allDead);
+	static std::vector<Coordinate> findSurronding(const Coordinate & target);
 	static void expectedTempPlayer1_afterAddCoor(PlayerSmart & tmpPlayer);
 	static void expectedTempPlayer1_afterAddCoor2(PlayerSmart & tmpPlayer);
 	static void expectedTempPlayer1_afterAddCoor3(PlayerSmart & tmpPlayer);
