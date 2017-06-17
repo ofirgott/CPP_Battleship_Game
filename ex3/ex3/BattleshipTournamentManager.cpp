@@ -522,17 +522,14 @@ void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData&
 	allGamesResults[playerIndexB][currRoundB] = currGameResultB;
 
 
-	--allRoundsData[currRoundA].numOfPlayersLeft;
-	if (allRoundsData[currRoundA].numOfPlayersLeft == 0) {
+	if (--allRoundsData[currRoundA].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRoundsData[currRoundA].isRoundDone = true;
 		lock.unlock();
 		isRoundDoneCondition.notify_one();
-
 	}
 
-	--allRoundsData[currRoundB].numOfPlayersLeft;
-	if (allRoundsData[currRoundB].numOfPlayersLeft == 0) {
+	if (--allRoundsData[currRoundB].numOfPlayersLeft == 0) {
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRoundsData[currRoundB].isRoundDone = true;
 		lock.unlock();
