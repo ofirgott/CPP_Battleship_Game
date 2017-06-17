@@ -800,7 +800,7 @@ Coordinate PlayerSmart::getAttackSerialy()
 	 {
 		 return coor; 
 	 } 
-	 return (Coordinate(-1, -1, -1));
+	 return (Coordinate(-1,-1,-1));
 }
 
 void PlayerSmart::cleanMembers()
