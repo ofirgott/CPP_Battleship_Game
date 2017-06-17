@@ -51,6 +51,8 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 
 BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.rows()), cols(boardData.cols()), depth(boardData.depth()), isSuccCreated(true)
 {
+	InitNewEmptyBoardVector(boardData.rows(), boardData.depth(), boardData.depth());
+	
 	for (int d = 1; d <= depth; d++)
 		for (int r = 1; r <= rows; r++)
 			for (int c = 1; c <= cols; c++)
