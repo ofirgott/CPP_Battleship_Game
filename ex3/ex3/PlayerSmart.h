@@ -1,6 +1,7 @@
 #pragma once
 #include "ShipInProcess.h"
 #include <vector>
+#include <tuple>
 #include "IBattleshipGameAlgo.h"
 #include <set>
 #include "testPlayerSmart.h"
@@ -50,12 +51,9 @@ public:
 	/* ask player for his move, the attacked coordinate returned, if no more attackes, the coordinate (-1,-1,-1) is returned*/
 	Coordinate attack() override;
 
-	void cleanAttackOptions(const Coordinate & targetCoor);
-
 	/* notify on last move result,update player smart by the information given*/
 	void notifyOnAttackResult(int player, Coordinate move, AttackResult result) override;
 
-	static const int UNDEFINED_PLAYERID = -1;
 
 	//Player() : id(UNDEFINED_PLAYERID), boardRows(-1), boardCols(-1) {};
 	//Player(const Player& otherPlayer) = delete;				/* deletes copy constructor */
@@ -63,110 +61,115 @@ public:
 	//Player& operator=(const Player& otherPlayer) = delete;	/* deletes the assignment operator - we want a player to be a Non Copyable object  */
 	/* checking the initialization of the board was successful */
 	//	bool init(const std::string& path) override { return (id != -1); }
-
 private:
-	int id;					// players id , if id == -1 player is invalid or undefined
+	static const int UNDEFINED_PLAYERID = -1; // should be private?? 
+	int id;		// players id , if id == -1 player is invalid or undefined
 	int boardRows;
 	int boardCols;
 	int boardDepth;
 	int currSunkShipSize;
 	bool isBoardBalanced;
+	std::vector<ShipInProcess> attackedShips; 	/*a vector of all current ship being attacked*/
+	std::set<Coordinate> attackOptions; 	/*a set of all the coordinates that are optional for attack*/
+											/*improvments according to the new assumptions - balance of ships in board*/
+	std::vector<std::pair<int, int>> shipsCount; /*Count of assumed opponents ships count <shipSize,count> kept in increasing order of ship's size */
+	std::set<Coordinate> imbalancedAttackOptions;// second pool of attack option if Board is Imbalanced
+	std::set<Coordinate> permanentlyDeadCoordinates;// second pool of attack option if Board is Imbalanced
 
-	//	static const int PLAYERID_A = 0;
-	//	static const int PLAYERID_B = 1;
 
-	/*a vector of all current ship being attacked*/
-	std::vector<ShipInProcess> attackedShips;
-	/*a set of all the coordinates that are optional for attack*/
-	std::set<Coordinate> attackOptions;
+													/*utility functions*/
+													/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
+	static std::vector<Coordinate> setSixOptionsVector();
 
-	/*improvments according to the new assumptions - balance of ships in board*/
-	std::vector<std::pair<int, int>> shipsCount; // vector of enemie's ship's: pair of <shipSize,count> kept in icreasing order (by ship's size)
-	std::set<Coordinate> imbalancedAttackOptions;// second poll of attack options in the case that the enemie's ship's count doesnt coorespond to my shipCount
+	/*(0, 1, 0)(0, -1, 0)*/
+	static std::vector<Coordinate> setHorizontalOptionsVector();
+	/*(1, 0, 0)(-1, 0, 0)*/
+	static std::vector<Coordinate> setVerticalOptionsVector();
+	/*(0, 0, 1)(0, 0, -1)*/
+	static std::vector<Coordinate> setDimentionalOptionsVector();
 
-												 /*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
+	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
+
+	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
+	static std::vector<Coordinate> setVectorForCheckSixDirections();
+
+	/* given origin update its coordinates to <row,col,depth>*/
+	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
+	/*utility functions */
+
+	void PlayerSmart::transferAllWallsToImbalanced();
+
+	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
+	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
+
+	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
+	if the distance between the "walls" is larger then the smallest ship the opponent owns
+	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
+	int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
+
+	/*move coordinate to the second pool*/
+	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);
+
+	/* assume the ships handled here are of size at least 2. remove the incremental
+	edges of the sunk ship and remove the ship from the attacked ships vector*/
+	void PlayerSmart::removePermementlyIncrementalDirection(int shipToDelIndex);
+
+	/*remove the coors 4 adjecent coordinates. that arnt in the incremental direction*/
+	void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional);
+
+	/* check all 6 directions of deadCoordinate if it became an affective "wall"
+	* if the distance from deadCoordinate to the next "wall" is less then the minimal ship
+	-this space in not opptional for atteck anymore and we move it to the second pool */
+	void PlayerSmart::checkSixDirectionsForWalls(Coordinate deadCoordinate);
+
+	/* given a coordinate check 4 adjecent coor's that arnt in the incremental direction
+	of the ship if they are new walls*/
+	void PlayerSmart::checkConstantDirectionsForWalls(Coordinate attackedCoordinate, bool isVertical, bool isHorizontal, bool isDimentional);
+	void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordinate, ShipInProcess& attackedShip);
+
+	/* given a coordinate removefrom attackOptions is exists*/
+	void PlayerSmart::delOneCoorPermanentlyAttackOptions(Coordinate& coorToDelete);
+	void PlayerSmart::delOneCoorPermanentlyImbalancedOptions(Coordinate& coorToDelete);
+
+	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
+	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
+
+	/*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
 	void PlayerSmart::pourImbalancedToAttackOptions();
+
+	/* given a coordinate check all the coordinates (up/down/lwft/rgiht/in/out) and attack them if werent attacked yet.*/
+	Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const;
 
 	/*given the size of the ship that sunk,update that there is one less ship in this size
 	if after the update the number of ships of size sunkShipSize is -1, the board was imbalanced
 	set isBoardBalanced = false and update the attack options pool	*/
 	void PlayerSmart::updateShipsCount(int sunkShipSize);
 
-	/*return the size of the other player smallest ship */
+	/*return the size of the other player's curr smallest ship */
 	int PlayerSmart::getMinShipSize();
 
-	/* given attacked coordinate check all 4 directions if can delete Coordinates from attackOptions acording to the
-	* new assumption (balanced ships)*/
-	void PlayerSmart::clearFourAdjecentCoors(Coordinate attackedCoordinate, AttackResult res, int minIncCoor, int maxInCoor, bool isVertical, bool isHorizontal, bool isDimentional);
+	/* given a coordinate search attackedships and check if it belongs to one of them.
+	if found a ship it belongs to -  update this ship details and return the index of the ship it was added to.
+	else return -1 [the ship sunk|| was added as new] .
+	if the ship sunk(of size 1), update sunkShipSize to -1*/
+	int PlayerSmart::addCoorToShipInProcess(const Coordinate& targetCoor, Coordinate* nextCoorTosearch, AttackResult result);
 
-	/*for the nighbers of the attacked ship check in 6 directions if there are new unrelevent coordinates to attack
-	* if the distance to the next "wall" is lass then the minimal ship - this space in nor opptional for atteck anymore and
-	* we move it to the second pool */
-	void PlayerSmart::checkSixDirections(Coordinate deadCoordinate);
 
-	/* given a Coordinate - count the number of available Coordinates to Attack  starting from startCoordinate
-	up to the closest removed Coor("wall"). if the distance between the "walls" is larger then the smallest ship the opponent owns
-	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
-	int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, bool vertical, bool horizontal, int direction);
-
-	/*move coordinate to the second pool*/
-	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, bool vertical, bool horizontal, int direction);
-
-	/*checking if a current coordinate is in the Limits*/
-	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
-
-	/* given a coordinate search all ships in process and check if it belongs to one of them.
-	* if so , add it to the ship's details and return the index of the ship (in the vector) it was added to.
-	* if doesnt belong to any of : if is of size 1 and sunk return -2
-	* if didnt sink yet add new ship to attacked ships vectir and return -1*/
-	int PlayerSmart::addCoorToShipsInProcess(int row, int col, int depth, Coordinate* nextCoorTosearch, AttackResult result);
-
-	/* given a coordinate check all the coordinates (up/down/lwft/rgiht/in/out) and attack them if werent attacked yet.*/
-	Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const;
-
-	/*util function for attack
-	* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
-	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
-
-	/* given start index(of the ship we want to add coordinates to) and coordinate.
-	*look for the coordinate in all shipDetails starting from index, if found, add coordinate
-	* to the ship at startindex and delete the ship that holds the matching coordinate	*/
+	/* given startIndex(of the ship we want to add coordinates to) and coorToSearch.
+	look for the coordinate in all attacked ships starting from index, if found, merge the 2 ships
+	and remove the second ship from attacked ships*/
 	void PlayerSmart::mergeShipDetails(Coordinate* pair, int indexToupdate);
 
-	/* given coordinate and start index, check if coordinate belongs to any of the attacked ships
-	* if found return index of ship the coordinate belongs to, else -1.*/
+	/*iterate over attackShips vector starting from startIndex, and for each shipinprocess
+	check if coor belongs to the ship if does return its coordinate else return -1*/
 	int PlayerSmart::findCoorInAttackedShips(const Coordinate& coorToSearch, int startIndex);
 
-	/* given origin update its coordinates to <row,col,depth>*/
-	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
+	/*checking if a current coordinate is within board Limits*/
+	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
 
-	/*return true if the input coordinate is in attackoptions, false- otherwise
-	* util function for attack	*/
+	/*return true iff the input coordinate is in attackoptions	*/
 	bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
 
-	/* given a coordinate removefrom attackOptions is exists*/
-	void PlayerSmart::removeOneCoordinate(Coordinate& coorToDelete);
-
-	void cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked, AttackResult& result);
-
-	static std::vector<Coordinate> setOptionsVector();
-
-	/*remove the  4 adjecent coordinates to current coordinate. i.e if ship isvertical remove left,right,in,out coordinates to coordinate etc..  */
-	void  PlayerSmart::removeFourIrreleventCoordinates(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional);
-
-	/* assume the ships handled here are of size at least 2*/
-	// remove the incremental edges of the ship and remove the ship from the attacked ships vector
-	void PlayerSmart::removeSankFromReleventCoors(int shipToDelIndex);
-
-	//for tester +---------------------------------------------------------------------------------- delete 
-	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const
-	{
-		auto it = imbalancedAttackOptions.find(coors);
-		if (it != imbalancedAttackOptions.end())//coordinate was found in attackOptions
-		{
-			return true;
-		}
-
-		return false;
-	}
+	/*return true iff the input coordinate is in imbalancedAttackOptions*/
+	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
 };
