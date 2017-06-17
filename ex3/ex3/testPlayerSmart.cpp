@@ -1707,445 +1707,445 @@ void testPlayerSmart::testcountDistance()
 
 int testPlayerSmart::testnotifyOnAttackResult()
 {
-	//{
-	//	PlayerSmart tmpPlayer;
-	//	setTempPlayer1(tmpPlayer);
-	//	tmpPlayer.shipsCount.clear();
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 8));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 8));
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(8, 2, 1), AttackResult::Miss);//miss 8,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(8, 2, 1))) {
-	//		std::cout << "not good!didnt delete 8,2,1 to options ! " << std::endl;
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4,2,1)) )
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-
-	//	std::vector<ShipInProcess> allShips;
-	//	// create ships
-	//	ShipInProcess sizeOne_1(1, 1, 1);
-	//	ShipInProcess sizeOne_2(3, 8, 1);
-	//	ShipInProcess sizeOne_3(9, 2, 1);
-
-	//	ShipInProcess sizeTwo_1(7, 8, 1);
-	//	sizeTwo_1.addCoordinate(8, 8, 1);
-
-	//	ShipInProcess sizeThree_1(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	sizeThree_1.addCoordinate(4, 5, 1);
-	//	sizeThree_1.addCoordinate(4, 2, 1);
-
-	//	ShipInProcess sizeTwo_2(5, 8, 1);
-	//	sizeTwo_2.addCoordinate(5, 8, 2);
-
-	//	allShips.push_back(sizeThree_1);
-	//	allShips.push_back(sizeTwo_1);
-	//	allShips.push_back(sizeTwo_2);
-	//	allShips.push_back(sizeOne_3);
-	//	allShips.push_back(sizeOne_1);
-	//	allShips.push_back(sizeOne_2);
-
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size();i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 4,2,1" << std::endl;
-	//		}
-	//	}
-
-	//	//sink
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 8, 1), AttackResult::Sink);
-
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2, 8, 1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,8,1 to options ! " << std::endl;
-	//	}
-
-	//	allShips.erase(allShips.begin() + 5);
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 4,2,1" << std::endl;
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(10, 2, 1), AttackResult::Hit);//Hit 2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(10,2,1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 10,2,1 to options ! " << std::endl;
-	//	}
-
-	//	allShips.at(3).addCoordinate(10,2,1);
-	//	for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 10,2,1" << std::endl;
-	//		}
-	//	}
-
-
-	//}
-
-
-	//////for dimentuonal //////////////////////////////////////////////////////////////////////////////////////////
-	//{
-	//	PlayerSmart tmpPlayer2;
-	//	std::vector<ShipInProcess> allShips2;
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(1, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(2, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(3, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(4, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(5, 1));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(6, 0));
-	//	tmpPlayer2.shipsCount.push_back(std::make_pair(7, 0));
-
-	//	tmpPlayer2.boardCols = 10;
-	//	tmpPlayer2.boardDepth = 10;
-	//	tmpPlayer2.boardRows= 10;
-
-
-	//	//create Set of options
-	//	for (int i = 1; i < 11; i++)
-	//	{
-	//		for (int j = 1; j < 11; j++)
-	//		{
-	//			for (int k = 1; k < 11; k++) {
-	//				tmpPlayer2.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
-
-
-	//	// clear envirnment
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5,8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
-	//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
-
-	//	ShipInProcess sizeTwo_2(2, 5, 8);
-	//	sizeTwo_2.addCoordinate(2, 4, 8);
-	//	// create ships
-	//	ShipInProcess sizeOne_1(2, 1, 1);
-	//	ShipInProcess sizeOne_2(2, 4, 1);
-	//	ShipInProcess sizeOne_3(2, 10, 8);
-
-	//	ShipInProcess sizeTwo_1(2, 7, 8);
-	//	sizeTwo_1.addCoordinate(2, 8, 8);
-
-	//	ShipInProcess sizeThree_1(2, 4, 3);
-	//	sizeThree_1.addCoordinate(2, 4, 4);
-	//	sizeThree_1.addCoordinate(2, 4, 5);
-
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeTwo_2);
-	//	allShips2.push_back(sizeOne_3);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_2);
-
-	//	tmpPlayer2.attackedShips = allShips2;
-	//	//miss
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 8, 2), AttackResult::Miss);//miss 2,8,2
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 8, 2)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,8,2 to options ! " << std::endl;
-	//	}
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,8,2 depticl" << std::endl;
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 4, 2), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 4, 2)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,4,2, to options ! " << std::endl;
-	//	}
-
-	//	allShips2.at(0).addCoordinate(2, 4, 2);
-	//	allShips2.at(0).addCoordinate(2, 4, 1);
-	//	allShips2.erase(allShips2.begin()+5);
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,4,2 depticl" << std::endl;
-	//		}
-	//	}
-
-
-
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Hit);//Hit 2,1
-	//	if ((tmpPlayer2.isInAttackOptions(Coordinate(2, 2, 1))))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,2,1 to options ! " << std::endl;
-	//	}
-	//	allShips2.clear();
-
-	//	sizeThree_1.addCoordinate(2, 4, 2);
-	//	sizeThree_1.addCoordinate(2, 4, 1);
-	//	sizeOne_1.addCoordinate(2, 2, 1);
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeTwo_2);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_3);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,2,1 depticl" << std::endl;
-	//		}
-	//	}
-
-
-	//	//hit merge two vectors 
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 6, 8), AttackResult::Hit);//Hit 6,8
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 6,8)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,6,8 to options ! " << std::endl;
-	//	}
-
-	//	allShips2.clear();
-	//	sizeTwo_1.addCoordinate(2, 6, 8);
-	//	sizeTwo_1.addCoordinate(2, 5, 8);
-	//	sizeTwo_1.addCoordinate(2, 4, 8);
-
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeTwo_1);
-	//	allShips2.push_back(sizeOne_1);
-	//	allShips2.push_back(sizeOne_3);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,6,8" << std::endl;
-	//		}
-	//	}
-
-	//	//sink
-	//	tmpPlayer2.imbalancedAttackOptions.insert(Coordinate(9, 9, 9));
-
-	//	tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 9, 8), AttackResult::Sink);
-	//	if (tmpPlayer2.isInAttackOptions(Coordinate(2, 9, 8)))
-	//	{
-	//		std::cout << "not good!didnt deleted 2,9,8 to options ! " << std::endl;
-	//	}
-
-	//	allShips2.clear();
-	//	allShips2.push_back(sizeThree_1);
-	//	allShips2.push_back(sizeOne_1);
-
-	//	for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
-	//		if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
-	//			std::cout << "error in motify merge 2,9,8" << std::endl;
-	//		}
-	//	}
-	//	if (tmpPlayer2.isBoardBalanced != false) {
-	//		std::cout << "board should be imbalanced" << std::endl;
-	//	}
-
-
-	//	if (!tmpPlayer2.isInAttackOptions(Coordinate(9, 9, 9))) {
-	//		std::cout << "imbalanced options should be in attack options" << std::endl;
-	//	}
-
-	//}
-
-	//{
-	//	////check for new terms
-	//	//////////////////////////////////////////////////////////////////////
-	//	PlayerSmart tmpPlayer;
-	//	std::vector<ShipInProcess> allShips;
-
-	//	//create Set of options
-	//	for (int i = 1; i < 5; i++)
-	//	{
-	//		for (int j = 1; j < 5; j++)
-	//		{
-	//			for (int k = 1; k < 5; k++) {
-	//				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	// create ships
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
-
-	//	ShipInProcess sizeThree_1(4, 2, 1);
-	//	sizeThree_1.addCoordinate(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	allShips.push_back(sizeThree_1);
-	//	tmpPlayer.attackedShips = allShips;
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
-
-
-	//	std::set<Coordinate> expected_imbalanced;
-	//	expected_imbalanced.insert(Coordinate(1, 2, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 1, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 3, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 4, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 2));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 3));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 4));
-
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2,2,1)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
-	//	}
-
-	//	for (auto& coor : expected_imbalanced) {
-	//		if (tmpPlayer.isInAttackOptions(coor)) {
-	//			std::cout << "didnt remove coor from attack options";
-	//			printCoordinate(coor);
-	//		}
-	//		if (!tmpPlayer.isInImbalancedOptions(coor)) {
-	//			std::cout << "missing coordinate in imbalanced options";
-	//			printCoordinate(coor);
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4,2,1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-	//}
-
-	//{
-	//	////check for new terms
-	//	//////////////////////////////////////////////////////////////////////
-	//	PlayerSmart tmpPlayer;
-	//	std::vector<ShipInProcess> allShips;
-
-	//	//create Set of options
-	//	for (int i = 1; i < 5; i++)
-	//	{
-	//		for (int j = 1; j < 5; j++)
-	//		{
-	//			for (int k = 1; k < 5; k++) {
-	//				tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
-
-	//			}
-	//		}
-	//	}
-
-	//	// create ships
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-	//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
-
-	//	ShipInProcess sizeThree_1(4, 2, 1);
-	//	sizeThree_1.addCoordinate(4, 3, 1);
-	//	sizeThree_1.addCoordinate(4, 4, 1);
-	//	allShips.push_back(sizeThree_1);
-	//	tmpPlayer.attackedShips = allShips;
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-	//	tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
-
-
-	//	std::set<Coordinate> expected_imbalanced;
-	//	expected_imbalanced.insert(Coordinate(1, 2, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 1, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 3, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 4, 1));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 2));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 3));
-	//	expected_imbalanced.insert(Coordinate(2, 2, 4));
-
-	//	//miss
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
-	//	{
-	//		std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
-	//	}
-
-	//	for (auto& coor : expected_imbalanced) {
-	//		if (tmpPlayer.isInAttackOptions(coor)) {
-	//			std::cout << "didnt remove coor from attack options";
-	//			printCoordinate(coor);
-	//		}
-	//		if (!tmpPlayer.isInImbalancedOptions(coor)) {
-	//			std::cout << "missing coordinate in imbalanced options";
-	//			printCoordinate(coor);
-	//		}
-	//	}
-
-	//	//hit (merge one coor with one ship)
-	//	tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
-	//	if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
-	//	{
-	//		std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
-	//	}
-	//}
+	{
+		PlayerSmart tmpPlayer;
+		setTempPlayer1(tmpPlayer);
+		tmpPlayer.shipsCount.clear();
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 8));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 8));
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(8, 2, 1), AttackResult::Miss);//miss 8,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(8, 2, 1))) {
+			std::cout << "not good!didnt delete 8,2,1 to options ! " << std::endl;
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+
+		std::vector<ShipInProcess> allShips;
+		// create ships
+		ShipInProcess sizeOne_1(1, 1, 1);
+		ShipInProcess sizeOne_2(3, 8, 1);
+		ShipInProcess sizeOne_3(9, 2, 1);
+
+		ShipInProcess sizeTwo_1(7, 8, 1);
+		sizeTwo_1.addCoordinate(8, 8, 1);
+
+		ShipInProcess sizeThree_1(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		sizeThree_1.addCoordinate(4, 5, 1);
+		sizeThree_1.addCoordinate(4, 2, 1);
+
+		ShipInProcess sizeTwo_2(5, 8, 1);
+		sizeTwo_2.addCoordinate(5, 8, 2);
+
+		allShips.push_back(sizeThree_1);
+		allShips.push_back(sizeTwo_1);
+		allShips.push_back(sizeTwo_2);
+		allShips.push_back(sizeOne_3);
+		allShips.push_back(sizeOne_1);
+		allShips.push_back(sizeOne_2);
+
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 4,2,1" << std::endl;
+			}
+		}
+
+		//sink
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 8, 1), AttackResult::Sink);
+
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 8, 1)))
+		{
+			std::cout << "not good!didnt deleted 2,8,1 to options ! " << std::endl;
+		}
+
+		allShips.erase(allShips.begin() + 5);
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 4,2,1" << std::endl;
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(10, 2, 1), AttackResult::Hit);//Hit 2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(10, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 10,2,1 to options ! " << std::endl;
+		}
+
+		allShips.at(3).addCoordinate(10, 2, 1);
+		for (auto i = 0; i < tmpPlayer.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips.at(i), tmpPlayer.attackedShips.at(i))) {
+				std::cout << "error in motify merge 10,2,1" << std::endl;
+			}
+		}
+
+
+	}
+
+
+	////for dimentuonal //////////////////////////////////////////////////////////////////////////////////////////
+	{
+		PlayerSmart tmpPlayer2;
+		std::vector<ShipInProcess> allShips2;
+		tmpPlayer2.shipsCount.push_back(std::make_pair(1, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(2, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(3, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(4, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(5, 1));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(6, 0));
+		tmpPlayer2.shipsCount.push_back(std::make_pair(7, 0));
+
+		tmpPlayer2.boardCols = 10;
+		tmpPlayer2.boardDepth = 10;
+		tmpPlayer2.boardRows = 10;
+
+
+		//create Set of options
+		for (int i = 1; i < 11; i++)
+		{
+			for (int j = 1; j < 11; j++)
+			{
+				for (int k = 1; k < 11; k++) {
+					tmpPlayer2.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+
+
+		// clear envirnment
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+
+		ShipInProcess sizeTwo_2(2, 5, 8);
+		sizeTwo_2.addCoordinate(2, 4, 8);
+		// create ships
+		ShipInProcess sizeOne_1(2, 1, 1);
+		ShipInProcess sizeOne_2(2, 4, 1);
+		ShipInProcess sizeOne_3(2, 10, 8);
+
+		ShipInProcess sizeTwo_1(2, 7, 8);
+		sizeTwo_1.addCoordinate(2, 8, 8);
+
+		ShipInProcess sizeThree_1(2, 4, 3);
+		sizeThree_1.addCoordinate(2, 4, 4);
+		sizeThree_1.addCoordinate(2, 4, 5);
+
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeTwo_2);
+		allShips2.push_back(sizeOne_3);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_2);
+
+		tmpPlayer2.attackedShips = allShips2;
+		//miss
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 8, 2), AttackResult::Miss);//miss 2,8,2
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 8, 2)))
+		{
+			std::cout << "not good!didnt delete 2,8,2 to options ! " << std::endl;
+		}
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,8,2 depticl" << std::endl;
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 4, 2), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 4, 2)))
+		{
+			std::cout << "not good!didnt deleted 2,4,2, to options ! " << std::endl;
+		}
+
+		allShips2.at(0).addCoordinate(2, 4, 2);
+		allShips2.at(0).addCoordinate(2, 4, 1);
+		allShips2.erase(allShips2.begin() + 5);
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,4,2 depticl" << std::endl;
+			}
+		}
+
+
+
+
+		//hit (merge one coor with one ship)
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Hit);//Hit 2,1
+		if ((tmpPlayer2.isInAttackOptions(Coordinate(2, 2, 1))))
+		{
+			std::cout << "not good!didnt deleted 2,2,1 to options ! " << std::endl;
+		}
+		allShips2.clear();
+
+		sizeThree_1.addCoordinate(2, 4, 2);
+		sizeThree_1.addCoordinate(2, 4, 1);
+		sizeOne_1.addCoordinate(2, 2, 1);
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeTwo_2);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_3);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,2,1 depticl" << std::endl;
+			}
+		}
+
+
+		//hit merge two vectors 
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 6, 8), AttackResult::Hit);//Hit 6,8
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 6, 8)))
+		{
+			std::cout << "not good!didnt deleted 2,6,8 to options ! " << std::endl;
+		}
+
+		allShips2.clear();
+		sizeTwo_1.addCoordinate(2, 6, 8);
+		sizeTwo_1.addCoordinate(2, 5, 8);
+		sizeTwo_1.addCoordinate(2, 4, 8);
+
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeTwo_1);
+		allShips2.push_back(sizeOne_1);
+		allShips2.push_back(sizeOne_3);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,6,8" << std::endl;
+			}
+		}
+
+		//sink
+		tmpPlayer2.imbalancedAttackOptions.insert(Coordinate(9, 9, 9));
+
+		tmpPlayer2.notifyOnAttackResult(0, Coordinate(2, 9, 8), AttackResult::Sink);
+		if (tmpPlayer2.isInAttackOptions(Coordinate(2, 9, 8)))
+		{
+			std::cout << "not good!didnt deleted 2,9,8 to options ! " << std::endl;
+		}
+
+		allShips2.clear();
+		allShips2.push_back(sizeThree_1);
+		allShips2.push_back(sizeOne_1);
+
+		for (auto i = 0; i < tmpPlayer2.attackedShips.size(); i++) {
+			if (!compareShipsDetails(allShips2.at(i), tmpPlayer2.attackedShips.at(i))) {
+				std::cout << "error in motify merge 2,9,8" << std::endl;
+			}
+		}
+		if (tmpPlayer2.isBoardBalanced != false) {
+			std::cout << "board should be imbalanced" << std::endl;
+		}
+
+
+		if (!tmpPlayer2.isInAttackOptions(Coordinate(9, 9, 9))) {
+			std::cout << "imbalanced options should be in attack options" << std::endl;
+		}
+
+	}
+
+	{
+		////check for new terms
+		//////////////////////////////////////////////////////////////////////
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+
+
+		std::set<Coordinate> expected_imbalanced;
+		expected_imbalanced.insert(Coordinate(1, 2, 1));
+		expected_imbalanced.insert(Coordinate(2, 1, 1));
+		expected_imbalanced.insert(Coordinate(2, 3, 1));
+		expected_imbalanced.insert(Coordinate(2, 4, 1));
+		expected_imbalanced.insert(Coordinate(2, 2, 2));
+		expected_imbalanced.insert(Coordinate(2, 2, 3));
+		expected_imbalanced.insert(Coordinate(2, 2, 4));
+
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
+		{
+			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		}
+
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+	}
+
+	{
+		////check for new terms
+		//////////////////////////////////////////////////////////////////////
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+
+
+		std::set<Coordinate> expected_imbalanced;
+		expected_imbalanced.insert(Coordinate(1, 2, 1));
+		expected_imbalanced.insert(Coordinate(2, 1, 1));
+		expected_imbalanced.insert(Coordinate(2, 3, 1));
+		expected_imbalanced.insert(Coordinate(2, 4, 1));
+		expected_imbalanced.insert(Coordinate(2, 2, 2));
+		expected_imbalanced.insert(Coordinate(2, 2, 3));
+		expected_imbalanced.insert(Coordinate(2, 2, 4));
+
+		//miss
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Miss);//miss 2,2,1
+		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)))
+		{
+			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		}
+
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+
+		//hit (merge one coor with one ship)
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 2, 1), AttackResult::Hit);//Hit 4,2
+		if (tmpPlayer.isInAttackOptions(Coordinate(4, 2, 1)))
+		{
+			std::cout << "not good!didnt deleted 4,2,1 to options ! " << std::endl;
+		}
+	}
 
 
 	{
@@ -2183,62 +2183,44 @@ int testPlayerSmart::testnotifyOnAttackResult()
 		tmpPlayer.shipsCount.push_back(std::make_pair(1, 0));
 		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
 		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
-		tmpPlayer.shipsCount.push_back(std::make_pair(4, 1));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(5, 1));
 
+		std::set<Coordinate> attackedShip;
 		std::set<Coordinate> expected_imbalanced;
-		//3,2,1
-		expected_imbalanced.insert(Coordinate(2, 2, 1));
-		expected_imbalanced.insert(Coordinate(3, 1, 1));
-		expected_imbalanced.insert(Coordinate(3, 2, 3));
-		expected_imbalanced.insert(Coordinate(3, 2, 4));
-		expected_imbalanced.insert(Coordinate(3, 2, 2));
+		std::set<Coordinate> expected_dead;
 
+		attackedShip.insert(Coordinate(4, 1, 1));
+		attackedShip.insert(Coordinate(4, 2, 1));
+		attackedShip.insert(Coordinate(4, 3, 1));
+		attackedShip.insert(Coordinate(4, 4, 1));
 
-		// 2,2,2
-		expected_imbalanced.insert(Coordinate(2, 1, 2));
-		expected_imbalanced.insert(Coordinate(1, 2, 2));
-		expected_imbalanced.insert(Coordinate(2, 2, 3));
-		expected_imbalanced.insert(Coordinate(2, 2, 4));
+		for (Coordinate coor : attackedShip) {
+			std::vector<Coordinate> serVec = findSurronding(coor);
+			for (auto ser : serVec) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_dead.insert(ser);
+				}
+			}
+		}
 
-		expected_imbalanced.insert(Coordinate(3, 2, 2));//
-		expected_imbalanced.insert(Coordinate(2, 4, 2));//?
-		expected_imbalanced.insert(Coordinate(2, 3, 2));//
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
+		for (auto dead : expected_dead) {
+			std::vector<Coordinate> cut = shouldBeRemoved(dead, 4, expected_dead);
+			for (auto& ser : cut) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_imbalanced.insert(ser);
+				}
 
+			}
+		}
 
-														//2, 1, 1
-		expected_imbalanced.insert(Coordinate(2, 1, 2));//
-		expected_imbalanced.insert(Coordinate(2, 1, 3));//?
-		expected_imbalanced.insert(Coordinate(2, 1, 4));//?
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
-		expected_imbalanced.insert(Coordinate(1, 1, 1));//
-		expected_imbalanced.insert(Coordinate(3, 1, 1));//
-		expected_imbalanced.insert(Coordinate(4, 1, 1));//?
-
-														//1,2,1
-		expected_imbalanced.insert(Coordinate(1, 1, 1));
-		expected_imbalanced.insert(Coordinate(2, 2, 1));//
-
-		expected_imbalanced.insert(Coordinate(1, 3, 1));//
-		expected_imbalanced.insert(Coordinate(1, 4, 1));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 2));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 3));//?
-		expected_imbalanced.insert(Coordinate(1, 2, 4));//?
-
-														//2,3,1
-		expected_imbalanced.insert(Coordinate(1, 3, 1));
-		expected_imbalanced.insert(Coordinate(2, 4, 1));
-		expected_imbalanced.insert(Coordinate(2, 3, 2));
-		expected_imbalanced.insert(Coordinate(2, 3, 3));
-		expected_imbalanced.insert(Coordinate(2, 3, 4));
-
-		//sink
-		tmpPlayer.notifyOnAttackResult(0, Coordinate(2, 2, 1), AttackResult::Sink);//miss 2,2,1
-		if (tmpPlayer.isInAttackOptions(Coordinate(2, 2, 1)) || tmpPlayer.isInAttackOptions(Coordinate(1, 2, 1))
-			|| tmpPlayer.isInAttackOptions(Coordinate(3, 2, 1)) || tmpPlayer.isInAttackOptions(Coordinate(2, 1, 1)) ||
-			tmpPlayer.isInAttackOptions(Coordinate(2, 3, 1)) || tmpPlayer.isInAttackOptions(Coordinate(2, 2, 2)))
-		{
-			std::cout << "not good!didnt delete 2,2,1 to options ! " << std::endl;
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 1, 1), AttackResult::Sink);//miss 4,1,1
+		for (auto& coor : expected_dead) {
+			if (tmpPlayer.isInAttackOptions(coor) || tmpPlayer.isInImbalancedOptions(coor))
+			{
+				std::cout << "not good!didnt delete from attack options|| imbalanced";
+				printCoordinate(coor);
+			}
 		}
 
 		for (auto& coor : expected_imbalanced) {
@@ -2246,18 +2228,147 @@ int testPlayerSmart::testnotifyOnAttackResult()
 				std::cout << "didnt remove coor from attack options";
 				printCoordinate(coor);
 			}
-			//if (!tmpPlayer.isInImbalancedOptions(coor)) {
-			//	std::cout << "missing coordinate in imbalanced options";
-			//	printCoordinate(coor);
-			//}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
 		}
-
 	}
 
+
+	{
+		PlayerSmart tmpPlayer;
+		std::vector<ShipInProcess> allShips;
+
+		//create Set of options
+		for (int i = 1; i < 5; i++)
+		{
+			for (int j = 1; j < 5; j++)
+			{
+				for (int k = 1; k < 5; k++) {
+					tmpPlayer.attackOptions.insert(Coordinate(i, j, k));
+
+				}
+			}
+		}
+
+		// create ships
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
+		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+
+		ShipInProcess sizeThree_1(4, 2, 1);
+		sizeThree_1.addCoordinate(4, 3, 1);
+		sizeThree_1.addCoordinate(4, 4, 1);
+		allShips.push_back(sizeThree_1);
+		tmpPlayer.attackedShips = allShips;
+		tmpPlayer.shipsCount.push_back(std::make_pair(1, 1));
+		tmpPlayer.shipsCount.push_back(std::make_pair(2, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(3, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(4, 0));
+		tmpPlayer.shipsCount.push_back(std::make_pair(5, 1));
+
+		std::set<Coordinate> attackedShip;
+		std::set<Coordinate> expected_imbalanced;
+		std::set<Coordinate> expected_dead;
+
+		attackedShip.insert(Coordinate(4, 1, 1));
+		attackedShip.insert(Coordinate(4, 2, 1));
+		attackedShip.insert(Coordinate(4, 3, 1));
+		attackedShip.insert(Coordinate(4, 4, 1));
+
+		for (Coordinate coor : attackedShip) {
+			std::vector<Coordinate> serVec = findSurronding(coor);
+			for (auto ser : serVec) {
+				if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+					expected_dead.insert(ser);
+				}
+			}
+		}
+
+		//for (auto dead : expected_dead) {
+		//	std::vector<Coordinate> cut = shouldBeRemoved(dead, 4, expected_dead);
+		//	for (auto& ser : cut) {
+		//		if (tmpPlayer.isInBoard(ser.row, ser.col, ser.depth)) {
+		//			expected_imbalanced.insert(ser);
+		//		}
+
+		//	}
+		//}
+
+		tmpPlayer.notifyOnAttackResult(0, Coordinate(4, 1, 1), AttackResult::Sink);//miss 4,1,1
+		for (auto& coor : expected_dead) {
+			if (tmpPlayer.isInAttackOptions(coor) || tmpPlayer.isInImbalancedOptions(coor))
+			{
+				std::cout << "not good!didnt delete from attack options|| imbalanced";
+				printCoordinate(coor);
+			}
+		}
+
+		if (tmpPlayer.imbalancedAttackOptions.size() != 0) {
+			std::cout << "error" << std::endl;
+		}
+		for (auto& coor : expected_imbalanced) {
+			if (tmpPlayer.isInAttackOptions(coor)) {
+				std::cout << "didnt remove coor from attack options";
+				printCoordinate(coor);
+			}
+			if (!tmpPlayer.isInImbalancedOptions(coor)) {
+				std::cout << "missing coordinate in imbalanced options";
+				printCoordinate(coor);
+			}
+		}
+	}
 	std::cout << "Done notify" << std::endl;
 	return 0;
 }
 
+std::vector<Coordinate> testPlayerSmart::shouldBeRemoved(Coordinate & dead, int boardSize, std::set<Coordinate> allDead) {
+	std::vector<Coordinate> surr = findSurronding(dead);
+	Coordinate temp(-1, -1, -1);
+	std::vector<Coordinate> res;
+	for (auto& adjecent : surr) {
+		int row = adjecent.row;
+		int col = adjecent.col;
+		int depth = adjecent.depth;
+
+		for (int i = 1; i <= boardSize; i++) {
+			PlayerSmart::updateCoordinates(temp, i, col, depth);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+
+			PlayerSmart::updateCoordinates(temp, row, i, depth);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+			PlayerSmart::updateCoordinates(temp, row, col, i);
+			if (allDead.find(temp) == allDead.end()) {
+				res.push_back(temp);
+			}
+		}
+
+	}
+	return res;
+}
+
+std::vector<Coordinate> testPlayerSmart::findSurronding(const Coordinate& target) {
+
+	Coordinate temp(-1, -1, -1);
+	std::vector<Coordinate> vic = PlayerSmart::setSixOptionsVector();
+	std::vector<Coordinate> res;
+	for (auto& coor : vic) {
+		PlayerSmart::updateCoordinates(temp, target.row + coor.row, target.col + coor.col, target.depth + coor.depth);
+		res.push_back(temp);
+	}
+	return res;
+}
 
 void testPlayerSmart::expectedTempPlayer1_afterAddCoor(PlayerSmart& tmpPlayer) {
 	std::vector<ShipInProcess> allShips;

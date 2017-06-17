@@ -97,7 +97,8 @@ Coordinate PlayerSmart::attack()
 	if (size(attackedShips) == 0) // no ships in process 
 	{
 		// return random coordinate
-		return *BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
+		return getAttackSerialy();
+	//	return *BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
 
 	}
 	// already have ships in shipsInProcess
@@ -561,10 +562,13 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 
 void PlayerSmart::delOneCoorPermanentlyAttackOptions(Coordinate& coorToDelete)
 {
+
 	auto it = attackOptions.find(coorToDelete);
 	if (it != attackOptions.end())//coordinate was found in attackOptions and now we can erase it
 	{
+		permanentlyDeadCoordinates.insert(coorToDelete);
 		attackOptions.erase(it);
+
 	}
 }
 
@@ -664,6 +668,22 @@ void PlayerSmart::mergeVector(std::vector<Coordinate>& allOptions, const std::ve
 }
 
 
+void PlayerSmart::transferAllWallsToImbalanced()
+{
+	Coordinate tmpCoor(-1, -1, -1);
+	std::vector<Coordinate> vic = setSixOptionsVector();
+	for (auto& dead : permanentlyDeadCoordinates) {
+		for (auto& coor : vic) {
+			updateCoordinates(tmpCoor, dead.row + coor.row, dead.col + coor.col, dead.depth + coor.depth);
+			if (isInBoard(tmpCoor.row, tmpCoor.col, tmpCoor.depth)) {
+				checkSixDirectionsForWalls(tmpCoor);
+			}
+
+		}
+
+	}
+}
+
 void PlayerSmart::cleanAttackOptions(const Coordinate& targetCoor) {
 
 	Coordinate tmpCoor(-1, -1, -1);
@@ -726,11 +746,14 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 	delOneCoorPermanentlyAttackOptions(move);
 	delOneCoorPermanentlyImbalancedOptions(move);
 
+
+
 	// sort vector of attackedShips by size of the ship from largest ship to smallest ship - to create priority for larger ships 
 	std::sort(attackedShips.begin(), attackedShips.end(),
 		[](const ShipInProcess & a, const ShipInProcess & b) { return a.shipSize > b.shipSize; });
 
 	//clean all board in all cases from 
+	transferAllWallsToImbalanced();
 
 }
 

@@ -98,7 +98,6 @@ private:
 	/*utility functions */
 
 	void PlayerSmart::transferAllWallsToImbalanced();
-
 	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
 	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
 
@@ -170,6 +169,8 @@ private:
 	/*return true iff the input coordinate is in attackoptions	*/
 	bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
 
-	/*return true iff the input coordinate is in imbalancedAttackOptions*/
+	/*return true iff the input coordinate is in imbalancedAttackOptions	*/
 	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
+
+	Coordinate PlayerSmart::getAttackSerialy() { for (auto coor : attackOptions) { return coor; } };
 };
