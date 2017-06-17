@@ -793,6 +793,16 @@ bool PlayerSmart::isInImbalancedOptions(const Coordinate & coors) const
 	return false;
 }
 
+Coordinate PlayerSmart::getAttackSerialy()
+{
+
+	 for (auto coor : attackOptions)
+	 {
+		 return coor; 
+	 } 
+	 return (Coordinate(-1, -1, -1));
+}
+
 void PlayerSmart::cleanMembers()
 {
 	currSunkShipSize = -1;

@@ -172,6 +172,6 @@ private:
 	/*return true iff the input coordinate is in imbalancedAttackOptions	*/
 	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
 
-	Coordinate PlayerSmart::getAttackSerialy() { for (auto coor : attackOptions) { return coor; } };
+	Coordinate PlayerSmart::getAttackSerialy();
 	void PlayerSmart::cleanMembers();
 };
