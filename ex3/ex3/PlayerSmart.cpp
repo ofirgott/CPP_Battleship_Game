@@ -73,8 +73,8 @@ Coordinate PlayerSmart::attack()
 	if (size(attackedShips) == 0) // no ships in process 
 	{
 		// return random coordinate
-		return getAttackSerialy();
-	//	return *BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
+	//	return getAttackSerialy();
+		return *BattleshipGameUtils::randomElement(attackOptions.begin(), attackOptions.end());
 
 	}
 	// already have ships in shipsInProcess
