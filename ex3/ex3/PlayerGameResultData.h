@@ -9,13 +9,14 @@ class PlayerGameResultData
 public:
 	friend class BattleshipTournamentManager;
 
-	PlayerGameResultData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
+	//PlayerGameResultData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
 	explicit PlayerGameResultData(std::string name, int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
 
+	explicit PlayerGameResultData(int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(""), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}								/* without name */
 	~PlayerGameResultData() = default;
 
 	/* given one players data create the opponents data by switchin the loss-wins and pointsfor-agqainst fields*/
-	static PlayerGameResultData createOpponentData(const PlayerGameResultData& thisData, std::string otherName);
+	static PlayerGameResultData createOpponentData(const PlayerGameResultData& otherPlayerData);
 
 	/* getters */
 	std::string PlayerName()const { return playerName; }

@@ -22,15 +22,20 @@ public:
 	void RunTournament();
 
 	
+
 private:
 	
-	static const int TOURNAMENT_MIN_PLAYERS = 2;
+	static const int TOURNAMENT_MIN_PLAYERS_DEFAULT = 2;
 	static const size_t DEFAULT_THREADS_NUM = 4;
+	static const bool PRINT_SINGLE_TABLE = false;
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
 	static const int PLAYERID_A = 0;
 	static const int PLAYERID_B = 1;
-	static const bool DEFAULT_PRINT_SINGLE_TABLE = false;
+	
+	static const int UNINITIALIZED_ARG = -1;
+	
+	
 	size_t maxGamesThreads;
 	bool successfullyCreated;
 	std::string inputDirPath;
@@ -52,7 +57,8 @@ private:
 
 	std::vector<PlayerGameResultData> allRoundsCumulativeData;
 
-	
+	int TOURNAMENT_MIN_PLAYERS;
+
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
 	void updateGamesResults(const PlayerGameResultData& currGameRes, int playerIndexA, int playerIndexB);
@@ -80,4 +86,7 @@ private:
 	bool loadTournamentAlgos();
 
 	bool loadPlayerDll(const std::string& currDllFilename);
+
+	void parseDefaultsFromConfigFile();
+	void storeConfigline(const std::string& key, const std::string& value);
 };
