@@ -1,10 +1,8 @@
 #pragma once
 #include "ShipInProcess.h"
 #include <vector>
-#include <tuple>
 #include "IBattleshipGameAlgo.h"
 #include <set>
-#include "testPlayerSmart.h"
 
 
 /* smart algo- keep track on all the coordintes that have been attacked during the game.
@@ -43,7 +41,7 @@ public:
 	* also initialazing the set of all the enemy ships*/
 	void setBoard(const BoardData& board) override;
 
-	// called every time the player changes his order
+	/* called every time the player changes his order*/
 	void setPlayer(int player) override;
 
 	/* ask player for his move, the attacked coordinate returned, if no more attackes, the coordinate (-1,-1,-1) is returned*/
@@ -53,7 +51,7 @@ public:
 	void notifyOnAttackResult(int player, Coordinate move, AttackResult result) override;
 
 private:
-	static const int UNDEFINED_PLAYERID = -1; // should be private?? 
+	static const int UNDEFINED_PLAYERID = -1; 
 	int id;		// players id , if id == -1 player is invalid or undefined
 	int boardRows;
 	int boardCols;

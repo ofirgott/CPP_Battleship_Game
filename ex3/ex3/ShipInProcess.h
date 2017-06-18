@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-# include "IBattleshipGameAlgo.h" // for Coordinate
+# include "IBattleshipGameAlgo.h"
 
 /*
 *class to represent the attacked opponent's ship's
