@@ -380,7 +380,6 @@ Coordinate PlayerSmart::nextAttackFromCoors(const ShipInProcess& shipDetails, in
 	return attackCandidate;
 }
 
-//todo:first var
 void PlayerSmart::checkIncrementalDirectionsForWalls(ShipInProcess& attackedShip) {
 
 	if (!isBoardBalanced) {
