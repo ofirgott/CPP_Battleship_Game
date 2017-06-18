@@ -95,4 +95,5 @@ private:
 	void parseDefaultsFromConfigFile();
 	void storeConfigLine(const std::string& key, const std::string& value);
 	void printRouondGameResToLog(int currRound) const;
+	void printProgramValuesToLog()const;
 };

@@ -21,7 +21,7 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	}
 	
 	Logger::Init(inputDirPath + "/" + LOG_FILENAME, logLevelVal);
-	Logger::append("Tournament directory set to: " + inputDirPath, Info);
+	printProgramValuesToLog();
 
 	if (!checkTournamentBoards())									/* checks all board in the input data, and update the board vectors with all valid boards */
 		successfullyCreated = false;
@@ -202,19 +202,6 @@ void BattleshipTournamentManager::FindValidAndInvalidShipsInBoard(const Battlesh
 
 	setOfShipsDetails = board.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid */
 
-
-
-/* todo: delete this print */
-//int i = 0;
-//for(auto& shipDetail : setOfShipsDetails)
-//{
-//	std::cout << "ship: " << i++ <<"     " << shipDetail.first << "\t { ";
-//	for (auto shipCor : shipDetail.second)
-//	{
-//		std::cout << shipCor << ", ";
-//	}
-//	std::cout << "} " << std::endl;
-//}
 	DeleteInvalidShipsDetailsEntryFromSet(setOfShipsDetails, invalidShips);				 /* after this row, we have only valid ships in setOfShipsDetails, and alse invalidShips  updated*/
 
 	for (auto validShipDeatils : setOfShipsDetails)
@@ -422,6 +409,7 @@ void BattleshipTournamentManager::storeConfigLine(const std::string& key, const 
 	else if (strcmp(key.c_str(), "SINGLE_TABLE_DELAY") == 0)
 	{
 		validConfigAssign = true;
+		Logger::append("SINGLE_TABLE_DELAY set to:\t" + std::to_string(intValue), Info);
 		BattleshipPrint::setDelay(intValue);
 	}
 	else if (strcmp(key.c_str(), "TOURNAMENT_MIN_PLAYERS") == 0)
@@ -454,13 +442,22 @@ void BattleshipTournamentManager::printRouondGameResToLog(int currRound) const
 	Logger::append("Games results in round " + std::to_string(currRound+1) + ":\n" + currRoundGamesResultsStr, Debug);
 }
 
+void BattleshipTournamentManager::printProgramValuesToLog() const
+{
+	
+	Logger::append("Tournament directory set to:\t" + inputDirPath, Info);
+	Logger::append("MAX_THREADS_NUM set to:\t" + std::to_string(maxGamesThreads), Info);
+	Logger::append("PRINT_SINGLE_TABLE set to:\t" + std::to_string(PRINT_SINGLE_TABLE), Info);
+	Logger::append("TOURNAMENT_MIN_PLAYERS set to:\t" + std::to_string(TOURNAMENT_MIN_PLAYERS), Info);
+}
+
 void BattleshipTournamentManager::RunTournament()	
 {
 	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
 	Logger::append("Number of Games threads set to:\t" + std::to_string(maxGamesThreads), Info);
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
-	
+	Logger::append("START running tournament games...", Info);
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
 		
@@ -492,12 +489,13 @@ void BattleshipTournamentManager::RunTournament()
 		
 			currRound++;//next round to wait for
 		}
-
+		
 	}
 
 	for (auto & t : threadsPool) {
 		t.join();
 	}
+	Logger::append("FINISH all tournament games and tables prints", Info);
 
 }
 
