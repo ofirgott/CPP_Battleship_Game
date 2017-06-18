@@ -13,8 +13,9 @@ void PlayerSmart::setBoard(const BoardData& board)
 	Coordinate target(0, 0, 0);
 	std::set<std::pair<char, std::set<Coordinate>>> allShipsDetails; // pairs <char , {coordinates of ship}>
 	BattleshipBoard boardTemp(board); // create 
-	std::vector<Coordinate> standardBase = BattleshipGameUtils::setSixOptionsVector(); // to remove the adjesent coors to the attacked coor
+	auto standardBase = BattleshipGameUtils::setSixOptionsVector(); // to remove the adjesent coors to the attacked coor
 	standardBase.push_back(tmpCoor); // to remove the attacked coor itself
+	
 	//standardBase vector contains {(1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)} U {(0,0,0)}
 	//extract all shipsDetails from board
 	allShipsDetails = boardTemp.ExtractShipsDetails();
@@ -36,9 +37,9 @@ void PlayerSmart::setBoard(const BoardData& board)
 	}
 
 	// create attackOptions
-	for (int i = 1; i <= boardRows; i++) {
-		for (int j = 1; j <= boardCols; j++) {
-			for (int k = 1; k <= boardDepth; k++) {
+	for (auto i = 1; i <= boardRows; i++) {
+		for (auto j = 1; j <= boardCols; j++) {
+			for (auto k = 1; k <= boardDepth; k++) {
 				if (isInBoard(i,j,k)) { // is in board and not in the surroundings my ships 
 					updateCoordinates(tmpCoor, i, j, k); //candidate attack 
 					if (!isInSet(permanentlyDeadCoordinates,tmpCoor)) {
@@ -49,7 +50,6 @@ void PlayerSmart::setBoard(const BoardData& board)
 			}
 		}
 	}
-
 	transferAllWallsToImbalanced(); // remove all coordinates which are between walls.
 }
 
@@ -104,10 +104,10 @@ Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const
 
 void PlayerSmart::checkSixDirectionsForWalls(const Coordinate& deadCoordinate) {
 
-	int distance = 0;
-	int minShipSize = getMinShipSize();
+	int distance;
+	auto minShipSize = getMinShipSize();
 	// allOptions will contain (1,0,1), (1,0,-1), (0,1,1), (0,1,-1), (0,0,1), (0,0,-1)
-	std::vector<Coordinate> allOptions = BattleshipGameUtils::setVectorForCheckSixDirections();
+	auto allOptions = BattleshipGameUtils::setVectorForCheckSixDirections();
 	for (auto& vic : allOptions) {
 		//count distance fron dead coordinate to next "wall"
 		distance = countDistance(deadCoordinate, minShipSize, vic.row, vic.col, vic.depth);
@@ -118,7 +118,7 @@ void PlayerSmart::checkSixDirectionsForWalls(const Coordinate& deadCoordinate) {
 }
 
 void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordinate, int numOfCoors, int vertical, int horizontal, int direction) {
-	int count = 0;
+	int count;
 	Coordinate tempCoor(-1, -1, -1);
 	int dim = 0;
 
@@ -126,7 +126,7 @@ void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordin
 		dim = 1;
 	}
 	// iterate over all the poosibilities to go in the given direction verticaly||horizontaly||dimentionaly
-	for (int j = 1; j <= numOfCoors; j++) { 
+	for (auto j = 1; j <= numOfCoors; j++) { 
 		updateCoordinates(tempCoor, startCoordinate.row + direction*j*vertical, 
 							startCoordinate.col + direction*j*horizontal, startCoordinate.depth + direction*j*dim);
 		if (isInSet(attackOptions, tempCoor)) {
@@ -136,7 +136,9 @@ void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordin
 	}
 }
 
-bool  PlayerSmart::isInBoard(int row, int col, int depth) const
+//todo: mmm
+
+bool PlayerSmart::isInBoard(int row, int col, int depth) const
 {
 	return (row <= boardRows && row >= 1 && col <= boardCols && col >= 1 && depth <= boardDepth && depth >= 1);
 }

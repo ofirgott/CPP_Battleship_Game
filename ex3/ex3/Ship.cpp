@@ -1,9 +1,8 @@
 #include "Ship.h"
-//#include <ctype.h>
 #include <algorithm>    // std::sort 
 #include <iostream>
 
-Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
+Ship::Ship(std::pair<char, std::set<Coordinate>> input)
 {
 	symbol = toupper(input.first);
 
@@ -87,16 +86,12 @@ bool Ship::isValidShipLen(char id, size_t setSize)
 
 bool Ship::isValidShipCoordinates(const std::set<Coordinate>& coordinates)
 {
-	auto shipSize = coordinates.size();
+	// ship must contain at least 1 coordinate to exist
+	if (coordinates.empty()) return false;
 
 	std::vector<int> rows;
 	std::vector<int> cols;
 	std::vector<int> depths;
-
-	// ship must contain at least 1 coordinate to exist
-	if (shipSize< 1) {
-		return false;
-	}
 
 	// extract all rows && columns coordinates
 	for (auto& coor : coordinates) {
@@ -178,14 +173,12 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 
 bool Ship::isConstantCoors(const std::vector<int>& coors)
 {
-	int size = coors.size();
+	if (coors.empty()) return false;
+	
 	int firstCoor;
-	if (size < 1) { // invlid number of coordinates
-		return false;
-	}
-	// compare all cordinated to the first coordinate
+	// compare all coordinates to the first coordinate
 	firstCoor = coors[0];
-	for (int i = 1; i < size; i++) {
+	for (size_t i = 1; i < coors.size(); i++) {
 		if (coors[i] != firstCoor) {
 			return false;
 		}
@@ -196,18 +189,13 @@ bool Ship::isConstantCoors(const std::vector<int>& coors)
 
 bool Ship::isIncrementalCoors(const std::vector<int>& coors)
 {
-	int size = coors.size();
 	int prevCoor;
-	if (size < 1) { // invalid number of cordinates
-		return false;
-	}
-
+	if (coors.empty())  return false;
+	
 	//check if the coordinates are incremental 
 	prevCoor = coors[0];
-	for (int i = 1; i < size; i++) {
-		if (coors[i] != (prevCoor + 1)) {
-			return false;
-		}
+	for (auto i = 1; i < coors.size(); i++) {
+		if (coors[i] != (prevCoor + 1)) return false;
 		prevCoor += 1;
 	}
 	return true;
