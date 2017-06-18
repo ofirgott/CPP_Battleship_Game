@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 			Tournament.RunTournament();
 		}
 		else {
-			system("pause");
+			system("pause"); //todo:delete
 			return -1;
 		}
 	}

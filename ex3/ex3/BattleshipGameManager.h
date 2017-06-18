@@ -3,7 +3,6 @@
 #include "IBattleshipGameAlgo.h"
 #include "Ship.h"
 #include "BattleshipBoard.h"
-//#include <windows.h>
 #include "GamePlayerData.h"
 #include "PlayerGameResultData.h"
 #include <memory>
@@ -31,25 +30,22 @@ public:
 	BattleshipGameManager(const BattleshipGameManager& otherGame) = delete;					/* deletes copy constructor */
 	BattleshipGameManager& operator=(const BattleshipGameManager& otherGame) = delete;		/* deletes assignment constructor */
 	
-
-	//bool isGameSuccessfullyCreated()const { return successfullyCreated; }
-	
-	PlayerGameResultData Run();																				/* given a game object, run's the game and outputs the results */
+	PlayerGameResultData Run();																/* given a game object, run's the game and outputs the results */
 
 private:
 
 	const BattleshipBoard& mainBoard;
 	GamePlayerData playerA;																	/* an object that keeps all relevant data of playerA in the game */
 	GamePlayerData playerB;																	/* an object that keeps all relevant data of playerB in the game */
-	std::unique_ptr<IBattleshipGameAlgo> algorithmB;
-	std::unique_ptr<IBattleshipGameAlgo> algorithmA;
+	std::unique_ptr<IBattleshipGameAlgo> algorithmA;										/* unique ptr for this algoA instance. will deleted in destructor of this class */
+	std::unique_ptr<IBattleshipGameAlgo> algorithmB;										/* unique ptr for this algoB instance. will deleted in destructor of this class */
+	
 
 	static const char A = 'A';																/* player char for player A - for printing */
 	static const char B = 'B';																/* player char for player B */
 	static const int WON = 1;
 	static const int LOST = 0;
 
-	//bool successfullyCreated;
 	
 	/* the output result will always be from the perspective of playerA, the name of the player is unknown
 	in the scope of this function ie the player's name in the return value will be the empty string
@@ -57,5 +53,10 @@ private:
 	*/
 	static PlayerGameResultData outputGameResult(GamePlayerData* currPlayer, GamePlayerData* otherPlayer);
 	
-	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo,  std::set<std::pair<char,  std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, BoardDataImpl& playerBoardData)const;
+	
+	/**
+	 * \brief given playerId and player's boardData, call to algo setPlayer and setBoard. in addition, create the ships list and the shipsBoard of this player,
+	 *  given the set of his shipsDetails 
+	 */
+	void initPlayerData(int playerId, IBattleshipGameAlgo* playerAlgo, std::set<std::pair<char,  std::set<Coordinate>>>& shipsDetails, ShipsBoard& playerShipBoard, const BoardDataImpl& playerBoardData)const;
 };

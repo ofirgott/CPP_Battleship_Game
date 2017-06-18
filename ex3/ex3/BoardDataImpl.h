@@ -19,7 +19,7 @@ public:
 
 	
 	char charAt(Coordinate c)const override {
-		if (BattleshipBoard::isPlayerShip(playerID, gameMainBoard(c.row - 1, c.col - 1, c.depth - 1)))
+		if (gameMainBoard.isCoordianteInBoard(c.row - 1, c.col - 1, c.depth - 1) && BattleshipBoard::isPlayerShip(playerID, gameMainBoard(c.row - 1, c.col - 1, c.depth - 1)))
 			return  gameMainBoard(c.row - 1, c.col - 1, c.depth - 1);
 		else return BattleshipBoard::BLANK_CHAR;
 	}

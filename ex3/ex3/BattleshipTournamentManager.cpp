@@ -7,10 +7,9 @@
 #include <thread>
 #include <fstream>
 #include <string>
-//#include "Logger.h"
-
 
  const std::string BattleshipTournamentManager::LOG_FILENAME("game.log");
+
 
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(UNINITIALIZED_ARG), successfullyCreated(true), TOURNAMENT_MIN_PLAYERS(UNINITIALIZED_ARG)
 {
@@ -30,16 +29,14 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		successfullyCreated = false;
 
 	if (!successfullyCreated) {
-		Logger::append("Failed creating tournament. Extiting...", Error);
+		Logger::append("Failed creating tournament. Extiting...", Error);	/* if we don't have enough algos or boards, we can not create new tournament */
 		return;
-	}
-									/* if we don't have enough algos or boards, we can not create new tournament */
-
+	}								
 	Logger::append("Tournament successfully created !", Info);
 	std::cout << "Number of legal players: " << algosDetailsVec.size() << std::endl;
 	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl << std::endl;
 
-	createGamesPropertiesQueue();								/* create all games propertioes for all possible games - each 2 players will play twice on each board - home and away*/
+	createGamesPropertiesQueue();								/* creates all games propertioes for all possible games - each 2 players will play twice on each board - home and away*/
 
 	auto numOfplayers = algosDetailsVec.size();
 	auto numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
@@ -55,11 +52,9 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 
 	allRoundsData.reserve(numOfRounds);								/* use reserve beacuse of the atomic member of RoundData, we will init every value in the next loop */
 	for (auto i = 0; i < numOfRounds; i++) {
-		allRoundsData.emplace_back(numOfplayers, false);		//change it to num of players
+		allRoundsData.emplace_back(numOfplayers, false);
 	}
-
 	playersProgress = std::vector<std::atomic<int>>(numOfplayers);
-
 }
 
 BattleshipTournamentManager::~BattleshipTournamentManager()
@@ -69,9 +64,9 @@ BattleshipTournamentManager::~BattleshipTournamentManager()
 	for (vitr = algosDetailsVec.begin(); vitr != algosDetailsVec.end(); ++vitr)
 	{
 		if (vitr->dllFileHandle)
-			FreeLibrary(vitr->dllFileHandle);										 /*  close all the dynamic libs we opened  */
+			FreeLibrary(vitr->dllFileHandle);										 /* close all the dynamic libs we opened */
 	}
-	Logger::Close();
+	Logger::Close();																/* close the logger */
 }
 
 
@@ -169,7 +164,7 @@ bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& boar
 		return false;
 	}
 
-	std::set<std::pair<char, std::set<Coordinate>>> validShips_A, validShips_B;											/* for FindValidAndInvalidShipsInBoard output */
+	std::set<std::pair<char, std::set<Coordinate>>> validShips_A, validShips_B;								/* for FindValidAndInvalidShipsInBoard output */
 	std::set<char> invalidShips_A, invalidShips_B;
 
 
@@ -197,7 +192,7 @@ void BattleshipTournamentManager::FindValidAndInvalidShipsInBoard(const Battlesh
 {
 	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails;					/* set of ships details - for example:
 																						{<'m', {<1,2,7>,<1,3,7>}> , <'P', {<8,5,1>, <8,6,1> , <8,7,1>}> } */
-	std::set<char> invalidShips;																 /* set of the invalid ships (to avoid duplicated ships in error messages) */
+	std::set<char> invalidShips;													 /* set of the invalid ships (to avoid duplicated ships in error messages) */
 
 
 	setOfShipsDetails = board.ExtractShipsDetails();	         /* after this row, we have set of ships, maybe some of them invalid */
@@ -342,11 +337,10 @@ bool BattleshipTournamentManager::loadPlayerDll(const std::string& currDllFilena
 	return true;
 }
 
+/* we assume that the config file has values from the form: <ARG>=<VALUE> (with no spaces) */
 void BattleshipTournamentManager::parseDefaultsFromConfigFile() 
 {
-
 	auto tmpFilenamesVector = BattleshipGameUtils::SortedDirlistSpecificExtension(inputDirPath, ".config");
-
 	BattleshipPrint::setPrintOneTable(PRINT_SINGLE_TABLE);
 	BattleshipPrint::setDelay(BattleshipPrint::printDefaultDealy);
 	TOURNAMENT_MIN_PLAYERS = TOURNAMENT_MIN_PLAYERS_DEFAULT;
@@ -359,9 +353,7 @@ void BattleshipTournamentManager::parseDefaultsFromConfigFile()
 
 	auto configFileFullPath = inputDirPath + "/" + tmpFilenamesVector[0];		//takes the first config file
 	Logger::append("Config file found in path: " + configFileFullPath, Info);
-
 	std::string line;
-
 	std::ifstream configFile(configFileFullPath.c_str());
 	if(configFile.is_open())
 	{
@@ -378,23 +370,21 @@ void BattleshipTournamentManager::parseDefaultsFromConfigFile()
 		
 		configFile.close();
 	}
-
 	else {														/* we can't open the config file */
 		Logger::append("Error opening Config file in " + configFileFullPath + ". we will take our defaults", Warning); 	
 	}
-
 }
 
 void BattleshipTournamentManager::storeConfigLine(const std::string& key, const std::string& value)
 {
 	char* stringEnd = nullptr;
-	bool validConfigAssign = false;
 	int intValue = static_cast<size_t>(strtol(value.c_str(), &stringEnd, 10));
 	if (*stringEnd || intValue < 0)
 	{
 		Logger::append("Config file entry value " +  value + " for " + key + "key is not valid. we will not take this value.", Warning);
 		return;
 	}
+	bool validConfigAssign = false;
 
 	if (strcmp(key.c_str(), "MAX_THREADS_NUM") == 0)
 	{
@@ -423,7 +413,6 @@ void BattleshipTournamentManager::storeConfigLine(const std::string& key, const 
 		logLevelVal = static_cast<LogLevel>(intValue);
 	}
 	if(validConfigAssign) Logger::append("set default value from config file, KEY = " + key + "\t VALUE = " + std::to_string(intValue), Debug);
-		
 }
 
 void BattleshipTournamentManager::printRouondGameResToLog(int currRound) const
@@ -438,13 +427,11 @@ void BattleshipTournamentManager::printRouondGameResToLog(int currRound) const
 	
 		currRoundGamesResultsStr += "\t\t\t\t\t\t\t\t\tPlayer: " + std::to_string(i) + "(" + algosDetailsVec[i].playerName + ") " + res + "\t" + std::to_string(allGamesResults[i][currRound].PointsFor()) + " : " + std::to_string(allGamesResults[i][currRound].PointsAgainst()) + "\n";
 	}
-
 	Logger::append("Games results in round " + std::to_string(currRound+1) + ":\n" + currRoundGamesResultsStr, Debug);
 }
 
 void BattleshipTournamentManager::printProgramValuesToLog() const
 {
-	
 	Logger::append("Tournament directory set to:\t" + inputDirPath, Info);
 	Logger::append("MAX_THREADS_NUM set to:\t" + std::to_string(maxGamesThreads), Info);
 	Logger::append("PRINT_SINGLE_TABLE set to:\t" + std::to_string(PRINT_SINGLE_TABLE), Info);
@@ -455,16 +442,17 @@ void BattleshipTournamentManager::RunTournament()
 {
 	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
 	Logger::append("Number of Games threads set to:\t" + std::to_string(maxGamesThreads), Info);
+	
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
+	
 	Logger::append("START running tournament games...", Info);
+	
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
-		
 		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	 /* creating a pool of threads */
 		Logger::append("New thread created", Debug);
 	}
-
 	int currRound = 0;
 	
 	while (currRound < allRoundsData.size()) {														/* while there are more rounds to print keep waiting for next round */
@@ -483,20 +471,15 @@ void BattleshipTournamentManager::RunTournament()
 				allRoundsCumulativeData[i].pointsFor += allGamesResults[i][currRound].pointsFor;
 				allRoundsCumulativeData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
 			}
-			Logger::append("before printing round " + std::to_string((currRound + 1)) + ":\t" + std::to_string(gamesPropertiesQueue.size()) + " Games remaining to play" , Debug);
-				
-			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());//printing the round
-		
-			currRound++;//next round to wait for
+			Logger::append("before printing round " + std::to_string((currRound + 1)) + ":\t" + std::to_string(gamesPropertiesQueue.size()) + " Games remaining to play" , Debug);	
+			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());		/* printing current round data */
+			currRound++;																							/* next round to wait for */
 		}
-		
 	}
-
 	for (auto & t : threadsPool) {
 		t.join();
 	}
 	Logger::append("FINISH all tournament games and tables prints", Info);
-
 }
 
 void BattleshipTournamentManager::singleThreadJob()
@@ -565,7 +548,7 @@ void BattleshipTournamentManager::createGamesPropertiesQueue()
 		{
 			for (auto j = 0; j < algosDetailsVec.size(); j++)
 			{
-				if (i != j) {
+				if (i != j) {												    /* player can not play against himself*/
 					gamesPropertiesQueue.emplace(SingleGameProperties(k, i, j));
 				}
 			}

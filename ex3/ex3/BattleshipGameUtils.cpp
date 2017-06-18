@@ -35,7 +35,7 @@ bool BattleshipGameUtils::getFullPath(std::string & path)
 	char fullPath[_MAX_PATH];
 	if (_fullpath(fullPath, path.c_str(), _MAX_PATH) == nullptr)
 	{
-		std::cout << "Error, Invalid path -  can't get full path of: " << path << ". Exiting...";
+		std::cout << "Error: Invalid path -  can't get full path of: " << path << ". Exiting...";
 		return false;
 	}
 	path = fullPath;
