@@ -73,27 +73,35 @@ private:
 	/* check all 6 directions of deadCoordinate if it became an affective "wall"
 	* if the distance from deadCoordinate to the next "wall" is less then the minimal ship
 	-this space in not opptional for atteck anymore and we move it to the second pool */
-	void PlayerSmart::checkSixDirectionsForWalls(Coordinate deadCoordinate);
+	void PlayerSmart::checkSixDirectionsForWalls(const Coordinate& deadCoordinate);
 
 	/* given a coordinate check 4 adjecent coor's that arnt in the incremental direction
 	of the ship if they are new walls*/
-	void PlayerSmart::checkConstantDirectionsForWalls(Coordinate attackedCoordinate, bool isVertical, bool isHorizontal, bool isDimentional);
+	void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoordinate, bool isVertical, bool isHorizontal, bool isDimentional);
 
 	/* given a coordinate check 2 incremental edges of the ship if they are new walls*/
-	void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordinate, ShipInProcess& attackedShip);
+	void PlayerSmart::checkIncrementalDirectionsForWalls(const Coordinate& attackedCoordinate, ShipInProcess& attackedShip);
 
 	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
 	if the distance between the "walls" is larger then the smallest ship the opponent owns
 	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
-	int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
+	int PlayerSmart::countDistance(const Coordinate& deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
 
 	/*move coordinate to the second pool*/
-	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);
-
+	void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);
 
 	/* assume the ships handled here are of size at least 2. remove the incremental
 	edges of the sunk ship and remove the ship from the attacked ships vector*/
 	void PlayerSmart::removePermementlyIncrementalDirection(int shipToDelIndex);
+
+	/* update setToUpdate to contain the coordinates that are not in the ship but adjecnt to the incremental edges*/
+	static void PlayerSmart::updateToVerticalIncCoors(const ShipInProcess& targetShip , std::set<Coordinate>& setToUpdate);
+	
+	/* update setToUpdate to contain the coordinates that are not in the ship but adjecnt to the incremental edges*/
+	static void PlayerSmart::updateToHorizIncCoors(const ShipInProcess& targetShip, std::set<Coordinate>& setToUpdate);
+	
+	/* update setToUpdate to contain the coordinates that are not in the ship but adjecnt to the incremental edges*/
+	static void PlayerSmart::updateToDimenIncCoors(const ShipInProcess& targetShip, std::set<Coordinate>& setToUpdate);
 
 	/*remove the coors 4 adjecent coordinates. that arnt in the incremental direction*/
 	void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional);
@@ -105,7 +113,7 @@ private:
 	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
 
 	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
-	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
+	Coordinate PlayerSmart::nextAttackFromCoors(const ShipInProcess& shipDetails, int numOfCoors) const;
 
 	/*pours all content of imbalancedAttackOptions to attackOptions to continue the imbalanced game  */
 	void PlayerSmart::pourImbalancedToAttackOptions();
@@ -141,6 +149,7 @@ private:
 
 	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
+
 
 	/*remove coordinate from given set*/
 	void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
