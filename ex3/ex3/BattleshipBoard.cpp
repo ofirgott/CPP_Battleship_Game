@@ -41,11 +41,8 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 		boardFile.close();
 	}
 
-	else {														/* we can't open the board file */
-		//TODO: print to the logger - std::cout << "Error opening board file in " << boardPath << std::endl;
-		return;
-	}
-
+	else return;				/* we can't open the board file */
+		
 	isSuccCreated = true;
 }
 
@@ -122,7 +119,6 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 
 					if (IsShipCharInBoard(adjacentVal) && adjacentVal != currPos)
 					{
-						// TODO: print to the logger  - std::cout << "Adjacent Ships on Board" << std::endl;
 						return true;
 					}
 				}
@@ -150,7 +146,7 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 		{
 			for (int k = 0; k < depth; k++)
 			{
-				int currIndex = BattleshipGameUtils::calcCoordIndex(i, j, k, rows, cols, depth);
+				int currIndex = BattleshipGameUtils::calcCoordIndex(i, j, k, rows, cols);
 
 				if ((currShipChar = boardVecCopy.at(currIndex)) == ' ') continue;
 
@@ -162,7 +158,7 @@ std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDet
 
 				for (auto coord : coordOfCurrentShip)
 				{
-					currIndex = BattleshipGameUtils::calcCoordIndex(coord.row, coord.col, coord.depth, rows, cols, depth);
+					currIndex = BattleshipGameUtils::calcCoordIndex(coord.row, coord.col, coord.depth, rows, cols);
 					boardVecCopy.at(currIndex) = ' ';													/* clear the board from this ship (we should have a copy of the board) */
 				}
 				coordOfCurrentShip.clear();
@@ -191,7 +187,7 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 {
 	/*  note that in this function we can coordinate with line 0! if we want to use this function outside, we need to pay attention for this. */
 
-	int CoordIndex = BattleshipGameUtils::calcCoordIndex(r, c, d, boardRows, boardCols, boardDepth);
+	int CoordIndex = BattleshipGameUtils::calcCoordIndex(r, c, d, boardRows, boardCols);
 	if (currShipChar == board.at(CoordIndex))
 	{
 		board.at(CoordIndex) = ' ';												/* clear the current position and add it to the coordinates set*/
@@ -249,7 +245,7 @@ bool BattleshipBoard::isPlayerShip(const int playerId, const char shipChar)
 char BattleshipBoard::operator()(int r, int c, int d)const
 {
 	if (isCoordianteInBoard(r, c, d)) {
-		return boardVec.at(BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth));
+		return boardVec.at(BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols));
 	}
 	else return BLANK_CHAR;
 }
@@ -258,7 +254,7 @@ void BattleshipBoard::setCoord(int r, int c, int d, char ch)
 {
 	if (!isCoordianteInBoard(r, c, d)) return;
 
-	boardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth)] = ch;
+	boardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols)] = ch;
 }
 
 
@@ -305,24 +301,13 @@ bool BattleshipBoard::parseBoardDimensions(std::string& line)
 	for (auto tok : tokens)
 	{
 		int num = strtol(tok.c_str(), &stringEnd, 10);
-		if (num < 1)
-		{
-			//todo: print to the log std::cout << "Error, Coordinate must be positive int." << std::endl;	
-			return false;
-		}
-
-		if (*stringEnd) {
-			//todo: print to the logger - std::cout << " dimension row contains non-number chars" << std::endl; 
-			return false;
-		}
+		
+		if (num < 1 || *stringEnd) return false;
 
 		dimsVec.push_back(num);
 	}
 
-	if (dimsVec.size() < 3) {
-		//todo: print to the logger:  std::cout << "dimesnions row contains less than 3 dimensions" << std::endl; 
-		return false;
-	}
+	if (dimsVec.size() < 3) return false;
 
 	cols = dimsVec[0];
 	rows = dimsVec[1];

@@ -4,33 +4,34 @@
 
 enum LogLevel
 {
-	ERROR,
-	WARNING,
-	INFO,
-	DEBUG
+	Error, Warning, Info, Debug,
 };
 
 class Logger
 {
 
 public: 
-	explicit Logger(const std::string& loggerFilePath, LogLevel inputLevel = LogLevel::INFO);
-	~Logger();
-
-	Logger(const Logger& otherlogger) = delete;
-
-	void append(const std::string& msg, LogLevel level);
 	
+	static void Init(const std::string& loggerFilePath = "game.log", LogLevel inputLevel = LogLevel::Info);
 
+	static void Close();
+
+	static void append(const std::string& msg, LogLevel level);
+	
+	static const LogLevel DEFAULT_LEVEL = Info; //info
+	//static const std::string DEFAULT_FILENAME;
+	
 private:
 	static const int TIME_BUF_SIZE = 80;
 	
+	
+	Logger() = delete;
 
-	LogLevel logLevel;
-	std::ofstream outFile;
+	static LogLevel logLevel;
+	static std::ofstream outFile;
 
 	static std::string getTimeInfo();
 	static std::string levelEnumToString(LogLevel l);
 
-	//void printLogEntry(std::string, )
+	static void printLogEntry(const std::string & msg, const std::string& level);
 };

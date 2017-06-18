@@ -50,13 +50,13 @@ ShipsBoard & ShipsBoard::operator=(ShipsBoard && otherBoard) noexcept
 void ShipsBoard::setShipPtrCoord(int r, int c, int d, Ship* newShipPtr)
 {
 	if (!isCoordianteInShipBoard(r, c, d)) return;
-	shipsBoardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth)] = newShipPtr;
+	shipsBoardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols)] = newShipPtr;
 }
 
 Ship* ShipsBoard::operator()(int r, int c, int d) const
 {
 	if(isCoordianteInShipBoard(r, c, d))
-		return shipsBoardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols, depth)];
+		return shipsBoardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols)];
 	else return nullptr;
 }
 

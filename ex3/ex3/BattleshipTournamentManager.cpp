@@ -7,6 +7,10 @@
 #include <thread>
 #include <fstream>
 #include <string>
+//#include "Logger.h"
+
+
+ const std::string BattleshipTournamentManager::LOG_FILENAME("game.log");
 
 BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]) : maxGamesThreads(UNINITIALIZED_ARG), successfullyCreated(true), TOURNAMENT_MIN_PLAYERS(UNINITIALIZED_ARG)
 {
@@ -15,6 +19,9 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 		successfullyCreated = false;
 		return;
 	}
+	
+	Logger::Init(inputDirPath + "/" + LOG_FILENAME, logLevelVal);
+	Logger::append("Tournament directory set to: " + inputDirPath, Info);
 
 	if (!checkTournamentBoards())									/* checks all board in the input data, and update the board vectors with all valid boards */
 		successfullyCreated = false;
@@ -22,21 +29,24 @@ BattleshipTournamentManager::BattleshipTournamentManager(int argc, char * argv[]
 	if (!loadTournamentAlgos())										/* checks all players algorithms in the input data, and update the algos vectors with all valid algos */
 		successfullyCreated = false;
 
-	if (!successfullyCreated) return;								/* if we don't have enough algos or boards, we can not create new tournament */
+	if (!successfullyCreated) {
+		Logger::append("Failed creating tournament. Extiting...", Error);
+		return;
+	}
+									/* if we don't have enough algos or boards, we can not create new tournament */
 
+	Logger::append("Tournament successfully created !", Info);
 	std::cout << "Number of legal players: " << algosDetailsVec.size() << std::endl;
-	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl;
+	std::cout << "Number of legal boards: " << boardsVec.size() << std::endl << std::endl;
 
-	//Ofir -we need to put next rows in seperate function - init tournament data structures or something..
-
-	//algosIndex = 0;
 	createGamesPropertiesQueue();								/* create all games propertioes for all possible games - each 2 players will play twice on each board - home and away*/
 
 	auto numOfplayers = algosDetailsVec.size();
-	int numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
+	auto numOfRounds = static_cast<int> (gamesPropertiesQueue.size() * 2 / numOfplayers);
 
-	std::cout <<"num of round: "<< numOfRounds << " num of games: "<< gamesPropertiesQueue.size()  << std::endl; //todo: print to the log
-	std::cout << "num of threads: " << maxGamesThreads << std::endl;
+	Logger::append("Number of Games in the tournament:\t" + std::to_string(gamesPropertiesQueue.size()), Info);
+	Logger::append("Number of Rounds in the tournament:\t" + std::to_string(numOfRounds), Info);
+
 	allGamesResults.resize(numOfplayers);															/* allGamesResults dimensions are numOfPlayer X numOfRounds */
 	for (auto i = 0; i < numOfplayers; i++) { 
 		allGamesResults[i].resize(numOfRounds);														/* use resize to init with initial values for every game */
@@ -61,6 +71,7 @@ BattleshipTournamentManager::~BattleshipTournamentManager()
 		if (vitr->dllFileHandle)
 			FreeLibrary(vitr->dllFileHandle);										 /*  close all the dynamic libs we opened  */
 	}
+	Logger::Close();
 }
 
 
@@ -74,7 +85,6 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 		return false;
 	}
 	
-
 	for (auto i = 1; i < argc; i++)
 	{
 		if (strcmp(argv[i], "-threads") == 0)
@@ -104,9 +114,9 @@ bool BattleshipTournamentManager::checkTournamentArguments(int argc, char * argv
 		return false;
 	}
 	inputDirPath = path;
-
+	logLevelVal = Logger::DEFAULT_LEVEL;
 	parseDefaultsFromConfigFile();
-	maxGamesThreads = (maxGamesThreads == UNINITIALIZED_ARG ? DEFAULT_THREADS_NUM : maxGamesThreads);
+	maxGamesThreads = (maxGamesThreads == UNINITIALIZED_ARG ? DEFAULT_THREADS_NUM : maxGamesThreads);	
 
 	return true;
 }
@@ -119,6 +129,7 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 	if(tmpFilenamesVector.empty())
 	{
 		std::cout << "No board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
+		Logger::append("No board files in dir, we will exit from the tournament after checking algos...", Error);
 		return false;
 	}
 
@@ -127,23 +138,24 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 		currBoardFullPath = inputDirPath + "/" + currBoardFilename;
 		BattleshipBoard currBoard(currBoardFullPath);
 
-		//todo: print to the log; - std::cout << "try to parse board file in: " << currBoardFullPath << std::endl;	
+		Logger::append("Checking validity of board in: " + currBoardFullPath, Info);	
 
 		if (checkBoardValidity(currBoard))
 		{
 			boardsVec.push_back(std::move(currBoard));			/* take the board without create new board */
-																// TODO: print to the log : std::cout << "*** Board in: " << currBoardFullPath << "loaded succssefully!!! *****" << std::endl; 
+			Logger::append("Board in: " + currBoardFullPath + " loaded succssefully", Info); 
 		}
 		else
 		{
-			// TODO: print to the log : std::cout << "Board in: " << currBoardFullPath << "skipped, because of the errors above." << std::endl; 
+			Logger::append("Board in: " + currBoardFullPath + " skipped, because of the errors above", Warning);
 		}
 	}
-	std::cout << "Number of valid bords: " << boardsVec.size() << std::endl; //todo: print to the log
+	Logger::append("Number of valid bords: " + std::to_string(boardsVec.size()), Info);
 
 	if (boardsVec.empty())
 	{
 		std::cout << "Error: No valid board files (*.sboard) looking in path: " << inputDirPath.c_str() << std::endl;
+		Logger::append("No valid boards in directory at all. We will exit from the tournament after checking algos", Error);
 		return false;
 	}
 	else return true;
@@ -152,8 +164,10 @@ bool BattleshipTournamentManager::checkTournamentBoards()
 
 bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& board)
 {
-	if (!board.isSuccessfullyCreated()) return false;
-
+	if (!board.isSuccessfullyCreated()) {
+		Logger::append("failed Creating board", Warning);
+		return false;
+	}
 
 	std::set<std::pair<char, std::set<Coordinate>>> validShips_A, validShips_B;											/* for FindValidAndInvalidShipsInBoard output */
 	std::set<char> invalidShips_A, invalidShips_B;
@@ -161,14 +175,9 @@ bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& boar
 
 	FindValidAndInvalidShipsInBoard(board, validShips_A, invalidShips_A, validShips_B, invalidShips_B);
 
-	if (validShips_A.empty())
+	if (validShips_A.empty() || validShips_B.empty())
 	{
-		// todo: print to the log -  std::cout << "player A has no valid ships at all - invalid board." << std::endl; 
-		return false;
-	}
-	else if (validShips_B.empty())
-	{
-		//todo: print to the log - std::cout << "player B has no valid ships at all - invalid board." << std::endl; 
+		Logger::append("One of the players (or both) has no ships at all - invalid board.", Warning);
 		return false;
 	}
 	else {
@@ -178,7 +187,7 @@ bool BattleshipTournamentManager::checkBoardValidity(const BattleshipBoard& boar
 		comparePlayersShips(validShips_A, validShips_B);
 
 		bool hasAdjacentShips = board.CheckIfHasAdjacentShips();								/* if has adjacent ships, this funcion also prints relevant message */
-
+		if (hasAdjacentShips) Logger::append("Adjacent Ships on Board", Warning);
 		return (!hasAdjacentShips && invalidShips_A.empty() && invalidShips_B.empty());
 	}
 }
@@ -249,7 +258,9 @@ void BattleshipTournamentManager::PrintWrongSizeOrShapeForShips(std::set<char>& 
 
 	for (auto shipChar : invalidShipsSet)
 	{
-		// TODO: print to the log  - std::cout << "Wrong size or shape for ship " << shipChar << " for player " << playerChar << std::endl; 
+		std::string tmpStr("");
+		tmpStr += shipChar;
+		Logger::append("Wrong size or shape for ship " + tmpStr + " for player " + playerChar, Warning); 
 	}
 }
 
@@ -257,7 +268,7 @@ void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, s
 {
 	if (validShips_A.size() != validShips_B.size())
 	{
-		//TODO: PRINT TO THE LOG - std::cout << "WARNING - the board is not balanced, players have different number of ships." << std::endl;
+		Logger::append("the board is not balanced, players have different number of ships", Warning);
 		return;
 	}
 
@@ -281,7 +292,7 @@ void BattleshipTournamentManager::comparePlayersShips(std::set<std::pair<char, s
 	}
 
 	if (hasDiffTypesBalance)
-		std::cout << "WARNING - the board is not balanced, players have same number of ships but not for each ship type." << std::endl; //TODO: PRINT TO THE LOG - 
+		Logger::append("the board is not balanced, players have same number of ships but not for each ship type", Warning);
 }
 
 bool BattleshipTournamentManager::loadTournamentAlgos()
@@ -300,10 +311,11 @@ bool BattleshipTournamentManager::loadTournamentAlgos()
 		loadPlayerDll(currDllFilename);
 	}
 
-	std::cout << "Number of valid algos: " << algosDetailsVec.size() << std::endl; //todo: print to the log
+	Logger::append("Number of valid algos: " + std::to_string(algosDetailsVec.size()), Info);
 	if (algosDetailsVec.size() < TOURNAMENT_MIN_PLAYERS)
 	{
 		std::cout << "Error: Missing minimum number of required Valid algorithm (dll) files looking in path: " << inputDirPath << " (needs at least " << TOURNAMENT_MIN_PLAYERS << ")" << std::endl;
+		Logger::append("Directory does not have enough valid algos. Exiting...", Error);
 		return false;
 	}
 
@@ -318,28 +330,27 @@ bool BattleshipTournamentManager::loadPlayerDll(const std::string& currDllFilena
 	currAlgo.playerName = currDllFilename.substr(0, currDllFilename.find(".dll"));
 
 
-	std::cout << "Trying to load dll player algo in: " << currAlgo.dllPath << std::endl;  //TODO: print to the log - 
+	Logger::append("Trying to load dll player algo in: " + currAlgo.dllPath, Info); 
 	currAlgo.dllFileHandle = LoadLibraryA(currAlgo.dllPath.c_str()); // Notice: Unicode compatible version of LoadLibrary
 
 	if (!currAlgo.dllFileHandle)
 	{
-		std::cout << "Cannot load dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
+		Logger::append("Cannot load dll in: " + currAlgo.dllPath, Warning); 
 		return false;
 	}
 	else
 	{
-		std::cout << "Trying to get the GetAlgorithm function from the dll file" << std::endl;  //TODO: print to the log - 
+		Logger::append("Trying to get the GetAlgorithm function from the dll file", Debug); 
 		currAlgo.getAlgoFunc = reinterpret_cast<GetAlgoFuncType>(GetProcAddress(currAlgo.dllFileHandle, "GetAlgorithm"));
 		if (!currAlgo.getAlgoFunc)
 		{
-			std::cout << "Error getting GetAlgorithm function from the dll file in: " << currAlgo.dllPath; //todo: print to the log
+			Logger::append("Error getting GetAlgorithm function from the dll file in: " + currAlgo.dllPath,Warning);
 			FreeLibrary(currAlgo.dllFileHandle);
 			return false;
 		}
-		std::cout << "Success loading player algorithm from dll in: " << currAlgo.dllPath << std::endl; //TODO: print to the log  - 
+		Logger::append("Success loading player algorithm from dll in: " + currAlgo.dllPath, Info);  
 	}
 
-	//currAlgo.algosIndexInVec = algosIndex++;
 	algosDetailsVec.push_back(std::move(currAlgo));
 	return true;
 }
@@ -355,12 +366,12 @@ void BattleshipTournamentManager::parseDefaultsFromConfigFile()
 
 	if (tmpFilenamesVector.empty())
 	{
-		std::cout << "No Config files (*.config) looking in path: " << inputDirPath.c_str() << std::endl;		//todo: print to the log
+		Logger::append("No Config files (*.config) looking in path: " + inputDirPath, Info);
 		return;
 	}
 
 	auto configFileFullPath = inputDirPath + "/" + tmpFilenamesVector[0];		//takes the first config file
-	std::cout << "Config file found in path: " << configFileFullPath << std::endl;
+	Logger::append("Config file found in path: " + configFileFullPath, Info);
 
 	std::string line;
 
@@ -374,27 +385,27 @@ void BattleshipTournamentManager::parseDefaultsFromConfigFile()
 			{
 				std::string value;
 				if (std::getline(configLine, value))
-					storeConfigline(key, value);
+					storeConfigLine(key, value);
 			}
 		}
 		
 		configFile.close();
 	}
 
-	else {														/* we can't open the board file */
-		std::cout << "Error opening Config file in " << configFileFullPath << "we will take our defaults" << std::endl; //TODO: print to the logger - 	
+	else {														/* we can't open the config file */
+		Logger::append("Error opening Config file in " + configFileFullPath + ". we will take our defaults", Warning); 	
 	}
 
 }
 
-void BattleshipTournamentManager::storeConfigline(const std::string& key, const std::string& value)
+void BattleshipTournamentManager::storeConfigLine(const std::string& key, const std::string& value)
 {
 	char* stringEnd = nullptr;
 	bool validConfigAssign = false;
 	int intValue = static_cast<size_t>(strtol(value.c_str(), &stringEnd, 10));
 	if (*stringEnd || intValue < 0)
 	{
-		std::cout << "WARNING: config entry value is not valid. we will not take this value." << std::endl;
+		Logger::append("Config file entry value " +  value + " for " + key + "key is not valid. we will not take this value.", Warning);
 		return;
 	}
 
@@ -418,20 +429,43 @@ void BattleshipTournamentManager::storeConfigline(const std::string& key, const 
 		validConfigAssign = true;
 		TOURNAMENT_MIN_PLAYERS = intValue;
 	}
-	if(validConfigAssign) std::cout << "DEBUG, assign default value from config file, KEY = " << key << "\t VALUE = " << intValue << std::endl;	//todo: print to the log
+	else if (strcmp(key.c_str(), "LOG_LEVEL") == 0)
+	{
+		validConfigAssign = true;
+		logLevelVal = static_cast<LogLevel>(intValue);
+	}
+	if(validConfigAssign) Logger::append("set default value from config file, KEY = " + key + "\t VALUE = " + std::to_string(intValue), Debug);
 		
+}
+
+void BattleshipTournamentManager::printRouondGameResToLog(int currRound) const
+{
+	std::string currRoundGamesResultsStr = "";
+	for (auto i = 0; i < algosDetailsVec.size(); i++)
+	{
+		std::string res = "";
+		if (allGamesResults[i][currRound].WinsNumber()) res = "Won";
+		else if (allGamesResults[i][currRound].LossesNumber()) res = "Lost";
+		else res = "tied";
+	
+		currRoundGamesResultsStr += "\t\t\t\t\t\t\t\t\tPlayer: " + std::to_string(i) + "(" + algosDetailsVec[i].playerName + ") " + res + "\t" + std::to_string(allGamesResults[i][currRound].PointsFor()) + " : " + std::to_string(allGamesResults[i][currRound].PointsAgainst()) + "\n";
+	}
+
+	Logger::append("Games results in round " + std::to_string(currRound+1) + ":\n" + currRoundGamesResultsStr, Debug);
 }
 
 void BattleshipTournamentManager::RunTournament()	
 {
 	maxGamesThreads = (maxGamesThreads > gamesPropertiesQueue.size() ? gamesPropertiesQueue.size() : maxGamesThreads); /* in case there are more threads then games */
-	//std::cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << BattleshipPrint::getDelay() << std::endl;
+	Logger::append("Number of Games threads set to:\t" + std::to_string(maxGamesThreads), Info);
 	std::vector <std::thread> threadsPool;
 	threadsPool.reserve(maxGamesThreads);
 	
 	for (auto i = 0; i< maxGamesThreads; i++)
 	{
+		
 		threadsPool.emplace_back(std::thread(&BattleshipTournamentManager::singleThreadJob, this));	 /* creating a pool of threads */
+		Logger::append("New thread created", Debug);
 	}
 
 	int currRound = 0;
@@ -442,6 +476,8 @@ void BattleshipTournamentManager::RunTournament()
 		
 		isRoundDoneCondition.wait(lk, [&]() {return allRoundsData[currRound].isRoundDone; });		/* waiting for current round to end by order (first till last) */
 		lk.unlock();
+		
+		printRouondGameResToLog(currRound);
 
 		if (allRoundsData[currRound].isRoundDone) {															/* sanity check in case of spurious wake up */
 			for (auto i = 0; i < algosDetailsVec.size(); i++) {												/* update sum fileds for current round  */
@@ -450,36 +486,15 @@ void BattleshipTournamentManager::RunTournament()
 				allRoundsCumulativeData[i].pointsFor += allGamesResults[i][currRound].pointsFor;
 				allRoundsCumulativeData[i].pointsAgainst += allGamesResults[i][currRound].pointsAgainst;
 			}
-			
-			std::cout << "Players status after round: " << currRound +1  << ": " << std::endl;
-			for (size_t i = 0; i < algosDetailsVec.size(); i++)
-			{
-				size_t r = allRoundsData.size();
-				std::cout << ", Player" << i << algosDetailsVec[i].playerName <<  ": ";
-				for (size_t j = 0; j < allRoundsData.size(); j++)
-				{
-					
-					if (allGamesResults[i][j].WinsNumber() == 0 && allGamesResults[i][j].LossesNumber() == 0 && allGamesResults[i][j].pointsFor == 0 && allGamesResults[i][j].pointsAgainst == 0) {
-						r = j;
-						j = allRoundsData.size();
-					}
-					
-				}
-				std::cout << r;
-
-			}
-			std::cout << std::endl<<std::endl;
-			std::cout << gamesPropertiesQueue.size() << " Games remaining..." << std::endl;
-			if (gamesPropertiesQueue.size() == 1) {
-				std::cout << "ITS " << gamesPropertiesQueue.front().getPlayerIndexA() << " against " << gamesPropertiesQueue.front().getPlayerIndexB() << " on board " << gamesPropertiesQueue.front().getBoardIndex() << std::endl;
-			}
+			Logger::append("before printing round " + std::to_string((currRound + 1)) + ":\t" + std::to_string(gamesPropertiesQueue.size()) + " Games remaining to play" , Debug);
+				
 			BattleshipPrint::printStandingsTable(allRoundsCumulativeData, currRound + 1, allRoundsData.size());//printing the round
 		
 			currRound++;//next round to wait for
 		}
 
 	}
-	//std::cout << "games completed" << std::endl;
+
 	for (auto & t : threadsPool) {
 		t.join();
 	}
@@ -488,7 +503,6 @@ void BattleshipTournamentManager::RunTournament()
 
 void BattleshipTournamentManager::singleThreadJob()
 {
-	std::cout << "---------------I AM THREAD" << std::endl;
 	while (!gamesPropertiesQueue.empty())
 	{
 		std::unique_lock<std::mutex> lock(gamesQueueMutex);				/* we lock here to deal with the games queue */

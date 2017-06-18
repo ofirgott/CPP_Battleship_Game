@@ -46,6 +46,6 @@ private:
 	std::string playerName;
 	int winsCnt;
 	int lossesCnt;
-	int pointsFor;
-	int pointsAgainst;
+	long pointsFor;
+	long pointsAgainst;
 };
