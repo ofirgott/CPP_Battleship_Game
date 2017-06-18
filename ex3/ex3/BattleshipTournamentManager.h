@@ -9,6 +9,9 @@
 #include "PlayerGameResultData.h"
 #include "SingleGameProperties.h"
 #include "RoundData.h"
+#include "Logger.h"
+
+//#include "Logger.h"
 
 
 class BattleshipTournamentManager
@@ -32,6 +35,7 @@ private:
 	static const char B = 'B';																/* player char for player B */
 	static const int PLAYERID_A = 0;
 	static const int PLAYERID_B = 1;
+	static const std::string LOG_FILENAME;
 	
 	static const int UNINITIALIZED_ARG = -1;
 	
@@ -56,8 +60,9 @@ private:
 	bool printSingleTable;
 
 	std::vector<PlayerGameResultData> allRoundsCumulativeData;
-
+	
 	int TOURNAMENT_MIN_PLAYERS;
+	LogLevel logLevelVal;
 
 	void createGamesPropertiesQueue();
 	void singleThreadJob();
@@ -88,5 +93,6 @@ private:
 	bool loadPlayerDll(const std::string& currDllFilename);
 
 	void parseDefaultsFromConfigFile();
-	void storeConfigline(const std::string& key, const std::string& value);
+	void storeConfigLine(const std::string& key, const std::string& value);
+	void printRouondGameResToLog(int currRound) const;
 };
