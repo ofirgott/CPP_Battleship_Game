@@ -70,27 +70,6 @@ private:
 	if there isnt room for smallest ship transfer the gap to imbalanced options*/
 	void PlayerSmart::transferAllWallsToImbalanced();
 
-	/*for a given coordinate check if its edges are walls*/
-	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
-
-	/*for each coordinate in the surrounding of the ship if not in the incremental direction check if a wall*/
-	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
-
-	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
-	if the distance between the "walls" is larger then the smallest ship the opponent owns
-	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
-	int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
-
-	/*move coordinate to the second pool*/
-	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);
-
-	/* assume the ships handled here are of size at least 2. remove the incremental
-	edges of the sunk ship and remove the ship from the attacked ships vector*/
-	void PlayerSmart::removePermementlyIncrementalDirection(int shipToDelIndex);
-
-	/*remove the coors 4 adjecent coordinates. that arnt in the incremental direction*/
-	void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional);
-
 	/* check all 6 directions of deadCoordinate if it became an affective "wall"
 	* if the distance from deadCoordinate to the next "wall" is less then the minimal ship
 	-this space in not opptional for atteck anymore and we move it to the second pool */
@@ -103,10 +82,27 @@ private:
 	/* given a coordinate check 2 incremental edges of the ship if they are new walls*/
 	void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordinate, ShipInProcess& attackedShip);
 
-	/* given a coordinate transfer from attack options to permanentlydead if exists*/
-	void PlayerSmart::delCoorAttackOptions(Coordinate& coorToDelete);
-	/* given a coordinate remove from imbalanced if exists*/
-	void PlayerSmart::delCoorImbalancedOptions(Coordinate& coorToDelete);
+	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
+	if the distance between the "walls" is larger then the smallest ship the opponent owns
+	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
+	int PlayerSmart::countDistance(Coordinate deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
+
+	/*move coordinate to the second pool*/
+	void PlayerSmart::transferCoordinatesToSecondPoll(Coordinate startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);
+
+
+	/* assume the ships handled here are of size at least 2. remove the incremental
+	edges of the sunk ship and remove the ship from the attacked ships vector*/
+	void PlayerSmart::removePermementlyIncrementalDirection(int shipToDelIndex);
+
+	/*remove the coors 4 adjecent coordinates. that arnt in the incremental direction*/
+	void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool isVertical, bool isHorizontal, bool isDimentional);
+
+	/*for a given coordinate check if its edges are walls*/
+	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
+
+	/*for each coordinate in the surrounding of the ship if not in the incremental direction check if a wall*/
+	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
 
 	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
 	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
@@ -131,7 +127,6 @@ private:
 	if the ship sunk(of size 1), update sunkShipSize to -1*/
 	int PlayerSmart::addCoorToShipInProcess(const Coordinate& targetCoor, Coordinate* nextCoorTosearch, AttackResult result);
 
-
 	/* given startIndex(of the ship we want to add coordinates to) and coorToSearch.
 	look for the coordinate in all attacked ships starting from index, if found, merge the 2 ships
 	and remove the second ship from attacked ships*/
@@ -144,18 +139,17 @@ private:
 	/*checking if a current coordinate is within board Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
 
-
-
-	/*return true iff the input coordinate is in attackoptions	*/
-	//bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
-
-	///*return true iff the input coordinate is in imbalancedAttackOptions	*/
-	//bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
-
 	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
 
+	/*remove coordinate from given set*/
+	void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
+
+	/*true iff coor in data*/
 	bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate& coors) const;
+
+	/* given origin update its coordinates to <row,col,depth>*/
+	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
 	/*utility functions****************************************************************************************/
 	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
 	static std::vector<Coordinate> setSixOptionsVector();
@@ -169,8 +163,7 @@ private:
 	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
 	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
 	static std::vector<Coordinate> setVectorForCheckSixDirections();
-	/* given origin update its coordinates to <row,col,depth>*/
-	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
+	
 	/*utility functions ****************************************************************************************/
 
 };
