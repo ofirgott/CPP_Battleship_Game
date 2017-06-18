@@ -78,7 +78,7 @@ private:
 	void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoordinate, bool isVertical, bool isHorizontal, bool isDimentional);
 
 	/* given a coordinate check 2 incremental edges of the ship if they are new walls*/
-	void PlayerSmart::checkIncrementalDirectionsForWalls(const Coordinate& attackedCoordinate, ShipInProcess& attackedShip);
+	void PlayerSmart::checkIncrementalDirectionsForWalls(ShipInProcess& attackedShip);
 
 	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
 	if the distance between the "walls" is larger then the smallest ship the opponent owns

@@ -381,7 +381,7 @@ Coordinate PlayerSmart::nextAttackFromCoors(const ShipInProcess& shipDetails, in
 }
 
 //todo:first var
-void PlayerSmart::checkIncrementalDirectionsForWalls(const Coordinate& attackedCoordinate, ShipInProcess& attackedShip) {
+void PlayerSmart::checkIncrementalDirectionsForWalls(ShipInProcess& attackedShip) {
 
 	if (!isBoardBalanced) {
 		return;
@@ -598,7 +598,7 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 		}
 		else {//ship of size>1 
 			  // remove incremental walls
-			checkIncrementalDirectionsForWalls(move, attackedShips[mergeResult]);
+			checkIncrementalDirectionsForWalls(attackedShips[mergeResult]);
 			//remove adjecent incremental coordinates and remove ship from attacked ships
 			removePermementlyIncrementalDirection(mergeResult);
 		}
