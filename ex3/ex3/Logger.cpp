@@ -5,6 +5,7 @@
 
 LogLevel Logger::logLevel = DEFAULT_LEVEL;
 std::ofstream Logger::outFile;
+const std::string DEFAULT_FILENAME = "game.log";
 
 
 

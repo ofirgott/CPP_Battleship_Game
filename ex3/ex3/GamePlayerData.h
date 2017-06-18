@@ -5,7 +5,7 @@
 #include <memory>
 
 /**
- * \brief keeps all current algo details
+ * \brief keeps all algo details for specific single game
  */
 class GamePlayerData {
 	
@@ -13,11 +13,11 @@ class GamePlayerData {
 
 private:
 
-	int id;
-	IBattleshipGameAlgo* playerAlgo;
-	ShipsBoard shipsBoard;
-	size_t currShipsCount;
-	int score;
+	int id;											/* player id in single game - 0/1*/
+	IBattleshipGameAlgo* playerAlgo;				/* pointer to the player algo. the responsobility is in battleshipGameManager to free this pointer, not in this class*/
+	ShipsBoard shipsBoard;							
+	size_t currShipsCount;							/* current avaliable ship for the player*/
+	int score;										/* current score */
 	bool hasMoreMoves;
 
 	static const int UNDEFINED_PLAYERID = -1;

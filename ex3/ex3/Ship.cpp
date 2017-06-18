@@ -222,15 +222,8 @@ std::list<Ship> Ship::createShipsList(const std::set<std::pair<char, std::set<Co
 	std::list<Ship> ships;
 	
 	for (auto& elem : coordsSet) {
-		//Ship* shipPtr = new Ship(elem);
-		//std::cout << elem.first << ", ";
-		ships.emplace_back(Ship(elem));
+		ships.emplace_back(Ship(elem));		
 	}
-	/*std::cout << std::endl;
-	for (auto& ship : ships)
-	{
-		std::cout << ship.symbol << ", ";
-	}
-	std::cout << std::endl;*/
+
 	return ships;
 } 

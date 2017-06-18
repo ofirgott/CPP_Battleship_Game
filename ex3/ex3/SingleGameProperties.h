@@ -1,7 +1,6 @@
 #pragma once
-#include "IBattleshipGameAlgo.h"
-#include "BattleshipBoard.h"
 
+/* will be element of the tournament games queue*/
 
 class SingleGameProperties
 {
@@ -14,12 +13,11 @@ public:
 	int getPlayerIndexB()const { return playerBIndex; }
 	int getBoardIndex()const { return mainBoardIndex; }
 
-	//bool operator<(const SingleGameProperties &rhs) const {	return mainBoardIndex < rhs.mainBoardIndex; }
 	
 private:
-	int mainBoardIndex;
-	int playerAIndex;
-	int playerBIndex;
+	int mainBoardIndex;		/* board index in the tournament board vector */
+	int playerAIndex;		/* playerA index in the tournament algos vector */
+	int playerBIndex;		/* playerB index in the tournament algos vector */
 	
 
 };
