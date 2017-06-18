@@ -9,7 +9,6 @@ int main(int argc, char* argv[])
 			Tournament.RunTournament();
 		}
 		else {
-			system("pause"); //todo:delete
 			return -1;
 		}
 	}
@@ -18,6 +17,6 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	system("pause");
+	system("pause"); //todo:delete
 	return 0;
 }

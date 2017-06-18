@@ -83,7 +83,7 @@ private:
 	/* given a Coordinate - count the number of permanently dedCoordinates starting from startCoordinate.
 	if the distance between the "walls" is larger then the smallest ship the opponent owns
 	return -1, (= cant remove anything in this case) else return the number of coordinates that should be removed.	*/
-	int PlayerSmart::countDistance(const Coordinate& deadCoordinate, int minShipSize, int vertical, int horizontal, int direction);
+	int PlayerSmart::countDistance(const Coordinate& deadCoordinate, int minShipSize, int vertical, int horizontal, int direction)const;
 
 	/*move coordinate to the second pool*/
 	void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordinate, int numOfCoors, int vertical, int horizontal, int direction);

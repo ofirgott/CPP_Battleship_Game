@@ -46,7 +46,6 @@ void PlayerSmart::setBoard(const BoardData& board)
 						attackOptions.insert(tmpCoor);
 					}
 				}
-
 			}
 		}
 	}
@@ -87,7 +86,7 @@ void PlayerSmart::pourImbalancedToAttackOptions() {
 Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const
 {
 	Coordinate attackCandidate(-1, -1, -1);
-	std::vector<Coordinate> allOptions = BattleshipGameUtils::setSixOptionsVector(); //contains (1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)
+	auto allOptions = BattleshipGameUtils::setSixOptionsVector(); //contains (1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)
 
 	// for each neighbor of the attacked coordinate check if is candidate
 	for (auto& vic : allOptions) {
@@ -118,7 +117,7 @@ void PlayerSmart::checkSixDirectionsForWalls(const Coordinate& deadCoordinate) {
 }
 
 void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordinate, int numOfCoors, int vertical, int horizontal, int direction) {
-	int count;
+
 	Coordinate tempCoor(-1, -1, -1);
 	int dim = 0;
 
@@ -441,8 +440,8 @@ void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoor
 	}
 }
 
-int PlayerSmart::countDistance(const Coordinate& deadCoordinate, int minShipSize, int vertical, int horizontal, int direction) {
-	int start = 0;
+int PlayerSmart::countDistance(const Coordinate& deadCoordinate, int minShipSize, int vertical, int horizontal, int direction)const {
+	int start;
 	int count = 0;
 	Coordinate tempCoor(-1, -1, -1);
 
@@ -534,14 +533,12 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 	}
 }
 
-void PlayerSmart::cleanAttackOptions(const ShipInProcess& shipToClean, const Coordinate& attacked) {
-
-	int minCoor = shipToClean.getMinCoor();
-	int maxCoor = shipToClean.getMaxCoor();
+void PlayerSmart::cleanAttackOptions(const ShipInProcess& shipToClean, const Coordinate& attacked)
+{
 	Coordinate tmpCoor(-1, -1, -1);
 
 	// for each coordinate of the shipToClean
-	for (int i = 0; i <shipToClean.shipSize; i++) {
+	for (auto i = 0; i <shipToClean.shipSize; i++) {
 
 		if (shipToClean.isVertical) { // remove left, right
 			updateCoordinates(tmpCoor, shipToClean.incrementalCoors[i], attacked.col, attacked.depth);
@@ -622,6 +619,7 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 	//clean all board in all cases from 
 	transferAllWallsToImbalanced();
 }
+
 void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate & coors)
 {
 	auto it = data.find(coors);
@@ -633,6 +631,7 @@ bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate & c
 	if (data.find(coors) != data.end()) { return true; }
 	return false;
 }
+
 ALGO_API IBattleshipGameAlgo* GetAlgorithm()
 {
 	IBattleshipGameAlgo* algoPtr = new PlayerSmart();
