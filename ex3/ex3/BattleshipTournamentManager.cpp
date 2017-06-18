@@ -512,29 +512,28 @@ void BattleshipTournamentManager::singleThreadJob()
 
 void BattleshipTournamentManager::updateGamesResults(const PlayerGameResultData& currGameResultA, int playerIndexA, int playerIndexB)
 {
-
-	auto currGameResultB = PlayerGameResultData::createOpponentData(currGameResultA);					 /* creates gameResults in view of the second player */
+	auto currGameResultB = PlayerGameResultData::createOpponentData(currGameResultA);				 /* creates gameResults in view of the second player */
 
 	int currRoundA = playersProgress[playerIndexA]++;		/* Performs atomic post-increment, equivalent to fetch_add(1), and returns the value (int) before the modification */
-	int currRoundB = playersProgress[playerIndexB]++;
+	int currRoundB = playersProgress[playerIndexB]++;		/* checks for each players in which round he is now (how many games he played */
 
 	// update allGamesResults in the relevent indexes
-	allGamesResults[playerIndexA][currRoundA] = currGameResultA;
+	allGamesResults[playerIndexA][currRoundA] = currGameResultA;				/* update the game result in each from the 2 players*/
 	allGamesResults[playerIndexB][currRoundB] = currGameResultB;
 
 
-	if (--allRoundsData[currRoundA].numOfPlayersLeft == 0) {
+	if (--allRoundsData[currRoundA].numOfPlayersLeft == 0) {		/* checks if this game cause to round of player A to be done */
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRoundsData[currRoundA].isRoundDone = true;
 		lock.unlock();
-		isRoundDoneCondition.notify_one();
+		isRoundDoneCondition.notify_one();							/* notify that currRoundA is done, and we can print this round data */
 	}
 
-	if (--allRoundsData[currRoundB].numOfPlayersLeft == 0) {
+	if (--allRoundsData[currRoundB].numOfPlayersLeft == 0) {		/* checks if this game cause to round of player B to be done */
 		std::unique_lock<std::mutex> lock(isRoundDoneMutex);
 		allRoundsData[currRoundB].isRoundDone = true;
 		lock.unlock();
-		isRoundDoneCondition.notify_one();
+		isRoundDoneCondition.notify_one();							/* notify that currRoundA is done, and we can print this round data */
 	}
 
 }
