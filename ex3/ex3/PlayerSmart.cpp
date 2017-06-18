@@ -586,6 +586,7 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 		delFromSet(attackOptions,move);
 		delFromSet(imbalancedAttackOptions,move);
 		permanentlyDeadCoordinates.insert(move);
+		checkSixDirectionsForWalls(move);
 		return;
 	}
 
