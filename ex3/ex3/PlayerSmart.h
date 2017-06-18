@@ -110,7 +110,7 @@ private:
 	void PlayerSmart::cleanAttackOptions(const Coordinate & targetCoor);
 
 	/*for each coordinate in the surrounding of the ship if not in the incremental direction check if a wall*/
-	void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked);
+	void PlayerSmart::cleanAttackOptions(const ShipInProcess& shipToClean, const Coordinate& attacked);
 
 	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
 	Coordinate PlayerSmart::nextAttackFromCoors(const ShipInProcess& shipDetails, int numOfCoors) const;
@@ -127,7 +127,7 @@ private:
 	void PlayerSmart::updateShipsCount(int sunkShipSize);
 
 	/*return the size of the other player's curr smallest ship */
-	int PlayerSmart::getMinShipSize();
+	int PlayerSmart::getMinShipSize() const;
 
 	/* given a coordinate search attackedships and check if it belongs to one of them.
 	if found a ship it belongs to -  update this ship details and return the index of the ship it was added to.
@@ -150,16 +150,17 @@ private:
 	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
 
+	/*utility functions****************************************************************************************/
 
 	/*remove coordinate from given set*/
-	void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
+	static void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
 
 	/*true iff coor in data*/
-	bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate& coors) const;
+	static bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate& coors);
 
 	/* given origin update its coordinates to <row,col,depth>*/
 	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
-	/*utility functions****************************************************************************************/
+
 	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
 	static std::vector<Coordinate> setSixOptionsVector();
 	/*(0, 1, 0)(0, -1, 0)*/

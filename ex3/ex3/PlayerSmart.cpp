@@ -147,7 +147,7 @@ void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate & coor
 	if (it != data.end()){data.erase(it);}
 }
 
-bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate & coors) const
+bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate & coors)
 {
 	if (data.find(coors) != data.end()) { return true; }
 	return false;
@@ -165,7 +165,7 @@ void PlayerSmart::updateShipsCount(int sunkShipSize) {
 	}
 }
 
-int PlayerSmart::getMinShipSize() {
+int PlayerSmart::getMinShipSize() const {
 	for (auto& detail : shipsCount) {
 		if (detail.second>0) {
 			return detail.first;
@@ -542,7 +542,7 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 	}
 }
 
-void PlayerSmart::cleanAttackOptions(ShipInProcess& shipToClean, const Coordinate& attacked) {
+void PlayerSmart::cleanAttackOptions(const ShipInProcess& shipToClean, const Coordinate& attacked) {
 
 	int minCoor = shipToClean.getMinCoor();
 	int maxCoor = shipToClean.getMaxCoor();
