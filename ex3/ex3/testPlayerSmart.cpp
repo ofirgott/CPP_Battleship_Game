@@ -208,7 +208,7 @@
 //	}
 //	Coordinate tmpPair = Coordinate(1, 1, 1);
 //
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(tmpPair);
+//	tempPlayer.delCoorAttackOptions(tmpPair);
 //	auto find = tempPlayer.attackOptions.find(Coordinate(1, 1, 1));
 //	if (find != tempPlayer.attackOptions.end())
 //	{
@@ -355,74 +355,74 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 9));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 6));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 9));
 //
 //}
 //
@@ -476,74 +476,74 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 9));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 6));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 9));
 //
 //}
 //
@@ -592,74 +592,74 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 9));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 6));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 6));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 3));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 3, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 4, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 9));
 //}
 //
 //
@@ -895,11 +895,11 @@
 //
 //		tmpPlayer.attackOptions.erase(tmpPlayer.attackOptions.find(nextCoor));
 //		nextCoor = Coordinate(4, 1, 1);
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer.delCoorAttackOptions(nextCoor);
 //		nextCoor = Coordinate(3, 2, 1);
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer.delCoorAttackOptions(nextCoor);
 //		nextCoor = Coordinate(5, 2, 1);
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer.delCoorAttackOptions(nextCoor);
 //
 //		nextCoor = tmpPlayer.nextAttackFromCoors(sizeThree_1, 4);
 //		if ((nextCoor.row != 4) || (nextCoor.col != 6) || (nextCoor.depth != 1))
@@ -935,27 +935,27 @@
 //			}
 //		}
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 1));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
 //
 //
 //		// clear envirnment
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 6));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 6));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 6));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 6));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
 //
 //		// create ships
@@ -993,13 +993,13 @@
 //			return -1;
 //		}
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer2.delCoorAttackOptions(nextCoor);
 //		nextCoor = Coordinate(2, 4, 1);
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer2.delCoorAttackOptions(nextCoor);
 //		nextCoor = Coordinate(2, 3, 2);
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer2.delCoorAttackOptions(nextCoor);
 //		nextCoor = Coordinate(2, 5, 2);
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer2.delCoorAttackOptions(nextCoor);
 //
 //		nextCoor = tmpPlayer2.nextAttackFromCoors(sizeThree_1, 4);
 //		if ((nextCoor.row != 2) || (nextCoor.col != 4) || (nextCoor.depth != 6))
@@ -1007,7 +1007,7 @@
 //			std::cout << "error <2,4,6>" << std::endl;
 //			return -1;
 //		}
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(nextCoor);
+//		tmpPlayer2.delCoorAttackOptions(nextCoor);
 //
 //
 //		nextCoor = tmpPlayer2.nextAttackFromCoors(sizeTwo_1, 2);
@@ -1215,16 +1215,16 @@
 ////	count.push_back(std::make_pair(10, 5));
 ////
 ////	// target coor will be 5,5,5
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4,5,5));
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3,5,5));
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,4,5));
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,3,5));
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,5,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(4,5,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(3,5,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(5,4,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(5,3,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(5,5,5));
 ////	// set attack options 
 ////	tempPlayer.shipsCount = count;
 ////
 ////	// target coor 5,5,5
-////	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5,5,5));
+////	tempPlayer.delCoorAttackOptions(Coordinate(5,5,5));
 ////	tempPlayer.checkConstantDirectionsForWalls(Coordinate(5,5,5),AttackResult::Hit,5,5,false,false);
 ////
 ////	std::set<Coordinate> imbalancedTest;
@@ -1267,17 +1267,17 @@
 //	std::vector<std::pair<int, int>> count;
 //	count.push_back(std::make_pair(10, 5));
 //	// target coor will be 2, 5, 4
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 4));
 //	// create 'walls' around it
 //	//horizontal
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 1, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 8, 4));
 //	//vertical
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(6, 5, 4));
 //	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 //	//deptical
 //	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
 //
 //	std::set<Coordinate> imbalancedTest;
 //	// horizontal
@@ -1338,20 +1338,20 @@
 //	count.push_back(std::make_pair(1, 5));
 //
 //	// target coor will be 2, 5, 4
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
 //	// create 'walls' around it
 //	//horizontal
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 1, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 8, 4));
 //
 //	//vertical
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(6, 5, 4));
 //	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 //
 //	//deptical
 //	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
 //
 //	// set attack options 
 //	tempPlayer.shipsCount = count;
@@ -1404,20 +1404,20 @@
 //	count.push_back(std::make_pair(2, 2));
 //
 //	// target coor will be 2, 5, 4
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
 //	// create 'walls' around it
 //	//horizontal
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 3, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 8, 4));
 //
 //	//vertical
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(6, 5, 4));
 //	//coordinates.erase(coordinates.find(Coordinate(0, 5, 4))); already a wall
 //
 //	//deptical
 //	//coordinates.erase(coordinates.find(Coordinate(2, 5, 0))); alreay a wall
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 8));
 //
 //	std::set<Coordinate> imbalancedTest;
 //	// horizontal
@@ -1474,8 +1474,8 @@
 //		}
 //	}
 //
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
-//	tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 4));
+//	tempPlayer.delCoorAttackOptions(Coordinate(2, 1, 4));
 //
 //	tempPlayer.transferCoordinatesToSecondPoll(Coordinate(2, 5, 4), 3, 0, 1, -1);
 //
@@ -1508,8 +1508,8 @@
 //		}
 //	}
 //
-//	tempPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 4));
-//	tempPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 3, 4));
+//	tempPlayer2.delCoorAttackOptions(Coordinate(5, 3, 4));
+//	tempPlayer2.delCoorAttackOptions(Coordinate(1, 3, 4));
 //
 //	tempPlayer2.transferCoordinatesToSecondPoll(Coordinate(1, 3, 4), 3, 1, 0, +1);
 //
@@ -1541,8 +1541,8 @@
 //	}
 //
 //
-//	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(7, 3, 1));
-//	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(7, 3, 8));
+//	tempPlayer3.delCoorAttackOptions(Coordinate(7, 3, 1));
+//	tempPlayer3.delCoorAttackOptions(Coordinate(7, 3, 8));
 //	tempPlayer3.transferCoordinatesToSecondPoll(Coordinate(7, 3, 8), 6, 0, 0, -1);
 //
 //	std::set<Coordinate> imbalancedTest3;
@@ -1564,8 +1564,8 @@
 //		}
 //	}
 //
-//	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(10, 5, 1));
-//	tempPlayer3.delOneCoorPermanentlyAttackOptions(Coordinate(10, 9, 1));
+//	tempPlayer3.delCoorAttackOptions(Coordinate(10, 5, 1));
+//	tempPlayer3.delCoorAttackOptions(Coordinate(10, 9, 1));
 //	std::set<Coordinate> imbalancedTest4;
 //	imbalancedTest3.insert(Coordinate(10, 6, 1));
 //	imbalancedTest3.insert(Coordinate(10, 7, 1));
@@ -1602,8 +1602,8 @@
 //		int res;
 //
 //		//// Horizontal !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
-//		tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
-//		tempPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 4));
+//		tempPlayer.delCoorAttackOptions(Coordinate(2, 5, 4));
+//		tempPlayer.delCoorAttackOptions(Coordinate(2, 1, 4));
 //
 //		res = tempPlayer.countDistance(Coordinate(2, 5, 4), 0, false, true, -1);
 //		if (res != -1) {
@@ -1818,53 +1818,53 @@
 //			}
 //		}
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 1));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 1));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
 //
 //
 //		// clear envirnment
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 7));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 7));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 7, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 8, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 7, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 8, 8));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 4));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 3));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 5));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 4));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
 //
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 8));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 7));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
-//		tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 8));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 7));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 7));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 9));
+//		tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 9));
 //
 //		ShipInProcess sizeTwo_2(2, 5, 8);
 //		sizeTwo_2.addCoordinate(2, 4, 8);
@@ -2016,15 +2016,15 @@
 //		}
 //
 //		// create ships
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //		ShipInProcess sizeThree_1(4, 2, 1);
 //		sizeThree_1.addCoordinate(4, 3, 1);
@@ -2091,15 +2091,15 @@
 //		}
 //
 //		// create ships
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //		ShipInProcess sizeThree_1(4, 2, 1);
 //		sizeThree_1.addCoordinate(4, 3, 1);
@@ -2165,15 +2165,15 @@
 //		}
 //
 //		// create ships
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //		ShipInProcess sizeThree_1(4, 2, 1);
 //		sizeThree_1.addCoordinate(4, 3, 1);
@@ -2253,15 +2253,15 @@
 //		}
 //
 //		// create ships
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//		tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//		tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //		ShipInProcess sizeThree_1(4, 2, 1);
 //		sizeThree_1.addCoordinate(4, 3, 1);
@@ -2412,55 +2412,55 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 2));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(9, 2, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 2));
 //
 //	// clear envirnment
 //	// ship of size 2 _1 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 2));
 //
 //	// ship of size 2 _2 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 2));
 //
 //	// ship of size 3 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //}
 //
 //
@@ -2508,55 +2508,55 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 2));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(9, 2, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 2));
 //
 //	// clear envirnment
 //	// ship of size 2 _1 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 2));
 //
 //	// ship of size 2 _2 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 2));
 //
 //	// ship of size 3 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //}
 //
@@ -2601,58 +2601,58 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 2));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(9, 2, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 2));
 //
 //	// clear envirnment
 //	// ship of size 2 _1 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 2));
 //
 //	// ship of size 2 _2 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 2));
 //
 //	// ship of size 3 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //}
 //
@@ -2700,59 +2700,59 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 1, 2));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(9, 2, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 2));
 //
 //	// clear envirnment
 //	// ship of size 2 _1 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 2));
 //
 //	// ship of size 2 _2 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 2));
 //
 //	// ship of size 3 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //}
 //
@@ -2797,60 +2797,60 @@
 //		}
 //	}
 //	//
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 2));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 9, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 9));
 //
 //	// clear envirnment
 //	//sizeTwo_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 8, 8));
 //
 //	//sizeThree_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 5));
 //
 //	//sizeTwo_2 
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 9));
 //
 //}
 //
@@ -2896,65 +2896,65 @@
 //		}
 //	}
 //	//
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 2));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 9, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 9));
 //
 //	// clear envirnment
 //	//sizeTwo_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 8, 8));
 //
 //	//sizeThree_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 5));
 //
 //	//sizeTwo_2 
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 9));
 //
 //}
 //
@@ -3003,66 +3003,66 @@
 //		}
 //	}
 //	//
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 2, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 2, 2));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 9, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 9));
 //
 //	// clear envirnment
 //	//sizeTwo_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 8, 8));
 //
 //	//sizeThree_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 6));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 6));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 5));
 //
 //	//sizeTwo_2 
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 9));
 //
 //}
 //int testPlayerSmart::testaddCoorToShipsInProcess()
@@ -3272,49 +3272,49 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 2, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 1, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(9, 2, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 1));
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 8, 2));
 //
 //	// clear envirnment
 //	// ship of size 2 _1 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 8, 2));
 //
 //	// ship of size 2 _2 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 8, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 7, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 9, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(6, 8, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 7, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 9, 2));
 //
 //	// ship of size 3 
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 3, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 4, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 5, 2));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 4, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 3, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 4, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 5, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 4, 2));
 //
 //}
 //
@@ -3359,52 +3359,52 @@
 //		}
 //	}
 //	//
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 1, 1));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 9, 2));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 1, 1));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 9, 2));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 9));
 //
 //	// clear envirnment
 //	//sizeTwo_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 7));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 7, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 8, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 8, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 7, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 7));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 7, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 8, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 8, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 7, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 8, 8));
 //
 //	//sizeThree_1
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 3, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 5, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 3, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 5, 4));
 //
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 4, 5));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 4));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 4, 5));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 3));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 4));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 4, 5));
 //
 //	//sizeTwo_2 
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 6, 9));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 8));
-//	tmpPlayer2.delOneCoorPermanentlyAttackOptions(Coordinate(2, 4, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(1, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(3, 5, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 6, 9));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 8));
+//	tmpPlayer2.delCoorAttackOptions(Coordinate(2, 4, 9));
 //
 //}
 //
@@ -3426,39 +3426,39 @@
 //	// check all sides
 //	Coordinate res(-1, -1, -1);
 //	Coordinate target(2, 3, 3);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(target);
+//	tmpPlayer.delCoorAttackOptions(target);
 //	std::set<Coordinate> removedRes;
 //	std::set<Coordinate> removedExp;
 //
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(1, 3, 3));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(3, 3, 3));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(2, 2, 3));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(2, 4, 3));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(2, 3, 2));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(2, 3, 4));
 //
 //	for (auto& coor : removedExp) {
@@ -3495,12 +3495,12 @@
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(10, 9, 10));
 //
 //	res = tmpPlayer.sizeOneAttack(target);
 //	removedRes.insert(res);
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(res);;
+//	tmpPlayer.delCoorAttackOptions(res);;
 //	removedExp.insert(Coordinate(10, 10, 9));
 //
 //	for (auto& coor : removedExp) {
@@ -3534,7 +3534,7 @@
 //	//	std::cout << "error 2,1, 1" << std::endl;
 //	//	return -1;
 //	//}
-//	//tmpPlayer.delOneCoorPermanentlyAttackOptions(res);
+//	//tmpPlayer.delCoorAttackOptions(res);
 //	std::cout << "Done testsizeOneAttack " << std::endl;
 //	return 0;
 //}
@@ -3570,13 +3570,13 @@
 //		}
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 5, 1));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(1, 5, 1));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 6, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 6, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 4));
 //
 //	// create ships
 //	ShipInProcess sizeOne_1(1, 5, 1);
@@ -3595,33 +3595,33 @@
 //	allShips.push_back(sizeOne_2);
 //
 //	// clear envirnment
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 9));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 7, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 5, 8));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 7));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(8, 6, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 6, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 6, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 6, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 6, 9));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 7, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 5, 8));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(7, 6, 7));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(8, 6, 7));
 //
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 4));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 3));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 4));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 4));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 4));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 4));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 2, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 1, 5));
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 3, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 3));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 4));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(3, 2, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(5, 2, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 1, 5));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 3, 5));
 //
 //	tmpPlayer.attackedShips = allShips;
 //	nextCoordinate = tmpPlayer.attack();
@@ -3633,7 +3633,7 @@
 //		return -1;
 //	}
 //
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 2));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 2));
 //
 //	nextCoordinate = tmpPlayer.attack();
 //	if (!compareCoordinates(Coordinate(4, 2, 6), nextCoordinate))
@@ -3641,7 +3641,7 @@
 //		std::cout << "error <4,2,6> " << std::endl;
 //		return -1;
 //	}
-//	tmpPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(4, 2, 6));
+//	tmpPlayer.delCoorAttackOptions(Coordinate(4, 2, 6));
 //	tmpPlayer.attackedShips.erase(tmpPlayer.attackedShips.begin(), tmpPlayer.attackedShips.end());
 //
 //	// in case there are no ships in process return random element 
@@ -3687,8 +3687,8 @@
 //
 //	//case of in edge(shuold remove only one side) vertical
 //	originPlayer.removePermanentlyConstDirections(Coordinate(1, 1, 1), true, false, false);
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 2, 1));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(1, 1, 2));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(1, 2, 1));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(1, 1, 2));
 //
 //	for (auto& coor : originPlayer.attackOptions) {
 //		if (!expectedPlayer.isInAttackOptions(coor)) {
@@ -3706,8 +3706,8 @@
 //
 //	//case of in edge(shuold remove only one side) horizontal
 //	originPlayer.removePermanentlyConstDirections(Coordinate(10, 10, 10), false, true, false);
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(9, 10, 10));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(10, 10, 9));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(9, 10, 10));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(10, 10, 9));
 //	for (auto& coor : originPlayer.attackOptions) {
 //		if (!expectedPlayer.isInAttackOptions(coor)) {
 //			std::cout << "redundent coor in attackoptions 10,10,10: ";
@@ -3723,10 +3723,10 @@
 //
 //	//case of in middle(shuold remove two side) vertical
 //	originPlayer.removePermanentlyConstDirections(Coordinate(3, 3, 3), true, false, false);
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 2, 3));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 4, 3));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 2));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(3, 3, 4));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(3, 2, 3));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(3, 4, 3));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(3, 3, 2));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(3, 3, 4));
 //	for (auto& coor : originPlayer.attackOptions) {
 //		if (!expectedPlayer.isInAttackOptions(coor)) {
 //			std::cout << "redundent coor in attackoptions 3,3,3: ";
@@ -3743,10 +3743,10 @@
 //
 //	//case of in middle(shuold remove two side) horizontal
 //	originPlayer.removePermanentlyConstDirections(Coordinate(6, 6, 6), false, true, false);
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 6, 6));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 6));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 6, 5));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 6, 7));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(5, 6, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(7, 6, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(6, 6, 5));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(6, 6, 7));
 //	for (auto& coor : originPlayer.attackOptions) {
 //		if (!expectedPlayer.isInAttackOptions(coor)) {
 //			std::cout << "redundent coor in attackoptions 6,6,6: ";
@@ -3762,10 +3762,10 @@
 //
 //	//case of in middle(shuold remove two side) dimentional
 //	originPlayer.removePermanentlyConstDirections(Coordinate(6, 6, 6), false, false, true);
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(5, 6, 6));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(7, 6, 6));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 5, 6));
-//	expectedPlayer.delOneCoorPermanentlyAttackOptions(Coordinate(6, 7, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(5, 6, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(7, 6, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(6, 5, 6));
+//	expectedPlayer.delCoorAttackOptions(Coordinate(6, 7, 6));
 //
 //	for (auto& coor : originPlayer.attackOptions) {
 //		if (!expectedPlayer.isInAttackOptions(coor)) {

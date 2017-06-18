@@ -104,9 +104,9 @@ private:
 	void PlayerSmart::checkIncrementalDirectionsForWalls(Coordinate attackedCoordinate, ShipInProcess& attackedShip);
 
 	/* given a coordinate transfer from attack options to permanentlydead if exists*/
-	void PlayerSmart::delOneCoorPermanentlyAttackOptions(Coordinate& coorToDelete);
+	void PlayerSmart::delCoorAttackOptions(Coordinate& coorToDelete);
 	/* given a coordinate remove from imbalanced if exists*/
-	void PlayerSmart::delOneCoorPermanentlyImbalancedOptions(Coordinate& coorToDelete);
+	void PlayerSmart::delCoorImbalancedOptions(Coordinate& coorToDelete);
 
 	/* given a set of coordinates that belong to 1 ship return the next coordinate to attack	*/
 	Coordinate  PlayerSmart::nextAttackFromCoors(ShipInProcess& shipDetails, int numOfCoors) const;
@@ -144,15 +144,18 @@ private:
 	/*checking if a current coordinate is within board Limits*/
 	bool  PlayerSmart::isInBoard(int row, int col, int depth) const;
 
-	/*return true iff the input coordinate is in attackoptions	*/
-	bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
 
-	/*return true iff the input coordinate is in imbalancedAttackOptions	*/
-	bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
+
+	/*return true iff the input coordinate is in attackoptions	*/
+	//bool PlayerSmart::isInAttackOptions(const Coordinate& coors) const;
+
+	///*return true iff the input coordinate is in imbalancedAttackOptions	*/
+	//bool PlayerSmart::isInImbalancedOptions(const Coordinate& coors) const;
 
 	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
 
+	bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate& coors) const;
 	/*utility functions****************************************************************************************/
 	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
 	static std::vector<Coordinate> setSixOptionsVector();
