@@ -17,16 +17,15 @@ public:
 	* input.first - ship's letter, input.second - coordinates for the ship
 	* @ assume letter is one of b/p/m/d/B/P/M/D
 	*/
-	explicit Ship(const std::pair<char, std::set<Coordinate>>& input);
+	explicit Ship(std::pair<char, std::set<Coordinate>> input);
 
-	/* distructor*/
 	~Ship() = default;
-	Ship(Ship & otherShip) = delete;
-	Ship(Ship && otherShip) noexcept : symbol(otherShip.symbol), len(otherShip.len), points(otherShip.points), notHit(otherShip.notHit)
-	{
-		
-		std::swap(body, otherShip.body);
-	}
+	
+	Ship(const Ship& otherShip) = delete;
+	
+	Ship(Ship&& otherShip) noexcept : symbol(otherShip.symbol), len(otherShip.len), points(otherShip.points), notHit(otherShip.notHit){ std::swap(body, otherShip.body); }
+
+
 	/* returns how much score is gained by hitting this ship*/
 	int getPoints()const;
 
@@ -56,7 +55,8 @@ public:
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
 	static std::list<Ship> Ship::createShipsList(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);
-private:
+
+	private:
 
 	static const char RUBBER_BOAT = 'B';
 	static const char ROCKET_SHIP = 'P';

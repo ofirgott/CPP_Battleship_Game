@@ -12,7 +12,10 @@
 */
 class ShipInProcess
 {
+private:
+
 	friend class PlayerSmart;
+
 	bool isVertical;
 	bool isHorizontal;
 	bool isDimentional;
@@ -48,5 +51,5 @@ class ShipInProcess
 public:
 	ShipInProcess() = delete; // dont allow ships with no coordinates
 	ShipInProcess(int row, int col, int depth) : isVertical(true), isHorizontal(true), isDimentional(true), constantCoors(-1, -1, -1), firstCoordinate(row, col, depth), shipSize(1) {}
-	~ShipInProcess() {}
+	~ShipInProcess() = default;
 };
