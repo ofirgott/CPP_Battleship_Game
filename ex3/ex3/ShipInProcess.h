@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 # include "IBattleshipGameAlgo.h" // for Coordinate
-#include <iostream>
+
 /*
 *class to represent the attacked opponent's ship's
 *<row,col,depth>

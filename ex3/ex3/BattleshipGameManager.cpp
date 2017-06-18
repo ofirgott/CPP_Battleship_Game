@@ -1,7 +1,5 @@
 #include "BattleshipGameManager.h"
-#include "BattleshipGameUtils.h"
 #include "GamePlayerData.h"
-#include <iostream>
 #include "PlayerGameResultData.h"
 #include "BoardDataImpl.h"
 

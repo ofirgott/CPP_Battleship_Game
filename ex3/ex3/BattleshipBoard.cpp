@@ -22,7 +22,6 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 		if (!parseBoardDimensions(line)) return;
 		boardVec = std::move(InitNewEmptyBoardVector(rows, cols, depth));
 
-
 		/* now parse the board - seperate matrix for every depth */
 		for (int d = 0; d < depth; d++)
 		{
@@ -36,13 +35,10 @@ BattleshipBoard::BattleshipBoard(const std::string & boardPath) : isSuccCreated(
 				CopyInputLineToBoard(line, d, currRow);
 				currRow++;
 			}
-			//while (!BattleshipGameUtils::emptyLine(line) && std::getline(boardFile, line));			/* skip redundant lines in current depth */
 		}
 		boardFile.close();
 	}
-
 	else return;				/* we can't open the board file */
-		
 	isSuccCreated = true;
 }
 
@@ -57,8 +53,6 @@ BattleshipBoard::BattleshipBoard(const BoardData & boardData) : rows(boardData.r
 }
 
 
-//BattleshipBoard::BattleshipBoard(const BattleshipBoard& otherBoard) : BattleshipBoard(otherBoard.boardVec, otherBoard.rows, otherBoard.cols, otherBoard.depth) {}
-
 BattleshipBoard::BattleshipBoard(BattleshipBoard && otherBoard) noexcept : boardVec(std::move(otherBoard.boardVec)), rows(otherBoard.rows), cols(otherBoard.cols), depth(otherBoard.depth), isSuccCreated(otherBoard.isSuccessfullyCreated()) {}
 
 BattleshipBoard & BattleshipBoard::operator=(BattleshipBoard && otherBoard) noexcept
@@ -71,28 +65,6 @@ BattleshipBoard & BattleshipBoard::operator=(BattleshipBoard && otherBoard) noex
 	return *this;
 }
 
-
-
-
-
-
-std::vector<char> BattleshipBoard::createPlayerBoard(int playerID)const
-{
-	auto playerBoard = std::move(InitNewEmptyBoardVector(rows, cols, depth));
-
-
-	for (auto i = 0; i < playerBoard.size(); i++)
-	{
-		if (IsShipCharInBoard(boardVec[i]) && playerID == PLAYERID_A && isPlayerShip(playerID, boardVec[i])) {		/* returns clean matrix of player A*/
-			playerBoard[i] = boardVec[i];
-		}
-		else if (IsShipCharInBoard(boardVec[i]) && playerID == PLAYERID_B && isPlayerShip(playerID, boardVec[i])) {	/* returns clean matrix of player B */
-			playerBoard[i] = boardVec[i];
-		}
-	}
-
-	return playerBoard;
-}
 
 /* for battleship pixel in the board, we will check if the adjacent pixels of this pixel (up, down, left and right)
 is a different ship - if so, we have an adjacent error in board.
@@ -109,7 +81,7 @@ bool BattleshipBoard::CheckIfHasAdjacentShips() const
 			{
 				currPos = (*this)(i, j, k);
 
-				if (currPos == ' ') continue;			/* if current position is not a ship - it is a ' ', because we clean the board at the begining */
+				if (currPos == BLANK_CHAR) continue;			/* if current position is not a ship - it is a ' ', because we clean the board at the begining */
 
 				auto nearbyCoordSet = getNearbyCoordinates({ i,j,k });
 
@@ -136,7 +108,7 @@ bool BattleshipBoard::IsShipCharInBoard(char ch)
 
 std::set<std::pair<char, std::set<Coordinate>>> BattleshipBoard::ExtractShipsDetails() const
 {
-	auto boardVecCopy = boardVec;
+	auto boardVecCopy = boardVec;				/* takes a copy of the boardVec, because we want to edit and delete found ships */
 	std::set<std::pair<char, std::set<Coordinate>>> setOfShipsDetails;
 	char currShipChar;
 
@@ -185,12 +157,11 @@ void BattleshipBoard::ExtractShipsDetailsOfGamePlayers(std::set<std::pair<char, 
 
 void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c, int d, char currShipChar, std::set<Coordinate>& coordOfCurrentShip, int boardRows, int boardCols, int boardDepth)
 {
-	/*  note that in this function we can coordinate with line 0! if we want to use this function outside, we need to pay attention for this. */
-
+	
 	int CoordIndex = BattleshipGameUtils::calcCoordIndex(r, c, d, boardRows, boardCols);
 	if (currShipChar == board.at(CoordIndex))
 	{
-		board.at(CoordIndex) = ' ';												/* clear the current position and add it to the coordinates set*/
+		board.at(CoordIndex) = BLANK_CHAR;												/* clear the current position and add it to the coordinates set*/
 		coordOfCurrentShip.insert({ r, c, d });
 
 		if (BattleshipGameUtils::isCoordianteInBoard(r, c + 1, d, boardRows, boardCols, boardDepth))
@@ -209,7 +180,6 @@ void BattleshipBoard::getAllCurrShipCoords(std::vector<char> board, int r, int c
 }
 
 
-
 std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(Coordinate coord) const
 /* we check in this function every coordinate seperatly */
 {
@@ -218,7 +188,7 @@ std::set<Coordinate> BattleshipBoard::getNearbyCoordinates(Coordinate coord) con
 	int d = coord.depth;
 	std::set<Coordinate> adjCoordSet;
 
-	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({ r - 1, c, d });    //adjCoordSet.insert(std::make_pair(x - 1, y)
+	if (isCoordianteInBoard(r - 1, c, d)) adjCoordSet.insert({ r - 1, c, d });    
 	if (isCoordianteInBoard(r + 1, c, d)) adjCoordSet.insert({ r + 1, c, d });
 	if (isCoordianteInBoard(r, c - 1, d)) adjCoordSet.insert({ r, c - 1, d });
 	if (isCoordianteInBoard(r, c + 1, d)) adjCoordSet.insert({ r, c + 1, d });
@@ -256,12 +226,6 @@ void BattleshipBoard::setCoord(int r, int c, int d, char ch)
 
 	boardVec[BattleshipGameUtils::calcCoordIndex(r, c, d, rows, cols)] = ch;
 }
-
-
-//char BattleshipBoard::getBoardCoord(std::vector<char> boardVector, int r, int c, int d, int rowsNum, int colsNum, int depthNum)
-//{
-//	return boardVector.at(calcCoordIndex(r, c, d, rowsNum, colsNum, depthNum));
-//}
 
 
 /* this is strange to return reference to a vector, so we will return by value, and then we will make move to prevent new allocation */

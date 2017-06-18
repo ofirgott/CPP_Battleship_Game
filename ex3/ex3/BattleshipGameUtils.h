@@ -23,21 +23,20 @@ public:
 	static I randomElement(I begin, I end);
 
 
-	/*utility functions****************************************************************************************/
-	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
-	static std::vector<Coordinate> setSixOptionsVector();
-	/*(0, 1, 0)(0, -1, 0)*/
-	static std::vector<Coordinate> setHorizontalOptionsVector();
-	/*(1, 0, 0)(-1, 0, 0)*/
-	static std::vector<Coordinate> setVerticalOptionsVector();
-	/*(0, 0, 1)(0, 0, -1)*/
-	static std::vector<Coordinate> setDimentionalOptionsVector();
-	/* move all coors in tempOptions to allOptions*/
-	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
-	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
-	static std::vector<Coordinate> setVectorForCheckSixDirections();
+	/* Functions for playerSmart */
 
-	/*utility functions ****************************************************************************************/
+	static std::vector<Coordinate> setSixOptionsVector();										/* returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
+			
+	static std::vector<Coordinate> setHorizontalOptionsVector();												/*(0, 1, 0)(0, -1, 0)*/
+	
+	static std::vector<Coordinate> setVerticalOptionsVector();													/*(1, 0, 0)(-1, 0, 0)*/
+	
+	static std::vector<Coordinate> setDimentionalOptionsVector();												/*(0, 0, 1)(0, 0, -1)*/
+	
+	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions) ; /* move all coors in tempOptions to allOptions*/
+
+	static std::vector<Coordinate> setVectorForCheckSixDirections();											/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
+
 
 };
 

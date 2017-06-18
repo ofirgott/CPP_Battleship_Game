@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
 	}
 	catch (std::exception ex)
 	{
-		system("pause");
 		return -1;
 	}
 

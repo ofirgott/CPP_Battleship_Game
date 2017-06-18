@@ -5,7 +5,7 @@
 #include "IBattleshipGameAlgo.h"
 #include <set>
 #include "testPlayerSmart.h"
-#include "BattleshipGameUtils.h"
+
 
 /* smart algo- keep track on all the coordintes that have been attacked during the game.
 * the player holds a set of all legal coordinates that he is allowed to attack.
