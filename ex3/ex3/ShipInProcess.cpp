@@ -31,7 +31,6 @@ void ShipInProcess::updateInnerFields(bool vertical, bool horizontal, bool dimen
 		// row & col are constant
 		constantCoors.row = firstCoordinate.row;
 		constantCoors.col = firstCoordinate.col;
-		return;
 	}
 }
 
@@ -102,15 +101,10 @@ bool ShipInProcess::isPartOfShip(int row, int col, int depth) const
 
 int ShipInProcess::addCoordinate(int row, int col, int depth)
 {
-	//if coor alredy exists in ship
-	if (isPartOfShip(row, col, depth)) {
-		return 0;
-	}
+	
+	if (isPartOfShip(row, col, depth)) return 0;			//if coor alredy exists in ship
 
-	if (shipSize == 1)
-	{
-		return addToSizeOneShip(row, col, depth);
-	}
+	if (shipSize == 1) return addToSizeOneShip(row, col, depth);
 
 	// ship is larger then 1
 	if (isVertical)
@@ -131,7 +125,6 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 			}
 		}
 	}
-
 	if (isHorizontal)
 	{
 		if ((row == constantCoors.row) && (depth == constantCoors.depth))
@@ -149,9 +142,7 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 				return 1;
 			}
 		}
-
 	}
-
 	if (isDimentional)
 	{
 		if ((row == constantCoors.row) && (col == constantCoors.col))
@@ -169,9 +160,7 @@ int ShipInProcess::addCoordinate(int row, int col, int depth)
 				return 1;
 			}
 		}
-
 	}
-
 	// the given coordinate doesnt belong to this ship
 	return -1;
 }

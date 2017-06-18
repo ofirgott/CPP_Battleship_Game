@@ -135,13 +135,11 @@ void PlayerSmart::transferCoordinatesToSecondPoll(const Coordinate& startCoordin
 	}
 }
 
-//todo: mmm
 
-bool PlayerSmart::isInBoard(int row, int col, int depth) const
+bool PlayerSmart::isInBoard(int row, int col, int depth) const			/* one-based check, and therefore we can not use the BattleshipBoard's isInBoard function*/
 {
 	return (row <= boardRows && row >= 1 && col <= boardCols && col >= 1 && depth <= boardDepth && depth >= 1);
 }
-
 
 
 void PlayerSmart::updateShipsCount(int sunkShipSize) {
@@ -382,7 +380,7 @@ Coordinate PlayerSmart::nextAttackFromCoors(const ShipInProcess& shipDetails, in
 	return attackCandidate;
 }
 
-
+//todo:first var
 void PlayerSmart::checkIncrementalDirectionsForWalls(const Coordinate& attackedCoordinate, ShipInProcess& attackedShip) {
 
 	if (!isBoardBalanced) {

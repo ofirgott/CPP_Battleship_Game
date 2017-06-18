@@ -12,7 +12,6 @@
 */
 class ShipInProcess
 {
-private:
 
 	friend class PlayerSmart;
 

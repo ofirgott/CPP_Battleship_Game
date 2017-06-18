@@ -189,11 +189,11 @@ bool Ship::isConstantCoors(const std::vector<int>& coors)
 
 bool Ship::isIncrementalCoors(const std::vector<int>& coors)
 {
-	int prevCoor;
+	
 	if (coors.empty())  return false;
 	
 	//check if the coordinates are incremental 
-	prevCoor = coors[0];
+	auto prevCoor = coors[0];
 	for (auto i = 1; i < coors.size(); i++) {
 		if (coors[i] != (prevCoor + 1)) return false;
 		prevCoor += 1;
