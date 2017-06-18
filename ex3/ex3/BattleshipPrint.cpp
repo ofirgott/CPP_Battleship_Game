@@ -1,26 +1,28 @@
 #include "BattleshipPrint.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 int BattleshipPrint::delay = printDefaultDealy;
 bool BattleshipPrint::printOneTable = deafultOneTable;
 
-//get the vector by value because we need a copy of the vector in order to sort it
+/* we get the vector by value because we need a copy of the vector in order to sort it */
 void BattleshipPrint::printStandingsTable(std::vector<PlayerGameResultData> playersStandingsVec, int currRound, size_t roundsNum)
 {
-	if (playersStandingsVec.empty() || currRound <= 0 || roundsNum <= 0) return;
+	if (playersStandingsVec.empty() || currRound <= 0 || roundsNum <= 0) return;		/* invalid data - nothing to print */
 
-	if(printOneTable)
+	if(printOneTable)												/* we are in one table mode - we will each round table in the same place after delay time for each rpund table */
 	{
-		currRound == 1 ? Sleep(FIRST_SCREEN_DELAY) : Sleep(delay);
+		currRound == 1 ? Sleep(FIRST_SCREEN_DELAY) : Sleep(delay);			/* we want to wait more time after the first screen with the number of valid algos and boards */
 		clearScreen();
 	}
 
+	/* sorting the standing vector to show the appropriate table */
 	std::sort(std::begin(playersStandingsVec), std::end(playersStandingsVec),
-		[currRound](const PlayerGameResultData& lhs, const PlayerGameResultData& rhs) {
+		[currRound](const PlayerGameResultData& lhs, const PlayerGameResultData& rhs) {				/* sorting by win prec */
 		double prec_lhs = static_cast<double>(lhs.WinsNumber()) / currRound * 100.0;
 		double prec_rhs = static_cast<double>(rhs.WinsNumber()) / currRound * 100.0;
-		if (prec_lhs == prec_rhs) return lhs.PointsFor() > rhs.PointsFor();
+		if (prec_lhs == prec_rhs) return lhs.PointsFor() > rhs.PointsFor();							/* tie breake by pointsFor*/
 		else return prec_lhs > prec_rhs;
 	});
 
@@ -59,7 +61,7 @@ void BattleshipPrint::printStandingsTable(std::vector<PlayerGameResultData> play
 	std::cout << std::endl << std::endl;
 
 
-	if(currRound == roundsNum)			/* last round, we will print the winner */
+	if(currRound == roundsNum)			/* if last round, we will print the winner */
 	{
 		setColor(RED_COLOR);
 		std::cout << "*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+" << std::endl;

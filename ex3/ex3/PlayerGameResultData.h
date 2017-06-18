@@ -1,21 +1,25 @@
 #pragma once
 #include <string>
-#include <algorithm>
 #include <vector>
 
-/* we use class and not struct because we want to hide this information*/
+
+/**
+ * \brief  Maintains data that necessary for single game result. we also use this class to maintain cumulative player data in tournament
+ * Note that we represent single tie with 0 in winsCnt and lossesCnt
+ * 
+ * (we use class and not struct because we want to hide this information)
+ */
 class PlayerGameResultData
 {
 public:
 	friend class BattleshipTournamentManager;
 
-	//PlayerGameResultData() : playerName(""), winsCnt(0), lossesCnt(0), pointsFor(0), pointsAgainst(0) {}
 	explicit PlayerGameResultData(std::string name, int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(name), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}
 
-	explicit PlayerGameResultData(int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(""), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}								/* without name */
+	explicit PlayerGameResultData(int wins = 0, int losses = 0, int pFor = 0, int pAgainst = 0) : playerName(""), winsCnt(wins), lossesCnt(losses), pointsFor(pFor), pointsAgainst(pAgainst) {}														/* ctor without name. we don't need it for single game result */
 	~PlayerGameResultData() = default;
 
-	/* given one players data create the opponents data by switchin the loss-wins and pointsfor-agqainst fields*/
+	/* given one players data create the opponents data by switching the loss-wins and pointsfor-agqainst fields*/
 	static PlayerGameResultData createOpponentData(const PlayerGameResultData& otherPlayerData);
 
 	/* getters */
@@ -25,27 +29,14 @@ public:
 	int PointsFor()const { return pointsFor; }
 	int PointsAgainst()const { return pointsAgainst; }
 
-	static size_t getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec);
+	static size_t getMaxPlayerNameWidth(const std::vector<PlayerGameResultData>& standingsVec);			/* for nice prints */
 
-	/* setters*/
-	//void setPlayerName(std::string newName) { playerName = newName; }
-	//void setWinsNumber(int newWinsNum) { winsCnt = newWinsNum; }
-	//void setLossesNumber(int newLossesNum) { lossesCnt = newLossesNum; }
-	//void setPointsFor(int newPointsForNum) { pointsFor = newPointsForNum; }
-	//void setPointsAgainst(int newPointsAgainstNum) { pointsAgainst = newPointsAgainstNum; }
-
-	//StandingsTableEntryData& operator=(StandingsTableEntryData&& arg)noexcept = default;  			//move assignment
-	//StandingsTableEntryData& operator=(const StandingsTableEntryData& arg) = default;
-	//StandingsTableEntryData(const StandingsTableEntryData& other) = default;			/* deletes copy constructor */
-	//bool operator<(const StandingsTableEntryData &rhs) const { return playerName < rhs.playerName; }
-
-	//void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin);
-	PlayerGameResultData& operator=(const PlayerGameResultData & arg);
+	PlayerGameResultData& operator=(const PlayerGameResultData & arg);									/* assignment operator */
 private:
 
-	std::string playerName;
-	int winsCnt;
-	int lossesCnt;
+	std::string playerName;											/* the name is for the cumulative case, in order to print it in the table */
+	int winsCnt;													/* in single game this var will be 0/1*/
+	int lossesCnt;													/* in single game this var will be 0/1*/
 	long pointsFor;
 	long pointsAgainst;
 };

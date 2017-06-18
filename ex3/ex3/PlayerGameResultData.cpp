@@ -17,27 +17,6 @@ size_t PlayerGameResultData::getMaxPlayerNameWidth(const std::vector<PlayerGameR
 }
 
 
-
-//void StandingsTableEntryData::updateFields(StandingsTableEntryData& const dataOrigin) {
-//
-//	playerName = dataOrigin.playerName;
-//	winsCnt = dataOrigin.winsCnt;
-//	lossesCnt = dataOrigin.lossesCnt;
-//	pointsFor = dataOrigin.PointsFor;
-//	pointsAgainst = dataOrigin.pointsAgainst;
-//}
-
-//StandingsTableEntryData & StandingsTableEntryData::operator=(StandingsTableEntryData && arg)
-//{
-//	playerName = arg.playerName;
-//	winsCnt = arg.winsCnt;
-//	lossesCnt = arg.lossesCnt;
-//	pointsFor = arg.pointsFor;
-//	pointsAgainst = arg.pointsFor;
-//	return *this;
-//
-//}
-//
 PlayerGameResultData & PlayerGameResultData::operator=(const PlayerGameResultData & arg)
 {
 	playerName = arg.playerName;

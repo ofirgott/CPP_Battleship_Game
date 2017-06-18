@@ -48,6 +48,7 @@ inline I BattleshipGameUtils::randomElement(I begin, I end)
 	return begin;
 }
 
+/* Coordinate Utils */
 bool operator <(const Coordinate& c1, const Coordinate& c2);
 std::string to_string(Coordinate c);
 std::ostream& operator<<(std::ostream& out, const Coordinate& c);

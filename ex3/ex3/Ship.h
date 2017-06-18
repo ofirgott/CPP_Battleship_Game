@@ -4,11 +4,9 @@
 #include <utility> //  std::pair
 #include <set> // std::set
 #include <vector> // std::vector
-#include "BattleshipGameUtils.h"
-
-
 #include "IBattleshipGameAlgo.h"
-#include <unordered_set>
+#include <list>
+#include "BattleshipGameUtils.h"		/* for the Coordinate operator*/
 
 
 class Ship {
@@ -54,7 +52,7 @@ public:
 	*/
 	static bool Ship::isValidShipDetails(std::pair<char, std::set<Coordinate>> input);
 
-	/* @return a set of dinamically allocated Battleships
+	/* @return a list of Battleships, given a set of all ships details
 	* @assume- each entry in allpairs cooresponeds to a valid ship
 	*/
 	static std::list<Ship> Ship::createShipsList(const std::set<std::pair<char, std::set<Coordinate>>>& allPairs);

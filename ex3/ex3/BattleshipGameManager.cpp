@@ -47,7 +47,7 @@ PlayerGameResultData BattleshipGameManager::Run()
 
 	// as long as one of the players has more moves and no one won
 	while (currPlayer->hasMoreMoves || otherPlayer->hasMoreMoves) {
-		//std::cout << "now!";
+
 		if (!currPlayer->hasMoreMoves) {
 			// if current player doesnt have anymore moves continue to next player
 			std::swap(currPlayer, otherPlayer);
@@ -107,8 +107,6 @@ PlayerGameResultData BattleshipGameManager::Run()
 
 	}
 
-	// prints game results 
-	//std::cout << currPlayer->id << ": " << currPlayer->score << ", " << otherPlayer->id << ": " << otherPlayer->score << std::endl;
 	return outputGameResult(currPlayer, otherPlayer);
 
 }
@@ -120,40 +118,36 @@ PlayerGameResultData BattleshipGameManager::outputGameResult(GamePlayerData* cur
 	int currScore = currPlayer->score;
 	int otherScore = otherPlayer->score;
 
-	//std::cout << "*************************curr score: " << currScore << ", and otherScore: " << otherScore << std::endl;
+
 	if (currPlayer->currShipsCount == 0) {
 		if (currPlayer->id == PLAYERID_A) { // currPlayer is playerA
-		//	 "Player B won" 
-			//std::cout << " B WON! " << std::endl;
+
 			return PlayerGameResultData("", LOST, WON, currScore, otherScore);
 		}
 		else { // otherPlayer is playerA
-		//	 "Player A won" 
-			//std::cout << " A WON! " << std::endl;
+
 			return PlayerGameResultData("", WON, LOST, otherScore, currScore);
 		}
 	}
 
 	if (otherPlayer->currShipsCount == 0) {
 		if (otherPlayer->id == PLAYERID_A) { // otherPlayer is playerA
-			//	 "Player B won" 
-			//std::cout << " B WON! " << std::endl;
+
 			return PlayerGameResultData("", LOST, WON, otherScore, currScore);
 		}
 		else {// currPlayer is playerA
-			//	 "Player A won" 
-			//std::cout << " A WON! " << std::endl;
+
 			return PlayerGameResultData("", WON, LOST, currScore, otherScore);
 		}
 	}
 
 	//its a tie
 	if (currPlayer->id == PLAYERID_A) {
-		//std::cout << " TIE! " << std::endl;
+	
 		return PlayerGameResultData("", LOST, LOST, currScore, otherScore);
 	}
 	else {
-		//std::cout << " TIE! " << std::endl;
+	
 		return PlayerGameResultData("", LOST, LOST, otherScore, currScore);
 	}
 	
