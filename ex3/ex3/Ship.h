@@ -38,7 +38,7 @@ public:
 	*/
 	bool isAlive()const;
 
-	const std::vector<Coordinate> Ship::getCoordinates();
+	std::vector<Coordinate> Ship::getCoordinates();
 
 	/*@ret: 0 - in case of hitting this coordinate for the first time
 	1 - this coordinates were already attacked in the past
@@ -89,11 +89,11 @@ private:
 	/*@ return true if all coordinates are equal
 	@assume- coors vector is sorted
 	*/
-	static bool isConstantCoors(const std::vector<int>& coors, size_t size);
+	static bool isConstantCoors(const std::vector<int>& coors);
 
 	/*@ return true if coordinates are incremenal (&& with no gaps)
 	@assume- coors vector is sorted
 	*/
-	static bool isIncrementalCoors(const std::vector<int>& coors, size_t size);
+	static bool isIncrementalCoors(const std::vector<int>& coors);
 
 }; 

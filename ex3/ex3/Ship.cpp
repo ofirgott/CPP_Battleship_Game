@@ -25,11 +25,6 @@ Ship::Ship(const std::pair<char, std::set<Coordinate>>& input)
 	}
 }
 
-//Ship::~Ship()
-//{
-//	body.clear();				//todo: Ofir: why we need it?
-//}
-
 int Ship::getPoints()const
 {
 	return points;
@@ -48,7 +43,7 @@ bool Ship::isAlive()const
 	return false;
 }
 
-const std::vector<Coordinate> Ship::getCoordinates()	//todo: Ofir: Resharper don't like the const in the return value, is it necessary?
+std::vector<Coordinate> Ship::getCoordinates()	
 {
 	std::vector <Coordinate> coors;
 	for (auto& part : body)
@@ -116,16 +111,16 @@ bool Ship::isValidShipCoordinates(const std::set<Coordinate>& coordinates)
 	std::sort(depths.begin(), depths.end());
 
 	//check if ship is Horizontal
-	if (isConstantCoors(rows, shipSize) && isConstantCoors(depths, shipSize) && isIncrementalCoors(cols, shipSize)) {
+	if (isConstantCoors(rows) && isConstantCoors(depths) && isIncrementalCoors(cols)){
 		return true;
 	}
 
 	//check if ship is vertical
-	if (isConstantCoors(cols, shipSize) && isConstantCoors(depths, shipSize) && isIncrementalCoors(rows, shipSize)) {
+	if (isConstantCoors(cols) && isConstantCoors(depths) && isIncrementalCoors(rows)) {
 		return true;
 	}
 	//check if ship is dimantional
-	if (isConstantCoors(rows, shipSize) && isConstantCoors(cols, shipSize) && isIncrementalCoors(depths, shipSize)) {
+	if (isConstantCoors(rows) && isConstantCoors(cols) && isIncrementalCoors(depths)) {
 		return true;
 	}
 
@@ -181,8 +176,9 @@ void Ship::setFields(int length, int sPoints, std::set<Coordinate> coordinates)
 	}
 }
 
-bool Ship::isConstantCoors(const std::vector<int>& coors, size_t size)		//todo: Ofir: why we pass the size argument seperatly? this is the size of the first argument?
+bool Ship::isConstantCoors(const std::vector<int>& coors)
 {
+	int size = coors.size();
 	int firstCoor;
 	if (size < 1) { // invlid number of coordinates
 		return false;
@@ -198,8 +194,9 @@ bool Ship::isConstantCoors(const std::vector<int>& coors, size_t size)		//todo: 
 }
 
 
-bool Ship::isIncrementalCoors(const std::vector<int>& coors, size_t size)
+bool Ship::isIncrementalCoors(const std::vector<int>& coors)
 {
+	int size = coors.size();
 	int prevCoor;
 	if (size < 1) { // invalid number of cordinates
 		return false;
