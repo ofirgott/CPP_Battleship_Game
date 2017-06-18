@@ -150,30 +150,13 @@ private:
 	/* clear member fields from previous runs*/
 	void PlayerSmart::cleanMembers();
 
-	/*utility functions****************************************************************************************/
-
 	/*remove coordinate from given set*/
-	static void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
+	static void delFromSet(std::set<Coordinate>& data, const Coordinate& coors);
 
 	/*true iff coor in data*/
-	static bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate& coors);
+	static bool isInSet(const std::set<Coordinate>& data, const Coordinate& coors);
 
 	/* given origin update its coordinates to <row,col,depth>*/
 	static void updateCoordinates(Coordinate& origin, int row, int col, int depth) { origin.row = row; origin.col = col; origin.depth = depth; }
-
-	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
-	static std::vector<Coordinate> setSixOptionsVector();
-	/*(0, 1, 0)(0, -1, 0)*/
-	static std::vector<Coordinate> setHorizontalOptionsVector();
-	/*(1, 0, 0)(-1, 0, 0)*/
-	static std::vector<Coordinate> setVerticalOptionsVector();
-	/*(0, 0, 1)(0, 0, -1)*/
-	static std::vector<Coordinate> setDimentionalOptionsVector();
-	/* move all coors in tempOptions to allOptions*/
-	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
-	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
-	static std::vector<Coordinate> setVectorForCheckSixDirections();
-	
-	/*utility functions ****************************************************************************************/
 
 };

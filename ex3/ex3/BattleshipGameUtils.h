@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iterator>
 #include "IBattleshipGameAlgo.h"
+#include <set>
 
 
 class BattleshipGameUtils
@@ -20,6 +21,24 @@ public:
 	static bool isCoordianteInBoard(int r, int c, int d, int rowsNum, int colsNum, int depthNum) { return (r >= 0 && r < rowsNum && c >= 0 && c < colsNum && d >= 0 && d < depthNum); }
 	template <typename I>
 	static I randomElement(I begin, I end);
+
+
+	/*utility functions****************************************************************************************/
+	/*returns (1,0,0), (0,1,0) (0,0,1) ,(1,0,0), (0,1,0) (0,0,1)*/
+	static std::vector<Coordinate> setSixOptionsVector();
+	/*(0, 1, 0)(0, -1, 0)*/
+	static std::vector<Coordinate> setHorizontalOptionsVector();
+	/*(1, 0, 0)(-1, 0, 0)*/
+	static std::vector<Coordinate> setVerticalOptionsVector();
+	/*(0, 0, 1)(0, 0, -1)*/
+	static std::vector<Coordinate> setDimentionalOptionsVector();
+	/* move all coors in tempOptions to allOptions*/
+	static void mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions);;
+	/*(1, 0, 1)(1, 0, -1)(0, 1, 1) (0, 1, -1) (0, 0, 1) (0, 0, -1)*/
+	static std::vector<Coordinate> setVectorForCheckSixDirections();
+
+	/*utility functions ****************************************************************************************/
+
 };
 
 template<typename Out>
@@ -52,3 +71,4 @@ inline I BattleshipGameUtils::randomElement(I begin, I end)
 bool operator <(const Coordinate& c1, const Coordinate& c2);
 std::string to_string(Coordinate c);
 std::ostream& operator<<(std::ostream& out, const Coordinate& c);
+

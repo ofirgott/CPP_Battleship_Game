@@ -13,7 +13,7 @@ void PlayerSmart::setBoard(const BoardData& board)
 	Coordinate target(0, 0, 0);
 	std::set<std::pair<char, std::set<Coordinate>>> allShipsDetails; // pairs <char , {coordinates of ship}>
 	BattleshipBoard boardTemp(board); // create 
-	std::vector<Coordinate> standardBase = setSixOptionsVector(); // to remove the adjesent coors to the attacked coor
+	std::vector<Coordinate> standardBase = BattleshipGameUtils::setSixOptionsVector(); // to remove the adjesent coors to the attacked coor
 	standardBase.push_back(tmpCoor); // to remove the attacked coor itself
 	//standardBase vector contains {(1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)} U {(0,0,0)}
 	//extract all shipsDetails from board
@@ -87,7 +87,7 @@ void PlayerSmart::pourImbalancedToAttackOptions() {
 Coordinate PlayerSmart::sizeOneAttack(const Coordinate& candidate) const
 {
 	Coordinate attackCandidate(-1, -1, -1);
-	std::vector<Coordinate> allOptions = setSixOptionsVector(); //contains (1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)
+	std::vector<Coordinate> allOptions = BattleshipGameUtils::setSixOptionsVector(); //contains (1,0,0), (0,1,0), (0,0,1), (-1,0,0), (0,-1,0), (0,0,-1)
 
 	// for each neighbor of the attacked coordinate check if is candidate
 	for (auto& vic : allOptions) {
@@ -107,7 +107,7 @@ void PlayerSmart::checkSixDirectionsForWalls(const Coordinate& deadCoordinate) {
 	int distance = 0;
 	int minShipSize = getMinShipSize();
 	// allOptions will contain (1,0,1), (1,0,-1), (0,1,1), (0,1,-1), (0,0,1), (0,0,-1)
-	std::vector<Coordinate> allOptions = setVectorForCheckSixDirections();
+	std::vector<Coordinate> allOptions = BattleshipGameUtils::setVectorForCheckSixDirections();
 	for (auto& vic : allOptions) {
 		//count distance fron dead coordinate to next "wall"
 		distance = countDistance(deadCoordinate, minShipSize, vic.row, vic.col, vic.depth);
@@ -141,17 +141,7 @@ bool  PlayerSmart::isInBoard(int row, int col, int depth) const
 	return (row <= boardRows && row >= 1 && col <= boardCols && col >= 1 && depth <= boardDepth && depth >= 1);
 }
 
-void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate & coors)
-{
-	auto it = data.find(coors);
-	if (it != data.end()){data.erase(it);}
-}
 
-bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate & coors)
-{
-	if (data.find(coors) != data.end()) { return true; }
-	return false;
-}
 
 void PlayerSmart::updateShipsCount(int sunkShipSize) {
 
@@ -225,7 +215,7 @@ void PlayerSmart::cleanMembers()
 void PlayerSmart::transferAllWallsToImbalanced()
 {
 	Coordinate tmpCoor(-1, -1, -1);
-	std::vector<Coordinate> vic = setSixOptionsVector(); // <1,0,0>, <0,1,0> <0,0,1> <-1,0,0> <0,-1,0> <0,0,-1>
+	std::vector<Coordinate> vic = BattleshipGameUtils::setSixOptionsVector(); // <1,0,0>, <0,1,0> <0,0,1> <-1,0,0> <0,-1,0> <0,0,-1>
 	for (auto& dead : permanentlyDeadCoordinates) {
 		for (auto& coor : vic) {
 			// iterate over all possibilities to add 1/ -1 to each coordinate
@@ -241,7 +231,7 @@ void PlayerSmart::transferAllWallsToImbalanced()
 void PlayerSmart::cleanAttackOptions(const Coordinate& targetCoor) {
 
 	Coordinate tmpCoor(-1, -1, -1);
-	std::vector<Coordinate> allOptions = setSixOptionsVector();
+	std::vector<Coordinate> allOptions = BattleshipGameUtils::setSixOptionsVector();
 	for (auto& vic : allOptions) {
 		// iterate over all possibilities to add 1/ -1 to each coordinate
 		updateCoordinates(tmpCoor, targetCoor.row + vic.row, targetCoor.col + vic.col, targetCoor.depth + vic.depth);
@@ -420,8 +410,8 @@ void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoor
 
 	if (isVertical)
 	{
-		mergeVector(vert, setDimentionalOptionsVector());
-		mergeVector(vert, setHorizontalOptionsVector());
+		BattleshipGameUtils::mergeVector(vert, BattleshipGameUtils::setDimentionalOptionsVector());
+		BattleshipGameUtils::mergeVector(vert, BattleshipGameUtils::setHorizontalOptionsVector());
 		for (auto& vic : vert) {// iterate over all options to add +/-1 to the col/depth
 			updateCoordinates(tempCoordinate, attackedCoordinate.row + vic.row, attackedCoordinate.col + vic.col, attackedCoordinate.depth + vic.depth);
 			checkSixDirectionsForWalls(tempCoordinate);
@@ -430,8 +420,8 @@ void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoor
 
 	if (isHorizontal)
 	{
-		mergeVector(horiz, setDimentionalOptionsVector());
-		mergeVector(horiz, setVerticalOptionsVector());
+		BattleshipGameUtils::mergeVector(horiz,BattleshipGameUtils::setDimentionalOptionsVector());
+		BattleshipGameUtils::mergeVector(horiz, BattleshipGameUtils::setVerticalOptionsVector());
 		for (auto& vic : horiz) { // iterate over all options to add +/-1 to the row/col
 			updateCoordinates(tempCoordinate, attackedCoordinate.row + vic.row, attackedCoordinate.col + vic.col, attackedCoordinate.depth + vic.depth);
 			checkSixDirectionsForWalls(tempCoordinate);
@@ -440,8 +430,8 @@ void PlayerSmart::checkConstantDirectionsForWalls(const Coordinate& attackedCoor
 
 	if (isDimentional)
 	{
-		mergeVector(dimen, setVerticalOptionsVector());
-		mergeVector(dimen, setHorizontalOptionsVector());
+		BattleshipGameUtils::mergeVector(dimen, BattleshipGameUtils::setVerticalOptionsVector());
+		BattleshipGameUtils::mergeVector(dimen, BattleshipGameUtils::setHorizontalOptionsVector());
 		for (auto& vic : dimen) { // iterate over all options to add +/-1 to the col/row
 			updateCoordinates(tempCoordinate, attackedCoordinate.row + vic.row, attackedCoordinate.col + vic.col, attackedCoordinate.depth + vic.depth);
 			checkSixDirectionsForWalls(tempCoordinate);
@@ -507,8 +497,8 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 
 	if (isVertical)
 	{
-		mergeVector(vert, setHorizontalOptionsVector());
-		mergeVector(vert, setDimentionalOptionsVector());
+		BattleshipGameUtils::mergeVector(vert, BattleshipGameUtils::setHorizontalOptionsVector());
+		BattleshipGameUtils::mergeVector(vert, BattleshipGameUtils::setDimentionalOptionsVector());
 		for (auto& vic : vert) { //vert = (0, 1, 0) , (0, -1, 0) (0, 0, -1) (0, 0, 1)
 			updateCoordinates(removeCandidate, coor.row + vic.row, coor.col + vic.col, coor.depth + vic.depth);
 			delFromSet(attackOptions,removeCandidate);
@@ -519,8 +509,8 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 
 	if (isHorizontal)
 	{
-		mergeVector(horiz, setVerticalOptionsVector());
-		mergeVector(horiz, setDimentionalOptionsVector());
+		BattleshipGameUtils::mergeVector(horiz, BattleshipGameUtils::setVerticalOptionsVector());
+		BattleshipGameUtils::mergeVector(horiz, BattleshipGameUtils::setDimentionalOptionsVector());
 		for (auto& vic : horiz) { //horiz = (1, 0, 0) , (-1, 0, 0) (0, 0, -1) (0, 0, 1)
 			updateCoordinates(removeCandidate, coor.row + vic.row, coor.col + vic.col, coor.depth + vic.depth);
 			delFromSet(attackOptions,removeCandidate);
@@ -531,8 +521,8 @@ void PlayerSmart::removePermanentlyConstDirections(const Coordinate& coor, bool 
 
 	if (isDimentional)
 	{
-		mergeVector(dimen, setVerticalOptionsVector());
-		mergeVector(dimen, setHorizontalOptionsVector());
+		BattleshipGameUtils::mergeVector(dimen, BattleshipGameUtils::setVerticalOptionsVector());
+		BattleshipGameUtils::mergeVector(dimen, BattleshipGameUtils::setHorizontalOptionsVector());
 		for (auto& vic : dimen) {//dimen = (1, 0, 0) , (-1, 0, 0) (0, 1, 0) , (0, -1, 0)
 			updateCoordinates(removeCandidate, coor.row + vic.row, coor.col + vic.col, coor.depth + vic.depth);
 			delFromSet(attackOptions,removeCandidate);
@@ -630,66 +620,17 @@ void PlayerSmart::notifyOnAttackResult(int player, Coordinate move, AttackResult
 	//clean all board in all cases from 
 	transferAllWallsToImbalanced();
 }
-
-
-/*utils**************************************************************************************************************/
-
-std::vector<Coordinate> PlayerSmart::setSixOptionsVector() {
-	std::vector<Coordinate> allOptions;
-	mergeVector(allOptions, setHorizontalOptionsVector());
-	mergeVector(allOptions, setVerticalOptionsVector());
-	mergeVector(allOptions, setDimentionalOptionsVector());
-	return allOptions;
-}
-
-std::vector<Coordinate> PlayerSmart::setVectorForCheckSixDirections()
+void PlayerSmart::delFromSet(std::set<Coordinate>& data, const Coordinate & coors)
 {
-	std::vector<Coordinate> allOptions;
-	allOptions.push_back(Coordinate(1, 0, 1));
-	allOptions.push_back(Coordinate(1, 0, -1));
-	allOptions.push_back(Coordinate(0, 1, 1));
-	allOptions.push_back(Coordinate(0, 1, -1));
-	allOptions.push_back(Coordinate(0, 0, 1));
-	allOptions.push_back(Coordinate(0, 0, -1));
-	return allOptions;
+	auto it = data.find(coors);
+	if (it != data.end()) { data.erase(it); }
 }
 
-std::vector<Coordinate> PlayerSmart::setHorizontalOptionsVector()
+bool PlayerSmart::isInSet(const std::set<Coordinate>& data, const Coordinate & coors)
 {
-
-	std::vector<Coordinate> allOptions;
-	allOptions.push_back(Coordinate(0, 1, 0));
-	allOptions.push_back(Coordinate(0, -1, 0));
-	return allOptions;
-
+	if (data.find(coors) != data.end()) { return true; }
+	return false;
 }
-
-std::vector<Coordinate> PlayerSmart::setVerticalOptionsVector()
-{
-	std::vector<Coordinate> allOptions;
-	allOptions.push_back(Coordinate(-1, 0, 0));
-	allOptions.push_back(Coordinate(1, 0, 0));
-	return allOptions;
-}
-
-std::vector<Coordinate> PlayerSmart::setDimentionalOptionsVector()
-{
-	std::vector<Coordinate> allOptions;
-	allOptions.push_back(Coordinate(0, 0, -1));
-	allOptions.push_back(Coordinate(0, 0, 1));
-
-	return allOptions;
-}
-
-void PlayerSmart::mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions)
-{
-	for (auto& option : tempOptions) {
-		allOptions.push_back(option);
-	}
-}
-
-/*utils***************************************************************************************************************/
-
 ALGO_API IBattleshipGameAlgo* GetAlgorithm()
 {
 	IBattleshipGameAlgo* algoPtr = new PlayerSmart();

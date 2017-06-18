@@ -96,3 +96,62 @@ bool BattleshipGameUtils::emptyLine(const std::string& str)
 	/* for parsing board from file */
 	return (str.empty() || str.compare("\r") == 0);
 }
+
+
+/*utils**************************************************************************************************************/
+
+std::vector<Coordinate> BattleshipGameUtils::setSixOptionsVector() {
+	std::vector<Coordinate> allOptions;
+	mergeVector(allOptions, setHorizontalOptionsVector());
+	mergeVector(allOptions, setVerticalOptionsVector());
+	mergeVector(allOptions, setDimentionalOptionsVector());
+	return allOptions;
+}
+
+std::vector<Coordinate> BattleshipGameUtils::setVectorForCheckSixDirections()
+{
+	std::vector<Coordinate> allOptions;
+	allOptions.push_back(Coordinate(1, 0, 1));
+	allOptions.push_back(Coordinate(1, 0, -1));
+	allOptions.push_back(Coordinate(0, 1, 1));
+	allOptions.push_back(Coordinate(0, 1, -1));
+	allOptions.push_back(Coordinate(0, 0, 1));
+	allOptions.push_back(Coordinate(0, 0, -1));
+	return allOptions;
+}
+
+std::vector<Coordinate> BattleshipGameUtils::setHorizontalOptionsVector()
+{
+
+	std::vector<Coordinate> allOptions;
+	allOptions.push_back(Coordinate(0, 1, 0));
+	allOptions.push_back(Coordinate(0, -1, 0));
+	return allOptions;
+
+}
+
+std::vector<Coordinate> BattleshipGameUtils::setVerticalOptionsVector()
+{
+	std::vector<Coordinate> allOptions;
+	allOptions.push_back(Coordinate(-1, 0, 0));
+	allOptions.push_back(Coordinate(1, 0, 0));
+	return allOptions;
+}
+
+std::vector<Coordinate> BattleshipGameUtils::setDimentionalOptionsVector()
+{
+	std::vector<Coordinate> allOptions;
+	allOptions.push_back(Coordinate(0, 0, -1));
+	allOptions.push_back(Coordinate(0, 0, 1));
+
+	return allOptions;
+}
+
+void BattleshipGameUtils::mergeVector(std::vector<Coordinate>& allOptions, const std::vector<Coordinate>& tempOptions)
+{
+	for (auto& option : tempOptions) {
+		allOptions.push_back(option);
+	}
+}
+
+/*utils***************************************************************************************************************/
