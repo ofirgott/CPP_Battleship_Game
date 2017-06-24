@@ -6,6 +6,12 @@
 template<class T, size_t DIMENSIONS>
 class Matrix;
 
+//template <size_t DIMENSIONS>
+//using Coord = std::array<size_t, DIMENSIONS>;
+
+template <size_t DIMENSIONS>
+using Coordinate = std::array<size_t, DIMENSIONS>;
+
 template<class T, size_t DIMENSIONS>
 struct MatrixCopier {
 	static void copy(T* dest, size_t dest_size, const size_t* dest_dimensions, const T* source, size_t source_size, const size_t* source_dimensions) {
@@ -61,6 +67,9 @@ public:
 	//Template Coordinate data structure
 	using Coordinate = std::array<size_t, DIMENSIONS>;
 	using CoordinatesGroup = std::vector<Coordinate>;
+	
+	/*typedef Coord<DIMENSIONS> Coordinate;
+	typedef std::vector<Coordinate> CoordinatesGroup;*/
 
 	Matrix() {}
 	
@@ -147,7 +156,7 @@ public:
 		using GroupingType = std::result_of_t<GroupingFunc(T)>;
 		std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
 
-		for (size_t i = 0; i < _array.size(); i++)
+		for (auto i = 0; i < _size; i++)
 		{
 			auto coordKey = groupingFunc(_array[i]);
 			auto currCoord = flatIndex2Coordinate(i);
@@ -161,42 +170,63 @@ public:
 						currGroupOfCurrKey.emplace_back(currCoord);
 						break;
 					}
-					groups[coordKey].emplace_back(CoordinatesGroup{ currCoord });
+					CoordinatesGroup tmpCoordGroup;
+					tmpCoordGroup.emplace_back(currCoord);
+					groups[coordKey].emplace_back(tmpCoordGroup);
 				}
 			}
 			else
 			{
-				groups.insert(coordKey);
-				groups[coordKey].emplace_back(CoordinatesGroup{ currCoord });
+				
+				CoordinatesGroup tmpCoordGroup;
+				tmpCoordGroup.push_back(currCoord);
+				//groups.insert(coordKey);
+				groups[coordKey].push_back(std::move(tmpCoordGroup));
 			}
 		}
 		return groups;
 	}
 
+	Coordinate flatIndex2Coordinate(int index)const
+	{
+		Coordinate outCoord = { 0 };
 
+		if (index < 0 || index >= _array.size())
+			throw std::exception("Index out of range");
+
+		auto mul = _size;
+
+		for (auto i = DIMENSIONS; i != 0; --i) {
+			mul /= _dimensions[i - 1];
+			outCoord[i - 1] = index / mul;
+			index -= outCoord[i - 1] * mul;
+		}
+
+		return outCoord;
+	}
 private:
-	constexpr static size_t NUM_DIMENSIONS = DIMENSIONS;
+	//constexpr static size_t NUM_DIMENSIONS = DIMENSIONS;
 	std::unique_ptr<T[]> _array = nullptr;
 	size_t _dimensions[DIMENSIONS] = {};
 	const size_t _size = 0;
 	friend class Matrix<T, DIMENSIONS + 1>;
 
-
+	
 	bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupOfCurrKey)const
 	{
-		CoordinatesGroup standartBaseVectors;			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
-		standartBaseVectors.emplace_back(Coordinate{ 0 });		/* zero vector */
+		CoordinatesGroup standardBaseVectors;			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
+		standardBaseVectors.emplace_back(Coordinate{ 0 });		/* zero vector */
 
 		for (auto i = 0; i < DIMENSIONS; ++i)
 		{
 			Coordinate tmpCoord{ 0 };						/* todo: move to other function / class*/
 			tmpCoord[i] = 1;
-			standartBaseVectors.push_back(tmpCoord);	//todo: check if we want to put base vectors as global or class member vector (or something template with using in the ctor)
+			standardBaseVectors.push_back(tmpCoord);	//todo: check if we want to put base vectors as global or class member vector (or something template with using in the ctor)
 			tmpCoord[i] = -1;
-			standartBaseVectors.push_back(tmpCoord);
+			standardBaseVectors.push_back(tmpCoord);
 		}
 
-		CoordinatesGroup adjacentCoord = standartBaseVectors;
+		CoordinatesGroup adjacentCoord = standardBaseVectors;
 		for (auto& coord : adjacentCoord)
 		{
 			for (auto d = 0; d < DIMENSIONS; d++)
@@ -229,14 +259,7 @@ private:
 	//	return true;
 	//}
 
-	Coordinate flatIndex2Coordinate(int index)const
-	{
-		if (index < 0 || index >= _array.size())
-			throw std::exception("Index out of range");
 
-		
-		
-	}
 
 
 	//std::vector<size_t> computeIndexes(size_t index) const
@@ -257,7 +280,7 @@ private:
 
 	int Coordinate2flatIndex(Coordinate coord)const
 	{
-		if (!isAdjacent(coord))
+		if (!isValidCoordinate(coord))
 			return -1;
 
 		int flatIndex = 0;
@@ -336,6 +359,13 @@ int main() {
 	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
 	print(all_groups);
+
+	std::cout << "________________________________________________________";
+
+	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
+	print(groups);
+	
 }
 
 //2d print
