@@ -3,10 +3,32 @@
 #include <map>
 
 
+
+
+template<typename T, size_t DINENSIONS>
+class Matrix
+{
+public:
+	Matrix(std::initializer_list<T> initList)
+	{
+		
+	}
+
+
+
+
+
+
+private:
+	std::vector<T> boardVec;
+
+};
+
+
 template<typename Groups>
 void print(const Groups& all_groups) {
 	for (const auto& groupType : all_groups) {
-		std::cout << groupType.first << ":" << endl;
+		std::cout << groupType.first << ":" << std::endl;
 		for (const auto& groupOfType : groupType.second) {
 			for (const auto& coord : groupOfType) {
 				std::cout << "{ ";
