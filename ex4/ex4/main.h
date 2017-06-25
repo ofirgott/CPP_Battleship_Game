@@ -205,7 +205,7 @@ public:
 						{
 							currGroupOfCurrKey.emplace_back(currCoord);
 							currCoordAdded = true;
-							if (currCoord[0] == 1 && currCoord[1] == 2 && currCoord[2] == 3) std::cout << "fuci" << std::endl;
+							//if (currCoord[0] == 1 && currCoord[1] == 2 && currCoord[2] == 3) std::cout << "fuci" << std::endl;
 							break;
 						}
 					}
