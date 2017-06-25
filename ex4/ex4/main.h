@@ -181,17 +181,17 @@ public:
 			G coordKey = groupingFunc(_array[i]);
 			Coordinate currCoord = flatIndex2Coordinate(i);
 			
-			std::cout << "now with coord: ( ";
-			for (auto ax : currCoord) {
-				std::cout << ax << ", ";
-			}
+			//std::cout << "now with coord: ( ";
+			//for (auto ax : currCoord) {
+			//	std::cout << ax << ", ";
+			//}
 			std::cout << ")" << std::endl;
 			//auto currCoord;
 			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
-			bool currCoordAdded = false;
+			
 			if (groups.find(coordKey) != groups.end())
 			{
-				
+				bool currCoordAdded = false;
 				auto numberOfGroupsInCurrKey = groups[coordKey].size();
 				for (auto grp = 0; grp <  numberOfGroupsInCurrKey; grp++)
 				{
@@ -201,35 +201,58 @@ public:
 						
 						if(coordsEq(currCoord, groups[coordKey][grp][crd]))
 						{
+							std::cout << "EQUAL - now with coord: ( ";
+							for (auto ax : currCoord) {
+								std::cout << ax << ", ";
+							}
+							std::cout << std::endl;
 							currCoordAdded = true;
 							break;
 						}
 						if (!currCoordAdded &&isAdjacent(currCoord, groups[coordKey][grp][crd]))
 						{
+							std::cout << "EXISTS GRP - now with coord: ( ";
+							for (auto ax : currCoord) {
+								std::cout << ax << ", ";
+
+							}
+							std::cout << std::endl;
 							groups[coordKey][grp].push_back(currCoord);
 							currCoordAdded = true;
 							//if (currCoord[0] == 1 && currCoord[1] == 2 && currCoord[2] == 3) std::cout << "fuci" << std::endl;
 							break;
 						}
 					}
-					if (currCoordAdded) break;
+					//if (currCoordAdded) continue;
 				}
 				if (!currCoordAdded) {
 					CoordinatesGroup tmpCoordGroup;
 					tmpCoordGroup.push_back(currCoord);
+					std::cout << "NEW GRP - now with coord: ( ";
+					for (auto ax : currCoord) {
+						std::cout << ax << ", ";
+						
+					}
+					std::cout << std::endl;
 					groups[coordKey].push_back(tmpCoordGroup);
 				}
 			}
 			else
 			{
-				
-				CoordinatesGroup tmpCoordGroup(0);
+				std::cout << "NEW KEY - now with coord: ( ";
+				for (auto ax : currCoord) {
+					std::cout << ax << ", ";
+
+				}
+				std::cout << std::endl;
+				CoordinatesGroup tmpCoordGroup;
 				tmpCoordGroup.push_back(currCoord);
-				std::vector<CoordinatesGroup> tmpVec(0);
-				tmpVec.emplace_back(tmpCoordGroup);
+				std::vector<CoordinatesGroup> tmpVec;
+				tmpVec.push_back(tmpCoordGroup);
 				//groups.insert(coordKey);
 			
 				groups[coordKey] = tmpVec;
+
 			}
 		}
 		return groups;
@@ -299,7 +322,7 @@ private:
 			}
 		}
 	
-			for (auto& adjCoordOfA : adjacentCoordsOfA)
+			for (auto adjCoordOfA : adjacentCoordsOfA)
 			{
 				//if (adjCoordOfA == coordB)
 				if(coordsEq(adjCoordOfA ,coordB))
@@ -310,8 +333,8 @@ private:
 
 	static bool coordsEq(Coordinate a, Coordinate b)
 	{
-		/*if (a.size() != b.size())
-			return false;*/
+		if (a.size() != b.size())
+			return false;
 
 		for (auto i = 0; i < a.size(); i++)
 		{
