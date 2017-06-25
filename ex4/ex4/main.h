@@ -179,8 +179,8 @@ public:
 		{
 			
 			G coordKey = groupingFunc(_array[i]);
-			Coordinate currCoord(DIMENSIONS, 0);
-			currCoord = flatIndex2Coordinate(i);
+			Coordinate currCoord = flatIndex2Coordinate(i);
+			
 			std::cout << "now with coord: ( ";
 			for (auto ax : currCoord) {
 				std::cout << ax << ", ";
@@ -201,10 +201,11 @@ public:
 							currCoordAdded = true;
 							break;
 						}
-						if (isAdjacent(currCoord, coord))
+						if (!currCoordAdded &&isAdjacent(currCoord, coord))
 						{
 							currGroupOfCurrKey.emplace_back(currCoord);
 							currCoordAdded = true;
+							if (currCoord[0] == 1 && currCoord[1] == 2 && currCoord[2] == 3) std::cout << "fuci" << std::endl;
 							break;
 						}
 					}
@@ -278,7 +279,7 @@ private:
 
 	static bool isAdjacent(Coordinate coordA, Coordinate coordB)
 	{
-
+		if (coordA == coordB) return false;
 
 		CoordinatesGroup adjacentCoordsOfA;
 
