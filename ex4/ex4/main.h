@@ -73,7 +73,7 @@ class Matrix
 public:
 
 	
-	using Coordinate = std::vector<int>;
+	using Coordinate = std::vector<size_t>;
 	using CoordinatesGroup = std::vector<Coordinate>;
 	//using CoordinatesGroup = std::vector<Coordinate<DIMENSIONS>>;
 
@@ -174,7 +174,7 @@ public:
 		for (auto i = 0; i < _size; i++)
 		{
 			GroupingType coordKey = groupingFunc(_array[i]);
-			Coordinate currCoord(DIMENSIONS);
+			Coordinate currCoord(DIMENSIONS, 0);
 			currCoord = flatIndex2Coordinate(i);
 			//auto currCoord;
 			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
@@ -183,6 +183,7 @@ public:
 			{
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
+					std::cout << groups[coordKey].size();
 					if (isAdjacent(currCoord, currGroupOfCurrKey))
 					{
 						currGroupOfCurrKey.emplace_back(currCoord);
@@ -190,7 +191,7 @@ public:
 					}
 					CoordinatesGroup tmpCoordGroup;
 					tmpCoordGroup.emplace_back(currCoord);
-					groups[coordKey].emplace_back(tmpCoordGroup);
+					groups[coordKey].push_back(tmpCoordGroup);
 				}
 			}
 			else
@@ -198,7 +199,8 @@ public:
 				
 				CoordinatesGroup tmpCoordGroup;
 				tmpCoordGroup.push_back(currCoord);
-				std::vector<CoordinatesGroup> tmpVec{ tmpCoordGroup };
+				std::vector<CoordinatesGroup> tmpVec;
+				tmpVec.emplace_back(tmpCoordGroup);
 				//groups.insert(coordKey);
 				groups[coordKey] = tmpVec;
 			}
@@ -206,14 +208,14 @@ public:
 		return groups;
 	}
 
-	Coordinate flatIndex2Coordinate(int index)const
+	auto flatIndex2Coordinate(size_t index)const
 	{
-		Coordinate outCoord(DIMENSIONS);
+		Coordinate outCoord(DIMENSIONS, 0);
 		//return outCoord;
 		if (index < 0 || index >= _size)
 			throw std::exception("Index out of range");
 
-		auto mul = _size;
+		size_t mul = _size;
 
 		for (auto i = DIMENSIONS; i != 0; --i) {
 			mul /= _dimensions[i - 1];
@@ -234,11 +236,11 @@ private:
 	static bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupOfCurrKey)
 	{
 		CoordinatesGroup standardBaseVectors;			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
-		standardBaseVectors.emplace_back(Coordinate(DIMENSIONS));		/* zero vector */
+		standardBaseVectors.emplace_back(Coordinate(DIMENSIONS, 0));		/* zero vector */
 
 		for (auto i = 0; i < DIMENSIONS; ++i)
 		{
-			Coordinate tmpCoord(DIMENSIONS);						/* todo: move to other function / class*/
+			Coordinate tmpCoord(DIMENSIONS, 0);						/* todo: move to other function / class*/
 			tmpCoord[i] = 1;
 			standardBaseVectors.push_back(tmpCoord);	//todo: check if we want to put base vectors as global or class member vector (or something template with using in the ctor)
 			tmpCoord[i] = -1;
@@ -382,7 +384,7 @@ void print(const Groups& all_groups) {
 int main() {
 	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
-	//print(all_groups);
+	print(all_groups);
 
 	//std::cout << "________________________________________________________";
 
