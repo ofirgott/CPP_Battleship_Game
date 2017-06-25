@@ -73,7 +73,7 @@ class Matrix
 public:
 
 	
-	using Coordinate = std::vector<int>;
+	using Coordinate = std::vector<size_t>;
 	using CoordinatesGroup = std::vector<Coordinate>;
 	//using CoordinatesGroup = std::vector<Coordinate<DIMENSIONS>>;
 
@@ -412,13 +412,14 @@ void print(const Groups& all_groups) {
 
 
 int main() {
-	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
+	/*Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B'} };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
 	print(all_groups);
 	
-	std::cout << "________________________________________________________" << std::endl;
+	std::cout << "________________________________________________________" << std::endl;*/
 
-	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	//Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	Matrix3d<int> m2 = { { { 1,2,3,0 },{ 1,2,0,0 },{ 1,2,0,0 } },{ { 1,2,0,0 },{ 1,2,3,4 },{ 0,0,0,0 } } };
 	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
 	print(groups);
 	
