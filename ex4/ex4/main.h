@@ -188,31 +188,35 @@ public:
 			std::cout << ")" << std::endl;
 			//auto currCoord;
 			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
-
+			bool currCoordAdded = false;
 			if (groups.find(coordKey) != groups.end())
 			{
-				bool currCoordAdded = false;
-				for (auto& currGroupOfCurrKey : groups[coordKey])
+				
+				auto numberOfGroupsInCurrKey = groups[coordKey].size();
+				for (auto grp = 0; grp <  numberOfGroupsInCurrKey; grp++)
 				{
-					
-					for (auto& coord : currGroupOfCurrKey) {
-						if(coordsEq(currCoord, coord))
+					auto currGroupOfCurrKeySize = groups[coordKey][grp].size();
+					for (auto crd = 0; crd < currGroupOfCurrKeySize; crd++)
+					{
+						
+						if(coordsEq(currCoord, groups[coordKey][grp][crd]))
 						{
 							currCoordAdded = true;
 							break;
 						}
-						if (!currCoordAdded &&isAdjacent(currCoord, coord))
+						if (!currCoordAdded &&isAdjacent(currCoord, groups[coordKey][grp][crd]))
 						{
-							currGroupOfCurrKey.emplace_back(currCoord);
+							groups[coordKey][grp].push_back(currCoord);
 							currCoordAdded = true;
 							//if (currCoord[0] == 1 && currCoord[1] == 2 && currCoord[2] == 3) std::cout << "fuci" << std::endl;
 							break;
 						}
 					}
+					if (currCoordAdded) break;
 				}
 				if (!currCoordAdded) {
 					CoordinatesGroup tmpCoordGroup;
-					tmpCoordGroup.emplace_back(currCoord);
+					tmpCoordGroup.push_back(currCoord);
 					groups[coordKey].push_back(tmpCoordGroup);
 				}
 			}
@@ -430,15 +434,16 @@ void print(const Groups& all_groups) {
 
 
 int main() {
-	/*Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B'} };
-	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
-	print(all_groups);
+	//Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B'} };
+	//auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
+	//print(all_groups);
 	
-	std::cout << "________________________________________________________" << std::endl;*/
+	//std::cout << "________________________________________________________" << std::endl;
 
 	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
 	//Matrix3d<int> m2 = { { { 1,2,3,0 },{ 1,2,0,0 },{ 1,2,0,0 } },{ { 1,2,0,0 },{ 1,2,3,4 },{ 0,0,0,0 } } };
 	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
+	
 	print(groups);
 	
 	
