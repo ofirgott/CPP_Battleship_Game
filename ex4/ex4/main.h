@@ -191,7 +191,6 @@ public:
 
 			if (groups.find(coordKey) != groups.end())
 			{
-				//std::cout << groups[coordKey].size() < std::endl;
 				bool currCoordAdded = false;
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
@@ -240,11 +239,19 @@ public:
 
 		size_t mul = _size;
 
-		for (auto i = DIMENSIONS; i != 0; --i) {
-			mul /= _dimensions[i - 1];
-			outCoord[i-1] = index / mul;
-			index -= outCoord[i-1] * mul;
+
+		for (auto i = 0; i < DIMENSIONS; i++) {
+			mul /= _dimensions[i];
+			outCoord[i] = index / mul;
+			index -= outCoord[i] * mul;
 		}
+
+
+		//for (auto i = DIMENSIONS; i != 0; --i) {
+		//	mul /= _dimensions[i - 1];
+		//	outCoord[i-1] = index / mul;
+		//	index -= outCoord[i-1] * mul;
+		//}
 
 		return outCoord;
 	}
@@ -428,8 +435,8 @@ int main() {
 	
 	std::cout << "________________________________________________________" << std::endl;*/
 
-	//Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
-	Matrix3d<int> m2 = { { { 1,2,3,0 },{ 1,2,0,0 },{ 1,2,0,0 } },{ { 1,2,0,0 },{ 1,2,3,4 },{ 0,0,0,0 } } };
+	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	//Matrix3d<int> m2 = { { { 1,2,3,0 },{ 1,2,0,0 },{ 1,2,0,0 } },{ { 1,2,0,0 },{ 1,2,3,4 },{ 0,0,0,0 } } };
 	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
 	print(groups);
 	
