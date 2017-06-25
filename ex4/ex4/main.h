@@ -171,11 +171,21 @@ public:
 		//using GroupingType = std::result_of_t<GroupingFunc(T)>;
 		//std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
 		std::map<G, std::vector<CoordinatesGroup>> groups;
+		for (auto i = 0; i < DIMENSIONS; ++i)
+		{
+			std::cout << "Dim " << i << ": " <<  _dimensions[i] << std::endl;
+		}
 		for (auto i = 0; i < _size; i++)
 		{
+			
 			G coordKey = groupingFunc(_array[i]);
 			Coordinate currCoord(DIMENSIONS, 0);
 			currCoord = flatIndex2Coordinate(i);
+			std::cout << "now with coord: ( ";
+			for (auto ax : currCoord) {
+				std::cout << ax << ", ";
+			}
+			std::cout << ")" << std::endl;
 			//auto currCoord;
 			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
 
@@ -232,8 +242,8 @@ public:
 
 		for (auto i = DIMENSIONS; i != 0; --i) {
 			mul /= _dimensions[i - 1];
-			outCoord[DIMENSIONS-i] = index / mul;
-			index -= outCoord[DIMENSIONS - i] * mul;
+			outCoord[i-1] = index / mul;
+			index -= outCoord[i-1] * mul;
 		}
 
 		return outCoord;
