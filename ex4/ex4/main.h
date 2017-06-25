@@ -4,12 +4,18 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <list>
 
 template<class T, size_t DIMENSIONS>
 class Matrix;
 
-template <size_t DIMENSIONS>
-using CRD = std::array<int, DIMENSIONS>;
+
+
+//template <size_t DIMENSIONS>
+//using Coordinate = std::array<int, DIMENSIONS> ;
+//
+//template <size_t DIMENSIONS>
+//using CoordinatesGroup = std::vector<Coordinate<DIMENSIONS>>;
 
 //template <size_t DIMENSIONS>
 //using Coordinate = std::array<size_t, DIMENSIONS>;
@@ -66,12 +72,17 @@ class Matrix
 {
 public:
 
+	
+	using Coordinate = std::vector<int>;
+	using CoordinatesGroup = std::vector<Coordinate>;
+	//using CoordinatesGroup = std::vector<Coordinate<DIMENSIONS>>;
+
 	//Template Coordinate data structure
 	//using Coordinate = std::array<size_t, DIMENSIONS>;
-	//using CoordinatesGroup = std::vector<Coordinate>;
 	
-	typedef CRD<DIMENSIONS> Coordinate;
-	typedef std::vector<Coordinate> CoordinatesGroup;
+	
+	//using Coordinate = CRD<DIMENSIONS> ;
+	//using CoordinatesGroup = std::vector<Coordinate> ;
 	//using CoordinatesGroup = std::vector<Coordinate>;
 	Matrix() {}
 	
@@ -82,6 +93,7 @@ public:
 	// The SFINAE results with the exact signature we want, but only for cases DIMENSIONS == 1
 	template<typename G = T>
 	Matrix(const std::initializer_list<typename std::enable_if_t<DIMENSIONS == 1, G>>& values) {
+		
 		const_cast<size_t&>(_size) = values.size();
 		_dimensions[0] = _size;
 		_array = std::make_unique<T[]>(_size);
@@ -158,11 +170,12 @@ public:
 	{
 		using GroupingType = std::result_of_t<GroupingFunc(T)>;
 		std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
-
+		
 		for (auto i = 0; i < _size; i++)
 		{
 			GroupingType coordKey = groupingFunc(_array[i]);
-			auto currCoord = flatIndex2Coordinate(i);
+			Coordinate currCoord(DIMENSIONS);
+			currCoord = flatIndex2Coordinate(i);
 			//auto currCoord;
 			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
 
@@ -195,8 +208,8 @@ public:
 
 	Coordinate flatIndex2Coordinate(int index)const
 	{
-		Coordinate outCoord = { 0 };
-
+		Coordinate outCoord(DIMENSIONS);
+		//return outCoord;
 		if (index < 0 || index >= _size)
 			throw std::exception("Index out of range");
 
@@ -218,21 +231,21 @@ private:
 	friend class Matrix<T, DIMENSIONS + 1>;
 
 	
-	bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupOfCurrKey)const
+	static bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupOfCurrKey)
 	{
 		CoordinatesGroup standardBaseVectors;			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
-		standardBaseVectors.emplace_back(Coordinate{ 0 });		/* zero vector */
+		standardBaseVectors.emplace_back(Coordinate(DIMENSIONS));		/* zero vector */
 
 		for (auto i = 0; i < DIMENSIONS; ++i)
 		{
-			Coordinate tmpCoord{ 0 };						/* todo: move to other function / class*/
+			Coordinate tmpCoord(DIMENSIONS);						/* todo: move to other function / class*/
 			tmpCoord[i] = 1;
 			standardBaseVectors.push_back(tmpCoord);	//todo: check if we want to put base vectors as global or class member vector (or something template with using in the ctor)
 			tmpCoord[i] = -1;
 			standardBaseVectors.push_back(tmpCoord);
 		}
 
-		CoordinatesGroup adjacentCoord = standardBaseVectors;
+		auto adjacentCoord = standardBaseVectors;
 		for (auto& coord : adjacentCoord)
 		{
 			for (auto d = 0; d < DIMENSIONS; d++)
@@ -266,6 +279,11 @@ private:
 	//}
 
 
+	
+	using Matrix2d = Matrix<T, 2>;
+
+	
+	using Matrix3d = Matrix<T, 3>;
 
 
 	//std::vector<size_t> computeIndexes(size_t index) const
@@ -364,14 +382,15 @@ void print(const Groups& all_groups) {
 int main() {
 	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
-	print(all_groups);
+	//print(all_groups);
 
-	std::cout << "________________________________________________________";
+	//std::cout << "________________________________________________________";
 
-	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
-	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
-	print(groups);
+	////Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	////auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
+	////print(groups);
 	
+	return 0;
 }
 
 //2d print
