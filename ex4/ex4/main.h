@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -6,11 +8,11 @@
 template<class T, size_t DIMENSIONS>
 class Matrix;
 
-//template <size_t DIMENSIONS>
-//using Coord = std::array<size_t, DIMENSIONS>;
-
 template <size_t DIMENSIONS>
-using Coordinate = std::array<size_t, DIMENSIONS>;
+using CRD = std::array<int, DIMENSIONS>;
+
+//template <size_t DIMENSIONS>
+//using Coordinate = std::array<size_t, DIMENSIONS>;
 
 template<class T, size_t DIMENSIONS>
 struct MatrixCopier {
@@ -65,12 +67,12 @@ class Matrix
 public:
 
 	//Template Coordinate data structure
-	using Coordinate = std::array<size_t, DIMENSIONS>;
-	using CoordinatesGroup = std::vector<Coordinate>;
+	//using Coordinate = std::array<size_t, DIMENSIONS>;
+	//using CoordinatesGroup = std::vector<Coordinate>;
 	
-	/*typedef Coord<DIMENSIONS> Coordinate;
-	typedef std::vector<Coordinate> CoordinatesGroup;*/
-
+	typedef CRD<DIMENSIONS> Coordinate;
+	typedef std::vector<Coordinate> CoordinatesGroup;
+	//using CoordinatesGroup = std::vector<Coordinate>;
 	Matrix() {}
 	
 	// DIMENSIONS == 1
@@ -150,6 +152,7 @@ public:
 
 	/* Now our funcions! */
 
+	
 	template<class GroupingFunc>
 	auto groupValues(GroupingFunc groupingFunc)
 	{
@@ -158,8 +161,10 @@ public:
 
 		for (auto i = 0; i < _size; i++)
 		{
-			auto coordKey = groupingFunc(_array[i]);
+			GroupingType coordKey = groupingFunc(_array[i]);
 			auto currCoord = flatIndex2Coordinate(i);
+			//auto currCoord;
+			//std::copy(currCoord, currCoord + DIMENSIONS, flatIndex2Coordinate(i));
 
 			if (groups.find(coordKey) != groups.end())
 			{
@@ -180,8 +185,9 @@ public:
 				
 				CoordinatesGroup tmpCoordGroup;
 				tmpCoordGroup.push_back(currCoord);
+				std::vector<CoordinatesGroup> tmpVec{ tmpCoordGroup };
 				//groups.insert(coordKey);
-				groups[coordKey].push_back(std::move(tmpCoordGroup));
+				groups[coordKey] = tmpVec;
 			}
 		}
 		return groups;
@@ -191,7 +197,7 @@ public:
 	{
 		Coordinate outCoord = { 0 };
 
-		if (index < 0 || index >= _array.size())
+		if (index < 0 || index >= _size)
 			throw std::exception("Index out of range");
 
 		auto mul = _size;
