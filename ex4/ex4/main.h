@@ -182,19 +182,29 @@ public:
 			if (groups.find(coordKey) != groups.end())
 			{
 				//std::cout << groups[coordKey].size() < std::endl;
+				bool currCoordAdded = false;
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
-					//std::cout << groups[coordKey].size();
-					if (false)
-					{
-						currGroupOfCurrKey.emplace_back(currCoord);
-						break;
-					}
 					
+					for (auto& coord : currGroupOfCurrKey) {
+						if(coordsEq(currCoord, coord))
+						{
+							currCoordAdded = true;
+							break;
+						}
+						if (isAdjacent(currCoord, coord))
+						{
+							currGroupOfCurrKey.emplace_back(currCoord);
+							currCoordAdded = true;
+							break;
+						}
+					}
 				}
-				CoordinatesGroup tmpCoordGroup;
-				tmpCoordGroup.emplace_back(currCoord);
-				groups[coordKey].push_back(tmpCoordGroup);
+				if (!currCoordAdded) {
+					CoordinatesGroup tmpCoordGroup;
+					tmpCoordGroup.emplace_back(currCoord);
+					groups[coordKey].push_back(tmpCoordGroup);
+				}
 			}
 			else
 			{
@@ -204,6 +214,7 @@ public:
 				std::vector<CoordinatesGroup> tmpVec(0);
 				tmpVec.emplace_back(tmpCoordGroup);
 				//groups.insert(coordKey);
+			
 				groups[coordKey] = tmpVec;
 			}
 		}
@@ -248,53 +259,37 @@ private:
 
 
 
-	static bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupsOfCurrKey)
+	static bool isAdjacent(Coordinate coordA, Coordinate coordB)
 	{
-		CoordinatesGroup standardBaseVectors(0);			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
-		standardBaseVectors.emplace_back(Coordinate(DIMENSIONS, 0));		/* zero vector */
 
-		for (auto i = 0; i < DIMENSIONS; ++i)
-		{
-			Coordinate tmpCoord(DIMENSIONS, 0);						/* todo: move to other function / class*/
-			tmpCoord[i] = 1;
-			standardBaseVectors.push_back(tmpCoord);	//todo: check if we want to put base vectors as global or class member vector (or something template with using in the ctor)
-			tmpCoord[i] = -1;
-			standardBaseVectors.push_back(tmpCoord);
-		}
 
-		auto adjacentCoord = standardBaseVectors;
-		for (auto& coord : adjacentCoord)
+		CoordinatesGroup adjacentCoordsOfA;
+
+		for (auto i = 0; i < DIMENSIONS; i++)
 		{
-			for (auto d = 0; d < coord.size(); d++)
+			Coordinate tmpCoord = coordA;
+			tmpCoord[i]++;
+			adjacentCoordsOfA.push_back(tmpCoord);
+			if(tmpCoord[i] >= 2)
 			{
-				coord[d] += currCoord[d];
+				tmpCoord[i] -= 2;
+				adjacentCoordsOfA.push_back(tmpCoord);
 			}
 		}
-
-		for (auto currGroup : currGroupsOfCurrKey)
-		{
-			for (auto adjacentOfCurrCoord : adjacentCoord)
+	
+			for (auto& adjCoordOfA : adjacentCoordsOfA)
 			{
-				
-				if (adjacentOfCurrCoord == currCoord)		//std::array checks the content in == operator
-				//if(coordsEq(adjacentOfCurrCoord, coord))
-				//if(std::find(currGroup.begin(), currGroup.end(), adjacentOfCurrCoord) != currGroup.end())
-				/*int j = 0;
-				for (int i = 0; i < currGroup.size(); i++)
-				{
-					if (currGroup[i] != currCoord[i]) j++;
-				}	*/
-				//if (j == currCoord.size())
+				//if (adjCoordOfA == coordB)
+				if(coordsEq(adjCoordOfA ,coordB))
 					return true;
 			}
-		}
 		return false;
 	}
 
 	static bool coordsEq(Coordinate a, Coordinate b)
 	{
-		if (a.size() != b.size())
-			return false;
+		/*if (a.size() != b.size())
+			return false;*/
 
 		for (auto i = 0; i < a.size(); i++)
 		{
@@ -421,11 +416,11 @@ int main() {
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
 	print(all_groups);
 	
-	////std::cout << "________________________________________________________";
+	std::cout << "________________________________________________________" << std::endl;
 
-	//Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
-	//auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
-	//print(groups);
+	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
+	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
+	print(groups);
 	
 	
 	system("pause");
