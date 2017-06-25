@@ -221,8 +221,8 @@ public:
 
 		for (auto i = DIMENSIONS; i != 0; --i) {
 			mul /= _dimensions[i - 1];
-			outCoord[i - 1] = index / mul;
-			index -= outCoord[i - 1] * mul;
+			outCoord[DIMENSIONS-i] = index / mul;
+			index -= outCoord[DIMENSIONS - i] * mul;
 		}
 
 		return outCoord;
