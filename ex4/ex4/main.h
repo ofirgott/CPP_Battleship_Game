@@ -165,15 +165,15 @@ public:
 	/* Now our funcions! */
 
 	
-	template<class GroupingFunc>
+	template<class GroupingFunc, class G = typename std::result_of<GroupingFunc(T)>::type>
 	auto groupValues(GroupingFunc groupingFunc)
 	{
-		using GroupingType = std::result_of_t<GroupingFunc(T)>;
-		std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
-		
+		//using GroupingType = std::result_of_t<GroupingFunc(T)>;
+		//std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
+		std::map<G, std::vector<CoordinatesGroup>> groups;
 		for (auto i = 0; i < _size; i++)
 		{
-			GroupingType coordKey = groupingFunc(_array[i]);
+			G coordKey = groupingFunc(_array[i]);
 			Coordinate currCoord(DIMENSIONS, 0);
 			currCoord = flatIndex2Coordinate(i);
 			//auto currCoord;
@@ -181,6 +181,7 @@ public:
 
 			if (groups.find(coordKey) != groups.end())
 			{
+				//std::cout << groups[coordKey].size() < std::endl;
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
 					std::cout << groups[coordKey].size();
