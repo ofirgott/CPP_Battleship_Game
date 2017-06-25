@@ -73,7 +73,7 @@ class Matrix
 public:
 
 	
-	using Coordinate = std::vector<size_t>;
+	using Coordinate = std::vector<int>;
 	using CoordinatesGroup = std::vector<Coordinate>;
 	//using CoordinatesGroup = std::vector<Coordinate<DIMENSIONS>>;
 
@@ -185,7 +185,7 @@ public:
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
 					//std::cout << groups[coordKey].size();
-					if (isAdjacent(currCoord, currGroupOfCurrKey))
+					if (false)
 					{
 						currGroupOfCurrKey.emplace_back(currCoord);
 						break;
@@ -227,6 +227,16 @@ public:
 
 		return outCoord;
 	}
+
+	void testFlatIndextoCoord()const
+	{
+		for (auto i = 0; i < _size; i++)
+		{
+			
+		}
+	}
+
+
 private:
 	//constexpr static size_t NUM_DIMENSIONS = DIMENSIONS;
 	std::unique_ptr<T[]> _array = nullptr;
@@ -235,9 +245,12 @@ private:
 	friend class Matrix<T, DIMENSIONS + 1>;
 
 	
-	static bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupOfCurrKey)
+
+
+
+	static bool isAdjacent(Coordinate currCoord, const CoordinatesGroup& currGroupsOfCurrKey)
 	{
-		CoordinatesGroup standardBaseVectors;			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
+		CoordinatesGroup standardBaseVectors(0);			/* size will be 2*DIMENSIONS+1 (+ zero vector) */
 		standardBaseVectors.emplace_back(Coordinate(DIMENSIONS, 0));		/* zero vector */
 
 		for (auto i = 0; i < DIMENSIONS; ++i)
@@ -252,24 +265,44 @@ private:
 		auto adjacentCoord = standardBaseVectors;
 		for (auto& coord : adjacentCoord)
 		{
-			for (auto d = 0; d < DIMENSIONS; d++)
+			for (auto d = 0; d < coord.size(); d++)
 			{
 				coord[d] += currCoord[d];
 			}
 		}
 
-		for (auto coord : currGroupOfCurrKey)
+		for (auto currGroup : currGroupsOfCurrKey)
 		{
 			for (auto adjacentOfCurrCoord : adjacentCoord)
 			{
-				if (adjacentOfCurrCoord == coord)			//std::array checks the content in == operator
+				
+				if (adjacentOfCurrCoord == currCoord)		//std::array checks the content in == operator
+				//if(coordsEq(adjacentOfCurrCoord, coord))
+				//if(std::find(currGroup.begin(), currGroup.end(), adjacentOfCurrCoord) != currGroup.end())
+				/*int j = 0;
+				for (int i = 0; i < currGroup.size(); i++)
+				{
+					if (currGroup[i] != currCoord[i]) j++;
+				}	*/
+				//if (j == currCoord.size())
 					return true;
 			}
 		}
 		return false;
 	}
 
+	static bool coordsEq(Coordinate a, Coordinate b)
+	{
+		if (a.size() != b.size())
+			return false;
 
+		for (auto i = 0; i < a.size(); i++)
+		{
+			if (a[i] != b[i])
+				return false;
+		}
+		return true;
+	}
 
 
 	//static bool isCoordianesEquals(Coordinate a, CoordinatesGroup b)
