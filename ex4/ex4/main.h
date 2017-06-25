@@ -184,23 +184,24 @@ public:
 				//std::cout << groups[coordKey].size() < std::endl;
 				for (auto& currGroupOfCurrKey : groups[coordKey])
 				{
-					std::cout << groups[coordKey].size();
+					//std::cout << groups[coordKey].size();
 					if (isAdjacent(currCoord, currGroupOfCurrKey))
 					{
 						currGroupOfCurrKey.emplace_back(currCoord);
 						break;
 					}
-					CoordinatesGroup tmpCoordGroup;
-					tmpCoordGroup.emplace_back(currCoord);
-					groups[coordKey].push_back(tmpCoordGroup);
+					
 				}
+				CoordinatesGroup tmpCoordGroup;
+				tmpCoordGroup.emplace_back(currCoord);
+				groups[coordKey].push_back(tmpCoordGroup);
 			}
 			else
 			{
 				
-				CoordinatesGroup tmpCoordGroup;
+				CoordinatesGroup tmpCoordGroup(0);
 				tmpCoordGroup.push_back(currCoord);
-				std::vector<CoordinatesGroup> tmpVec;
+				std::vector<CoordinatesGroup> tmpVec(0);
 				tmpVec.emplace_back(tmpCoordGroup);
 				//groups.insert(coordKey);
 				groups[coordKey] = tmpVec;
@@ -386,7 +387,7 @@ int main() {
 	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
 	print(all_groups);
-
+	system("pause");
 	//std::cout << "________________________________________________________";
 
 	////Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
