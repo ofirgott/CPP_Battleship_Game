@@ -4,9 +4,6 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include <list>
-#include <set>
-#include <bitset>
 #include <algorithm>
 
 
@@ -49,7 +46,7 @@ struct MatrixPrinter {
 	static void print(const T* values, size_t size, const size_t* dimensions, std::ostream& out = std::cout) {
 		out << '{';
 		size_t size0 = size / dimensions[0];
-		MatrixPrinter<T,B DIMENSIONS - 1>::print(values, size0, dimensions + 1, out);
+		MatrixPrinter<T,DIMENSIONS - 1>::print(values, size0, dimensions + 1, out);
 		for (size_t i = 1; i < dimensions[0]; ++i) {
 			out << ',';
 			MatrixPrinter<T, DIMENSIONS - 1>::print(values + (i*size0), size0, dimensions + 1, out);
@@ -154,45 +151,23 @@ public:
 		return *this;
 	}
 
-	/* Getters */
-	//size_t getDimension(size_t i) const {
-	//	return _dimensions[i];
-	//}
-
-	size_t size() const { return _size; }
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix& m) {
 		MatrixPrinter<T, DIMENSIONS>::print(m._array.get(), m._size, m._dimensions, out);
 		return out;
 	}
 
-	/* Now our funcions! */
-
 	
 	template<class GroupingFunc,  class G = typename std::result_of<GroupingFunc(T)>::type>
 	auto groupValues(GroupingFunc groupingFunc)
 	{
-		//using GroupingType = std::result_of_t<GroupingFunc(T)>;
-		//std::map<GroupingType, std::vector<CoordinatesGroup>> groups;
 		std::map<G, std::vector<CoordinatesGroup>> groups;
-		std::vector<char> isMappedCoord(_size, '\0');
-		CoordinatesGroup allCoordinatesSorted;
-		for (auto i = 0; i < _size; i++)
-		{
-			allCoordinatesSorted.emplace_back(flatIndex2Coordinate(i));
-		}
-
-		/*for (auto i = 0; i < DIMENSIONS; ++i)
-		{
-			std::cout << "Dim " << i << ": " <<  _dimensions[i] << std::endl;
-		}*/
-		
-		
+		std::vector<char> isMappedCoord(_size, '0');
 		int currCoordIndex = 0;
 		
 		while(currCoordIndex < _size)
 		{
-			if (isMappedCoord[currCoordIndex] != '\0')
+			if (isMappedCoord[currCoordIndex] != '0')
 				currCoordIndex++;
 			else {
 				//auto currCoord = allCoordinatesSorted.front();
@@ -292,7 +267,6 @@ public:
 
 
 private:
-	//constexpr static size_t NUM_DIMENSIONS = DIMENSIONS;
 	std::unique_ptr<T[]> _array = nullptr;
 	size_t _dimensions[DIMENSIONS] = {};
 	const size_t _size = 0;
@@ -305,7 +279,7 @@ private:
 	{
 		 auto currFlatIndex = Coordinate2flatIndex(currCoord);
 
-		if(groupingFunc(_array[currFlatIndex]) == coordKey && isMappedCoord[currFlatIndex] == '\0')
+		if(groupingFunc(_array[currFlatIndex]) == coordKey)
 		{
 			
 			isMappedCoord[currFlatIndex] = '1';
@@ -315,19 +289,17 @@ private:
 			{
 				Coordinate tmpCoord = currCoord;
 				tmpCoord[dim]++;
-				if(isValidCoordinate(tmpCoord))
+				if(isValidCoordinate(tmpCoord) && isMappedCoord[Coordinate2flatIndex(tmpCoord)] == '0')
 					getAllAdjacentCoordsSameGroup<GroupingFunc>(groupingFunc, tmpCoord, coordKey, currGroup, isMappedCoord);
 	
 				if(tmpCoord[dim] >= 2)
 				{
 					tmpCoord[dim] -= 2;
-					if (isValidCoordinate(tmpCoord))
+					if (isValidCoordinate(tmpCoord) && isMappedCoord[Coordinate2flatIndex(tmpCoord)] == '0')
 						getAllAdjacentCoordsSameGroup<GroupingFunc>(groupingFunc, tmpCoord, coordKey, currGroup, isMappedCoord);
-				}
-				
+				}		
 			}
 		}
-		//else std::cout << "fuck!";
 	}
 
 
@@ -347,8 +319,8 @@ private:
 
 	static bool isAdjacent(Coordinate coordA, Coordinate coordB)
 	{
-		//if (coordA == coordB) return true;
-		if (coordsEq(coordA, coordB)) return true;
+		if (coordA == coordB) return true;
+		//if (coordsEq(coordA, coordB)) return true;
 		CoordinatesGroup adjacentCoordsOfA;
 
 		for (auto i = 0; i < DIMENSIONS; i++)
@@ -365,25 +337,25 @@ private:
 	
 			for (auto adjCoordOfA : adjacentCoordsOfA)
 			{
-				//if (adjCoordOfA == coordB)
-				if(coordsEq(adjCoordOfA ,coordB))
+				if (adjCoordOfA == coordB)
+				//if(coordsEq(adjCoordOfA ,coordB))
 					return true;
 			}
 		return false;
 	}
 
-	static bool coordsEq(Coordinate a, Coordinate b)
-	{
-		/*if (a.size() != b.size())
-			return false;*/
+	//static bool coordsEq(Coordinate a, Coordinate b)
+	//{
+	//	/*if (a.size() != b.size())
+	//		return false;*/
 
-		for (auto i = 0; i < DIMENSIONS; i++)
-		{
-			if (a[i] != b[i])
-				return false;
-		}
-		return true;
-	}
+	//	for (auto i = 0; i < DIMENSIONS; i++)
+	//	{
+	//		if (a[i] != b[i])
+	//			return false;
+	//	}
+	//	return true;
+	//}
 
 
 	//static bool isCoordianesEquals(Coordinate a, CoordinatesGroup b)
@@ -395,14 +367,6 @@ private:
 	//	}
 	//	return true;
 	//}
-
-
-	
-	using Matrix2d = Matrix<T, 2>;
-
-	
-	using Matrix3d = Matrix<T, 3>;
-
 
 	//std::vector<size_t> computeIndexes(size_t index) const
 	//{
@@ -420,25 +384,21 @@ private:
 	//	return res;
 	//}
 
-	int Coordinate2flatIndex(Coordinate coord)const
+	size_t Coordinate2flatIndex(Coordinate coord)const
 	{
-		
-
-		int flatIndex = 0;
+		size_t flatIndex = 0;
 
 		for (auto dim = 0; dim < DIMENSIONS; dim++)
 		{
-			int dimMul = coord[dim];
-
+			auto dimMul = coord[dim];
 			for (auto i = dim + 1 ; i < DIMENSIONS; i++)
 				dimMul *= _dimensions[i];
 		
 			flatIndex += dimMul;
 		}
-
+		
 		return flatIndex;
 	}
-
 
 	bool isValidCoordinate(Coordinate coord)const
 	{
