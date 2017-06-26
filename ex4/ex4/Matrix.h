@@ -187,8 +187,6 @@ private:
 	const size_t _size = 0;
 	friend class Matrix<T, DIMENSIONS + 1>;
 
-
-
 	template<class GroupingFunc, class G = typename std::result_of<GroupingFunc(T)>::type>
 	void getAllAdjacentCoordsSameGroup(GroupingFunc groupingFunc, const Coordinate& currCoord, G coordKey, CoordinatesGroup& currGroup, std::vector<char>& isMappedCoord)const
 	{
