@@ -214,7 +214,7 @@ private:
 		}
 	}
 
-	static bool isGroupsAdjacent(CoordinatesGroup groupA, CoordinatesGroup groupB)
+	static bool isGroupsAdjacent(const CoordinatesGroup& groupA, const CoordinatesGroup& groupB)
 	{
 		for (auto& coordB : groupB)
 			for (auto& coordA : groupA)
@@ -224,7 +224,7 @@ private:
 		return false;
 	}
 
-	static bool isAdjacent(Coordinate coordA, Coordinate coordB)
+	static bool isAdjacent(const Coordinate& coordA, const Coordinate& coordB)
 	{
 		if (coordA == coordB) return true;				/* same Coordinate - operator == of std::vector is good for us in this case */
 		
@@ -249,7 +249,7 @@ private:
 		return false;
 	}
 
-	size_t Coordinate2flatIndex(Coordinate coord)const
+	size_t Coordinate2flatIndex(const Coordinate& coord)const
 	{
 		size_t flatIndex = 0;
 
@@ -265,7 +265,7 @@ private:
 		return flatIndex;
 	}
 
-	bool isValidCoordinate(Coordinate coord)const
+	bool isValidCoordinate(const Coordinate& coord)const
 	{
 		for (auto i = 0; i < DIMENSIONS; i++)
 		{
