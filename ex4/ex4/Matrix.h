@@ -164,7 +164,7 @@ public:
 					}
 				}
 				if (!groupInserted)											/* if we didn't find group to be inserted - create new group under this key */
-					groups[coordKey].push_back(currGroup);
+					groups[coordKey].emplace_back(currGroup);
 			
 				for (auto& coord : currGroup)
 					isMappedCoord[Coordinate2flatIndex(coord)] = '1';		/* marked all coordinates in the group we found as mapped */
@@ -195,7 +195,7 @@ private:
 		if(groupingFunc(_array[currFlatIndex]) == coordKey)
 		{
 			isMappedCoord[currFlatIndex] = '1';						/* mark this coordinate as mapped */
-			currGroup.push_back(currCoord);
+			currGroup.emplace_back(currCoord);
 
 			for(auto dim = 0; dim < DIMENSIONS; dim++)
 			{
@@ -234,11 +234,11 @@ private:
 		{
 			Coordinate tmpCoord = coordA;				/* creates all adjacent coords of coordA */
 			tmpCoord[i]++;
-			adjacentCoordsOfA.push_back(tmpCoord);
+			adjacentCoordsOfA.emplace_back(tmpCoord);
 			if(tmpCoord[i] >= 2)
 			{
 				tmpCoord[i] -= 2;
-				adjacentCoordsOfA.push_back(tmpCoord);
+				adjacentCoordsOfA.emplace_back(tmpCoord);
 			}
 		}
 	
