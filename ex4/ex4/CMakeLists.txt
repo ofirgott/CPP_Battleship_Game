@@ -12,7 +12,6 @@ set(id3 "204196729")
 # All source files needed to compile your exe
 set (EXE_SOURCE_FILES
 	Matrix.h
-	Matrix.cpp
 	main.cpp
 )
 
