@@ -21,14 +21,14 @@ void print(const Groups& all_groups) {
 
 int main() {
 
-	std::cout << "2D expample: " << std::endl;
+	std::cout << "2D expample: " << std::endl << std::endl ;
 	Matrix2d<char> m = { { 'a', 'A', 'a' },{ 'B', 'a', 'B' },{ 'B', 'a', 'B' } };
 	auto all_groups = m.groupValues([](auto i) {return islower(i) ? "L" : "U"; });
 	print(all_groups);
 
 	std::cout << std::endl << std::endl;
 
-	std::cout << "3D expample: " << std::endl;
+	std::cout << "3D expample: " << std::endl << std::endl;
 	Matrix3d<int> m2 = { { { 1, 2, 3 },{ 1, 2 },{ 1, 2 } },{ { 1, 2 },{ 1, 2, 3, 4 } } };
 	auto groups = m2.groupValues([](auto i) {return i % 3 ? "!x3" : "x3"; });
 	print(groups);
